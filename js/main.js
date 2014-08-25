@@ -3,9 +3,19 @@
 //////////////////////////////////////////////////////////////////////////////
 
 var sec = 0;
-var TIME_INTERVAL = 1000; //ms
-var initializedBoard = false;
-var playerSetup = false;
+
+var constants = {
+	TIME_INTERVAL : 1000; //ms
+}
+
+var global = {
+	initializedBoard : false;
+	playerSetup : false;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// GAME VARIABLES
+//////////////////////////////////////////////////////////////////////////////
 
 var game = {
 	age : 0
@@ -62,13 +72,13 @@ function setupPlayer() {
 window.setInterval(function(){
 	//run every second
 
-	if (!initializedBoard) { 
+	if (!global.initializedBoard) { 
 		initializeBoard(); 
-		initializedBoard = true;
+		global.initializedBoard = true;
 	}
 	
 	
 	$("#brup").text(sec++);
 	
-}, TIME_INTERVAL);
+}, constants.TIME_INTERVAL);
 
