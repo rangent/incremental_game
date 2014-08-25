@@ -1,7 +1,74 @@
-var i = 0;
+//////////////////////////////////////////////////////////////////////////////
+// GLOBAL VARIABLES
+//////////////////////////////////////////////////////////////////////////////
+
+var sec = 0;
+var TIME_INTERVAL = 1000; //ms
+var initializedBoard = false;
+var playerSetup = false;
+
+var game = {
+	age : 0
+
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// RESOURCES
+//////////////////////////////////////////////////////////////////////////////
+function resource(rname, total, found, age) {
+	this.rname = rname;
+	this.total = total;
+	this.found = found;
+	this.age = age;
+}
+
+var resources = {
+	//new resource(name, total, found, age)
+	wood : new resource('Wood', 0, false, 0),
+	stone : new resource('Stone', 0, false, 0),
+	dirt : new resource('Dirt', 0, false, 0),
+	water : new resource('Water', 0, false, 0)
+};
+
+//////////////////////////////////////////////////////////////////////////////
+// BUILDABLES
+//////////////////////////////////////////////////////////////////////////////
+//var buildings = {
+//
+//	hut : 
+//
+//}
+
+//////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS TO INTITIALIZE VALUES, SETUP BOARD
+//////////////////////////////////////////////////////////////////////////////
+
+function initializeBoard() {
+	var s = "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>"; //one day add images here
+	for (var x in resources) {
+		var sfilled = s.replace("%RESOURCE%",resources[x].rname).replace("%VAL%",resources[x].total);
+		$("#resource_container").append(sfilled);
+	}
+}
+
+function setupPlayer() {
+
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// FINALLY SETUP AND GO!
+//////////////////////////////////////////////////////////////////////////////
 
 window.setInterval(function(){
+	//run every second
+
+	if (!initializedBoard) { 
+		initializeBoard(); 
+		initializedBoard = true;
+	}
 	
-	$("#brup").text(i++);
 	
-}, 1000);
+	$("#brup").text(sec++);
+	
+}, TIME_INTERVAL);
+
