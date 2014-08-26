@@ -3,9 +3,13 @@
 //////////////////////////////////////////////////////////////////////////////
 
 var sec = 0;
+var DEBUG = true;
 
 var constants = {
-	TIME_INTERVAL : 1000 //ms
+	TIME_INTERVAL : 1000, //ms
+	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\">%ACTION%</button></td></tr>",
+	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
+	MCVERSION : 0.1
 }
 
 var global = {
@@ -51,9 +55,13 @@ function playerAction(aname, available, age) {
 	this.age = age;
 }
 
+function enablePlayerAction(playerAction) {
+	playerAction.available = true;
+}
+
 var playerActions = {
-	forage	: new playerAction("Forage", true, 0),
-	explore	: new playerAction("Explore", true, 0),
+	forage	: new playerAction("Forage", false, 0),
+	explore	: new playerAction("Explore", false, 0),
 }
 
 function returnResource(resource, count) {
@@ -102,14 +110,17 @@ function doExplore() {
 // STORY
 //////////////////////////////////////////////////////////////////////////////
 
-function startStory() {
-	global.storyStarted = true;
-	var time = 1000;
-	sleep(time, log, "You wake up");
-	time += 1000;
-	sleep(time, log, "Groggaly you look around, you are in a strange place");
-	time += 1000;
-	sleep(time, log, "You stand up");
+function storyStart() {
+	var time = 0;
+	sleep((DEBUG) ? time += 100 : time += 1000, log, "You wake up.");
+	sleep((DEBUG) ? time += 100 : time += 3000, log, "Ow... head hurts.  Did you hit it on something?");
+	sleep((DEBUG) ? time += 100 : time += 5000, log, "You open your eyes.  Vision.. blurry..");
+	sleep((DEBUG) ? time += 100 : time += 4000, log, "Groggily you look around, you are in a strange place.");
+	sleep((DEBUG) ? time += 100 : time += 5000, log, "Weakly, you get on your feet.");
+	sleep((DEBUG) ? time += 100 : time += 5000, log, "It's dark.  It's cold.  You can't see much around you.");
+	sleep((DEBUG) ? time += 100 : time += 5000, log, "You see a low hill close by that may offer a better view of the area.");
+	//introduce "Explore"
+	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.explore);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -136,27 +147,31 @@ function startStory() {
 // FUNCTIONS TO INTITIALIZE AND UPDATE VALUES, SETUP BOARD
 //////////////////////////////////////////////////////////////////////////////
 
+function enableResourceInDOM(rname, total) {
+	var sfilled = constants.RESOURCE_ROW.replace("%RESOURCE%",rname).replace("%VAL%",total);
+	$("#resource_container").append(sfilled);
+}
+
+function enableActionInDOM(aname) {
+	var sfilled = replaceAll("%ACTION%",aname,constants.ACTION_ROW);
+	$("#action_container").append(sfilled);
+}
+
 function initializeResourceDiv() {
-	var s = "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>"; //one day add images here
-	
 	for (var x in resources) {
-		if (resources[x].age <= game.age) {
+		if (resources[x].age <= game.age && resources[x].found) {
 			if (resources[x].rawResource) {
-				var sfilled = s.replace("%RESOURCE%",resources[x].rname).replace("%VAL%",resources[x].total);
-				$("#resource_container").append(sfilled);
+				enableResourceInDOM(resources[x].rname, resources[x].total);
 			}
 		}
 	}
 }
 
 function initializeActionDiv() {
-	var s = "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\">%ACTION%</button></td></tr>";
-	
 	for (var x in playerActions) {
 		if (playerActions[x].age <= game.age) {
 			if (playerActions[x].available) {
-				var sfilled = replaceAll("%ACTION%",playerActions[x].aname,s);
-				$("#action_container").append(sfilled);
+				enableActionInDOM(playerActions[x].aname);
 			}
 		}
 	}
@@ -165,8 +180,6 @@ function initializeActionDiv() {
 function initializeBoard() {
 	initializeResourceDiv();
 	initializeActionDiv();
-	
-	global.initializedBoard = true;
 	
 	//jqueryify the buttons
 	$(function() { 
@@ -205,16 +218,21 @@ function sleep(millis, callback, arg1) {
 // FINALLY SETUP AND GO!
 //////////////////////////////////////////////////////////////////////////////
 
+
+
+if (!global.initializedBoard) { 	
+	global.initializedBoard = true;
+	initializeBoard(); 
+}
+	
+if (!global.storyStarted) {
+	global.storyStarted = true;
+	storyStart();
+}
+
+
 window.setInterval(function(){
 	//run every second
-
-	if (!global.initializedBoard) { 
-		initializeBoard(); 
-	}
-	
-	if (!global.storyStarted) {
-		startStory();
-	}
 	
 	$("#brup").text(sec++);
 	
