@@ -1,0 +1,46 @@
+.contentholder {
+	padding: 10px;
+}
+.page {
+/*	border: 1px solid red;*/
+}
+
+.content-left {
+/*	border: 1px solid green;*/
+	float: left;
+	min-width: 250px;
+	height: 500px;
+}
+
+.main-center {
+	float: left;
+}
+
+.content-center {
+	border: 1px solid black;
+	float: top;
+	height: 500px;
+	width: 500px;
+	overflow: scroll;
+}
+
+.clearEvent {
+	float: bottom;
+}
+
+.content-right {
+/*	border: 1px solid yellow;*/
+	float: left;
+	min-width: 250px;
+	height: 500px;
+}
+
+.footer {
+/*	border: 1px solid orange;*/
+}
+
+/* MISC */
+
+.clearer {
+	clear: both;
+}
