@@ -43,6 +43,17 @@ var resources = {
 //////////////////////////////////////////////////////////////////////////////
 // BUILDABLES
 //////////////////////////////////////////////////////////////////////////////
+//function costArray(resources) {
+//	for (var r in resources) {
+//		//...
+//	}
+//}
+//function building(bname, total, age, cost) {
+//	this.bname = bname;
+//	this.total = total;
+//	this.age = age;
+//	this.cost = 
+//}
 //var buildings = {
 //
 //	hut : 
