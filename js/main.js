@@ -10,7 +10,8 @@ var constants = {
 
 var global = {
 	initializedBoard : false,
-	playerSetup : false
+	storyStarted : false,
+	playerSetup : false,
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -98,6 +99,20 @@ function doExplore() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
+// STORY
+//////////////////////////////////////////////////////////////////////////////
+
+function startStory() {
+	global.storyStarted = true;
+	var time = 1000;
+	sleep(time, log, "You wake up");
+	time += 1000;
+	sleep(time, log, "Groggaly you look around, you are in a strange place");
+	time += 1000;
+	sleep(time, log, "You stand up");
+}
+
+//////////////////////////////////////////////////////////////////////////////
 // BUILDABLES
 //////////////////////////////////////////////////////////////////////////////
 //function costArray(resources) {
@@ -180,6 +195,12 @@ function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
+function sleep(millis, callback, arg1) {
+    setTimeout(function()
+            { callback(arg1); }
+    , millis);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // FINALLY SETUP AND GO!
 //////////////////////////////////////////////////////////////////////////////
@@ -189,6 +210,10 @@ window.setInterval(function(){
 
 	if (!global.initializedBoard) { 
 		initializeBoard(); 
+	}
+	
+	if (!global.storyStarted) {
+		startStory();
 	}
 	
 	$("#brup").text(sec++);
