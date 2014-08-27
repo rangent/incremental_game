@@ -59,7 +59,6 @@ function letsJoyride() {
 </div>
 <button onclick="letsJoyride(); return true;">.</button>
 <div style="display:none">
-<!-- jquery joyride http://zurb.com/playground/jquery-joyride-feature-tour-plugin --> 
 <ol id="chooseID">
   <li data-id="doExplore">Click here to explore.  Exploring gives you...</li>
   <li data-id="doForage">Click here to forage.  Forging gives you...</li>

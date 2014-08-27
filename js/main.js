@@ -7,7 +7,7 @@ var DEBUG = true;
 
 var constants = {
 	TIME_INTERVAL : 1000, //ms
-	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\">%ACTION%</button></td></tr>",
+	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
 	MCVERSION : 0.1
 }
@@ -122,6 +122,10 @@ function storyStartIntroduceExplore() {
 	//introduce "Explore"
 	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.explore);
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.explore.aname);
+	
+	
+	sleep((DEBUG) ? time += 10000 : time += 2000, enablePlayerAction, playerActions.forage);
+	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.forage.aname);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -149,7 +153,8 @@ function storyStartIntroduceExplore() {
 //////////////////////////////////////////////////////////////////////////////
 
 function enableResourceInDOM(rname, total) {
-	var sfilled = constants.RESOURCE_ROW.replace("%RESOURCE%",rname).replace("%VAL%",total);
+	var sfilled = replaceAll("%RESOURCE%",rname,constants.RESOURCE_ROW); 
+	sfilled = sfilled.replace("%VAL%",total);
 	$("#resource_container").append(sfilled);
 }
 
