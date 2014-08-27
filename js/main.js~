@@ -14,7 +14,7 @@ var constants = {
 
 var global = {
 	initializedBoard : false,
-	storyStartIntroduceExploreed : false,
+	storyStarted : false,
 	playerSetup : false,
 }
 
@@ -110,7 +110,7 @@ function doExplore() {
 // STORY
 //////////////////////////////////////////////////////////////////////////////
 
-function storyStartIntroduceExplore() {
+function storyStart() {
 	var time = 0;
 	sleep((DEBUG) ? time += 100 : time += 1000, log, "You wake up.");
 	sleep((DEBUG) ? time += 100 : time += 3000, log, "Ow... head hurts.  Did you hit it on something?");
@@ -229,9 +229,9 @@ if (!global.initializedBoard) {
 	initializeBoard(); 
 }
 	
-if (!global.storyStartIntroduceExploreed) {
-	global.storyStartIntroduceExploreed = true;
-	storyStartIntroduceExplore();
+if (!global.storyStarted) {
+	global.storyStarted = true;
+	storyStart();
 }
 
 
