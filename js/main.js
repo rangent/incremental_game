@@ -94,6 +94,16 @@ function doForage() {
 		var str = "";
 		for (var r in resourcesFound) {
 			str = str + resourcesFound[r].count + " " + resourcesFound[r].resource.rname + " ";
+			resourcesFound[r].resource.total += resourcesFound[r].count;
+			//may want to rethink how I'm displaying elements 
+			if (!resourcesFound[r].resource.found) {
+				log("You've found a new element: " + resourcesFound[r].resource.rname + "!");
+				resourcesFound[r].resource.found = true;
+				enableResourceInDOM(resourcesFound[r].resource.rname, resourcesFound[r].resource.total);
+			}
+			else {
+				$("#" + resourcesFound[r].resource.rname + "_val").text(resourcesFound[r].resource.total);
+			}
 		}
 		log("You forage around for a bit, and found: " + str.substring(0,str.length-1) + "!");
 	}
@@ -124,7 +134,7 @@ function storyStartIntroduceExplore() {
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.explore.aname);
 	
 	
-	sleep((DEBUG) ? time += 10000 : time += 2000, enablePlayerAction, playerActions.forage);
+	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.forage);
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.forage.aname);
 }
 
