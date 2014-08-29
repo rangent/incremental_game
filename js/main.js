@@ -89,6 +89,7 @@ var playerActions = {
 // }
 
 function doForage() {
+	closeJoyrideTips(); //just in case
 	alert("forage not yet implemented");
 //NEED TO DESIGN HOW I'M GOING TO FORAGE BEFORE HALFASSING IT LIKE THIS...
 ////	chance to get wood from foraging?
@@ -118,6 +119,7 @@ function doForage() {
 
 function doExplore() {
 	if (!playerActions.forage.available) {
+		closeJoyrideTips(); //just in case
 		doFirstExplore();
 	}
 	else {
@@ -251,6 +253,10 @@ function letsJoyride(playerActionName) {
 
 function addJoyrideTip(tipConstant) {
 	$("#joyrideTips").append(tipConstant);
+}
+
+function closeJoyrideTips() {
+		$(".joyride-close-tip").click();
 }
 
 //////////////////////////////////////////////////////////////////////////////
