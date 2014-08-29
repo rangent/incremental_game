@@ -16,6 +16,14 @@
 	float: left;
 }
 
+.logLine {
+	font-weight: bold;
+}
+
+.oldLogLine {
+	color: gray;
+}
+
 .content-center {
 	border: 1px solid black;
 	float: top;

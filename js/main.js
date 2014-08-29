@@ -269,7 +269,8 @@ function clearEventWindow() {
 
 // log to event window
 function log(s) {
-	$("#eventDiv").prepend(s + "<br/>");
+	$("#eventDiv").prepend("<span class=\"logLine\">" + s + "</span><br/>");
+	$(".logline:eq(1)").removeClass("logLine").addClass("oldLogLine");
 }
 
 function replaceAll(find, replace, str) {
