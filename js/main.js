@@ -9,6 +9,8 @@ var constants = {
 	TIME_INTERVAL : 1000, //ms
 	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
+	EXPLORE_TIP : "<ol id=\"joyrideExplore\"><li id=\"exploreTip\" data-id=\"doExplore\">Click here to explore.  Exploring gives you...</li></ol>",
+	FORAGE_TIP : "<ol id=\"joyrideForage\"><li id=\"forageTip\" data-id=\"doForage\">Click here to forage.  Forging gives you...</li></ol>",
 	MCVERSION : 0.1
 }
 
@@ -39,7 +41,7 @@ function resource(rname, total, rawResource, found, age) {
 }
 
 var resources = {
-	//new resource(name, total, found, age)
+	//new resource(rname, total, rawResource, found, age)
 	wood 	: new resource('Wood', 0, true, false, 0),
 	stone 	: new resource('Stone', 0, true, false, 0),
 	dirt 	: new resource('Dirt', 0, true, false, 0),
@@ -62,58 +64,67 @@ function enablePlayerAction(playerAction) {
 var playerActions = {
 	forage	: new playerAction("Forage", false, 0),
 	explore	: new playerAction("Explore", false, 0),
-}
+};
 
-function returnResource(resource, count) {
-	this.resource = resource;
-	this.count = count;
-}
+// var returnResource(resource, count) {
+// 	this.resource = resource;
+// 	this.count = count;
+// }
 
-function resourceCountAndProbability(resource, count, probability) {
-	this.resource = resource;
-	this.count = count;
-	this.probability = probability;
-}
+// function resourceCountAndProbability(resource, count, probability) {
+// 	this.resource = resource;
+// 	this.count = count;
+// 	this.probability = probability;
+// }
 
-function resourcesCollected(resourcesCountsAndProbabilityArray) {
-	var collected = [];
-	for (var r in resourcesCountsAndProbabilityArray) {
-		var found = Math.floor(Math.random() + (resourcesCountsAndProbabilityArray[r].probability));
-		if (found > 0) {
-			collected.push(new returnResource(resourcesCountsAndProbabilityArray[r].resource,resourcesCountsAndProbabilityArray[r].count));
-		}
-	}
-	return collected;
-}
+// function resourcesCollected(resourcesCountsAndProbabilityArray) {
+// 	var collected = [];
+// 	for (var r in resourcesCountsAndProbabilityArray) {
+// 		var found = Math.floor(Math.random() + (resourcesCountsAndProbabilityArray[r].probability));
+// 		if (found > 0) {
+// 			collected.push(new returnResource(resourcesCountsAndProbabilityArray[r].resource,resourcesCountsAndProbabilityArray[r].count));
+// 		}
+// 	}
+// 	return collected;
+// }
 
 function doForage() {
-	//chance to get wood from foraging?
-	var resourceCountAndProbabilityArray = [ new resourceCountAndProbability(resources.wood, 1, 0.5) ];
-	var resourcesFound = resourcesCollected(resourceCountAndProbabilityArray);
-	if (resourcesFound.length > 0) {
-		var str = "";
-		for (var r in resourcesFound) {
-			str = str + resourcesFound[r].count + " " + resourcesFound[r].resource.rname + " ";
-			resourcesFound[r].resource.total += resourcesFound[r].count;
-			//may want to rethink how I'm displaying elements 
-			if (!resourcesFound[r].resource.found) {
-				log("You've found a new element: " + resourcesFound[r].resource.rname + "!");
-				resourcesFound[r].resource.found = true;
-				enableResourceInDOM(resourcesFound[r].resource.rname, resourcesFound[r].resource.total);
-			}
-			else {
-				$("#" + resourcesFound[r].resource.rname + "_val").text(resourcesFound[r].resource.total);
-			}
-		}
-		log("You forage around for a bit, and found: " + str.substring(0,str.length-1) + "!");
-	}
-	else {
-		log("Didn't find anything this time...");
-	}
+	alert("forage not yet implemented");
+//NEED TO DESIGN HOW I'M GOING TO FORAGE BEFORE HALFASSING IT LIKE THIS...
+////	chance to get wood from foraging?
+//	var resourceCountAndProbabilityArray = [ new resourceCountAndProbability(resources.wood, 1, 0.5) ];
+//	var resourcesFound = resourcesCollected(resourceCountAndProbabilityArray);
+//	if (resourcesFound.length > 0) {
+//		var str = "";
+//		for (var r in resourcesFound) {
+//			str = str + resourcesFound[r].count + " " + resourcesFound[r].resource.rname + " ";
+//			resourcesFound[r].resource.total += resourcesFound[r].count;
+////			may want to rethink how I'm displaying elements 
+//			if (!resourcesFound[r].resource.found) {
+//				log("You've found a new element: " + resourcesFound[r].resource.rname + "!");
+//				resourcesFound[r].resource.found = true;
+//				enableResourceInDOM(resourcesFound[r].resource.rname, resourcesFound[r].resource.total);
+//			}
+//			else {
+//				$("#" + resourcesFound[r].resource.rname + "_val").text(resourcesFound[r].resource.total);
+//			}
+//		}
+//		log("You forage around for a bit, and found: " + str.substring(0,str.length-1) + "!");
+//	}
+//	else {
+//		log("Didn't find anything this time...");
+//	}
 }
 
 function doExplore() {
-	alert("explore");
+	if (!playerActions.forage.available) {
+		doFirstExplore();
+	}
+	else {
+		//do explore
+
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -132,10 +143,24 @@ function storyStartIntroduceExplore() {
 	//introduce "Explore"
 	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.explore);
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.explore.aname);
+	sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.EXPLORE_TIP);
+	sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Explore");
+}
+
+function doFirstExplore() {
+	var time = 0;
+	sleep((DEBUG) ? time += 100 : time += 1000, log, "You weakily walk towards the top of the hill.");
+	sleep((DEBUG) ? time += 100 : time += 4000, log, "You crest the hill and get a good view of the surrounding areas.");
+	sleep((DEBUG) ? time += 100 : time += 3000, log, "In one direction you see ...");
+	///........
+	sleep((DEBUG) ? time += 100 : time += 2000, log, "Your stomach rumbles.");
+	sleep((DEBUG) ? time += 100 : time += 1000, log, "You should forage for something edible.");
 	
-	
+	//introduce "Forage"
 	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.forage);
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.forage.aname);
+	sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.FORAGE_TIP);
+	sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Forage");
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -206,8 +231,26 @@ function initializeBoard() {
 	jqueryifyButtons();
 }
 
-function setupPlayer() {
 
+//////////////////////////////////////////////////////////////////////////////
+// JOYRIDE STUFFS
+//////////////////////////////////////////////////////////////////////////////
+
+function letsJoyride(playerActionName) {
+	$("#joyride" + playerActionName).joyride({
+		//want to blow away the tip after it completes
+		postRideCallback: function(){
+			$('.first-joyride-tips').joyride('destroy');
+		},
+		nextButton : false,
+		autoStart : true,
+		modal:false,
+		expose: false
+	  });
+}	
+
+function addJoyrideTip(tipConstant) {
+	$("#joyrideTips").append(tipConstant);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -227,17 +270,27 @@ function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
+function sleep(millis, callback) {
+    setTimeout(function()
+            { callback(); }
+    , millis);
+}
+
 function sleep(millis, callback, arg1) {
     setTimeout(function()
             { callback(arg1); }
     , millis);
 }
 
+function sleep(millis, callback, arg1, arg2) {
+    setTimeout(function()
+            { callback(arg1, arg2); }
+    , millis);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // SETUP AND GO!
 //////////////////////////////////////////////////////////////////////////////
-
-
 
 if (!global.initializedBoard) { 	
 	global.initializedBoard = true;
@@ -248,7 +301,6 @@ if (!global.storyStartIntroduceExploreed) {
 	global.storyStartIntroduceExploreed = true;
 	storyStartIntroduceExplore();
 }
-
 
 window.setInterval(function(){
 	//run every second

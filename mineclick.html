@@ -19,23 +19,22 @@ concepts:
 test
 -->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/story.js"></script>
-<script type="text/javascript" src="js/jqueryify.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="js/joyride-master/jquery.joyride-2.1.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
+/*
 $(window).load(function() {
   $("#chooseID").joyride({
-    /* Options will go here */
+    /* Options will go here * /
   });
 });
-
 function letsJoyride() {
 	$("#chooseID").joyride({
-		/* Options will go here */
+		/* Options will go here * /
 	  });
 }
+*/
 </script>
 </head>
 <body onload="initializeBoard(); initializedBoard = true;">
@@ -59,11 +58,9 @@ function letsJoyride() {
 	<div class="footer contentholder">&nbsp;</div>
 </div>
 <button onclick="letsJoyride(); return true;">.</button>
-<div style="display:none">
-<!-- jquery joyride http://zurb.com/playground/jquery-joyride-feature-tour-plugin --> 
-<ol id="chooseID">
-  <li data-id="doExplore">Click here to explore.  Exploring gives you...</li>
-  <li data-id="doForage">Click here to forage.  Forging gives you...</li>
+<div id="joyrideTips" style="display:none">
+<!-- jquery joyride container http://zurb.com/playground/jquery-joyride-feature-tour-plugin --> 
+<ol id="chooseID1">
 </ol>
 </div>
 </body>
