@@ -124,7 +124,7 @@ function doExplore() {
 	}
 	else {
 		//do explore
-
+		alert("primary explore logic not implemented");
 	}
 
 }
