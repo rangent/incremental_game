@@ -24,6 +24,12 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 * http://ron.heavengames.com/gameinfo/tech/techpage.php?action=Age&seltype=3
 * http://gamestudies.org/articleimages/101_Tech_Tree_RoN.jpg?m
 -->
+
+<!-- 
+Thanks to:
+Tooltips from http://www.cssportal.com/css-tooltip-generator/#
+
+-->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="js/joyride-master/jquery.joyride-2.1.js"></script>
@@ -34,12 +40,13 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 <div class="page">
 	<div class="content">
 		<div class="content-left contentholder">
-		<h3>Raw Resources</h3>
+		<h3 class="tooltip">Raw Resources<span>testing</span></h3>
+		
 			<table id="resource_container"></table>
 		</div>
 		<div class="main-center">
 			<div id="eventDiv" class="contentholder content-center"></div>
-			<button class="clearEvent" onclick="clearEventWindow();">Clear Event Window</button>
+			<button class="clearEvent" onclick="clearEventWindow();">Clear Event Window</input>
 		</div>
 		<div class="content-right contentholder">
 			<h3>Actions</h3>

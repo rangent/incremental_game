@@ -83,16 +83,16 @@ function terrainModifier(tmname, applicableTerrainTypes) {
  * @terrainFeature : terrainFeature array : possible features of this terrain element
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
  */
-function location(terrainType, terrainFeatures, terrainModifiers) {
+function createLocation(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 }
 
 var terrainTypes = {
-	plains : new createTerrainType("Plains");
-	mountain : new createTerrainType("Mountain");
-	hill : new createTerrainType("Hill");
+	plains : new terrainType("Plains"),
+	mountain : new terrainType("Mountain"),
+	hill : new terrainType("Hill"),
 }
 
 var terrainFeatures = {
