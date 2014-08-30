@@ -261,6 +261,7 @@ function storyStartIntroduceExplore() {
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.explore.aname);
 	sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.EXPLORE_TIP);
 	sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Explore");
+	
 }
 
 function doFirstExplore() {
@@ -269,6 +270,7 @@ function doFirstExplore() {
 	sleep((DEBUG) ? time += 100 : time += 4000, log, "You crest the hill and get a good view of the surrounding areas.");
 	sleep((DEBUG) ? time += 100 : time += 3000, log, "In one direction you see ...");
 	///........
+	sleep((DEBUG) ? time += 0 : time += 0, displayDivById, "terrainSection");
 	sleep((DEBUG) ? time += 100 : time += 2000, log, "Your stomach rumbles.");
 	sleep((DEBUG) ? time += 100 : time += 1000, log, "You should forage for something edible.");
 	
@@ -335,6 +337,10 @@ function initializeActionDiv() {
 	}
 }
 
+function initializeTerrainDiv() {
+	$("#terrainSection").hide();
+}
+
 function jqueryifyButtons() {
 	$(function() { 
 		$( "button" ).button(); 
@@ -344,6 +350,7 @@ function jqueryifyButtons() {
 function initializeBoard() {
 	initializeResourceDiv();
 	initializeActionDiv();
+	initializeTerrainDiv();
 	jqueryifyButtons();
 }
 
@@ -376,6 +383,9 @@ function closeJoyrideTips() {
 //////////////////////////////////////////////////////////////////////////////
 // CORE EVENT FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////
+function displayDivById(idString) {
+	$("#" + idString).show();
+}
 
 function clearEventWindow() {
 	$("#eventDiv").empty();
@@ -410,18 +420,8 @@ function sleep(millis, callback, arg1, arg2) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// SETUP AND GO!
+// INCREMENTAL LOOP
 //////////////////////////////////////////////////////////////////////////////
-
-if (!global.initializedBoard) { 	
-	global.initializedBoard = true;
-	initializeBoard(); 
-}
-	
-if (!global.storyStartIntroduceExploreed) {
-	global.storyStartIntroduceExploreed = true;
-	storyStartIntroduceExplore();
-}
 
 window.setInterval(function(){
 	//run every second

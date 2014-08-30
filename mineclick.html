@@ -3,7 +3,8 @@
 <title>Mineclick</title>
 <link href="js/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
 <link href="css/mineclick.css" rel="stylesheet" />
-<link href="js/joyride-master/joyride-2.1.css" rel="stylesheet">
+<link href="js/joyride-master/joyride-2.1.css" rel="stylesheet"/>
+<link href="js/select2-3.5.1/select2.css" rel="stylesheet"/>
 <!-- references
 
 * Minecraft "Empire Building Challenge"
@@ -28,14 +29,36 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 <!-- 
 Thanks to:
 Tooltips from http://www.cssportal.com/css-tooltip-generator/#
-
+Select box from http://ivaynberg.github.io/select2/
 -->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="js/joyride-master/jquery.joyride-2.1.js"></script>
+<script type="text/javascript" src="js/select2-3.5.1/select2.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+<script>
+	$(document).ready(function() { 
+		$("#availableTerrain").select2({
+			placeholder: "Select vacant terrain",
+			allowClear: true,
+		}); 
+		
+		//////////////////////////////////////////////////////////////////////////////
+		// SETUP AND GO!
+		//////////////////////////////////////////////////////////////////////////////
+		if (!global.initializedBoard) { 	
+			global.initializedBoard = true;
+			initializeBoard(); 
+		}
+			
+		if (!global.storyStartIntroduceExploreed) {
+			global.storyStartIntroduceExploreed = true;
+			storyStartIntroduceExplore();
+		}
+	});
+</script>
 </head>
-<body onload="initializeBoard(); initializedBoard = true;">
+<body>
 <div id="brup">1</div>
 <div class="page">
 	<div class="content">
@@ -54,7 +77,14 @@ Tooltips from http://www.cssportal.com/css-tooltip-generator/#
 		</div>
 		<br class="clearer"/>
 	</div>
-	<div class="footer contentholder">&nbsp;</div>
+	<div class="footer contentholder">
+		<div id="terrainSection" class="footer-left">
+			<h3>Available Terrain</h3>
+			<select id="availableTerrain" class="terrainSelect"><option></option>
+				<option value="null">Select vacant terrainssssssssssssssssssssss</option>
+			</select>
+		</div>
+	</div>
 </div>
 <div id="joyrideTips" style="display:none">
 <!-- jquery joyride container http://zurb.com/playground/jquery-joyride-feature-tour-plugin --> 

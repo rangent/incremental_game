@@ -22,6 +22,10 @@
 	color: gray;
 }
 
+.terrainSelect {
+	width: 300px
+}
+
 .content-center {
 	border: 1px solid black;
 	float: top;
@@ -41,6 +45,10 @@
 }
 
 .footer {
+}
+
+.footer-left {
+	float: left;
 }
 
 .clearer {
