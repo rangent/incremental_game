@@ -59,23 +59,51 @@ function terrainType(ttname) {
 }
 
 /*
+ *  @terrainType : terrainType
+ *  @probability : number between 0 and 1 : liklihood of occuring on that terrain type
+ */
+function terrainTypeProbability(terrainType, probability) {
+	this.terrainType = terrainType;
+	this.probability = probability;
+}
+
+/*
+ *  @terrainType : terrainType array
+ *  @probability : number between 0 and 1 : liklihood of occuring on each of the array of terrain types
+ *  @return : terrainTypeProbability array
+ */
+function terrainTypesAndProbability(terrainTypes, probability) {
+	var ret = [];
+	for (var t in terrainTypes) {
+		ret.push(new terrainTypeProbability(terrainTypes[t], probability));
+	}
+	return ret;
+}
+
+/*
  *  @tfname : string name
  *  @description : help text description for feature
  *	@applicableTerrainTypes : terrainType array : where you'd find this feature
+ *	@incompatibleTerrainFeatures : terrainFeature array : features this one wouldn't work with
  */
-function terrainFeature(tfname, description, applicableTerrainTypes) {
+function terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
 	this.tfname = tfname;
-	this.applicableTerrainTypes = applicableTerrainTypes;
+	this.description = description;
+	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
+	this.incompatibleTerrainFeatures = incompatibleTerrainFeatures;
 }
 
 /*
  *  @tmname : string name
  *  @description : help text description for modifier
- *	@applicableTerrainTypes : terrainType array : where you'd find this feature
+ *	@applicableTerrainTypeAndProbabilities : terrainType array : where you'd find this feature
+ *	@incompatibleTerrainModifiers : terrainModifier array : modifiers this one wouldn't work with
  */
-function terrainModifier(tmname, applicableTerrainTypes) {
+function terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers) {
 	this.tmname = tmname;
-	this.applicableTerrainTypes = applicableTerrainTypes;
+	this.description = description;
+	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
+	this.incompatibleTerrainModifiers = incompatibleTerrainModifiers;
 }
 
 /*
@@ -89,6 +117,29 @@ function createLocation(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainModifiers = terrainModifiers;
 }
 
+/*
+ * @return : terrainType array : all terrain types
+ */
+function allTerrainTypes() {
+	return allTerrainTypesExcept([]);
+}
+
+/*
+ * @terrainTypes : terrainType array
+ * @return : terrainType array : all terrain types (minus terrain types to exclude)
+ */
+function allTerrainTypesExcept(terrainTypesToExclude) {
+	var returnTerrainTypes = [];
+	for (var t in terrainTypes) {	
+		if (!$.inArray(terrainTypes[t], terrainTypesToExclude)) {
+			returnTerrainTypes.push(terrainTypes[t]);
+		}
+	}
+	return returnTerrainTypes;
+}
+
+//ACTUAL TERRAIN TYPES, FEATURES, AND MODIFIERS
+
 var terrainTypes = {
 	plains : new terrainType("Plains"),
 	mountain : new terrainType("Mountain"),
@@ -96,11 +147,14 @@ var terrainTypes = {
 }
 
 var terrainFeatures = {
-	
+	//terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures)
+	caves : new terrainFeature("Caves", "Cave systems make mining easier.", [ new terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
+	river : new terrainFeature("River", "Rivers allow easier travel and increased fertility.", [ new terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
 }
 
 var terrainModifiers = {
-
+	//terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers)
+	serene : new terrainModifier("Serene", "Serene locations cannot be attacked", terrainTypesAndProbability(allTerrainTypes(), 0.1), []),
 }
 
 //////////////////////////////////////////////////////////////////////////////
