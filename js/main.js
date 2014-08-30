@@ -26,7 +26,6 @@ var global = {
 
 var game = {
 	age : 0
-
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -47,6 +46,62 @@ var resources = {
 	dirt 	: new resource('Dirt', 0, true, false, 0),
 	water 	: new resource('Water', 0, true, false, 0),
 };
+
+//////////////////////////////////////////////////////////////////////////////
+// LOCATIONS
+//////////////////////////////////////////////////////////////////////////////
+
+/*
+ *	@ttname : string name
+ */
+function terrainType(ttname) {
+	this.ttname = ttname;
+}
+
+/*
+ *  @tfname : string name
+ *  @description : help text description for feature
+ *	@applicableTerrainTypes : terrainType array : where you'd find this feature
+ */
+function terrainFeature(tfname, description, applicableTerrainTypes) {
+	this.tfname = tfname;
+	this.applicableTerrainTypes = applicableTerrainTypes;
+}
+
+/*
+ *  @tmname : string name
+ *  @description : help text description for modifier
+ *	@applicableTerrainTypes : terrainType array : where you'd find this feature
+ */
+function terrainModifier(tmname, applicableTerrainTypes) {
+	this.tmname = tmname;
+	this.applicableTerrainTypes = applicableTerrainTypes;
+}
+
+/*
+ * @terrainType : single terrainType
+ * @terrainFeature : terrainFeature array : possible features of this terrain element
+ * @terrainModifier : terrainModifier array : possible modifiers to this terrain
+ */
+function location(terrainType, terrainFeatures, terrainModifiers) {
+	this.terrainType = terrainType;
+	this.terrainFeatures = terrainFeatures;
+	this.terrainModifiers = terrainModifiers;
+}
+
+var terrainTypes = {
+	plains : new createTerrainType("Plains");
+	mountain : new createTerrainType("Mountain");
+	hill : new createTerrainType("Hill");
+}
+
+var terrainFeatures = {
+	
+}
+
+var terrainModifiers = {
+
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // ACTIONS
@@ -118,15 +173,20 @@ function doForage() {
 }
 
 function doExplore() {
+	//first time they should unlock forage, otherwise just explore
 	if (!playerActions.forage.available) {
-		closeJoyrideTips(); //just in case
+		closeJoyrideTips();
 		doFirstExplore();
 	}
 	else {
-		//do explore
-		alert("primary explore logic not implemented");
+		explore();
 	}
+}
 
+function explore() {
+	//explore logic
+	//SHOULD NOT BE ABLE TO REACH HERE UNTIL PLAYER HAS FORAGED FOR FOOD!
+	alert("primary explore logic not implemented");
 }
 
 //////////////////////////////////////////////////////////////////////////////
