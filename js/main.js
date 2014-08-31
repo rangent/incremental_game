@@ -280,9 +280,12 @@ function doForage() {
 
 function doExplore() {
 	//first time they should unlock forage, otherwise just explore
+	if ($("#progressbar").length == 0) {
+		makeProgressBar(10, playerActions.explore, doFirstExplore);
+	}
 	if (!playerActions.forage.available) {
-		closeJoyrideTips();
-		doFirstExplore();
+		playerActions.forage.available = true;
+		// doFirstExplore();
 	}
 	else {
 		explore();
@@ -292,7 +295,16 @@ function doExplore() {
 function explore() {
 	//explore logic
 	//SHOULD NOT BE ABLE TO REACH HERE UNTIL PLAYER HAS FORAGED FOR FOOD!
-	alert("primary explore logic not implemented");
+	// alert("primary explore logic not implemented");
+	//first time they should unlock forage, otherwise just explore
+	if ($("#progressbar").length == 0) {
+		makeProgressBar(10, playerActions.explore, findLand);
+	}
+	progress();
+}
+
+function findLand() {
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -412,6 +424,40 @@ function closeJoyrideTips() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
+// PROGRESS BAR
+//////////////////////////////////////////////////////////////////////////////
+
+function makeProgressBar(val, playerAction, fxnToRunOnCompletion) {
+
+	$("#centerPane").prepend('<div id="progressbar"><div class="progress-label">Loading...</div></div>');
+
+	var progressbar = $( "#progressbar" );
+	var progressLabel = $( ".progress-label" );
+	 
+    progressbar.progressbar({
+      value: 0,
+      max: val,
+      change: function() {
+        progressLabel.text( playerAction.aname + " progress: " + progressbar.progressbar( "value" ) + "/" + progressbar.progressbar( "option", "max" )  );
+      },
+      complete: function() {
+        progressLabel.text( "Complete!" );
+        progressbar.progressbar( "destroy" );
+        fxnToRunOnCompletion();
+      }
+    });
+    return true;
+}
+
+function progress() {
+	$(function() {
+	  	var val = $( "#progressbar" ).progressbar( "value" ) || 0;
+
+	  	$( "#progressbar" ).progressbar( "value", val + 1 );
+	});
+}
+
+//////////////////////////////////////////////////////////////////////////////
 // CORE EVENT FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////
 function displayDivById(idString) {
@@ -448,10 +494,6 @@ function sleep(millis, callback, arg1, arg2) {
     setTimeout(function()
             { callback(arg1, arg2); }
     , millis);
-}
-
-function foo(e) {
-	alert('');
 }
 
 //////////////////////////////////////////////////////////////////////////////

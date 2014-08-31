@@ -20,6 +20,8 @@ function storyStartIntroduceExplore() {
 
 function doFirstExplore() {
 
+	closeJoyrideTips();
+
 //	var firstMountain = new terrain(
 //		terrainTypes.mountain, 
 //		[terrainFeatures.caves], 
