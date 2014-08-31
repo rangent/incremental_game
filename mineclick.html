@@ -54,6 +54,7 @@ Select box from http://ivaynberg.github.io/select2/
 		}
 
 		$("#rawResources").tooltip();
+		makeProgressBar(10, playerActions.explore, doFirstExplore);
 	});
 </script>
 </head>
@@ -67,6 +68,7 @@ Select box from http://ivaynberg.github.io/select2/
 			<table id="resource_container"></table>
 		</div>
 		<div id="centerPane" class="main-center">
+			<div id="progressbar"><div class="progress-label">&nbsp;</div></div>
 			<div id="eventDiv" class="contentholder content-center"></div>
 			<button class="clearEvent" onclick="clearEventWindow();">Clear Event Window</input>
 		</div>

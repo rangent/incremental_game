@@ -279,32 +279,16 @@ function doForage() {
 }
 
 function doExplore() {
-	//first time they should unlock forage, otherwise just explore
-	if ($("#progressbar").length == 0) {
-		makeProgressBar(10, playerActions.explore, doFirstExplore);
-	}
-	if (!playerActions.forage.available) {
-		playerActions.forage.available = true;
-		// doFirstExplore();
-	}
-	else {
-		explore();
-	}
-}
-
-function explore() {
-	//explore logic
-	//SHOULD NOT BE ABLE TO REACH HERE UNTIL PLAYER HAS FORAGED FOR FOOD!
-	// alert("primary explore logic not implemented");
-	//first time they should unlock forage, otherwise just explore
-	if ($("#progressbar").length == 0) {
+	if ($( "#progressbar" ).progressbar( "value" ) == $( "#progressbar" ).progressbar( "option", "max" )) {
 		makeProgressBar(10, playerActions.explore, findLand);
 	}
-	progress();
+	else {
+		progress();
+	}
 }
 
 function findLand() {
-	
+
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -429,8 +413,6 @@ function closeJoyrideTips() {
 
 function makeProgressBar(val, playerAction, fxnToRunOnCompletion) {
 
-	$("#centerPane").prepend('<div id="progressbar"><div class="progress-label">Loading...</div></div>');
-
 	var progressbar = $( "#progressbar" );
 	var progressLabel = $( ".progress-label" );
 	 
@@ -442,7 +424,8 @@ function makeProgressBar(val, playerAction, fxnToRunOnCompletion) {
       },
       complete: function() {
         progressLabel.text( "Complete!" );
-        progressbar.progressbar( "destroy" );
+        // progressbar.progressbar( "destroy" );
+        // $( "#progressbar" ).remove();
         fxnToRunOnCompletion();
       }
     });
