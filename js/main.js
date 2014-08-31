@@ -557,6 +557,14 @@ function displayDivById(idString) {
 	$("#" + idString).show();
 }
 
+function disableButton(buttonId) {
+	$("#" + buttonId).button({ disabled: true });
+}
+
+function enableButton(buttonId) {
+	$("#" + buttonId).button({ disabled: false });
+}
+
 function clearEventWindow() {
 	$("#eventDiv").empty();
 }

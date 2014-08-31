@@ -21,11 +21,8 @@ function storyStartIntroduceExplore() {
 function doFirstExplore() {
 
 	closeJoyrideTips();
+	sleep((DEBUG) ? time += 0 : time += 0, disableButton, "doExplore");
 
-//	var firstMountain = new terrain(
-//		terrainTypes.mountain, 
-//		[terrainFeatures.caves], 
-//		[terrainModifiers.serene]);
 	var firstPlains = new terrain(
 		terrainTypes.plains, 
 		[], 
