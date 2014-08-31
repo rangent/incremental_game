@@ -9,7 +9,7 @@ var constants = {
 	TIME_INTERVAL : 1000, //ms
 	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
-	EXPLORE_TIP : "<ol id=\"joyrideExplore\"><li id=\"exploreTip\" data-id=\"doExplore\">Click here to explore.  Exploring gives you...</li></ol>",
+	EXPLORE_TIP : "<ol id=\"joyrideExplore\"><li id=\"exploreTip\" data-id=\"doExplore\">Click here to explore.  You will need to click multiple times to complete your exploration.	</li></ol>",
 	FORAGE_TIP : "<ol id=\"joyrideForage\"><li id=\"forageTip\" data-id=\"doForage\">Click here to forage.  Forging gives you...</li></ol>",
 	TERRAIN_TABLE : "<table class=\"terrainTable\"><tr><th colspan=\"2\" id=\"selectedTerrain\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr></table>",
 	MCVERSION : 0.1
@@ -74,6 +74,14 @@ function terrain(terrainType, terrainFeatures, terrainModifiers) {
 			text = terrainModifiers[t].tmname + " " + text;
 		}
 	}
+	if (terrainFeatures.length > 0) {
+		text = text +  " (";
+		for (var t in terrainFeatures) {
+			text = text + terrainFeatures[t].tfname + ", " ;
+		}
+		text = text.substring(0,text.length-2);
+		text += ")";
+	}
 	this.text = text;
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
@@ -85,7 +93,6 @@ function terrain(terrainType, terrainFeatures, terrainModifiers) {
  */
 function addTerrainToPlayer(loc) {
 	player.availableTerrain.push(loc);
-	//add it to the select as well
 }
 
 /*
@@ -157,7 +164,7 @@ function allTerrainTypes() {
 function allTerrainTypesExcept(terrainTypesToExclude) {
 	var returnTerrainTypes = [];
 	for (var t in terrainTypes) {	
-		if (!$.inArray(terrainTypes[t], terrainTypesToExclude)) {
+		if ($.inArray(terrainTypes[t], terrainTypesToExclude) == -1) {
 			returnTerrainTypes.push(terrainTypes[t]);
 		}
 	}
@@ -198,6 +205,13 @@ var terrainTypes = {
 	forest : new terrainType("Forest"),
 }
 
+var locationTerrainProbabilies = [ 
+	new terrainTypeProbability(terrainTypes.plains, 5),
+	new terrainTypeProbability(terrainTypes.mountain, 1),
+	new terrainTypeProbability(terrainTypes.hill, 1),
+	new terrainTypeProbability(terrainTypes.forest, 2),
+]
+
 var terrainFeatures = {
 	//terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures)
 	caves : new terrainFeature("Caves", "Cave systems make mining easier.", [ new terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
@@ -206,7 +220,7 @@ var terrainFeatures = {
 
 var terrainModifiers = {
 	//terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers)
-	serene : new terrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.1), []),
+	serene : new terrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -242,7 +256,94 @@ function doExplore() {
 }
 
 function findLand() {
-	log("You found a ...!");
+	//setup, need to normalize probabilities
+	normalizeTerrainTypeProbabilities();
+	
+	//first pick the land	
+	var terrainFound = pickNewLand();
+
+	//then pick the terrain features (if any)
+	var terrainFeaturesFound = getFeaturesForTerrainFound(terrainFound);
+
+	var terrainModifiersFound = [];
+	for (var t in terrainModifiers) {
+		var applicableTerrainTypeArr = terrainModifiers[t].applicableTerrainTypeAndProbabilities;
+		for (var a in applicableTerrainTypeArr) {
+			if (applicableTerrainTypeArr[a].terrainType == terrainFound) {
+				if ((Math.random() - applicableTerrainTypeArr[a].probability) <= 0) {
+					terrainModifiersFound.push(terrainModifiers[t]);
+				}
+			}
+		}
+	}
+	
+	var landFoundString =  makePrintableString(terrainFound, terrainModifiersFound, terrainFeaturesFound);
+
+	log("You found a " + landFoundString);
+	var foundLand = new terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
+	addTerrainToPlayer(foundLand);
+}
+
+function makePrintableString(terrainFound, terrainModifiersFound, terrainFeaturesFound) {
+	var landFoundString = "";
+	if (terrainModifiersFound.length > 0) {
+		for (var t in terrainModifiersFound) {
+			landFoundString = landFoundString + terrainModifiersFound[t].tmname.toLowerCase() + ", ";
+		}
+		landFoundString = landFoundString.substring(0, landFoundString.length-2) + " ";
+	}
+	landFoundString += terrainFound.ttname.toLowerCase(); 
+	if (terrainFeaturesFound.length > 0) {
+		landFoundString += " with: ";
+		for (var t in terrainFeaturesFound) {
+			landFoundString += terrainFeaturesFound[t].tfname.toLowerCase() + ", ";
+		}
+		landFoundString = landFoundString.substring(0, landFoundString.length-2);
+	}
+	return landFoundString;
+}
+
+function getFeaturesForTerrainFound(terrainFound) {
+	var terrainFeaturesFound = [];
+	for (var t in terrainFeatures) {
+		var applicableTerrainTypeArr = terrainFeatures[t].applicableTerrainTypeAndProbabilities;
+		for (var a in applicableTerrainTypeArr) {
+			if (applicableTerrainTypeArr[a].terrainType == terrainFound) {
+				if ((Math.random() - applicableTerrainTypeArr[a].probability) <= 0) {
+					terrainFeaturesFound.push(terrainFeatures[t]);
+				}
+			}
+		}
+	}
+	return terrainFeaturesFound;
+}
+
+/*
+ *  Need to normalize the probabilities so they all fall within [0-1) range
+ */
+function normalizeTerrainTypeProbabilities() {
+	//normalize the terrainType probabilities
+	var total = 0;
+	for (var l in locationTerrainProbabilies) {
+		total += locationTerrainProbabilies[l].probability;
+	}
+	for (var l in locationTerrainProbabilies) {
+		locationTerrainProbabilies[l].probability = locationTerrainProbabilies[l].probability / total;
+	}
+}
+
+function pickNewLand() {
+	var terrainFound;
+	//after normalized, pick the new land!
+	var rand = Math.random();
+	for (var l in locationTerrainProbabilies) {
+		rand -= locationTerrainProbabilies[l].probability;
+		if (rand <= 0) {
+			terrainFound = locationTerrainProbabilies[l].terrainType;
+			break;
+		}
+	}
+	return terrainFound;
 }
 
 //////////////////////////////////////////////////////////////////////////////
