@@ -31,15 +31,11 @@ var game = {
 	nextExploreCost : 10,
 	nextExploreCostMultiplier : 1.2,
 	explorePenalty : 1, //how difficult exploration will be the next time you explore
+	exploreClicks : 0,
 }
 
 var player = {
 	availableTerrain : [],
-}
-
-function getPlayerAvailableTerrain() {
-
-	return player.availableTerrain;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -227,7 +223,7 @@ var terrainModifiers = {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ACTIONS
+// GENERAL ACTIONS
 //////////////////////////////////////////////////////////////////////////////
 function playerAction(aname, available, age) {
 	this.aname = aname;
