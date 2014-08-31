@@ -51,6 +51,14 @@
 	float: left;
 }
 
+.footer-center {
+  float: left;
+}
+
+table.terrainTable, table.terrainTable th, table.terrainTable td {
+   border: 1px solid black;
+}
+
 .clearer {
 	clear: both;
 }

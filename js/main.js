@@ -11,6 +11,7 @@ var constants = {
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
 	EXPLORE_TIP : "<ol id=\"joyrideExplore\"><li id=\"exploreTip\" data-id=\"doExplore\">Click here to explore.  Exploring gives you...</li></ol>",
 	FORAGE_TIP : "<ol id=\"joyrideForage\"><li id=\"forageTip\" data-id=\"doForage\">Click here to forage.  Forging gives you...</li></ol>",
+	TERRAIN_TABLE : "<table class=\"terrainTable\"><tr><th colspan=\"2\" id=\"selectedTerrain\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr></table>",
 	MCVERSION : 0.1
 }
 
@@ -67,7 +68,13 @@ var resources = {
  */
 function terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.id = global.idSetting++;
-	this.text = terrainType.ttname;
+	var text = terrainType.ttname;
+	if (terrainModifiers.length > 0) {
+		for (var t in terrainModifiers) {
+			text = terrainModifiers[t].tmname + " " + text;
+		}
+	}
+	this.text = text;
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
@@ -155,6 +162,30 @@ function allTerrainTypesExcept(terrainTypesToExclude) {
 		}
 	}
 	return returnTerrainTypes;
+}
+
+function updateTerrainTable(terrain) {
+	$("#selectedTerrain").empty();
+	var features = "None";
+	if (terrain.terrainFeatures.length > 0) {
+		features = "";
+		for (var t in terrain.terrainFeatures) {
+			features += terrain.terrainFeatures[t].tfname + " ";
+		}
+	}
+	var modifiers = "None";
+	if (terrain.terrainModifiers.length > 0 ) {
+		modifiers = "";
+		for (var t in terrain.terrainModifiers) {
+			modifiers += "<div class=\"tooltip\">" + terrain.terrainModifiers[t].tmname + "<span>" + terrain.terrainModifiers[t].description + "</span></div> ";
+		}
+	}
+	var s = constants.TERRAIN_TABLE
+		.replace("%TERRAIN_NAME%", terrain.terrainType.ttname)
+		.replace("%FEATURES%",features)
+		.replace("%MODIFIERS%",modifiers);
+
+	$("#selectedTerrain").append(s);
 }
 
 //ACTUAL TERRAIN TYPES, FEATURES, AND MODIFIERS
@@ -343,6 +374,10 @@ function initializeAvailableTerrain() {
 		allowClear: true,
 		data: player.availableTerrain
 	}); 
+	$("#availableTerrain").on("change",
+		function(e) { 
+		    updateTerrainTable(e.added); }
+		);
 }
 
 
@@ -408,6 +443,10 @@ function sleep(millis, callback, arg1, arg2) {
     setTimeout(function()
             { callback(arg1, arg2); }
     , millis);
+}
+
+function foo(e) {
+	alert('');
 }
 
 //////////////////////////////////////////////////////////////////////////////
