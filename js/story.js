@@ -33,13 +33,13 @@ function doFirstExplore() {
 		[], 
 		[terrainModifiers.serene]);
 
-	addTerrainToPlayer(firstPlains);
-	addTerrainToPlayer(firstHill);
-
 	var time = 0;
 	sleep((DEBUG) ? time += 100 : time += 1000, log, "You weakily walk towards the top of the hill.");
 	sleep((DEBUG) ? time += 100 : time += 4000, log, "You crest the hill and get a good view of the surrounding areas.");
-	sleep((DEBUG) ? time += 100 : time += 3000, log, "In one direction you see ...");
+	sleep((DEBUG) ? time += 100 : time += 3000, log, "The hill is immediately surrounded by plains, but you see an entire unfamiliar world beyond that!");
+	sleep((DEBUG) ? time += 0 : time += 0, addTerrainToPlayer, firstPlains);
+	sleep((DEBUG) ? time += 0 : time += 0, addTerrainToPlayer, firstHill);
+
 	///........
 	sleep((DEBUG) ? time += 0 : time += 0, displayDivById, "terrainSection");
 	sleep((DEBUG) ? time += 100 : time += 2000, log, "Your stomach rumbles.");

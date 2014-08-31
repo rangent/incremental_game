@@ -18,6 +18,7 @@ var global = {
 	initializedBoard : false,
 	storyStartIntroduceExploreed : false,
 	playerSetup : false,
+	idSetting : 0,
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -30,6 +31,11 @@ var game = {
 
 var player = {
 	availableTerrain : [],
+}
+
+function getPlayerAvailableTerrain() {
+
+	return player.availableTerrain;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -60,6 +66,8 @@ var resources = {
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
  */
 function terrain(terrainType, terrainFeatures, terrainModifiers) {
+	this.id = global.idSetting++;
+	this.text = terrainType.ttname;
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
@@ -70,6 +78,7 @@ function terrain(terrainType, terrainFeatures, terrainModifiers) {
  */
 function addTerrainToPlayer(loc) {
 	player.availableTerrain.push(loc);
+	//add it to the select as well
 }
 
 /*
@@ -160,7 +169,7 @@ var terrainTypes = {
 var terrainFeatures = {
 	//terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures)
 	caves : new terrainFeature("Caves", "Cave systems make mining easier.", [ new terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
-	river : new terrainFeature("River", "Rivers allow easier travel and increased fertility.", [ new terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
+	river : new terrainFeature("River", "Rivers allow easier travel and increased fertility.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
 }
 
 var terrainModifiers = {
@@ -311,6 +320,7 @@ function initializeActionDiv() {
 }
 
 function initializeTerrainDiv() {
+	initializeAvailableTerrain();
 	$("#terrainSection").hide();
 }
 
@@ -325,6 +335,14 @@ function initializeBoard() {
 	initializeActionDiv();
 	initializeTerrainDiv();
 	jqueryifyButtons();
+}
+
+function initializeAvailableTerrain() {
+	$("#availableTerrain").select2({
+		placeholder: "Select vacant terrain",
+		allowClear: true,
+		data: player.availableTerrain
+	}); 
 }
 
 
@@ -350,7 +368,7 @@ function addJoyrideTip(tipConstant) {
 }
 
 function closeJoyrideTips() {
-		$(".joyride-close-tip").click();
+	$(".joyride-close-tip").click();
 }
 
 //////////////////////////////////////////////////////////////////////////////
