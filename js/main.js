@@ -177,7 +177,7 @@ function updateTerrainTable(terrain) {
 	if (terrain.terrainModifiers.length > 0 ) {
 		modifiers = "";
 		for (var t in terrain.terrainModifiers) {
-			modifiers += "<div class=\"tooltip\">" + terrain.terrainModifiers[t].tmname + "<span>" + terrain.terrainModifiers[t].description + "</span></div> ";
+			modifiers += "<a title=\""+ terrain.terrainModifiers[t].description + "\" class=\"tooltip\">" + terrain.terrainModifiers[t].tmname + "</a> ";
 		}
 	}
 	var s = constants.TERRAIN_TABLE
@@ -186,6 +186,7 @@ function updateTerrainTable(terrain) {
 		.replace("%MODIFIERS%",modifiers);
 
 	$("#selectedTerrain").append(s);
+	$(".tooltip").tooltip();
 }
 
 //ACTUAL TERRAIN TYPES, FEATURES, AND MODIFIERS
@@ -205,7 +206,7 @@ var terrainFeatures = {
 
 var terrainModifiers = {
 	//terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers)
-	serene : new terrainModifier("Serene", "Serene locations cannot be attacked", terrainTypesAndProbability(allTerrainTypes(), 0.1), []),
+	serene : new terrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.1), []),
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -374,6 +375,10 @@ function initializeAvailableTerrain() {
 		allowClear: true,
 		data: player.availableTerrain
 	}); 
+	$("#availableTerrain").on("select2-highlight",
+		function(e) { 
+		    updateTerrainTable(e.choice); }
+		);
 	$("#availableTerrain").on("change",
 		function(e) { 
 		    updateTerrainTable(e.added); }

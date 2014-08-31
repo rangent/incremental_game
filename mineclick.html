@@ -52,6 +52,8 @@ Select box from http://ivaynberg.github.io/select2/
 			global.storyStartIntroduceExploreed = true;
 			storyStartIntroduceExplore();
 		}
+
+		$("#rawResources").tooltip();
 	});
 </script>
 </head>
@@ -60,7 +62,7 @@ Select box from http://ivaynberg.github.io/select2/
 <div class="page">
 	<div class="content">
 		<div class="content-left contentholder">
-		<h3 class="tooltip">Raw Resources<span>testing barf barf barf barf barf </span></h3>
+		<h3 class="tooltip" title="barf!" id="rawResources">Raw Resources</h3>
 		
 			<table id="resource_container"></table>
 		</div>
@@ -82,7 +84,6 @@ Select box from http://ivaynberg.github.io/select2/
 			<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span>
 		</div>
 		<div id="selectedTerrain" class="footer-center">
-			<table class="terrainTable"><tr><th colspan="2" id="selectedTerrain">Plains</th></tr><tr><td>Features:</td><td>River</td></tr><tr><td>Special Traits:</td><td>Serene</td></tr></table>
 		</div>
 	</div>
 </div>

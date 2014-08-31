@@ -63,38 +63,12 @@ table.terrainTable, table.terrainTable th, table.terrainTable td {
 	clear: both;
 }
 
-/* tooltips from http://www.cssportal.com/css-tooltip-generator/# */
 .tooltip {
-  position: relative;
-  display: inline;
+  text-decoration: underline;
 }
-.tooltip span {
-  position: absolute;
-  width:140px;
-  color: #FFFFFF;
-  background: #000000;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  visibility: hidden;
-  border-radius: 12px;
-}
-.tooltip span:after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -8px;
-  width: 0; height: 0;
-  border-bottom: 8px solid #000000;
-  border-right: 8px solid transparent;
-  border-left: 8px solid transparent;
-}
-div:hover.tooltip span, h3:hover.tooltip span {
-  visibility: visible;
-  opacity: 0.7;
-  top: 30px;
-  left: 50%;
-  margin-left: -76px;
-  z-index: 999;
+
+a:hover, a:active {
+  color: #B72801;
+  background-color: transparent;
+  text-decoration: underline;
 }
