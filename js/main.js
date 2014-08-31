@@ -227,6 +227,28 @@ var playerActions = {
 	explore	: new playerAction("Explore", false, 0),
 };
 
+//////////////////////////////////////////////////////////////////////////////
+// ACTIONS -> EXPLORE
+//////////////////////////////////////////////////////////////////////////////
+
+
+function doExplore() {
+	if ($( "#progressbar" ).progressbar( "value" ) == $( "#progressbar" ).progressbar( "option", "max" )) {
+		makeProgressBar(10, playerActions.explore, findLand);
+	}
+	else {
+		progress();
+	}
+}
+
+function findLand() {
+	log("You found a ...!");
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// ACTIONS -> FORAGE
+//////////////////////////////////////////////////////////////////////////////
+
 // var returnResource(resource, count) {
 // 	this.resource = resource;
 // 	this.count = count;
@@ -276,19 +298,6 @@ function doForage() {
 //	else {
 //		log("Didn't find anything this time...");
 //	}
-}
-
-function doExplore() {
-	if ($( "#progressbar" ).progressbar( "value" ) == $( "#progressbar" ).progressbar( "option", "max" )) {
-		makeProgressBar(10, playerActions.explore, findLand);
-	}
-	else {
-		progress();
-	}
-}
-
-function findLand() {
-
 }
 
 //////////////////////////////////////////////////////////////////////////////
