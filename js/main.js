@@ -27,7 +27,10 @@ var global = {
 //////////////////////////////////////////////////////////////////////////////
 
 var game = {
-	age : 0
+	age : 0,
+	nextExploreCost : 10,
+	nextExploreCostMultiplier : 1.2,
+	explorePenalty : 1, //how difficult exploration will be the next time you explore
 }
 
 var player = {
@@ -248,13 +251,16 @@ var playerActions = {
 
 function doExplore() {
 	if ($( "#progressbar" ).progressbar( "value" ) == $( "#progressbar" ).progressbar( "option", "max" )) {
-		makeProgressBar(10, playerActions.explore, findLand);
+		makeProgressBar(game.nextExploreCost * game.explorePenalty, playerActions.explore, findLand);
 	}
 	else {
 		progress();
 	}
 }
 
+/*
+ * Run after an explore finishes
+ */
 function findLand() {
 	//setup, need to normalize probabilities
 	normalizeTerrainTypeProbabilities();
@@ -282,6 +288,9 @@ function findLand() {
 	log("You found a " + landFoundString);
 	var foundLand = new terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
 	addTerrainToPlayer(foundLand);
+
+	//subsequent explorations should be more difficult
+	game.nextExploreCost *= game.nextExploreCostMultiplier;
 }
 
 function makePrintableString(terrainFound, terrainModifiersFound, terrainFeaturesFound) {
@@ -374,6 +383,7 @@ function pickNewLand() {
 
 function doForage() {
 	closeJoyrideTips(); //just in case
+	enableButton("doExplore");
 	alert("forage not yet implemented");
 //NEED TO DESIGN HOW I'M GOING TO FORAGE BEFORE HALFASSING IT LIKE THIS...
 ////	chance to get wood from foraging?
@@ -528,7 +538,7 @@ function makeProgressBar(val, playerAction, fxnToRunOnCompletion) {
 	 
     progressbar.progressbar({
       value: 0,
-      max: val,
+      max: Math.floor(val),
       change: function() {
         progressLabel.text( playerAction.aname + " progress: " + progressbar.progressbar( "value" ) + "/" + progressbar.progressbar( "option", "max" )  );
       },
