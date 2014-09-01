@@ -87,8 +87,9 @@ function doForage() {
 
 window.setInterval(function(){
 	//run every second
-	
-	$("#brup").text(sec++);
+	if (DEBUG) {
+		$("#cntr").text(++sec);
+	}
 	
 }, constants.TIME_INTERVAL);
 

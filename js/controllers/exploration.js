@@ -4,13 +4,14 @@
 
 /*
  * Run after an explore finishes
+ * @region : integer : region explored
  */
-function findLand() {
+function findLand(region) {
 	//setup, need to normalize probabilities
-	normalizeTerrainTypeProbabilities();
+	normalizeTerrainTypeProbabilities(region);
 	
 	//pick the land, then get the features and modifiers for it
-	var terrainFound = pickNewLand();
+	var terrainFound = pickNewLand(region);
 	var terrainFeaturesFound = getFeaturesForTerrainFound(terrainFound);
 	var terrainModifiersFound = getModifiersForTerrainFound(terrainFound);
 	
@@ -18,7 +19,7 @@ function findLand() {
 	var landFoundString =  makePrintableStringForTerrain(terrainFound, terrainModifiersFound, terrainFeaturesFound);
 
 	log("You found a " + landFoundString);
-	var foundLand = new ctor_terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
+	var foundLand = new Terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
 	addTerrainToPlayer(foundLand);
 
 	//subsequent explorations should be more difficult
@@ -77,25 +78,25 @@ function getFeaturesForTerrainFound(terrainFound) {
 /*
  *  Need to normalize the probabilities so they all fall within [0-1) range
  */
-function normalizeTerrainTypeProbabilities() {
+function normalizeTerrainTypeProbabilities(region) {
 	//normalize the terrainType probabilities
 	var total = 0;
-	for (var l in locationTerrainProbabilies) {
-		total += locationTerrainProbabilies[l].probability;
+	for (var l in locationTerrainProbabilies[region]) {
+		total += locationTerrainProbabilies[region][l].probability;
 	}
-	for (var l in locationTerrainProbabilies) {
-		locationTerrainProbabilies[l].probability = locationTerrainProbabilies[l].probability / total;
+	for (var l in locationTerrainProbabilies[region]) {
+		locationTerrainProbabilies[region][l].probability = locationTerrainProbabilies[region][l].probability / total;
 	}
 }
 
-function pickNewLand() {
+function pickNewLand(region) {
 	var terrainFound;
 	//after normalized, pick the new land!
 	var rand = Math.random();
-	for (var l in locationTerrainProbabilies) {
-		rand -= locationTerrainProbabilies[l].probability;
+	for (var l in locationTerrainProbabilies[region]) {
+		rand -= locationTerrainProbabilies[region][l].probability;
 		if (rand <= 0) {
-			terrainFound = locationTerrainProbabilies[l].terrainType;
+			terrainFound = locationTerrainProbabilies[region][l].terrainType;
 			break;
 		}
 	}

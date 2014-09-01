@@ -34,7 +34,9 @@ var game = {
 var player = {
 	availableTerrain : [],
 	inventory : [],
-	currentLocation : false,
+	foundItems : [],
+	currentRegion : 0,
+	atHome : true,
 }
 
 //for saving and loading the game

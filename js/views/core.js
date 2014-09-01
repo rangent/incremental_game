@@ -15,10 +15,10 @@ function enableActionInDOM(aname) {
 }
 
 function initializeResourceDiv() {
-	for (var x in resources) {
-		if (resources[x].age <= game.age && resources[x].found) {
-			if (resources[x].rawResource) {
-				enableResourceInDOM(resources[x].rname, resources[x].total);
+	for (var x in itemLibrary.rawResources) {
+		if (itemLibrary.rawResources[x].age <= game.age && itemLibrary.rawResources[x].found) {
+			if (itemLibrary.rawResources[x].rawResource) {
+				enableResourceInDOM(itemLibrary.rawResources[x].rname, itemLibrary.rawResources[x].total);
 			}
 		}
 	}

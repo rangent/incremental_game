@@ -6,7 +6,7 @@
 // CONSTRUCTORS
 //////////////////////////////////////////////////////////////////////////////
 
-function ctor_playerAction(aname, available, age) {
+function PlayerAction(aname, available, age) {
 	this.id = seeds.actionIdSeed++;
 	this.aname = aname;
 	this.available = available;
@@ -14,26 +14,39 @@ function ctor_playerAction(aname, available, age) {
 }
 
 //ITEM CONSTRUCTOR
-function ctor_genericItem(iname, weight) {
+function GenericItem(iname, weight) {
 	this.id = seeds.itemIdSeed++;
 	this.iname = iname;
 	this.weight = weight;
 }
+GenericItem.prototype.getName = function() { return this.iname; };
+GenericItem.prototype.getWeight = function() { return this.weight; };
 
-//VARIOUS ITEM MODELS
-function ctor_inventoryModel(capacity, itemArray) {
+//RESOURCES
+function Resource(rname, weight, age) {
+	GenericItem.call(this, rname, weight);
+	this.age = age;
+}
+Resource.prototype.getAge = function() { return this.age; };
+Resource.prototype = Object.create(GenericItem.prototype);
+Resource.constructor = Resource;
+Resource.prototype.superconstructor = GenericItem; 
+
+function Food(fname, weight, age) {
+    GenericItem.call(this, fname, weight);     
+    this.age = age;
+}
+Food.prototype.getAge = function() { return this.age; };
+Food.prototype = Object.create(GenericItem.prototype);
+Food.constructor = Food;
+Food.prototype.superconstructor = GenericItem;  
+
+
+// inventory
+function Inventory(capacity, itemArray) {
 	this.id = seeds.inventoryModelIdSeed++;
 	this.capacity = capacity; //weight-based inventory model
 	this.itemArray = itemArray;
-}
-
-//RESOURCES
-function ctor_resource(rname, rawResource, found, age) {
-	this.id = seeds.resourceIdSeed++;
-	this.rname = rname;
-	this.rawResource = rawResource;
-	this.found = found;
-	this.age = age;
 }
 
 /*
@@ -41,7 +54,7 @@ function ctor_resource(rname, rawResource, found, age) {
  * @terrainFeature : terrainFeature array : possible features of this terrain element
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
  */
-function ctor_terrain(terrainType, terrainFeatures, terrainModifiers) {
+function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.id = seeds.terrainIdSeed++;
 	var text = terrainType.ttname;
 	if (terrainModifiers.length > 0) {
@@ -66,7 +79,7 @@ function ctor_terrain(terrainType, terrainFeatures, terrainModifiers) {
 /*
  *	@ttname : string name
  */
-function ctor_terrainType(ttname) {
+function TerrainType(ttname) {
 	this.id = seeds.terrainTypeIdSeed++;
 	this.ttname = ttname;
 }
@@ -77,7 +90,7 @@ function ctor_terrainType(ttname) {
  *	@applicableTerrainTypes : terrainType array : where you'd find this feature
  *	@incompatibleTerrainFeatures : terrainFeature array : features this one wouldn't work with
  */
-function ctor_terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
+function TerrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
 	this.id = seeds.terrainFeatureIdSeed++;
 	this.tfname = tfname;
 	this.description = description;
@@ -91,7 +104,7 @@ function ctor_terrainFeature(tfname, description, applicableTerrainTypeAndProbab
  *	@applicableTerrainTypeAndProbabilities : terrainType array : where you'd find this feature
  *	@incompatibleTerrainModifiers : terrainModifier array : modifiers this one wouldn't work with
  */
-function ctor_terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers) {
+function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers) {
 	this.id = seeds.terrainModifierIdSeed++;
 	this.tmname = tmname;
 	this.description = description;

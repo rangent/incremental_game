@@ -2,7 +2,7 @@
  *	Progress bar view modifications
  */
  
-function makeProgressBar(val, playerAction, fxnToRunOnCompletion) {
+function makeProgressBar(val, playerAction, fxnToRunOnCompletion, arg1) {
 
 	var progressbar = $( "#progressbar" );
 	var progressLabel = $( ".progress-label" );
@@ -17,7 +17,7 @@ function makeProgressBar(val, playerAction, fxnToRunOnCompletion) {
         progressLabel.text( "Complete!" );
         // progressbar.progressbar( "destroy" );
         // $( "#progressbar" ).remove();
-        fxnToRunOnCompletion();
+        fxnToRunOnCompletion(arg1);
       }
     });
     return true;
