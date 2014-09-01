@@ -1,10 +1,10 @@
 <html>
 <head>
 <title>Mineclick</title>
-<link href="js/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
+<link href="lib/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
 <link href="css/mineclick.css" rel="stylesheet" />
-<link href="js/joyride-master/joyride-2.1.css" rel="stylesheet"/>
-<link href="js/select2-3.5.1/select2.css" rel="stylesheet"/>
+<link href="lib/joyride-master/joyride-2.1.css" rel="stylesheet"/>
+<link href="lib/select2-3.5.1/select2.css" rel="stylesheet"/>
 <!-- references
 
 * Minecraft "Empire Building Challenge"
@@ -36,13 +36,14 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 
 <!-- 
 Thanks to:
-Tooltips from http://www.cssportal.com/css-tooltip-generator/#
-Select box from http://ivaynberg.github.io/select2/
+Select2 from http://ivaynberg.github.io/select2/
 -->
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.11.1/jquery-ui.js"></script>
-<script type="text/javascript" src="js/joyride-master/jquery.joyride-2.1.js"></script>
-<script type="text/javascript" src="js/select2-3.5.1/select2.js"></script>
+
+<!-- 3rd party libraries -->
+<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="lib/jquery-ui-1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="lib/joyride-master/jquery.joyride-2.1.js"></script>
+<script type="text/javascript" src="lib/select2-3.5.1/select2.js"></script>
 
 <!-- core -->
 <script type="text/javascript" src="js/constants.js"></script>
@@ -69,6 +70,8 @@ Select box from http://ivaynberg.github.io/select2/
 
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/story.js"></script>
+
+<!-- document ready: initialize DOM, load, etc -->
 <script>
 	$(document).ready(function() { 
 		
@@ -89,6 +92,7 @@ Select box from http://ivaynberg.github.io/select2/
 		makeProgressBar(10, playerActions.explore, doFirstExplore);
 	});
 </script>
+
 </head>
 <body>
 <div id="brup">1</div>
