@@ -45,11 +45,23 @@ function jqueryifyButtons() {
 	});
 }
 
-function initializeBoard() { //actually a view function since it calls entirely view functions
+function setupInitialProgressBar() {
+	//TODO: THIS SHOULD BE STATE-BASED
+	makeProgressBar(10, playerActions.explore, doFirstExplore, 0);	
+}
+
+function initializeInventoryTab() {
+	$( "#resourceTabs" ).tabs();
+	$( "#resourceTabs" ).hide();
+}
+
+function initializeBoard() { //initialize DOM and 
 	initializeResourceDiv();
 	initializeActionDiv();
 	initializeTerrainDiv();
 	jqueryifyButtons();
+	initializeInventoryTab();
+	setupInitialProgressBar();
 }
 
 function initializeAvailableTerrain() {

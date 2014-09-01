@@ -63,6 +63,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="js/views/events.js"></script>
 <script type="text/javascript" src="js/views/location.js"></script>
 <script type="text/javascript" src="js/views/explore.js"></script>
+<script type="text/javascript" src="js/views/inventory.js"></script>
 <script type="text/javascript" src="js/views/joyride.js"></script>
 <script type="text/javascript" src="js/views/progressbar.js"></script>
 
@@ -87,9 +88,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 			global.storyStarted = true;
 			storyStartIntroduceExplore();
 		}
-
-		$("#rawResources").tooltip();
-		makeProgressBar(10, playerActions.explore, doFirstExplore);
 	});
 </script>
 
@@ -99,9 +97,14 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <div class="page">
 	<div class="content">
 		<div class="content-left contentholder">
-		<h3>Raw Resources</h3>
-		
-			<table id="resource_container"></table>
+		<div id="resourceTabs">
+		  <ul>
+		    <li><a href="#tabs-1">Hero's Inventory</a></li>
+		  </ul>
+		  <div id="tabs-1">
+		    
+		  </div>
+		</div>
 		</div>
 		<div id="centerPane" class="main-center">
 			<div id="progressbar"><div class="progress-label">&nbsp;</div></div>

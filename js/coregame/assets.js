@@ -25,7 +25,7 @@ var locationTerrainProbabilies = [
 		new rel_terrainTypeProbability(terrainTypes.hill, 1),
 		new rel_terrainTypeProbability(terrainTypes.forest, 2),
 	],
-	[ //1st is "distant area"
+	[ //1st is "distant area"...
 	]
 ]
 
