@@ -14,12 +14,12 @@ function PlayerAction(aname, available, age) {
 }
 
 //ITEM CONSTRUCTOR
-function GenericItem(iname, weight) {
+function GenericItem(name, weight) {
 	this.id = seeds.itemIdSeed++;
-	this.iname = iname;
+	this.name = name;
 	this.weight = weight;
 }
-GenericItem.prototype.getName = function() { return this.iname; };
+GenericItem.prototype.getName = function() { return this.name; };
 GenericItem.prototype.getWeight = function() { return this.weight; };
 
 //RESOURCES
@@ -43,11 +43,35 @@ Food.prototype.superconstructor = GenericItem;
 
 
 // inventory
-function Inventory(capacity, itemArray) {
+function Inventory(capacity, itemQuantityCollection) {
 	this.id = seeds.inventoryModelIdSeed++;
 	this.capacity = capacity; //weight-based inventory model
-	this.itemArray = itemArray;
+	this.itemQuantityCollection = itemQuantityCollection;
 }
+Inventory.prototype.getRemainingCapacity = function() { 
+	var currentWeight = 0;
+	for (var i in this.itemQuantityCollection) {
+		currentWeight += itemQuantityCollection[i].item.weight * itemQuantityCollection[i].quantity;
+	}
+	return this.capacity - currentWeight;
+};
+//Should not call this unless a check to see if this breaches the capacity has been done
+Inventory.prototype.addItemsToInventory = function(genericItem, quantity) { 
+	if (typeof this.itemQuantityCollection[genericItem.getName()] == "undefined") {
+		this.itemQuantityCollection[genericItem.getName()] = {item: genericItem, quantity: quantity};
+	}
+	else {
+		this.itemQuantityCollection[genericItem.getName()].quantity += quantity;
+	}
+};
+Inventory.prototype.removeItemsFromInventory = function(genericItem, quantity) { 
+	if (typeof this.itemQuantityCollection[genericItem.getName()] == "undefined") {
+		this.itemQuantityCollection[genericItem.getName()] = {item: genericItem, quantity: (0 - quantity)};
+	}
+	else {
+		this.itemQuantityCollection[genericItem.getName()].quantity -= quantity;	
+	}
+};
 
 /*
  * @terrainType : single terrainType
@@ -128,6 +152,15 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 function rel_terrainTypeProbability(terrainType, probability) {
 	this.terrainType = terrainType;
 	this.probability = probability;
+}
+
+/*
+ * @item : GenericItem
+ * @count : integer
+ */
+function rel_inventoryQuantity(item, count) {
+	this.item = item;
+	this.count = count;
 }
 
 //////////////////////////////////////////////////////////////////////////////

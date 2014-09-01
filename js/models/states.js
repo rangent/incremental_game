@@ -33,7 +33,7 @@ var game = {
 //player's state
 var player = {
 	availableTerrain : [],
-	inventory : [],
+	inventory : false,
 	foundItems : [],
 	currentRegion : 0,
 	atHome : true,
