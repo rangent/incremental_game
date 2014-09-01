@@ -15,11 +15,18 @@ var constants = {
 	MCVERSION : 0.1
 }
 
+//global state, seeds, etc
 var global = {
 	initializedBoard : false,
-	storyStartIntroduceExploreed : false,
-	playerSetup : false,
-	idSetting : 0,
+	storyStarted : false,
+	initializedPlayer : false,
+	//seeds for entities
+	actionIdSeed : 0,
+	resourceIdSeed : 0,
+	terrainIdSeed : 0,
+	terrainTypeIdSeed : 0,
+	terrainFeatureIdSeed : 0,
+	terrainModifierIdSeed : 0,
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -36,12 +43,35 @@ var game = {
 
 var player = {
 	availableTerrain : [],
+	inventory : [],
+	currentLocation : false,
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// INVENTORY
+//////////////////////////////////////////////////////////////////////////////
+
+/*
+ *	base constructor for items
+ */
+function genericItemConstructor(iname, weight) {
+	this.iname = iname;
+	this.weight = weight;
+}
+
+/*
+ *	various inventories constructed here (personal, town)
+ */
+function inventoryModelConstructor(capacity, itemArray) {
+	this.capacity = capacity; //weight-based inventory model
+	this.itemArray = itemArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // RESOURCES
 //////////////////////////////////////////////////////////////////////////////
 function resource(rname, rawResource, found, age) {
+	this.id = global.resourceIdSeed++;
 	this.rname = rname;
 	this.rawResource = rawResource;
 	this.found = found;
@@ -66,7 +96,7 @@ var resources = {
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
  */
 function terrain(terrainType, terrainFeatures, terrainModifiers) {
-	this.id = global.idSetting++;
+	this.id = global.terrainIdSeed++;
 	var text = terrainType.ttname;
 	if (terrainModifiers.length > 0) {
 		for (var t in terrainModifiers) {
@@ -98,6 +128,7 @@ function addTerrainToPlayer(loc) {
  *	@ttname : string name
  */
 function terrainType(ttname) {
+	this.id = global.terrainTypeIdSeed++;
 	this.ttname = ttname;
 }
 
@@ -130,6 +161,7 @@ function terrainTypesAndProbability(terrainTypes, probability) {
  *	@incompatibleTerrainFeatures : terrainFeature array : features this one wouldn't work with
  */
 function terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
+	this.id = global.terrainFeatureIdSeed++;
 	this.tfname = tfname;
 	this.description = description;
 	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
@@ -143,6 +175,7 @@ function terrainFeature(tfname, description, applicableTerrainTypeAndProbabiliti
  *	@incompatibleTerrainModifiers : terrainModifier array : modifiers this one wouldn't work with
  */
 function terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers) {
+	this.id = global.terrainModifierIdSeed++;
 	this.tmname = tmname;
 	this.description = description;
 	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
@@ -170,6 +203,10 @@ function allTerrainTypesExcept(terrainTypesToExclude) {
 	return returnTerrainTypes;
 }
 
+/*
+ *  Update the currently selected terrain in the UI
+ *	@terrain : terrain 
+ */
 function updateTerrainTable(terrain) {
 	$("#selectedTerrain").empty();
 	var features = "None";
@@ -223,9 +260,10 @@ var terrainModifiers = {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// GENERAL ACTIONS
+// GENERAL ACTION FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////
 function playerAction(aname, available, age) {
+	this.id = global.actionIdSeed++;
 	this.aname = aname;
 	this.available = available;
 	this.age = age;
