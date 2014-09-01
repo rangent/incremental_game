@@ -18,7 +18,7 @@ function findLand() {
 	var landFoundString =  makePrintableStringForTerrain(terrainFound, terrainModifiersFound, terrainFeaturesFound);
 
 	log("You found a " + landFoundString);
-	var foundLand = new terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
+	var foundLand = new ctor_terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
 	addTerrainToPlayer(foundLand);
 
 	//subsequent explorations should be more difficult
