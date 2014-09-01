@@ -1,3 +1,0 @@
-/*
- *	Controllers for every entity
- */
