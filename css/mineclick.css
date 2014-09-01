@@ -7,7 +7,7 @@
 .content-left {
 	float: left;
 	min-width: 250px;
-	height: 500px;
+	height: 300px;
 }
 
 .main-center {
@@ -29,7 +29,7 @@
 .content-center {
 	border: 1px solid black;
 	float: top;
-	height: 500px;
+	height: 300px;
 	width: 500px;
 	overflow: scroll;
 }
@@ -41,7 +41,7 @@
 .content-right {
 	float: left;
 	min-width: 250px;
-	height: 500px;
+	height: 300px;
 }
 
 .footer {
