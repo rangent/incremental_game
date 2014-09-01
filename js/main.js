@@ -15,107 +15,11 @@ var constants = {
 	MCVERSION : 0.1
 }
 
-//global state, seeds, etc
-var global = {
-	initializedBoard : false,
-	storyStarted : false,
-	initializedPlayer : false,
-	//seeds for entities
-	actionIdSeed : 0,
-	resourceIdSeed : 0,
-	terrainIdSeed : 0,
-	terrainTypeIdSeed : 0,
-	terrainFeatureIdSeed : 0,
-	terrainModifierIdSeed : 0,
-}
 
-//////////////////////////////////////////////////////////////////////////////
-// GAME STATE VARIABLES
-//////////////////////////////////////////////////////////////////////////////
-
-var game = {
-	age : 0,
-	nextExploreCost : 10,
-	nextExploreCostMultiplier : 1.2,
-	explorePenalty : 1, //how difficult exploration will be the next time you explore
-	exploreClicks : 0,
-}
-
-var player = {
-	availableTerrain : [],
-	inventory : [],
-	currentLocation : false,
-}
-
-//////////////////////////////////////////////////////////////////////////////
-// INVENTORY
-//////////////////////////////////////////////////////////////////////////////
-
-/*
- *	base constructor for items
- */
-function genericItemConstructor(iname, weight) {
-	this.iname = iname;
-	this.weight = weight;
-}
-
-/*
- *	various inventories constructed here (personal, town)
- */
-function inventoryModelConstructor(capacity, itemArray) {
-	this.capacity = capacity; //weight-based inventory model
-	this.itemArray = itemArray;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-// RESOURCES
-//////////////////////////////////////////////////////////////////////////////
-function resource(rname, rawResource, found, age) {
-	this.id = global.resourceIdSeed++;
-	this.rname = rname;
-	this.rawResource = rawResource;
-	this.found = found;
-	this.age = age;
-}
-
-var resources = {
-	//new resource(rname, rawResource, found, age)
-	wood 	: new resource('Wood', true, false, 0),
-	stone 	: new resource('Stone', true, false, 0),
-	dirt 	: new resource('Dirt', true, false, 0),
-	water 	: new resource('Water', true, false, 0),
-};
 
 //////////////////////////////////////////////////////////////////////////////
 // LOCATIONS
 //////////////////////////////////////////////////////////////////////////////
-
-/*
- * @terrainType : single terrainType
- * @terrainFeature : terrainFeature array : possible features of this terrain element
- * @terrainModifier : terrainModifier array : possible modifiers to this terrain
- */
-function terrain(terrainType, terrainFeatures, terrainModifiers) {
-	this.id = global.terrainIdSeed++;
-	var text = terrainType.ttname;
-	if (terrainModifiers.length > 0) {
-		for (var t in terrainModifiers) {
-			text = terrainModifiers[t].tmname + " " + text;
-		}
-	}
-	if (terrainFeatures.length > 0) {
-		text = text +  " (";
-		for (var t in terrainFeatures) {
-			text = text + terrainFeatures[t].tfname + ", " ;
-		}
-		text = text.substring(0,text.length-2);
-		text += ")";
-	}
-	this.text = text;
-	this.terrainType = terrainType;
-	this.terrainFeatures = terrainFeatures;
-	this.terrainModifiers = terrainModifiers;
-}
 
 /* 
  * @loc : terrain
@@ -125,23 +29,7 @@ function addTerrainToPlayer(loc) {
 }
 
 /*
- *	@ttname : string name
- */
-function terrainType(ttname) {
-	this.id = global.terrainTypeIdSeed++;
-	this.ttname = ttname;
-}
-
-/*
- *  @terrainType : terrainType
- *  @probability : number between 0 and 1 : liklihood of occuring on that terrain type
- */
-function terrainTypeProbability(terrainType, probability) {
-	this.terrainType = terrainType;
-	this.probability = probability;
-}
-
-/*
+ *	Array of relationships between terrain types and probabilities
  *  @terrainType : terrainType array
  *  @probability : number between 0 and 1 : liklihood of occuring on each of the array of terrain types
  *  @return : terrainTypeProbability array
@@ -149,37 +37,9 @@ function terrainTypeProbability(terrainType, probability) {
 function terrainTypesAndProbability(terrainTypes, probability) {
 	var ret = [];
 	for (var t in terrainTypes) {
-		ret.push(new terrainTypeProbability(terrainTypes[t], probability));
+		ret.push(new rel_terrainTypeProbability(terrainTypes[t], probability));
 	}
 	return ret;
-}
-
-/*
- *  @tfname : string name
- *  @description : help text description for feature
- *	@applicableTerrainTypes : terrainType array : where you'd find this feature
- *	@incompatibleTerrainFeatures : terrainFeature array : features this one wouldn't work with
- */
-function terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
-	this.id = global.terrainFeatureIdSeed++;
-	this.tfname = tfname;
-	this.description = description;
-	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
-	this.incompatibleTerrainFeatures = incompatibleTerrainFeatures;
-}
-
-/*
- *  @tmname : string name
- *  @description : help text description for modifier
- *	@applicableTerrainTypeAndProbabilities : terrainType array : where you'd find this feature
- *	@incompatibleTerrainModifiers : terrainModifier array : modifiers this one wouldn't work with
- */
-function terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers) {
-	this.id = global.terrainModifierIdSeed++;
-	this.tmname = tmname;
-	this.description = description;
-	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
-	this.incompatibleTerrainModifiers = incompatibleTerrainModifiers;
 }
 
 /*
@@ -232,51 +92,13 @@ function updateTerrainTable(terrain) {
 	$(".tooltip").tooltip();
 }
 
-//ACTUAL TERRAIN TYPES, FEATURES, AND MODIFIERS
-
-var terrainTypes = {
-	plains : new terrainType("Plains"),
-	mountain : new terrainType("Mountain"),
-	hill : new terrainType("Hill"),
-	forest : new terrainType("Forest"),
-}
-
-var locationTerrainProbabilies = [ 
-	new terrainTypeProbability(terrainTypes.plains, 5),
-	new terrainTypeProbability(terrainTypes.mountain, 1),
-	new terrainTypeProbability(terrainTypes.hill, 1),
-	new terrainTypeProbability(terrainTypes.forest, 2),
-]
-
-var terrainFeatures = {
-	//terrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures)
-	caves : new terrainFeature("Caves", "Cave systems make mining easier.", [ new terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
-	river : new terrainFeature("River", "Rivers allow easier travel and increased fertility.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
-}
-
-var terrainModifiers = {
-	//terrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers)
-	serene : new terrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
-}
-
 //////////////////////////////////////////////////////////////////////////////
 // GENERAL ACTION FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////
-function playerAction(aname, available, age) {
-	this.id = global.actionIdSeed++;
-	this.aname = aname;
-	this.available = available;
-	this.age = age;
-}
 
 function enablePlayerAction(playerAction) {
 	playerAction.available = true;
 }
-
-var playerActions = {
-	forage	: new playerAction("Forage", false, 0),
-	explore	: new playerAction("Explore", false, 0),
-};
 
 //////////////////////////////////////////////////////////////////////////////
 // ACTIONS -> EXPLORE

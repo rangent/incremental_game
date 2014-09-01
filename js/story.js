@@ -23,11 +23,11 @@ function doFirstExplore() {
 	closeJoyrideTips();
 	sleep((DEBUG) ? time += 0 : time += 0, disableButton, "doExplore");
 
-	var firstPlains = new terrain(
+	var firstPlains = new ctor_terrain(
 		terrainTypes.plains, 
 		[], 
 		[terrainModifiers.serene]);
-	var firstHill = new terrain(
+	var firstHill = new ctor_terrain(
 		terrainTypes.hill, 
 		[], 
 		[terrainModifiers.serene]);
