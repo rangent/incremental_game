@@ -35,6 +35,7 @@ function doFirstExplore() {
 	sleep((DEBUG) ? time += 100 : time += 3000, log, "The hill is immediately surrounded by plains, but you see an entire unfamiliar world beyond that!");
 	sleep((DEBUG) ? time += 0 : time += 0, addTerrainToPlayer, firstHill); 
 	sleep((DEBUG) ? time += 0 : time += 0, updateLocationTextBasedOnPlayersLocation);
+	sleep((DEBUG) ? time += 0 : time += 0, updateCurrentTerrain);
 
 	///........
 	sleep((DEBUG) ? time += 0 : time += 0, displayDivById, "terrainSection");

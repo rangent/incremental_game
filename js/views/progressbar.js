@@ -24,7 +24,6 @@ function makeProgressBar(val, playerAction, fxnToRunOnCompletion, arg1) {
 function progress() {
 	$(function() {
 	  	var val = $( "#progressbar" ).progressbar( "value" ) || 0;
-
 	  	$( "#progressbar" ).progressbar( "value", val + 1 );
 	});
 }

@@ -81,6 +81,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="js/views/inventory.js"></script>
 <script type="text/javascript" src="js/views/joyride.js"></script>
 <script type="text/javascript" src="js/views/progressbar.js"></script>
+<script type="text/javascript" src="js/views/travel.js"></script>
 
 <!-- core game -->
 <script type="text/javascript" src="js/coregame/assets.js"></script>
@@ -133,10 +134,13 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		<br class="clearer"/>
 	</div>
 	<div class="footer contentholder">
-		<div id="terrainSection" class="footer-left">
-			<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span>
+		<div id="currentTerrain" class="footer-left">
 		</div>
-		<div id="selectedTerrain" class="footer-center">
+		<div id="terrainSection" class="footer-center">
+			<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span><br/>
+			<button class="clearEvent" onclick="doTravel();" id="doTravel">Travel</button>
+		</div>
+		<div id="selectedTerrain" class="footer-right">
 		</div>
 	</div>
 </div>

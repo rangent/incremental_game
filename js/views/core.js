@@ -72,10 +72,10 @@ function initializeAvailableTerrain() {
 	}); 
 	$("#availableTerrain").on("select2-highlight",
 		function(e) { 
-		    updateTerrainTable(e.choice); }
+		    updateTargetDestinationTable(e.choice); }
 		);
 	$("#availableTerrain").on("change",
 		function(e) { 
-		    updateTerrainTable(e.added); }
+		    updateTargetDestinationTable(e.added); }
 		);
 }

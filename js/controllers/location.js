@@ -43,3 +43,7 @@ function allTerrainTypesExcept(terrainTypesToExclude) {
 	}
 	return returnTerrainTypes;
 }
+
+function travelToLocation(availableTerrainId) {
+	player.currentTerrain = availableTerrainId;
+}

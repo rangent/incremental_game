@@ -6,8 +6,21 @@
  *  Update the currently selected terrain in the UI
  *	@terrain : terrain 
  */
-function updateTerrainTable(terrain) {
-	$("#selectedTerrain").empty();
+function updateTargetDestinationTable(terrain) {
+	updateTerrainTable( $("#selectedTerrain"), terrain );
+}
+
+function updateCurrentTerrain() {
+	updateTerrainTable( $("#currentTerrain") , player.availableTerrain[player.currentTerrain] );
+	player.availableTerrain[player.currentTerrain].disabled = true;
+}
+
+/*
+ * @divToContainTable : jQuery element : pass in the single element (selected by ID)
+ * @terrain : Terrain
+ */
+function updateTerrainTable(divToContainTable, terrain) {
+	divToContainTable.empty();
 	var features = "None";
 	if (terrain.terrainFeatures.length > 0) {
 		features = "";
@@ -23,6 +36,9 @@ function updateTerrainTable(terrain) {
 		}
 	}
 	var terrainPrintedName = terrain.terrainType.ttname;
+	if (terrain.id == player.currentTerrain) {
+		terrainPrintedName = "* " + terrainPrintedName;
+	}
 	if (terrain.isHome) {
 		terrainPrintedName += " (Home)";
 	}
@@ -32,7 +48,7 @@ function updateTerrainTable(terrain) {
 		.replace("%FEATURES%",features)
 		.replace("%MODIFIERS%",modifiers);
 
-	$("#selectedTerrain").append(s);
+	divToContainTable.append(s);
 	$(".tooltip").tooltip();
 }
 
