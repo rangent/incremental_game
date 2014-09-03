@@ -27,7 +27,6 @@
 function doForage() {
 	closeJoyrideTips(); //just in case
 	enableButton("doExplore");
-	alert("forage not yet implemented");
 //NEED TO DESIGN HOW I'M GOING TO FORAGE BEFORE HALFASSING IT LIKE THIS...
 ////	chance to get wood from foraging?
 //	var resourceCountAndProbabilityArray = [ new resourceCountAndProbability(resources.wood, 1, 0.5) ];
