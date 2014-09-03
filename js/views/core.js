@@ -66,7 +66,7 @@ function initializeBoard() { //initialize DOM and
 
 function initializeAvailableTerrain() {
 	$("#availableTerrain").select2({
-		placeholder: "Select vacant terrain",
+		placeholder: "Select travel destination",
 		allowClear: true,
 		data: player.availableTerrain
 	}); 

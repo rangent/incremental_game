@@ -11,3 +11,10 @@ var constants = {
 	TERRAIN_TABLE : "<table class=\"terrainTable\"><tr><th colspan=\"2\" id=\"selectedTerrain\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr></table>",
 	MCVERSION : 0.1
 }
+
+//////////////////////////////////////////////////////////////////////////////
+// DEBUG
+//////////////////////////////////////////////////////////////////////////////
+
+var sec = 0;
+var DEBUG = true;

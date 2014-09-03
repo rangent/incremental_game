@@ -14,9 +14,7 @@ function makeProgressBar(val, playerAction, fxnToRunOnCompletion, arg1) {
         progressLabel.text( playerAction.aname + " progress: " + progressbar.progressbar( "value" ) + "/" + progressbar.progressbar( "option", "max" )  );
       },
       complete: function() {
-        progressLabel.text( "Complete!" );
-        // progressbar.progressbar( "destroy" );
-        // $( "#progressbar" ).remove();
+        progressLabel.text( playerAction.aname + " complete!" );
         fxnToRunOnCompletion(arg1);
       }
     });

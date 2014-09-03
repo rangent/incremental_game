@@ -24,8 +24,8 @@ var seeds = {
 //game's state
 var game = {
 	age : 0,
-	nextExploreCost : 10,
-	nextExploreCostMultiplier : 1.2,
+	nextExploreCost : ((DEBUG) ? 2 : 10),
+	nextExploreCostMultiplier : ((DEBUG) ? 1.05 : 1.2),
 	explorePenalty : 1, //how difficult exploration will be the next time you explore
 	exploreClicks : 0,
 }
@@ -37,6 +37,7 @@ var player = {
 	foundItems : [],
 	currentRegion : 0,
 	atHome : true,
+	currentTerrain : 0, //availableTerrain's ID
 }
 
 //for saving and loading the game

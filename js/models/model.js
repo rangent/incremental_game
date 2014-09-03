@@ -80,6 +80,8 @@ Inventory.prototype.removeItemsFromInventory = function(genericItem, quantity) {
  */
 function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.id = seeds.terrainIdSeed++;
+	this.capacity = 30;
+	this.isHome = false;
 	var text = terrainType.ttname;
 	if (terrainModifiers.length > 0) {
 		for (var t in terrainModifiers) {
@@ -98,6 +100,10 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
+}
+Terrain.prototype.setAsHome = function(homeName) { 
+	this.isHome = true;
+	this.text = homeName + " - " + this.text;
 }
 
 /*
