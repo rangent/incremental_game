@@ -28,6 +28,17 @@ function travelLeft() {
 	if ((player.currentTerrain - 1) >= 0  && 
 		typeof player.availableTerrain[player.currentTerrain - 1] === "object") {
 		doTravelToLocation(parseInt(player.currentTerrain) - 1);
+		checkIfDisableLeftTravelButton();
+		checkIfDisableRightTravelButton();
+	}
+}
+
+function checkIfDisableLeftTravelButton() {
+	if (player.currentTerrain == 0) {
+		disableButton("doTravelLeft");
+	}
+	else {
+		enableButton("doTravelLeft");
 	}
 }
 
@@ -35,5 +46,16 @@ function travelRight() {
 	if ((player.currentTerrain + 1) < (player.availableTerrain.length)  && 
 		typeof player.availableTerrain[player.currentTerrain + 1] === "object") {
 		doTravelToLocation(parseInt(player.currentTerrain) + 1);
+		checkIfDisableLeftTravelButton();
+		checkIfDisableRightTravelButton();
+	}
+}
+
+function checkIfDisableRightTravelButton() {
+	if (player.availableTerrain.length == 0 || player.currentTerrain == (player.availableTerrain.length - 1)) {
+		disableButton("doTravelRight");
+	}
+	else {
+		enableButton("doTravelRight");
 	}
 }

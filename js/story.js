@@ -14,6 +14,8 @@ function storyStartIntroduceExplore() {
 	//introduce "Explore"
 	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.explore);
 	sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.explore.aname);
+	sleep((DEBUG) ? time += 0 : time += 0, checkIfDisableLeftTravelButton);
+	sleep((DEBUG) ? time += 0 : time += 0, checkIfDisableRightTravelButton);
 	sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.EXPLORE_TIP);
 	sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Explore");
 }

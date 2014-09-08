@@ -10,4 +10,7 @@ function doExplore() {
 	else {
 		progress();
 	}
+	//explore can open up new terrain, should check if we should enable new directions
+	checkIfDisableLeftTravelButton();
+	checkIfDisableRightTravelButton();
 }
