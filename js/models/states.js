@@ -28,6 +28,7 @@ var game = {
 	nextExploreCostMultiplier : ((DEBUG) ? 1.05 : 1.2),
 	explorePenalty : 1, //how difficult exploration will be the next time you explore
 	exploreClicks : 0,
+	log : [], //array of strings
 }
 
 //player's state

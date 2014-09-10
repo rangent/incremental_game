@@ -59,15 +59,6 @@ function initializeInventoryTab() {
 	$( "#resourceTabs" ).hide();
 }
 
-function redrawBoard() { //initialize DOM and 
-	// initializeResourceDiv();
-	initializeActionDiv();
-	initializeTerrainDiv();
-	jqueryifyButtons();
-	initializeInventoryTab();
-	setupInitialProgressBar();
-}
-
 function initializeAvailableTerrain() {
 	$("#availableTerrain").select2({
 		placeholder: "Select travel destination",
@@ -82,4 +73,16 @@ function initializeAvailableTerrain() {
 		function(e) { 
 		    updateTargetDestinationTable(e.added); }
 		);
+}
+
+
+// the grand daddy
+function redrawBoard() { //initialize DOM and 
+	// initializeResourceDiv();
+	initializeActionDiv();
+	initializeTerrainDiv();
+	jqueryifyButtons();
+	initializeInventoryTab();
+	setupInitialProgressBar();
+	writeGameLog();
 }
