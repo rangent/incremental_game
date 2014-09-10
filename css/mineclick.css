@@ -1,5 +1,6 @@
 .contentholder {
 	padding: 10px;
+  overflow: auto;
 }
 .page {
 }
@@ -31,7 +32,7 @@
 	float: top;
 	height: 300px;
 	width: 500px;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .clearEvent {

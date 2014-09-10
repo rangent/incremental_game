@@ -5,7 +5,6 @@
 //global state
 var global = {
 	storyStarted : false,
-	storyPhase : 0,
 	initializedPlayer : false,
 }
 
@@ -29,6 +28,7 @@ var game = {
 	explorePenalty : 1, //how difficult exploration will be the next time you explore
 	exploreClicks : 0,
 	log : [], //array of strings
+	storyPhase : 0,
 }
 
 //player's state

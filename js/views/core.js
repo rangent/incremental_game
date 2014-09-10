@@ -51,12 +51,7 @@ function jqueryifyButtons() {
 
 function setupInitialProgressBar() {
 	//TODO: THIS SHOULD BE STATE-BASED
-	makeProgressBar(10, playerActions.explore, doFirstExplore, 0);	
-}
-
-function initializeInventoryTab() {
-	$( "#resourceTabs" ).tabs();
-	$( "#resourceTabs" ).hide();
+	makeProgressBar(10, playerActions.explore, progressStory, 0);	
 }
 
 function initializeAvailableTerrain() {
@@ -82,7 +77,6 @@ function redrawBoard() { //initialize DOM and
 	initializeActionDiv();
 	initializeTerrainDiv();
 	jqueryifyButtons();
-	initializeInventoryTab();
 	setupInitialProgressBar();
 	writeGameLog();
 }

@@ -15,7 +15,8 @@ function enableButton(buttonId) {
 }
 
 function clearEventWindow() {
-	$("#eventDiv").empty();
+	game.log = [];
+	writeGameLog();
 }
 
 // log to event window

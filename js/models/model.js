@@ -6,65 +6,55 @@
 // CONSTRUCTORS
 //////////////////////////////////////////////////////////////////////////////
 
-//ITEM CONSTRUCTOR
-function GenericItem(name, weight) {
-	this.id = seeds.itemIdSeed++;
-	this.name = name;
-	this.weight = weight;
-}
-GenericItem.prototype.getName = function() { return this.name; };
-GenericItem.prototype.getWeight = function() { return this.weight; };
-
 //RESOURCES
 function Resource(rname, weight, age) {
-	GenericItem.call(this, rname, weight);
+	this.id = seeds.itemIdSeed++;
+	this.type = "Resource";
+	this.name = rname;
+	this.weight = weight;
 	this.age = age;
 }
-Resource.prototype.getAge = function() { return this.age; };
-Resource.prototype = Object.create(GenericItem.prototype);
-Resource.constructor = Resource;
-Resource.prototype.superconstructor = GenericItem; 
 
 function Food(fname, weight, age) {
-    GenericItem.call(this, fname, weight);     
+	this.id = seeds.itemIdSeed++;
+	this.type = "Food";
+	this.name = fname;
+	this.weight = weight;   
     this.age = age;
 }
-Food.prototype.getAge = function() { return this.age; };
-Food.prototype = Object.create(GenericItem.prototype);
-Food.constructor = Food;
-Food.prototype.superconstructor = GenericItem;  
 
 
 // inventory
 function Inventory(capacity, itemQuantityCollection) {
 	this.id = seeds.inventoryModelIdSeed++;
+	this.type = "Inventory";
 	this.capacity = capacity; //weight-based inventory model
 	this.itemQuantityCollection = itemQuantityCollection;
 }
-Inventory.prototype.getRemainingCapacity = function() { 
+function getRemainingCapacity(inventory) { 
 	var currentWeight = 0;
-	for (var i in this.itemQuantityCollection) {
+	for (var i in inventory.itemQuantityCollection) {
 		currentWeight += itemQuantityCollection[i].item.weight * itemQuantityCollection[i].quantity;
 	}
-	return this.capacity - currentWeight;
-};
+	return inventory.capacity - currentWeight;
+}
 //Should not call this unless a check to see if this breaches the capacity has been done
-Inventory.prototype.addItemsToInventory = function(genericItem, quantity) { 
-	if (typeof this.itemQuantityCollection[genericItem.getName()] == "undefined") {
-		this.itemQuantityCollection[genericItem.getName()] = {item: genericItem, quantity: quantity};
+function addItemsToInventory(inventory, genericItem, quantity) { 
+	if (typeof inventory.itemQuantityCollection[genericItem.name] == "undefined") {
+		inventory.itemQuantityCollection[genericItem.name] = {item: genericItem, quantity: quantity};
 	}
 	else {
-		this.itemQuantityCollection[genericItem.getName()].quantity += quantity;
+		inventory.itemQuantityCollection[genericItem.name].quantity += quantity;
 	}
-};
-Inventory.prototype.removeItemsFromInventory = function(genericItem, quantity) { 
-	if (typeof this.itemQuantityCollection[genericItem.getName()] == "undefined") {
-		this.itemQuantityCollection[genericItem.getName()] = {item: genericItem, quantity: (0 - quantity)};
+}
+function removeItemsFromInventory(inventory, genericItem, quantity) { 
+	if (typeof inventory.itemQuantityCollection[genericItem.name] == "undefined") {
+		inventory.itemQuantityCollection[genericItem.name] = {item: genericItem, quantity: (0 - quantity)};
 	}
 	else {
-		this.itemQuantityCollection[genericItem.getName()].quantity -= quantity;	
+		inventory.itemQuantityCollection[genericItem.name].quantity -= quantity;	
 	}
-};
+}
 
 /*
  * @terrainType : single terrainType
@@ -73,6 +63,7 @@ Inventory.prototype.removeItemsFromInventory = function(genericItem, quantity) {
  */
 function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.id = seeds.terrainIdSeed++;
+	this.type = "Terrain";
 	this.capacity = 30;
 	this.isHome = false;
 	var text = terrainType.ttname;
@@ -94,9 +85,9 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 }
-Terrain.prototype.setAsHome = function(homeName) { 
-	this.isHome = true;
-	this.text = homeName + " - " + this.text;
+function setAsHome(terrain, homeName) { 
+	terrain.isHome = true;
+	terrain.text = homeName + " - " + terrain.text;
 }
 
 /*
@@ -104,6 +95,7 @@ Terrain.prototype.setAsHome = function(homeName) {
  */
 function TerrainType(ttname) {
 	this.id = seeds.terrainTypeIdSeed++;
+	this.type = "TerrainType";
 	this.ttname = ttname;
 }
 
@@ -115,6 +107,7 @@ function TerrainType(ttname) {
  */
 function TerrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
 	this.id = seeds.terrainFeatureIdSeed++;
+	this.type = "TerrainFeature";
 	this.tfname = tfname;
 	this.description = description;
 	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
@@ -129,6 +122,7 @@ function TerrainFeature(tfname, description, applicableTerrainTypeAndProbabiliti
  */
 function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainModifiers) {
 	this.id = seeds.terrainModifierIdSeed++;
+	this.type = "TerrainModifier";
 	this.tmname = tmname;
 	this.description = description;
 	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;

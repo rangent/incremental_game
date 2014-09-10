@@ -155,6 +155,7 @@ button.ui-button-icons-only {
 .ui-button .ui-button-text {
 	display: block;
 	line-height: normal;
+	white-space: nowrap;
 }
 .ui-button-text-only .ui-button-text {
 	padding: .2em .5em;
@@ -816,12 +817,13 @@ button.ui-button::-moz-focus-inner {
 	background: none;
 }
 .ui-tooltip {
-	padding: 8px;
+	padding: 2px;
 	position: absolute;
 	z-index: 9999;
 	max-width: 300px;
 	-webkit-box-shadow: 0 0 5px #aaa;
 	box-shadow: 0 0 5px #aaa;
+	font-size: 0.8em;
 }
 body .ui-tooltip {
 	border-width: 2px;
@@ -831,7 +833,6 @@ body .ui-tooltip {
 ----------------------------------*/
 .ui-widget {
 	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
-	font-size: 1em;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
