@@ -9,7 +9,7 @@ function ftest1() {
 	sleep((DEBUG) ? time += 1000 : time += 1000, testDoForage);
 
 	//get us some lands
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 16; i++) {
 		sleep((DEBUG) ? time += 20 : time += 100,testDoExplore);
 	}
 
