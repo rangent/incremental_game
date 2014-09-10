@@ -24,6 +24,12 @@ function sleep(millis, callback, arg1, arg2) {
     , millis);
 }
 
+function sleep(millis, callback, arg1, arg2, arg3) {
+    setTimeout(function()
+            { callback(arg1, arg2, arg3); }
+    , millis);
+}
+
 function enablePlayerAction(playerAction) {
 	playerAction.availableToPlayer = true;
 }

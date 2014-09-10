@@ -13,6 +13,10 @@ function ftest1() {
 		sleep((DEBUG) ? time += 20 : time += 100,testDoExplore);
 	}
 
+	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 'player', "Apple", 10);
+	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 0, "Stone", 3);
+	sleep((DEBUG) ? time += 20 : time += 100,drawInventoryTable);
+
 }
 
 function testDoExplore() {
