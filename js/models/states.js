@@ -56,7 +56,7 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 	this.age = age;
 }
 PlayerAction.prototype.makeAvailable = function() { this.availableToPlayer = true; };
-PlayerAction.prototype.isavailableToPlayer = function() { return this.availableToPlayer; };
+PlayerAction.prototype.isAvailableToPlayer = function() { return this.availableToPlayer; };
 PlayerAction.prototype.enableAction = function() { this.actionEnabled = true; };
 PlayerAction.prototype.disableAction = function() { this.actionEnabled = false; };
 PlayerAction.prototype.isActionEnabled = function() { return this.actionEnabled; };

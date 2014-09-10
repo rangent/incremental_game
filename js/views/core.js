@@ -27,7 +27,7 @@ function enableActionInDOM(aname) {
 function initializeActionDiv() {
 	$("#action_container").empty();
 	for (var x in playerActions) {
-		if (playerActions[x].available && playerActions[x].age <= game.age && playerActions[x].showInActionBar) {
+		if (playerActions[x].availableToPlayer && playerActions[x].age <= game.age && playerActions[x].showInActionBar) {
 			enableActionInDOM(playerActions[x].aname);
 		}
 	}
@@ -35,8 +35,11 @@ function initializeActionDiv() {
 
 function initializeTerrainDiv() {
 	initializeAvailableTerrain();
-	if (!playerActions.travel.available) {
+	if (!playerActions.travel.availableToPlayer) {
 		$("#terrainSection").hide();
+	}
+	else {
+		updateCurrentTerrain();
 	}
 }
 

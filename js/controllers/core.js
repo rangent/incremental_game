@@ -25,5 +25,5 @@ function sleep(millis, callback, arg1, arg2) {
 }
 
 function enablePlayerAction(playerAction) {
-	playerAction.available = true;
+	playerAction.availableToPlayer = true;
 }
