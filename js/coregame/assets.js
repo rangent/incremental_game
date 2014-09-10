@@ -5,11 +5,6 @@
 // states.js
 //////////////////////////////////////////////////////////////////////////////
 
-var playerActions = {
-	forage	: new PlayerAction("Forage", false, 0),
-	explore	: new PlayerAction("Explore", false, 0),
-};
-
 //ACTUAL TERRAIN TYPES, FEATURES, AND MODIFIERS
 var terrainTypes = {
 	plains 		: new TerrainType("Plains"),

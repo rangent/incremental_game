@@ -6,13 +6,6 @@
 // CONSTRUCTORS
 //////////////////////////////////////////////////////////////////////////////
 
-function PlayerAction(aname, available, age) {
-	this.id = seeds.actionIdSeed++;
-	this.aname = aname;
-	this.available = available;
-	this.age = age;
-}
-
 //ITEM CONSTRUCTOR
 function GenericItem(name, weight) {
 	this.id = seeds.itemIdSeed++;

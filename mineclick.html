@@ -105,11 +105,14 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		//////////////////////////////////////////////////////////////////////////////
 		// SETUP AND GO!
 		//////////////////////////////////////////////////////////////////////////////
-		if (!global.initializedBoard) { 	
-			global.initializedBoard = true;
-			initializeBoard();
-			masterState = new MasterState(global, seeds, game, player);
+		masterState = new MasterState();
+
+		if (hasSavedGameState()) {
+			loadState();
 		}
+
+		//ToDo: NEED TO REMOVE THIS ONCE I'M DONE
+		redrawBoard();
 			
 		if (!global.storyStarted) {
 			global.storyStarted = true;
@@ -124,6 +127,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <span id="cntr">&nbsp;</span>
 <button onclick="saveState();" id="saveButton">save</button>
 <button onclick="loadState();" id="loadButton">load</button>
+<button onclick="resetState();" id="loadButton">reset</button>
 <div class="page">
 	<div class="content">
 		<div class="content-left contentholder">
@@ -141,7 +145,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 			<div id="eventDiv" class="contentholder content-center"></div>
 			<button class="clearEvent" onclick="clearEventWindow();">Clear Event Window</input>
 		</div>
-		<div class="content-right contentholder">
+		<div id="actionDiv" class="content-right contentholder">
 			<h3>Actions</h3>
 			<table id="action_container"></table>
 		</div>

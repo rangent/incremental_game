@@ -14,29 +14,30 @@ function enableActionInDOM(aname) {
 	jqueryifyButtons();
 }
 
-function initializeResourceDiv() {
-	for (var x in itemLibrary.rawResources) {
-		if (itemLibrary.rawResources[x].age <= game.age && itemLibrary.rawResources[x].found) {
-			if (itemLibrary.rawResources[x].rawResource) {
-				enableResourceInDOM(itemLibrary.rawResources[x].rname, itemLibrary.rawResources[x].total);
-			}
-		}
-	}
-}
+// function initializeResourceDiv() {
+// 	for (var x in itemLibrary.rawResources) {
+// 		if (itemLibrary.rawResources[x].age <= game.age && itemLibrary.rawResources[x].found) {
+// 			if (itemLibrary.rawResources[x].rawResource) {
+// 				enableResourceInDOM(itemLibrary.rawResources[x].rname, itemLibrary.rawResources[x].total);
+// 			}
+// 		}
+// 	}
+// }
 
 function initializeActionDiv() {
+	$("#action_container").empty();
 	for (var x in playerActions) {
-		if (playerActions[x].age <= game.age) {
-			if (playerActions[x].available) {
-				enableActionInDOM(playerActions[x].aname);
-			}
+		if (playerActions[x].available && playerActions[x].age <= game.age && playerActions[x].showInActionBar) {
+			enableActionInDOM(playerActions[x].aname);
 		}
 	}
 }
 
 function initializeTerrainDiv() {
 	initializeAvailableTerrain();
-	$("#terrainSection").hide();
+	if (!playerActions.travel.available) {
+		$("#terrainSection").hide();
+	}
 }
 
 function jqueryifyButtons() {
@@ -55,8 +56,8 @@ function initializeInventoryTab() {
 	$( "#resourceTabs" ).hide();
 }
 
-function initializeBoard() { //initialize DOM and 
-	initializeResourceDiv();
+function redrawBoard() { //initialize DOM and 
+	// initializeResourceDiv();
 	initializeActionDiv();
 	initializeTerrainDiv();
 	jqueryifyButtons();

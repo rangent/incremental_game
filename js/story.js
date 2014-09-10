@@ -40,6 +40,7 @@ function doFirstExplore() {
 	sleep((DEBUG) ? time += 0 : time += 0, updateCurrentTerrain);
 
 	///........
+	sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.travel);
 	sleep((DEBUG) ? time += 0 : time += 0, displayDivById, "terrainSection");
 	sleep((DEBUG) ? time += 100 : time += 2000, log, "Your stomach rumbles.");
 	sleep((DEBUG) ? time += 100 : time += 1000, log, "You should forage for something edible.");
