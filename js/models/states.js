@@ -40,11 +40,27 @@ var player = {
 	currentTerrain : 0, //availableTerrain's ID
 }
 
+
 //for saving and loading the game
 //ALL STATE-BASED STUFF MUST BE CRAMMED IN THIS OBJECT FOO'!
-var masterState = {
-	global : global,
-	seeds : seeds,
-	game : game,
-	player : player,
+var masterState;
+
+function MasterState(global, seeds, game, player) {
+	this.global = global;
+	this.seeds = seeds;
+	this.game = game;
+	this.player = player;
+}
+MasterState.prototype.updateState = function(global, seeds, game, player) {
+	this.global = global;
+	this.seeds = seeds;
+	this.game = game;
+	this.player = player;
+}
+MasterState.prototype.setMasterState = function(newMasterState) { 
+	global = newMasterState.global;
+	seeds = newMasterState.seeds;
+	game = newMasterState.game;
+	player = newMasterState.player;
+	this.updateState(global, seeds, game, player);
 }

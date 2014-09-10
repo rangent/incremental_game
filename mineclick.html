@@ -50,6 +50,9 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 **STORY
 * RPG solo
 * http://www.rpgsolo.com/play.php
+
+** Media
+* Creative commons photos: http://commons.wikimedia.org/wiki/Main_Page , landscapes: http://commons.wikimedia.org/wiki/Category:Landscapes
 -->
 
 <!-- 
@@ -63,6 +66,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="lib/jquery-ui-1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="lib/joyride-master/jquery.joyride-2.1.js"></script>
 <script type="text/javascript" src="lib/select2-3.5.1/select2.js"></script>
+<script type="text/javascript" src="lib/modernizr.custom.21726.js"></script>
 
 <!-- core -->
 <script type="text/javascript" src="js/constants.js"></script>
@@ -90,6 +94,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 
 <!-- core game -->
 <script type="text/javascript" src="js/coregame/assets.js"></script>
+<script type="text/javascript" src="js/coregame/saveloadreset.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/story.js"></script>
 
@@ -102,7 +107,8 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		//////////////////////////////////////////////////////////////////////////////
 		if (!global.initializedBoard) { 	
 			global.initializedBoard = true;
-			initializeBoard(); 
+			initializeBoard();
+			masterState = new MasterState(global, seeds, game, player);
 		}
 			
 		if (!global.storyStarted) {
@@ -116,6 +122,8 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <body>
 <input type="button" onClick="ftest1();" value="ftest1" />
 <span id="cntr">&nbsp;</span>
+<button onclick="saveState();" id="saveButton">save</button>
+<button onclick="loadState();" id="loadButton">load</button>
 <div class="page">
 	<div class="content">
 		<div class="content-left contentholder">
