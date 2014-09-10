@@ -31,15 +31,22 @@ function Inventory(capacity, itemQuantityCollection) {
 	this.capacity = capacity; //weight-based inventory model
 	this.itemQuantityCollection = itemQuantityCollection;
 }
+function getCapacity(inventory) {
+	var currentWeight = 0;
+	for (var i in inventory.itemQuantityCollection) {
+		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
+	}
+	return currentWeight;
+}
 function getRemainingCapacity(inventory) { 
 	var currentWeight = 0;
 	for (var i in inventory.itemQuantityCollection) {
-		currentWeight += itemQuantityCollection[i].item.weight * itemQuantityCollection[i].quantity;
+		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
 	}
 	return inventory.capacity - currentWeight;
 }
 //Should not call this unless a check to see if this breaches the capacity has been done
-function addItemsToInventory(inventory, genericItem, quantity) { 
+function addItemsToInventoryModel(inventory, genericItem, quantity) { 
 	if (typeof inventory.itemQuantityCollection[genericItem.name] == "undefined") {
 		inventory.itemQuantityCollection[genericItem.name] = {item: genericItem, quantity: quantity};
 	}
@@ -47,7 +54,7 @@ function addItemsToInventory(inventory, genericItem, quantity) {
 		inventory.itemQuantityCollection[genericItem.name].quantity += quantity;
 	}
 }
-function removeItemsFromInventory(inventory, genericItem, quantity) { 
+function removeItemsFromInventoryModel(inventory, genericItem, quantity) { 
 	if (typeof inventory.itemQuantityCollection[genericItem.name] == "undefined") {
 		inventory.itemQuantityCollection[genericItem.name] = {item: genericItem, quantity: (0 - quantity)};
 	}
@@ -84,6 +91,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
+	this.inventory = new Inventory(Number.MAX_VALUE, {});
 }
 function setAsHome(terrain, homeName) { 
 	terrain.isHome = true;

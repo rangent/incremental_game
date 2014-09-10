@@ -35,16 +35,16 @@ var terrainModifiers = {
 
 //carriable resources
 var rawResources = {
-	wood 	: new Resource('Wood', 3, 0),
-	stone 	: new Resource('Stone', 10, 0),
-	// dirt 	: new Resource('Dirt', 5, 0),
-	// water 	: new Resource('Water', 3, 0),
-	// clay 	: new Resource('Clay', 5, 0),
+	Wood 	: new Resource("Wood", 3, 0),
+	Stone 	: new Resource("Stone", 10, 0),
+	// Dirt 	: new Resource("Dirt", 5, 0),
+	// Water 	: new Resource("Water", 3, 0),
+	// Clay 	: new Resource("Clay", 5, 0),
 };
 
 //various kinds of food
 var food = {
-	apple : new Food("Apple", 1, 0),
+	Apple : new Food("Apple", 1, 0),
 	// carrot : new Food("Carrot", 1, 0),
 }
 
@@ -56,6 +56,21 @@ var itemLibrary = {
 	food : food,
 	// equipables : equipables,
 	rawResources : rawResources,
+}
+
+/*
+ * @itemName - string - unique name of food, raw resource, etc
+ */
+function getGenericItemAsset(itemName) {
+	if (!(typeof food[itemName] === "undefined")) {
+		return food[itemName];
+	}
+	else if (!(typeof rawResources[itemName] === "undefined")) {
+		return rawResources[itemName];
+	}
+	else {
+		return null; //not found
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////

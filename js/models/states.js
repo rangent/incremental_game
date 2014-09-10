@@ -35,7 +35,6 @@ var game = {
 var player = {
 	availableTerrain : [],
 	inventory : false,
-	foundItems : [],
 	currentRegion : 0,
 	atHome : true,
 	currentTerrain : 0, //availableTerrain's ID
@@ -95,7 +94,4 @@ MasterState.prototype.setMasterState = function(newMasterState) {
 	player = newMasterState.player;
 	playerActions = newMasterState.playerActions;
 	this.updateState(global, seeds, game, player, playerActions);
-}
-MasterState.prototype.resetMasterState = function() { 
-
 }

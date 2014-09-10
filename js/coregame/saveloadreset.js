@@ -17,7 +17,6 @@ function loadState() {
 	if (Modernizr.localstorage) {
 		if (hasSavedGameState()) {
 	 		var m = JSON.parse(localStorage.getItem("masterState"));
-	 		
 	 		masterState.setMasterState(m);
 	 		log("LOADED!"); //should add different indicator instead of logging to game window
 	 	}

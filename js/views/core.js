@@ -76,6 +76,7 @@ function redrawBoard() { //initialize DOM and
 	// initializeResourceDiv();
 	initializeActionDiv();
 	initializeTerrainDiv();
+	drawInventoryTable();
 	jqueryifyButtons();
 	setupInitialProgressBar();
 	writeGameLog();
