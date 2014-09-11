@@ -1,0 +1,7 @@
+/*
+ * Foraging!
+ */
+
+ // function doForage() {
+ 	
+ // }

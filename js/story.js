@@ -60,8 +60,8 @@ var storyPhases = [
 	,
 ];
 
-function progressStory() {
-	if (game.storyPhase < storyPhases.length) {
+function progressStory(phase) {
+	if (phase <= game.storyPhase && game.storyPhase < storyPhases.length) {
 		storyPhases[game.storyPhase].call();
 	}
 }
