@@ -9,6 +9,7 @@ function AppleDrop () {
 }
 
 function ftest1() {
+	var CYCLES = 16;
 	var time = 0;
 	//initial explore
 	for (var i = 0; i < 10; i++) {
@@ -23,6 +24,7 @@ function ftest1() {
 		sleep((DEBUG) ? time += 20 : time += 100,testDoExplore);
 	}
 
+	//testing adding and removing items
 	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 'player', "Apple", 10);
 	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 0, "Stone", 3);
 	sleep((DEBUG) ? time += 20 : time += 100,drawInventoryTable);
@@ -39,6 +41,21 @@ function ftest1() {
 	sleep((DEBUG) ? time += 20 : time += 100,StonePickup);
 	sleep((DEBUG) ? time += 20 : time += 100,StonePickup);
 
+	//move and drop
+	for (var i = 0 ; i < Math.floor(CYCLES / 6) ; i++ ) {
+		sleep((DEBUG) ? time += 20 : time += 100,travelRight);
+		sleep((DEBUG) ? time += 20 : time += 100,AppleDrop);
+	}
+
+	for (var i = 0 ; i < Math.floor(CYCLES / 6) ; i++ ) {
+	sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
+	}
+
+	//2 more for good measure... (should be disabled)
+	sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
+	sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
+
+	console.info("end!");
 }
 
 function testDoExplore() {

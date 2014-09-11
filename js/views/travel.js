@@ -30,6 +30,7 @@ function travelLeft() {
 		doTravelToLocation(parseInt(player.currentTerrain) - 1);
 		checkIfDisableLeftTravelButton();
 		checkIfDisableRightTravelButton();
+		drawInventoryTable();
 	}
 }
 
@@ -48,6 +49,7 @@ function travelRight() {
 		doTravelToLocation(parseInt(player.currentTerrain) + 1);
 		checkIfDisableLeftTravelButton();
 		checkIfDisableRightTravelButton();
+		drawInventoryTable();
 	}
 }
 
