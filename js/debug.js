@@ -1,3 +1,13 @@
+function StonePickup () {
+	$("#StonePickup").click();
+}
+function StoneDrop () {
+	$("#StoneDrop").click();
+}
+function AppleDrop () {
+	$("#AppleDrop").click();
+}
+
 function ftest1() {
 	var time = 0;
 	//initial explore
@@ -16,6 +26,18 @@ function ftest1() {
 	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 'player', "Apple", 10);
 	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 0, "Stone", 3);
 	sleep((DEBUG) ? time += 20 : time += 100,drawInventoryTable);
+
+	for (var i = 0; i < 3; i++) {
+		sleep((DEBUG) ? time += 20 : time += 100,StonePickup);
+	}
+	for (var i = 0; i < 3; i++) {
+		sleep((DEBUG) ? time += 20 : time += 100,StoneDrop);
+	}
+	for (var i = 0; i < 3; i++) {
+		sleep((DEBUG) ? time += 20 : time += 100,AppleDrop);
+	}
+	sleep((DEBUG) ? time += 20 : time += 100,StonePickup);
+	sleep((DEBUG) ? time += 20 : time += 100,StonePickup);
 
 }
 

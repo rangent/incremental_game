@@ -41,6 +41,7 @@ function drawInventoryTable() {
 				.replace("%ITEM_NAME%", itemAndQuantity.item.name)
 				.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 				.replace("%CURRENT_LOCATION%", player.currentTerrain)
+				.replace("%ITEM%", itemAndQuantity.item.name)
 				.replace("%ITEM%", itemAndQuantity.item.name);
 		}
 		else {
@@ -57,6 +58,7 @@ function drawInventoryTable() {
 				.replace("%ITEM_NAME%", itemAndQuantity.item.name)
 				.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 				.replace("%CURRENT_LOCATION%", player.currentTerrain)
+				.replace("%ITEM%", itemAndQuantity.item.name)
 				.replace("%ITEM%", itemAndQuantity.item.name);
 		}
 		else {
@@ -78,6 +80,7 @@ function drawInventoryTable() {
 					.replace("%ITEM_NAME%", itemAndQuantity.item.name)
 					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 					.replace("%CURRENT_LOCATION%", player.currentTerrain)
+					.replace("%ITEM%", itemAndQuantity.item.name)
 					.replace("%ITEM%", itemAndQuantity.item.name);
 			}
 		}
