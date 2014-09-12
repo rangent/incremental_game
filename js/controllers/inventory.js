@@ -14,7 +14,7 @@ function initializePlayerInventory() {
 function addItemsToInventory(inventory, itemName, quantity) {
 	inventory = resolveInventory(inventory);
 	var item = getGenericItemAsset(itemName);
-	if ((item.weight * quantity) <= inventory.capacity) {
+	if ((item.weight * quantity) <= getRemainingCapacity(inventory)) {
 		addItemsToInventoryModel(inventory, item, quantity);
 		return true;
 	}

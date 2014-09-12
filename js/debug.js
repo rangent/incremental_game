@@ -48,12 +48,15 @@ function ftest1() {
 	}
 
 	for (var i = 0 ; i < Math.floor(CYCLES / 6) ; i++ ) {
-	sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
+		sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
 	}
 
 	//2 more for good measure... (should be disabled)
 	sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
 	sleep((DEBUG) ? time += 20 : time += 500,travelLeft);
+
+	//test inventory max (shouldn't be able to go over)
+	sleep((DEBUG) ? time += 20 : time += 100,addItemsToInventory, 'player', "Stone", 10);
 
 	console.info("end!");
 }
