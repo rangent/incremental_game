@@ -21,8 +21,16 @@ function clearEventWindow() {
 
 // log to event window
 function log(s) {
-	game.log.push(s);
-	writeLogLineToEventDiv(s);
+	$(function() {
+		game.log.push(s);
+		writeLogLineToEventDiv(s);
+	});
+}
+
+function logNoSave(s) {
+	$(function() {
+		writeLogLineToEventDiv(s);	
+	});
 }
 
 function logAppend(s) {
