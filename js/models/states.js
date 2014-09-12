@@ -55,17 +55,13 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 	this.showInActionBar = showInActionBar;
 	this.age = age;
 }
-PlayerAction.prototype.makeAvailable = function() { this.availableToPlayer = true; };
-PlayerAction.prototype.isAvailableToPlayer = function() { return this.availableToPlayer; };
-PlayerAction.prototype.enableAction = function() { this.actionEnabled = true; };
-PlayerAction.prototype.disableAction = function() { this.actionEnabled = false; };
-PlayerAction.prototype.isActionEnabled = function() { return this.actionEnabled; };
 
 
 var playerActions = {
 	forage	: new PlayerAction("Forage", false, true, true, 0),
 	explore	: new PlayerAction("Explore", false, true, true, 0),
 	travel  : new PlayerAction("Travel", false, true, false, 0),
+	inventory  : new PlayerAction("Inventory", false, true, false, 0),
 };
 
 

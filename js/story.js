@@ -56,6 +56,11 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.FORAGE_TIP);
 		sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Forage");
 		game.storyPhase++;
+
+
+
+		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.inventory);
+
 	} //end PHASE 1
 	,
 ];
