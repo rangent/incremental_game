@@ -23,6 +23,13 @@ function Food(fname, weight, age) {
     this.age = age;
 }
 
+function Consumable(cname, weight, age) {
+	this.id = seeds.itemIdSeed++;
+	this.type = "Consumable";
+	this.name = cname;
+	this.weight = weight;   
+    this.age = age;
+}
 
 // inventory
 function Inventory(capacity, itemQuantityCollection) {
@@ -64,6 +71,7 @@ function removeItemsFromInventoryModel(inventory, genericItem, quantity) {
 }
 
 /*
+ * Call this to get a single concrete item of terrainType with terrainFeatures and terrainModifiers
  * @terrainType : single terrainType
  * @terrainFeature : terrainFeature array : possible features of this terrain element
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
@@ -92,6 +100,9 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 	this.inventory = new Inventory(Number.MAX_VALUE, {});
+
+	//array of actions, with weighted findables
+	this.findThroughAction = {};
 }
 function setAsHome(terrain, homeName) { 
 	terrain.isHome = true;
@@ -101,10 +112,11 @@ function setAsHome(terrain, homeName) {
 /*
  *	@ttname : string name
  */
-function TerrainType(ttname) {
+function TerrainType(ttname, findProbabilities) {
 	this.id = seeds.terrainTypeIdSeed++;
 	this.type = "TerrainType";
 	this.ttname = ttname;
+	this.findProbabilities = findProbabilities;
 }
 
 /*
@@ -137,6 +149,21 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 	this.incompatibleTerrainModifiers = incompatibleTerrainModifiers;
 }
 
+/*
+ * The probability an action succeeds, and the items that can be found if it succeeds
+ * @probabilityActionSucceeds : number between 0 and 1 : liklihood <action> successful
+ * @itemAndProbability : array of rel_itemProbability : item and relative probability it'll be found
+ */
+function FindProbabilities(probabilityActionSucceeds, itemAndProbabilityArray) {
+	var l = {};
+	for (var i in itemAndProbabilityArray) {
+		l[itemAndProbabilityArray[i].item] = itemAndProbabilityArray[i].probability;
+	}
+	this.items = l;
+	this.findProbability = probabilityActionSucceeds;
+
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // END OF CONSTRUCTORS
 //////////////////////////////////////////////////////////////////////////////
@@ -152,6 +179,16 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
  */
 function rel_terrainTypeProbability(terrainType, probability) {
 	this.terrainType = terrainType;
+	this.probability = probability;
+}
+
+/*
+ * Relationships between an item and its probability of being found
+ *  @item : GenericItem (food, resource, consumable, etc)
+ *  @probability : number : relative liklihood item will be found
+ */
+function rel_itemProbability(item, probability) {
+	this.item = item;
 	this.probability = probability;
 }
 

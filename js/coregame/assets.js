@@ -5,13 +5,51 @@
 // states.js
 //////////////////////////////////////////////////////////////////////////////
 
+//carriable resources
+var rawResources = {
+	Wood 	: new Resource("Wood", 3, 0),
+	Stone 	: new Resource("Stone", 10, 0),
+	// Dirt 	: new Resource("Dirt", 5, 0),
+	// Water 	: new Resource("Water", 3, 0),
+	// Clay 	: new Resource("Clay", 5, 0),
+};
+
+//various kinds of food
+var food = {
+	Apple : new Food("Apple", 1, 0),
+	// carrot : new Food("Carrot", 1, 0),
+}
+
+var consumable = {
+	Stick : new Consumable("Stick", 1, 0),
+}
+
+// var equipables = {
+// 	hat : new GenericItem("Hat", 1),
+// }
+
+var itemLibrary = {
+	food : food,
+	consumable : consumable,
+	// equipables : equipables,
+	rawResources : rawResources,
+}
+
+
 //ACTUAL TERRAIN TYPES, FEATURES, AND MODIFIERS
 var terrainTypes = {
-	plains 		: new TerrainType("Plains"),
-	mountain 	: new TerrainType("Mountain"),
-	hill 		: new TerrainType("Hill"),
-	forest 		: new TerrainType("Forest"),
+	plains 		: new TerrainType("Plains",{}),
+	mountain 	: new TerrainType("Mountain",{}),
+	hill 		: new TerrainType("Hill",
+			{ "forage" : new FindProbabilities(0.5, [
+				new rel_itemProbability(food.Apple.name, 5),
+				new rel_itemProbability(consumable.Stick.name, 5),
+				]), 
+			}
+		),
+	forest 		: new TerrainType("Forest",{}),
 }
+
 
 var locationTerrainProbabilies = [ 
 	[ // 0th is "local"
@@ -33,31 +71,6 @@ var terrainModifiers = {
 	serene : new TerrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
 }
 
-//carriable resources
-var rawResources = {
-	Wood 	: new Resource("Wood", 3, 0),
-	Stone 	: new Resource("Stone", 10, 0),
-	// Dirt 	: new Resource("Dirt", 5, 0),
-	// Water 	: new Resource("Water", 3, 0),
-	// Clay 	: new Resource("Clay", 5, 0),
-};
-
-//various kinds of food
-var food = {
-	Apple : new Food("Apple", 1, 0),
-	// carrot : new Food("Carrot", 1, 0),
-}
-
-// var equipables = {
-// 	hat : new GenericItem("Hat", 1),
-// }
-
-var itemLibrary = {
-	food : food,
-	// equipables : equipables,
-	rawResources : rawResources,
-}
-
 /*
  * @itemName - string - unique name of food, raw resource, etc
  */
@@ -67,6 +80,9 @@ function getGenericItemAsset(itemName) {
 	}
 	else if (!(typeof rawResources[itemName] === "undefined")) {
 		return rawResources[itemName];
+	}
+	else if (!(typeof consumable[itemName] === "undefined")) {
+		return consumable[itemName];
 	}
 	else {
 		return null; //not found
