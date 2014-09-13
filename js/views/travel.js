@@ -22,15 +22,16 @@ function doTravelToLocation(selectedTerrainIdToTravelTo) {
 	player.availableTerrain[player.currentTerrain].text = "* " + player.availableTerrain[player.currentTerrain].text;
 	$("#availableTerrain").select2("val", "");
 	$("#selectedTerrain").empty();
+
+	checkIfDisableLeftTravelButton();
+	checkIfDisableRightTravelButton();
+	drawInventoryTable();
 }
 
 function travelLeft() {
 	if ((player.currentTerrain - 1) >= 0  && 
 		typeof player.availableTerrain[player.currentTerrain - 1] === "object") {
 		doTravelToLocation(parseInt(player.currentTerrain) - 1);
-		checkIfDisableLeftTravelButton();
-		checkIfDisableRightTravelButton();
-		drawInventoryTable();
 	}
 }
 
@@ -47,9 +48,6 @@ function travelRight() {
 	if ((player.currentTerrain + 1) < (player.availableTerrain.length)  && 
 		typeof player.availableTerrain[player.currentTerrain + 1] === "object") {
 		doTravelToLocation(parseInt(player.currentTerrain) + 1);
-		checkIfDisableLeftTravelButton();
-		checkIfDisableRightTravelButton();
-		drawInventoryTable();
 	}
 }
 
