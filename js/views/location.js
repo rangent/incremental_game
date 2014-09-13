@@ -25,8 +25,9 @@ function updateTerrainTable(divToContainTable, terrain) {
 	if (terrain.terrainFeatures.length > 0) {
 		features = "";
 		for (var t in terrain.terrainFeatures) {
-			features += terrain.terrainFeatures[t].tfname + " ";
+			features += "<a title=\""+ terrain.terrainFeatures[t].description + "\" class=\"tooltip\">" +  terrain.terrainFeatures[t].tfname + "</a>, ";
 		}
+		features = features.substring(0,features.length-2);
 	}
 	var modifiers = "None";
 	if (terrain.terrainModifiers.length > 0 ) {
