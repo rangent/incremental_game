@@ -42,8 +42,8 @@ var terrainTypes = {
 	mountain 	: new TerrainType("Mountain",{}),
 	hill 		: new TerrainType("Hill",
 			{ "forage" : new FindProbabilities(0.5, [
-				new rel_itemProbability(food.Apple.name, 5),
-				new rel_itemProbability(consumable.Stick.name, 5),
+				new rel_itemAndQuantityProbability(food.Apple.name, 1, 5),
+				new rel_itemAndQuantityProbability(consumable.Stick.name, 1, 5),
 				]), 
 			}
 		),
@@ -62,9 +62,10 @@ var locationTerrainProbabilies = [
 	]
 ]
 
+//NOTE: The 
 var terrainFeatures = {
-	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5) ], []),
-	river : new TerrainFeature("River", "Rivers allow easier travel and increased fertility.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
+	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5) ], [], {}),
+	river : new TerrainFeature("River", "Rivers allow easier travel and increased fertility.", terrainTypesAndProbability(allTerrainTypes(), 0.5), [], {}),
 }
 
 var terrainModifiers = {

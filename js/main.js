@@ -24,9 +24,9 @@
 // 	return collected;
 // }
 
-function doForage() {
-	closeJoyrideTips(); //just in case
-	enableButton("doExplore");
+// function doForage() {
+// 	closeJoyrideTips(); //just in case
+// 	enableButton("doExplore");
 //NEED TO DESIGN HOW I'M GOING TO FORAGE BEFORE HALFASSING IT LIKE THIS...
 ////	chance to get wood from foraging?
 //	var resourceCountAndProbabilityArray = [ new resourceCountAndProbability(resources.wood, 1, 0.5) ];
@@ -51,7 +51,7 @@ function doForage() {
 //	else {
 //		log("Didn't find anything this time...");
 //	}
-}
+// }
 
 //////////////////////////////////////////////////////////////////////////////
 // BUILDABLES

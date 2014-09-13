@@ -1,7 +1,4 @@
 /*
  * Foraging!
  */
-
- // function doForage() {
- 	
- // }
+ 

@@ -100,9 +100,6 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 	this.inventory = new Inventory(Number.MAX_VALUE, {});
-
-	//array of actions, with weighted findables
-	this.findThroughAction = {};
 }
 function setAsHome(terrain, homeName) { 
 	terrain.isHome = true;
@@ -111,12 +108,13 @@ function setAsHome(terrain, homeName) {
 
 /*
  *	@ttname : string name
+ *  @terrainActionsAndFindProbabilities : association between action -> FindProbabilities
  */
-function TerrainType(ttname, findProbabilities) {
+function TerrainType(ttname, terrainActionsAndFindProbabilities) {
 	this.id = seeds.terrainTypeIdSeed++;
 	this.type = "TerrainType";
 	this.ttname = ttname;
-	this.findProbabilities = findProbabilities;
+	this.terrainActions = terrainActionsAndFindProbabilities;
 }
 
 /*
@@ -124,14 +122,16 @@ function TerrainType(ttname, findProbabilities) {
  *  @description : help text description for feature
  *	@applicableTerrainTypes : terrainType array : where you'd find this feature
  *	@incompatibleTerrainFeatures : terrainFeature array : features this one wouldn't work with
+ *  @terrainActionsAndFindProbabilities : association between action -> FindProbabilities, NOTE: this is merged/added to the TerrainType's terrainActionsAndFindProbabilities
  */
-function TerrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures) {
+function TerrainFeature(tfname, description, applicableTerrainTypeAndProbabilities, incompatibleTerrainFeatures, terrainActionsAndFindProbabilities) {
 	this.id = seeds.terrainFeatureIdSeed++;
 	this.type = "TerrainFeature";
 	this.tfname = tfname;
 	this.description = description;
 	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
 	this.incompatibleTerrainFeatures = incompatibleTerrainFeatures;
+	this.terrainActions = terrainActionsAndFindProbabilities;
 }
 
 /*
@@ -152,12 +152,12 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 /*
  * The probability an action succeeds, and the items that can be found if it succeeds
  * @probabilityActionSucceeds : number between 0 and 1 : liklihood <action> successful
- * @itemAndProbability : array of rel_itemProbability : item and relative probability it'll be found
+ * @itemAndProbability : array of rel_itemAndQuantityProbability : item and relative probability it'll be found
  */
 function FindProbabilities(probabilityActionSucceeds, itemAndProbabilityArray) {
 	var l = {};
 	for (var i in itemAndProbabilityArray) {
-		l[itemAndProbabilityArray[i].item] = itemAndProbabilityArray[i].probability;
+		l[itemAndProbabilityArray[i].item] = itemAndProbabilityArray[i];
 	}
 	this.items = l;
 	this.findProbability = probabilityActionSucceeds;
@@ -185,10 +185,12 @@ function rel_terrainTypeProbability(terrainType, probability) {
 /*
  * Relationships between an item and its probability of being found
  *  @item : GenericItem (food, resource, consumable, etc)
+ *  @quantity : integer : quantity of items to be found
  *  @probability : number : relative liklihood item will be found
  */
-function rel_itemProbability(item, probability) {
+function rel_itemAndQuantityProbability(item, quantity, probability) {
 	this.item = item;
+	this.quantity = quantity;
 	this.probability = probability;
 }
 
