@@ -58,8 +58,8 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 
 
 var playerActions = {
-	forage	: new PlayerAction("Forage", false, true, true, 0),
 	explore	: new PlayerAction("Explore", false, true, true, 0),
+	forage	: new PlayerAction("Forage", false, true, true, 0),
 	travel  : new PlayerAction("Travel", false, true, false, 0),
 	inventory  : new PlayerAction("Inventory", false, true, false, 0),
 };
