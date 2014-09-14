@@ -119,6 +119,7 @@ function drawInventoryTable() {
 }
 
 function handleDropItemPress(item, tid) {
+	closeJoyrideTips();
 	var repetitions = 1;
 	if (keys.shiftPressed) {
 		repetitions = 10;
@@ -129,6 +130,7 @@ function handleDropItemPress(item, tid) {
 }
 
 function handlePickupItemPress(item, tid) {
+	closeJoyrideTips();
 	var repetitions = 1;
 	if (keys.shiftPressed) {
 		repetitions = 10;

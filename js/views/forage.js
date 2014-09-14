@@ -6,9 +6,10 @@ function doForage() {
 	// progressStory(1); //second phase of the game
 	var i = resolveActionOnTerrain("Forage", player.currentTerrain);
 	if (i != null) {
-		log("While foraging you found: " + i.count + " x " + i.item);
+		addJoyrideTip(replaceAll("%ITEM%",i.item, constants.ITEM_FOUND_TIP));
 		addItemsToInventory(player.currentTerrain, i.item, i.count);
 		drawInventoryTable();
+		letsJoyride(i.item);
 	}
 	else {
 		if ($(".logline:eq(0)").text().match("^Didn't find anything while foraging")) {
