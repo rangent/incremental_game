@@ -14,8 +14,8 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 100 : time += 5000, log, "It's dark.  It's cold.  You can't see much around you.");
 		sleep((DEBUG) ? time += 100 : time += 5000, log, "You see a low hill close by that may offer a better view of the area.");
 		//introduce "Explore"
-		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.explore);
-		sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.explore.aname);
+		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.Explore);
+		sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.Explore.aname);
 		sleep((DEBUG) ? time += 0 : time += 0, checkIfDisableLeftTravelButton);
 		sleep((DEBUG) ? time += 0 : time += 0, checkIfDisableRightTravelButton);
 		sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.EXPLORE_TIP);
@@ -43,7 +43,7 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 0 : time += 0, addTerrainToPlayer, firstHill); 
 		sleep((DEBUG) ? time += 0 : time += 0, updateLocationTextBasedOnPlayersLocation);
 		sleep((DEBUG) ? time += 0 : time += 0, updateCurrentTerrain);
-		sleep((DEBUG) ? time += 0 : time += 0, enablePlayerAction, playerActions.travel);
+		sleep((DEBUG) ? time += 0 : time += 0, enablePlayerAction, playerActions.Travel);
 		sleep((DEBUG) ? time += 0 : time += 0, displayDivById, "terrainSection");
 
 		///........
@@ -51,15 +51,15 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 100 : time += 1000, log, "You should forage for something edible.");
 		
 		//introduce "Forage"
-		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.forage);
-		sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.forage.aname);
+		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.Forage);
+		sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.Forage.aname);
 		sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.FORAGE_TIP);
 		sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Forage");
 		game.storyPhase++;
 
 
 
-		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.inventory);
+		sleep((DEBUG) ? time += 100 : time += 2000, enablePlayerAction, playerActions.Inventory);
 
 	} //end PHASE 1
 	,

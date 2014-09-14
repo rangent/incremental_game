@@ -4,7 +4,7 @@
 function doForage() {
 	closeJoyrideTips();	
 	// progressStory(1); //second phase of the game
-	var i = resolveActionOnTerrain("forage", player.currentTerrain);
+	var i = resolveActionOnTerrain("Forage", player.currentTerrain);
 	if (i != null) {
 		log("While foraging you found: " + i.count + " x " + i.item);
 		addItemsToInventory(player.currentTerrain, i.item, i.count);

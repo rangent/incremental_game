@@ -25,12 +25,14 @@ function initializeActionDiv() {
 
 function initializeTerrainDiv() {
 	initializeAvailableTerrain();
-	if (!playerActions.travel.availableToPlayer) {
+	if (!playerActions.Travel.availableToPlayer) {
 		$("#terrainSection").hide();
 	}
 	else {
 		updateCurrentTerrain();
 	}
+	checkIfDisableLeftTravelButton();
+	checkIfDisableRightTravelButton();
 }
 
 function jqueryifyButtons() {
@@ -41,7 +43,7 @@ function jqueryifyButtons() {
 
 function setupInitialProgressBar() {
 	//TODO: THIS SHOULD BE STATE-BASED
-	makeProgressBar(10, playerActions.explore, progressStory, 0);	
+	makeProgressBar(10, playerActions.Explore, progressStory, 0);	
 }
 
 function initializeAvailableTerrain() {

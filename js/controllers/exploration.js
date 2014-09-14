@@ -18,7 +18,7 @@ function findLand(region) {
 	//get the printable string
 	var landFoundString =  makePrintableStringForTerrain(terrainFound, terrainModifiersFound, terrainFeaturesFound);
 
-	log("You found a " + landFoundString);
+	log("New location found: " + landFoundString);
 	var foundLand = new Terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
 	addTerrainToPlayer(foundLand);
 

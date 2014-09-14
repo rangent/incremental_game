@@ -22,14 +22,14 @@ function pickupItem(inventory, itemName, quantity) {
 	//remove from player inventory
 	if (hasItemsInInventory(resolveInventory(inventory), getGenericItemAsset(itemName), quantity) && 
 			addItemsToInventory('player', itemName, quantity)) {
-		
+
 		removeItemsFromInventory(inventory, itemName, quantity);
 		drawInventoryTable();
 	}	
 }
 
 function drawInventoryTable() {
-	if (playerActions.inventory.availableToPlayer) {
+	if (playerActions.Inventory.availableToPlayer) {
 		$("#resourceTable").empty();
 		$("#resourceTable").append(constants.INVENTORY_TABLE_INVENTORY_WEIGHT
 						.replace("%INVENTORY_WEIGHT%", getCapacity(resolveInventory('player')))

@@ -28,7 +28,7 @@ function resolveActionOnTerrain(action, terrainId) {
 
 	//merge any items from the terrain features
 	for (var f in t.terrainFeatures) {
-		if (typeof t.terrainFeature[f].terrainActions[action] !== "undefined") {
+		if (typeof t.terrainFeature !== "undefined" && typeof t.terrainFeature[f].terrainActions[action] !== "undefined") {
 			var tf = t.terrainFeature[f].terrainActions[action];
 			findProbability += tf.findProbability;
 			for (var i in tf.items) {
