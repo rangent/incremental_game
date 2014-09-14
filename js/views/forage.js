@@ -6,7 +6,7 @@ function doForage() {
 	// progressStory(1); //second phase of the game
 	var i = resolveActionOnTerrain("forage", player.currentTerrain);
 	if (i != null) {
-		log("You found " + i.count + " x " + i.item + " while foraging!");
+		log("While foraging you found: " + i.count + " x " + i.item);
 		addItemsToInventory(player.currentTerrain, i.item, i.count);
 		drawInventoryTable();
 	}
@@ -18,5 +18,5 @@ function doForage() {
 			logNoSave("Didn't find anything while foraging.");
 		}
 	}
-	
+
 }
