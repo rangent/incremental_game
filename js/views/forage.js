@@ -12,9 +12,10 @@ function doForage() {
 	}
 	else {
 		if ($(".logline:eq(0)").text().match("^Didn't find anything while foraging")) {
-			logAppend(".");
+			logAppendNoSave(".");
 		}
 		else {
+			// debugger;
 			logNoSave("Didn't find anything while foraging.");
 		}
 	}

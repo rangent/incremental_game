@@ -42,6 +42,10 @@ function logAppend(s) {
 	$(".logline:eq(0)").text(game.log[(game.log.length-1)]);
 }
 
+function logAppendNoSave(s) {
+	$(".logline:eq(0)").text($(".logline:eq(0)").text() + s);
+}
+
 function writeLogLineToEventDiv(s) {
 	$("#eventDiv").prepend("<span class=\"logLine\">" + s + "</span><br/>");
 	$(".logline:eq(1)").removeClass("logLine").addClass("oldLogLine");
