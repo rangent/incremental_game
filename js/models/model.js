@@ -52,6 +52,12 @@ function getRemainingCapacity(inventory) {
 	}
 	return inventory.capacity - currentWeight;
 }
+function hasItemsInInventory(inventory, item, quantity) {
+	if (typeof inventory.itemQuantityCollection[item.name] !== "undefined") {
+		return inventory.itemQuantityCollection[item.name].quantity >= quantity;
+	}
+	return false;
+}
 //Should not call this unless a check to see if this breaches the capacity has been done
 function addItemsToInventoryModel(inventory, genericItem, quantity) { 
 	if (typeof inventory.itemQuantityCollection[genericItem.name] == "undefined") {

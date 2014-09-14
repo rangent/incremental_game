@@ -11,15 +11,18 @@ function unhideInventoryTabs() {
  */ 
 function dropItem(inventory, itemName, quantity) {
 	//remove from player inventory
-	removeItemsFromInventory('player', itemName, quantity);
-	//add to terrain's inventory
-	addItemsToInventory(inventory, itemName, quantity);
-	drawInventoryTable();
+	if (removeItemsFromInventory('player', itemName, quantity)) {
+		//add to terrain's inventory
+		addItemsToInventory(inventory, itemName, quantity);
+		drawInventoryTable();
+	}
 }
 
 function pickupItem(inventory, itemName, quantity) {
 	//remove from player inventory
-	if (addItemsToInventory('player', itemName, quantity)) {
+	if (hasItemsInInventory(resolveInventory(inventory), getGenericItemAsset(itemName), quantity) && 
+			addItemsToInventory('player', itemName, quantity)) {
+		
 		removeItemsFromInventory(inventory, itemName, quantity);
 		drawInventoryTable();
 	}	
@@ -32,6 +35,8 @@ function drawInventoryTable() {
 						.replace("%INVENTORY_WEIGHT%", getCapacity(resolveInventory('player')))
 						.replace("%PLAYER_CAPACITY%", resolveInventory('player').capacity) );
 		var rows = "";
+		var pickupResource = [];
+		var dropResource = [];
 
 		//items held by player
 		for (var v in player.inventory.itemQuantityCollection) {
@@ -41,9 +46,10 @@ function drawInventoryTable() {
 					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 					.replace("%ITEM_NAME%", itemAndQuantity.item.name)
 					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-					.replace("%CURRENT_LOCATION%", player.currentTerrain)
-					.replace("%ITEM%", itemAndQuantity.item.name)
+					// .replace("%CURRENT_LOCATION%", player.currentTerrain)
+					// .replace("%ITEM%", itemAndQuantity.item.name)
 					.replace("%ITEM%", itemAndQuantity.item.name);
+				dropResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
 			}
 			else {
 				rows += constants.BLANK_PLAYER_INVENTORY_ROW;
@@ -58,9 +64,10 @@ function drawInventoryTable() {
 					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 					.replace("%ITEM_NAME%", itemAndQuantity.item.name)
 					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-					.replace("%CURRENT_LOCATION%", player.currentTerrain)
-					.replace("%ITEM%", itemAndQuantity.item.name)
+					// .replace("%CURRENT_LOCATION%", player.currentTerrain)
+					// .replace("%ITEM%", itemAndQuantity.item.name)
 					.replace("%ITEM%", itemAndQuantity.item.name);
+				pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
 			}
 			else {
 				rows += constants.BLANK_LOCATION_INVENTORY_ROW;
@@ -80,14 +87,53 @@ function drawInventoryTable() {
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 						.replace("%ITEM_NAME%", itemAndQuantity.item.name)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-						.replace("%CURRENT_LOCATION%", player.currentTerrain)
-						.replace("%ITEM%", itemAndQuantity.item.name)
+						// .replace("%CURRENT_LOCATION%", player.currentTerrain)
+						// .replace("%ITEM%", itemAndQuantity.item.name)
 						.replace("%ITEM%", itemAndQuantity.item.name);
+					pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
 				}
 			}
 		}
 
 		$("#resourceTable").append(rows);
 		jqueryifyButtons();
+
+		for (var p in pickupResource) {
+			// debugger;
+			var item = pickupResource[p].item;
+			var tid = pickupResource[p].currentTerrain;
+			var f = new Function("handlePickupItemPress('" + item + "'," + tid + ")");
+			$("#" + item + "Pickup").on("click", f );
+		}
+
+		for (var p in dropResource) {
+			// debugger;
+			var item = dropResource[p].item;
+			var tid = dropResource[p].currentTerrain;
+			// console.log("1" + dropResource[p].item + "," + dropResource[p].currentTerrain);
+			var f = new Function("handleDropItemPress('" + item + "'," + tid + ")");
+			$("#" + item + "Drop").on("click", f );	
+		}
+
+	}
+}
+
+function handleDropItemPress(item, tid) {
+	var repetitions = 1;
+	if (keys.shiftPressed) {
+		repetitions = 10;
+	}
+	for (var r = 0; r < repetitions; r++) {
+		dropItem(tid, item, 1);
+	}
+}
+
+function handlePickupItemPress(item, tid) {
+	var repetitions = 1;
+	if (keys.shiftPressed) {
+		repetitions = 10;
+	}
+	for (var r = 0; r < repetitions; r++) {
+		pickupItem(tid, item, 1);
 	}
 }

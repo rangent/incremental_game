@@ -2,6 +2,10 @@
  *	CORE EVENT VIEW MODIFICATIONS
  */
 
+var keys = {
+	shiftPressed : false
+}
+
 function displayDivById(idString) {
 	$("#" + idString).show();
 }
@@ -50,3 +54,9 @@ function writeGameLog() {
 		writeLogLineToEventDiv(game.log[n]);
 	}
 }
+
+$(document).on('keyup keydown', 
+	function(e) { 
+		keys.shiftPressed = e.shiftKey 
+	}	
+);

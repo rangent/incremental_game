@@ -58,7 +58,7 @@ function initializeAvailableTerrain() {
 		function(e) { 
 		    updateTargetDestinationTable(e.added); }
 		);
-}
+}  
 
 
 // the grand daddy

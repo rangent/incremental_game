@@ -27,7 +27,13 @@ function addItemsToInventory(inventory, itemName, quantity) {
  *	@quantity : integer
  */
 function removeItemsFromInventory(inventory, itemName, quantity) {
-	removeItemsFromInventoryModel(resolveInventory(inventory), getGenericItemAsset(itemName), quantity);
+	inventory = resolveInventory(inventory);
+	var item = getGenericItemAsset(itemName);
+	if (hasItemsInInventory(inventory, item, quantity)) {
+		removeItemsFromInventoryModel(inventory, item, quantity);
+		return true;
+	}
+	return false;
 }
 
 function resolveInventory(inventory) {
