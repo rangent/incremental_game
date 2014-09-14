@@ -19,6 +19,9 @@ function initializeActionDiv() {
 	for (var x in playerActions) {
 		if (playerActions[x].availableToPlayer && playerActions[x].age <= game.age && playerActions[x].showInActionBar) {
 			enableActionInDOM(playerActions[x].aname);
+			if (!(playerActions[x].actionEnabled)) {
+				disableButton("do" + playerActions[x].aname);
+			}
 		}
 	}
 }

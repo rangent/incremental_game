@@ -30,6 +30,10 @@ function sleep(millis, callback, arg1, arg2, arg3) {
     , millis);
 }
 
-function enablePlayerAction(playerAction) {
+function enableActionForPlayer(playerAction) {
 	playerAction.availableToPlayer = true;
+}
+
+function disableAction(playerAction) {
+    playerAction.actionEnabled = false;    
 }

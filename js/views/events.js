@@ -3,7 +3,7 @@
  */
 
 var keys = {
-	shiftPressed : false
+	shiftPressed : false,
 }
 
 function displayDivById(idString) {
