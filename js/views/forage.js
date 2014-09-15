@@ -12,6 +12,7 @@ function doForage() {
 		letsJoyride(i.item);
 	}
 	else {
+		//TODO: what else to do?  I dont like pushing failures to the log
 		if ($(".logline:eq(0)").text().match("^Didn't find anything while foraging")) {
 			logAppendNoSave(".");
 		}
