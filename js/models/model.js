@@ -7,26 +7,29 @@
 //////////////////////////////////////////////////////////////////////////////
 
 //RESOURCES
-function Resource(rname, weight, age) {
+function Resource(uniqueName, printableName, weight, age) {
 	this.id = seeds.itemIdSeed++;
 	this.type = "Resource";
-	this.name = rname;
+	this.name = uniqueName;
+	this.printableName = printableName;
 	this.weight = weight;
 	this.age = age;
 }
 
-function Food(fname, weight, age) {
+function Food(uniqueName, printableName, weight, age) {
 	this.id = seeds.itemIdSeed++;
 	this.type = "Food";
-	this.name = fname;
+	this.name = uniqueName;
+	this.printableName = printableName;
 	this.weight = weight;   
     this.age = age;
 }
 
-function Consumable(cname, weight, age) {
+function Consumable(uniqueName, printableName, weight, age) {
 	this.id = seeds.itemIdSeed++;
 	this.type = "Consumable";
-	this.name = cname;
+	this.name = uniqueName;
+	this.printableName = printableName;
 	this.weight = weight;   
     this.age = age;
 }
@@ -36,7 +39,7 @@ function Consumable(cname, weight, age) {
  * itemIngredientsArray : array of rel_inventoryQuantity : items needed to craft the craftableItem
  */
 function Craftable(craftableItem, itemIngredientsAndQuantityArray) {
-	this.id = seeds.itemIdSeed++;
+	this.id = seeds.craftableSeed++;
 	this.craftableItem = craftableItem;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }

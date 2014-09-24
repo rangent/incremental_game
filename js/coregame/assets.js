@@ -7,22 +7,22 @@
 
 //carriable resources
 var rawResources = {
-	Wood 	: new Resource("Wood", 3, 0),
-	Stone 	: new Resource("Stone", 10, 0),
-	// Dirt 	: new Resource("Dirt", 5, 0),
-	// Water 	: new Resource("Water", 3, 0),
-	// Clay 	: new Resource("Clay", 5, 0),
+	Wood 	: new Resource("Wood", "Wood", 3, 0),
+	Stone 	: new Resource("Stone", "Stone", 10, 0),
+	// Dirt 	: new Resource("Dirt", "Dirt", 5, 0),
+	// Water 	: new Resource("Water", "Water", 3, 0),
+	// Clay 	: new Resource("Clay", "Clay", 5, 0),
 };
 
 //various kinds of food
 var food = {
-	Apple : new Food("Apple", 1, 0),
-	// carrot : new Food("Carrot", 1, 0),
+	Apple : new Food("Apple", "Apple", 1, 0),
+	// carrot : new Food("Carrot", "Carrot", 1, 0),
 }
 
 var consumable = {
-	Stick : new Consumable("Stick", 1, 0),
-	FirewoodBundle : new Consumable("Bundle of Firewood", 6, 0),
+	Stick : new Consumable("Stick", "Stick", 1, 0),
+	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0),
 }
 
 var craftable = [
