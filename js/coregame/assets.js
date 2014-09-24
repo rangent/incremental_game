@@ -25,9 +25,9 @@ var consumable = {
 	FirewoodBundle : new Consumable("Bundle of Firewood", 6, 0),
 }
 
-var craftable = {
-	FirewoodBundle : new Craftable(consumable.FirewoodBundle, [new rel_inventoryQuantity(consumable.Stick, 6)]),
-}
+var craftable = [
+	new Craftable(consumable.FirewoodBundle, [new rel_inventoryQuantity(consumable.Stick, 6)]),
+]
 
 // var equipables = {
 // 	hat : new GenericItem("Hat", 1),
