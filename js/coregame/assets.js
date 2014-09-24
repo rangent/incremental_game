@@ -22,6 +22,11 @@ var food = {
 
 var consumable = {
 	Stick : new Consumable("Stick", 1, 0),
+	FirewoodBundle : new Consumable("Bundle of Firewood", 6, 0),
+}
+
+var craftable = {
+	FirewoodBundle : new Craftable(consumable.FirewoodBundle, [new rel_inventoryQuantity(consumable.Stick, 6)]),
 }
 
 // var equipables = {
@@ -31,6 +36,7 @@ var consumable = {
 var itemLibrary = {
 	food : food,
 	consumable : consumable,
+	craftable : craftable,
 	// equipables : equipables,
 	rawResources : rawResources,
 }

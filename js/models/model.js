@@ -31,6 +31,16 @@ function Consumable(cname, weight, age) {
     this.age = age;
 }
 
+/**
+ * craftableItem : generic item
+ * itemIngredientsArray : array of rel_inventoryQuantity : items needed to craft the craftableItem
+ */
+function Craftable(craftableItem, itemIngredientsAndQuantityArray) {
+	this.id = seeds.itemIdSeed++;
+	this.craftableItem = craftableItem;
+	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
+}
+
 // inventory
 function Inventory(capacity, itemQuantityCollection) {
 	this.id = seeds.inventoryModelIdSeed++;
