@@ -23,10 +23,12 @@ var food = {
 var consumable = {
 	Stick : new Consumable("Stick", "Stick", 1, 0),
 	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0),
+    TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0),
 }
 
 var craftable = [
-	new Craftable(consumable.FirewoodBundle, [new rel_inventoryQuantity(consumable.Stick, 6)]),
+	new Craftable(consumable.FirewoodBundle, 1, [new rel_inventoryQuantity(consumable.Stick, 6)]),
+    new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)])
 ]
 
 // var equipables = {

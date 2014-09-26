@@ -21,6 +21,36 @@ function addItemsToInventory(inventory, itemName, quantity) {
 	return false;
 }
 
+function getCapacity(inventory) {
+	var currentWeight = 0;
+	for (var i in inventory.itemQuantityCollection) {
+		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
+	}
+	return currentWeight;
+}
+
+function getRemainingCapacity(inventory) { 
+	var currentWeight = 0;
+	for (var i in inventory.itemQuantityCollection) {
+		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
+	}
+	return inventory.capacity - currentWeight;
+}
+
+function hasItemsInInventory(inventory, item, quantity) {
+	if (typeof inventory.itemQuantityCollection[item.name] !== "undefined") {
+		return inventory.itemQuantityCollection[item.name].quantity >= quantity;
+	}
+	return false;
+}
+
+function getNumberOfItemsInInventory(inventory, item) {
+	if (typeof inventory.itemQuantityCollection[item.name] !== "undefined") {
+		return inventory.itemQuantityCollection[item.name].quantity;
+	}
+	return 0;
+}
+
 /*
  *  @inventory : string representing inventory to modify
  *  @itemName : unique name of the item

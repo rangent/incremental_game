@@ -36,11 +36,13 @@ function Consumable(uniqueName, printableName, weight, age) {
 
 /**
  * craftableItem : generic item
+ * numProduced : number of items produced per crafting
  * itemIngredientsArray : array of rel_inventoryQuantity : items needed to craft the craftableItem
  */
-function Craftable(craftableItem, itemIngredientsAndQuantityArray) {
+function Craftable(craftableItem, numProduced, itemIngredientsAndQuantityArray) {
 	this.id = seeds.craftableSeed++;
 	this.craftableItem = craftableItem;
+	this.numProduced = numProduced;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }
 
@@ -50,26 +52,6 @@ function Inventory(capacity, itemQuantityCollection) {
 	this.type = "Inventory";
 	this.capacity = capacity; //weight-based inventory model
 	this.itemQuantityCollection = itemQuantityCollection;
-}
-function getCapacity(inventory) {
-	var currentWeight = 0;
-	for (var i in inventory.itemQuantityCollection) {
-		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
-	}
-	return currentWeight;
-}
-function getRemainingCapacity(inventory) { 
-	var currentWeight = 0;
-	for (var i in inventory.itemQuantityCollection) {
-		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
-	}
-	return inventory.capacity - currentWeight;
-}
-function hasItemsInInventory(inventory, item, quantity) {
-	if (typeof inventory.itemQuantityCollection[item.name] !== "undefined") {
-		return inventory.itemQuantityCollection[item.name].quantity >= quantity;
-	}
-	return false;
 }
 //Should not call this unless a check to see if this breaches the capacity has been done
 function addItemsToInventoryModel(inventory, genericItem, quantity) { 
