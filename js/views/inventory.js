@@ -44,9 +44,9 @@ function drawInventoryTable() {
 			if (itemAndQuantity.quantity > 0) {
 				rows += constants.PLAYER_INVENTORY_ROW
 					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-					.replace("%ITEM_NAME%", itemAndQuantity.item.name)
+					.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-					.replace("%ITEM%", itemAndQuantity.item.printableName);
+					.replace("%ITEM%", itemAndQuantity.item.name);
 				dropResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
 			}
 			else {
@@ -60,9 +60,9 @@ function drawInventoryTable() {
 				itemAndQuantity = player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name];
 				rows += constants.LOCATION_INVENTORY_ROW
 					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-					.replace("%ITEM_NAME%", itemAndQuantity.item.name)
+					.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-					.replace("%ITEM%", itemAndQuantity.item.printableName);
+					.replace("%ITEM%", itemAndQuantity.item.name);
 				pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
 			}
 			else {
@@ -81,9 +81,9 @@ function drawInventoryTable() {
 					rows += constants.BLANK_PLAYER_INVENTORY_ROW;
 					rows += constants.LOCATION_INVENTORY_ROW
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-						.replace("%ITEM_NAME%", itemAndQuantity.item.name)
+						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-						.replace("%ITEM%", itemAndQuantity.item.printableName);
+						.replace("%ITEM%", itemAndQuantity.item.name);
 					pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
 				}
 			}
@@ -104,7 +104,6 @@ function drawInventoryTable() {
 			// debugger;
 			var item = dropResource[p].item;
 			var tid = dropResource[p].currentTerrain;
-			// console.log("1" + dropResource[p].item + "," + dropResource[p].currentTerrain);
 			var f = new Function("handleDropItemPress('" + item + "'," + tid + ")");
 			$("#" + item + "Drop").on("click", f );	
 		}
