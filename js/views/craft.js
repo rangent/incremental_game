@@ -16,7 +16,7 @@ function craftItemClick(craftIndex) {
 function craftItem(craftable) {
     //TODO: figure out exactly which inventories we're drawing from
     //TODO: rerender whatever crafting window we decide to build
-    var result = craftItemFromInventories(craftable, ['player']);
+    var result = makeItemFromInventories(craftable, ['player'], 'player');
     if (result == "success") {
         drawInventoryTable();
         drawCraftingTable();
