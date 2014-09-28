@@ -26,9 +26,19 @@ var consumable = {
     TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0),
 }
 
+var building = {
+    // Building(uniqueName, printableName, size, age) {
+    Firepit : new Building("Firepit", "Firepit", 1, 0),
+}
+
 var craftable = [
 	new Craftable(consumable.FirewoodBundle, 1, [new rel_inventoryQuantity(consumable.Stick, 6)]),
     new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)])
+]
+
+var buildable = [
+    //Buildable(building, numProduced, itemIngredientsAndQuantityArray)
+    new Buildable(building.Firepit, 1, [new rel_inventoryQuantity(consumable.FirewoodBundle, 1)]),
 ]
 
 // var equipables = {
@@ -38,7 +48,9 @@ var craftable = [
 var itemLibrary = {
 	food : food,
 	consumable : consumable,
+    building : building,
 	craftable : craftable,
+    buildable : buildable,
 	// equipables : equipables,
 	rawResources : rawResources,
 }

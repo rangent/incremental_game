@@ -18,6 +18,8 @@ var seeds = {
 	terrainModifierIdSeed : 0,
 	itemIdSeed : 0,
 	craftableSeed : 0,
+	buildingIdSeed : 0,
+	buildableSeed : 0,
 	inventoryModelIdSeed : 0,
 }
 

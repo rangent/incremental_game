@@ -34,6 +34,15 @@ function Consumable(uniqueName, printableName, weight, age) {
     this.age = age;
 }
 
+function Building(uniqueName, printableName, size, age) {
+    this.id = seeds.buildingIdSeed++;
+	this.type = "Building";
+	this.name = uniqueName;
+	this.printableName = printableName;
+	this.size = size;
+	this.age = age;
+}
+
 /**
  * craftableItem : generic item
  * numProduced : number of items produced per crafting
@@ -45,6 +54,19 @@ function Craftable(craftableItem, numProduced, itemIngredientsAndQuantityArray) 
 	this.numProduced = numProduced;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }
+
+/**
+ * building : building
+ * numProduced : number of buildings built per build order
+ * itemIngredientsArray : array of rel_inventoryQuantity : items needed to craft the craftableItem
+ */
+function Buildable(building, numProduced, itemIngredientsAndQuantityArray) {
+	this.id = seeds.buildableSeed++;
+	this.craftableItem = craftableItem;
+	this.numProduced = numProduced;
+	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
+}
+
 
 // inventory
 function Inventory(capacity, itemQuantityCollection) {
