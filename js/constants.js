@@ -30,6 +30,10 @@ var constants = {
 	CRAFTABLE_TABLE_HEADER : "<tr><th>Craft</th></tr>",
 	CRAFTABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Craft\">%ITEM_NAME%</button></td></tr>",
 	
+	//building
+	BUILDABLEABLE_TABLE_HEADER : "<tr><th>Build</th></tr>",
+	BUILDABLEABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Build\">%ITEM_NAME%</button></td></tr>",
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////

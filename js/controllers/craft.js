@@ -1,5 +1,5 @@
 /*
- * Crafting controller
+ * Crafting-specific controller, for build/craft general functions, use buildcraft.js
  */
 
 /**
@@ -24,10 +24,10 @@ function getRecipesForItem(genericItem) {
  */
 function craftItemFromInventories(craftable, inventoryArray) {    
     //check for errors first
-    if (!isPossibleToCraftItemWithInventories(craftable, inventoryArray)) {
+    if (!isPossibleToMakeItemWithInventories(craftable, inventoryArray)) {
         return "Insufficient items to craft " + craftable.craftableItem.printableName;
     }
-    if (!isPlayerCapableOfCarryingCraftedItem(craftable)) {
+    if (!isInventoryCapableOfCarryingMadeItem(craftable, 'player')) {
         return "Not enough room in player's inventory to hold " + craftable.craftableItem.printableName;
     }
     
@@ -48,42 +48,4 @@ function craftItemFromInventories(craftable, inventoryArray) {
     addItemsToInventoryModel(resolveInventory('player'), craftable.craftableItem, craftable.numProduced);
     
     return "success"; //string to indicate successful
-}
-
-/**
- * @param {Craftable} craftable : craftable item we want to craft
- * @param {[Inventory]} inventoryArray : array of items containing the materials to make the craftableItem
- * @returns {Boolean} true if possible, false otherwise
- */
-function isPossibleToCraftItemWithInventories(craftable, inventoryArray) {
-    var ingredients = craftable.itemIngredientsAndQuantityArray;
-    //for each ingredient/quantity, verify the number of items are in the inventories
-    for (var i in ingredients) {
-        var item = ingredients[i].item;
-        var count = ingredients[i].count;
-        for (var j in inventoryArray) {
-            count -= getNumberOfItemsInInventory(resolveInventory(inventoryArray[j]), item);
-        }
-        //once we've gone through the inventories, fail if there would still be items needed
-        if (count > 0) {
-            return false;
-        }
-    }
-    //all else has gone well!  Item is craftable!
-    return true;
-}
-
-function isPlayerCapableOfCarryingCraftedItem(craftable) {
-    var playerRemainingCapacity = getRemainingCapacity(resolveInventory('player'));
-    var ingredients = craftable.itemIngredientsAndQuantityArray;
-    var ingredientWeight = 0;
-    for (var i in ingredients) {
-        var item = ingredients[i].item;
-        var numIngredientsNeeded = ingredients[i].count;
-        var numIngredientsInPlayerInventory = getNumberOfItemsInInventory(resolveInventory('player'), item);
-        //formula: a) we have more of the needed ingredient in the player's inventory, so use 'numIngredientsNeeded'   OR:
-        //         b) we have some of the needed ingredients in the player's inventory, so use 'numIngredientsInPlayerInventory' insteaad
-        ingredientWeight = Math.min(numIngredientsNeeded, numIngredientsInPlayerInventory) * item.weight;
-    }
-    return ( (playerRemainingCapacity) >= (craftable.craftableItem.weight * craftable.numProduced  - ingredientWeight) );
 }

@@ -50,9 +50,20 @@ function Building(uniqueName, printableName, size, age) {
  */
 function Craftable(craftableItem, numProduced, itemIngredientsAndQuantityArray) {
 	this.id = seeds.craftableSeed++;
+	this.type = "Craftable";
 	this.craftableItem = craftableItem;
 	this.numProduced = numProduced;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
+}
+
+function getMakeableItem(item) {
+	if (item.type == "Craftable") {
+		return item.craftableItem;
+	}
+	else if (item.type == "Buildable") {
+		return item.building;
+	}
+	return null;
 }
 
 /**
@@ -62,7 +73,8 @@ function Craftable(craftableItem, numProduced, itemIngredientsAndQuantityArray) 
  */
 function Buildable(building, numProduced, itemIngredientsAndQuantityArray) {
 	this.id = seeds.buildableSeed++;
-	this.craftableItem = craftableItem;
+	this.type = "Buildable";
+	this.building = building;
 	this.numProduced = numProduced;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }

@@ -35,10 +35,10 @@ function getCraftableInventoriesForPlayer() {
 }
 
 function drawCraftingTable() {
-    if (playerActions.Crafting.availableToPlayer) {
+    if (playerActions.Craft.availableToPlayer) {
         $("#craftTable").empty().append(constants.CRAFTABLE_TABLE_HEADER);
         for (var c in craftable) {
-            if (isPossibleToCraftItemWithInventories(craftable[c], getCraftableInventoriesForPlayer())) {
+            if (isPossibleToMakeItemWithInventories(craftable[c], getCraftableInventoriesForPlayer())) {
                 var name = craftable[c].craftableItem.name;
                 var printableName = craftable[c].craftableItem.printableName;
                 var jquerySelectorId = "#" + name + "Craft";
@@ -50,7 +50,7 @@ function drawCraftingTable() {
                 var f = new Function("craftItemClick(" + index + ")");
                 $(jquerySelectorId).on("click", f );
                 
-                if (!isPlayerCapableOfCarryingCraftedItem(craftable[c]) || !playerActions.Crafting.actionEnabled) {
+                if (!isInventoryCapableOfCarryingMadeItem(craftable[c], 'player') || !playerActions.Craft.actionEnabled) {
                     disableButton(name + "Craft");
                 }
             }
