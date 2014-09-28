@@ -43,32 +43,37 @@ function drawInventoryTable() {
 		//items held by player
 		for (var v in player.inventory.itemQuantityCollection) {
 			var itemAndQuantity = player.inventory.itemQuantityCollection[v];
-			if (itemAndQuantity.quantity > 0) {
-				rows += constants.PLAYER_INVENTORY_ROW
-					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-					.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
-					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-					.replace("%ITEM%", itemAndQuantity.item.name);
-				dropResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
-			}
-			else {
-				rows += constants.BLANK_PLAYER_INVENTORY_ROW;
-			}
-
-			//add the mirroring button, otherwise add blank row
-			if (typeof player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-				player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
-
-				itemAndQuantity = player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name];
-				rows += constants.LOCATION_INVENTORY_ROW
-					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-					.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
-					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-					.replace("%ITEM%", itemAndQuantity.item.name);
-				pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
-			}
-			else {
-				rows += constants.BLANK_LOCATION_INVENTORY_ROW;
+			if ((itemAndQuantity.quantity > 0) ||
+				(typeof player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
+				player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)) {
+				
+				if (itemAndQuantity.quantity > 0) {
+					rows += constants.PLAYER_INVENTORY_ROW
+						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
+						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
+						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
+						.replace("%ITEM%", itemAndQuantity.item.name);
+					dropResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+				}
+				else {
+					rows += constants.BLANK_PLAYER_INVENTORY_ROW;
+				}
+	
+				//add the mirroring button, otherwise add blank row
+				if (typeof player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
+					player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
+	
+					itemAndQuantity = player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[itemAndQuantity.item.name];
+					rows += constants.LOCATION_INVENTORY_ROW
+						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
+						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
+						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
+						.replace("%ITEM%", itemAndQuantity.item.name);
+					pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+				}
+				else {
+					rows += constants.BLANK_LOCATION_INVENTORY_ROW;
+				}
 			}
 		}
 

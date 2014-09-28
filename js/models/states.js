@@ -63,7 +63,7 @@ var playerActions = {
 	Forage	: new PlayerAction("Forage", false, true, true, 0),
 	Travel  : new PlayerAction("Travel", false, true, false, 0),
 	Inventory  : new PlayerAction("Inventory", false, true, false, 0),
-	Crafting : new PlayerAction("Crafting", false, true, true, 0), 
+	Crafting : new PlayerAction("Crafting", true, true, true, 0), 
 };
 
 
