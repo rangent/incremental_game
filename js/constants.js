@@ -15,6 +15,8 @@ var constants = {
 	BLANK_PLAYER_INVENTORY_ROW : "<tr><td colspan=\"4\">&nbsp;</td>",
 	LOCATION_INVENTORY_ROW : "<td style=\"text-align:right\"><a title=\"Weight: %ITEM_WEIGHT%\" class=\"tooltip\"><button id=\"%ITEM%Pickup\">%ITEM_NAME% (%ITEM_QUANTITY%)</button></a></td></tr>",// onclick=\"pickupItem(%CURRENT_LOCATION%, '%ITEM%', 1);\"
 	BLANK_LOCATION_INVENTORY_ROW : "<td colspan=\"4\">&nbsp;</td></tr>",
+	CRAFTABLE_TABLE_HEADER : "<tr><th>Craft</th></tr>",
+	CRAFTABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Craft\">%ITEM_NAME%</button></td></tr>",
 	MCVERSION : 0.1
 }
 

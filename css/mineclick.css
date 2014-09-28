@@ -45,6 +45,12 @@
 	height: 300px;
 }
 
+.content-craft {
+	float: left;
+	min-width: 250px;
+	height: 300px;
+}
+
 .footer {
 }
 

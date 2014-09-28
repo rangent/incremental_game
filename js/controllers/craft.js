@@ -19,7 +19,7 @@ function getRecipesForItem(genericItem) {
 /**
  * Craft items from inventory
  * @param {Craftable} craftableItem : item we want to craft
- * @param {[Inventory]} inventoryArray : array of items containing the materials to make the craftableItem
+ * @param {[String]} inventoryArray : array of items containing the materials to make the craftableItem
  * @returns {String} "success" string if successful craft, Error message if otherwise
  */
 function craftItemFromInventories(craftable, inventoryArray) {    
@@ -85,5 +85,5 @@ function isPlayerCapableOfCarryingCraftedItem(craftable) {
         //         b) we have some of the needed ingredients in the player's inventory, so use 'numIngredientsInPlayerInventory' insteaad
         ingredientWeight = Math.min(numIngredientsNeeded, numIngredientsInPlayerInventory) * item.weight;
     }
-    return ( (playerRemainingCapacity - ingredientWeight) >= (craftable.craftableItem.weight * craftable.numProduced) );
+    return ( (playerRemainingCapacity) >= (craftable.craftableItem.weight * craftable.numProduced  - ingredientWeight) );
 }
