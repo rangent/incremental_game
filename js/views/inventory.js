@@ -15,7 +15,7 @@ function dropItem(inventory, itemName, quantity) {
 		//add to terrain's inventory
 		addItemsToInventory(inventory, itemName, quantity);
 		drawInventoryTable();
-		drawCraftableItems();
+		drawCraftingTable();
 	}
 }
 
@@ -26,7 +26,7 @@ function pickupItem(inventory, itemName, quantity) {
 
 		removeItemsFromInventory(inventory, itemName, quantity);
 		drawInventoryTable();
-		drawCraftableItems();
+		drawCraftingTable();
 	}	
 }
 

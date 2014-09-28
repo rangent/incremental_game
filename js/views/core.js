@@ -45,8 +45,7 @@ function jqueryifyButtons() {
 }
 
 function setupInitialProgressBar() {
-	//TODO: THIS SHOULD BE STATE-BASED
-	makeProgressBar(10, playerActions.Explore, progressStory, 0);	
+	makeProgressBar(game.nextExploreCost, playerActions.Explore, progressStory, 0);	
 }
 
 function initializeAvailableTerrain() {
@@ -71,7 +70,7 @@ function redrawBoard() { //initialize DOM elements
 	initializeActionDiv();
 	initializeTerrainDiv();
 	drawInventoryTable();
-	drawCraftableItems();
+	drawCraftingTable();
 	jqueryifyButtons();
 	setupInitialProgressBar();
 	writeGameLog();

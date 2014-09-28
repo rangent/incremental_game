@@ -5,6 +5,10 @@
 /**
  * @param {Integer} index of the craftable item to create
  */
+function doCraft() {
+    drawCraftingTable();
+}
+
 function craftItemClick(craftIndex) {
     craftItem(craftable[craftIndex]);
 }
@@ -15,7 +19,7 @@ function craftItem(craftable) {
     var result = craftItemFromInventories(craftable, ['player']);
     if (result == "success") {
         drawInventoryTable();
-        drawCraftableItems();
+        drawCraftingTable();
     }
     else {
         log(result);
@@ -30,7 +34,7 @@ function getCraftableInventoriesForPlayer() {
     return ['player'];
 }
 
-function drawCraftableItems() {
+function drawCraftingTable() {
     if (playerActions.Crafting.availableToPlayer) {
         $("#craftTable").empty().append(constants.CRAFTABLE_TABLE_HEADER);
         for (var c in craftable) {
@@ -51,6 +55,7 @@ function drawCraftableItems() {
                 }
             }
         }
+        $("#craftTable").show();
     }
     else {
         $("#craftTable").hide();

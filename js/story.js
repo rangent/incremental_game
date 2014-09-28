@@ -26,6 +26,7 @@ var storyPhases = [
 
 	//PHASE 1: DO THIS AFTER FIRST EXPLORATION
 	function() {
+		var time = 0;
 
 		closeJoyrideTips();
 		sleep((DEBUG) ? time += 0 : time += 0, disableAction, playerActions.Explore);
@@ -48,8 +49,8 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 0 : time += 0, displayDivById, "terrainSection");
 
 		///........
-		sleep((DEBUG) ? time += 100 : time += 2000, log, "Your stomach rumbles.");
-		sleep((DEBUG) ? time += 100 : time += 1000, log, "You should forage for something edible.");
+		sleep((DEBUG) ? time += 100 : time += 2000, log, "It's getting cold.");
+		sleep((DEBUG) ? time += 100 : time += 1000, log, "You should get some sticks to build a fire.");
 		
 		//introduce "Forage"
 		sleep((DEBUG) ? time += 100 : time += 2000, enableActionForPlayer, playerActions.Forage);
@@ -63,6 +64,16 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 100 : time += 2000, enableActionForPlayer, playerActions.Inventory);
 
 	} //end PHASE 1
+	,
+	
+	//PHASE 2: DO THIS AFTER ENOUGH STUFF TO CRAFT FIREWOOD BUNDLE
+	function() {
+		var time = 0;
+		closeJoyrideTips();
+		
+		game.storyPhase++;
+
+	} //end PHASE 2
 	,
 ];
 

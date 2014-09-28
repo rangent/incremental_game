@@ -102,6 +102,8 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainModifiers = terrainModifiers;
 	this.inventory = new Inventory(Number.MAX_VALUE, {});
 }
+//TODO: does this make sense?  What does it mean to be a "home"?
+//We should have some charactarization other than this?
 function setAsHome(terrain, homeName) { 
 	terrain.isHome = true;
 	terrain.text = homeName + " - " + terrain.text;
