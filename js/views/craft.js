@@ -1,5 +1,5 @@
 /*
- * Crafting views
+ * Crafting-specific views
  */
 
 /**
@@ -26,19 +26,11 @@ function craftItem(craftable) {
     }    
 }
 
-/**
- * @returns {[String]} InventoryArray (strings) - 
- */
-function getCraftableInventoriesForPlayer() {
-    //TODO: Should return more than just player inventory when we get storage setup
-    return ['player'];
-}
-
 function drawCraftingTable() {
     if (playerActions.Craft.availableToPlayer) {
         $("#craftTable").empty().append(constants.CRAFTABLE_TABLE_HEADER);
         for (var c in craftable) {
-            if (isPossibleToMakeItemWithInventories(craftable[c], getCraftableInventoriesForPlayer())) {
+            if (isPossibleToMakeItemWithInventories(craftable[c], getInventoriesWithMakeableMaterialsForPlayer())) {
                 var name = craftable[c].craftableItem.name;
                 var printableName = craftable[c].craftableItem.printableName;
                 var jquerySelectorId = "#" + name + "Craft";

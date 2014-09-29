@@ -63,7 +63,7 @@ function getMakeableItem(item) {
 	else if (item.type == "Buildable") {
 		return item.building;
 	}
-	return null;
+	
 }
 
 /**

@@ -3,6 +3,7 @@
  */
 
 /**
+ * Get all of the different possible ways to make an item (or [] if uncraftable)
  * @param {GenericItem} genericItem : pass in a generic item to get an array of Craftables on how we can craft that item
  * @returns {Array} array of Craftables, returns empty array if item is uncraftable
  */
