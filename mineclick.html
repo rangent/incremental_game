@@ -2,9 +2,11 @@
 <head>
 <title>Mineclick</title>
 <link href="lib/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
-<link href="css/mineclick.css" rel="stylesheet" />
 <link href="lib/joyride-master/joyride-2.1.css" rel="stylesheet"/>
 <link href="lib/select2-3.5.1/select2.css" rel="stylesheet"/>
+<link href="lib/island/css/map.css" rel="stylesheet">
+<link href="css/mineclick.css" rel="stylesheet" />
+
 <!-- ideas
 
 * Minecraft "Empire Building Challenge"
@@ -91,6 +93,11 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="lib/joyride-master/jquery.joyride-2.1.js"></script>
 <script type="text/javascript" src="lib/select2-3.5.1/select2.js"></script>
 <script type="text/javascript" src="lib/modernizr.custom.21726.js"></script>
+<script type="text/javascript" src="lib/island/rhill-voronoi-core.min.js"></script>
+<script type="text/javascript" src="lib/island/paper.js"></script>
+<script type="text/javascript" src="lib/island/Simplex.js"></script>
+<script type="text/javascript" src="lib/island/perlin.js"></script>
+<script type="text/javascript" src="lib/island/Island.js"></script>
 
 <!-- core -->
 <script type="text/javascript" src="js/constants.js"></script>
@@ -114,6 +121,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <!-- views -->
 <script type="text/javascript" src="js/views/core.js"></script>
 <script type="text/javascript" src="js/views/events.js"></script>
+<script type="text/javascript" src="js/views/island.js"></script>
 <script type="text/javascript" src="js/views/location.js"></script>
 <script type="text/javascript" src="js/views/explore.js"></script>
 <script type="text/javascript" src="js/views/inventory.js"></script>
@@ -140,7 +148,8 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		//////////////////////////////////////////////////////////////////////////////
 		player.inventory = new Inventory(100, {});
 		masterState = new MasterState();
-
+    
+        generateAndDrawLand();
 
 		if (hasSavedGameState()) {
 			loadState();
@@ -200,8 +209,13 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		</div>
 		<div id="selectedTerrain" class="footer-right">
 		</div>
+		<div id="miniMapContainer" class="footer-right">
+            <canvas id="minimap" height="300" width="300"></canvas>
+		</div>
 	</div>
 </div>
+        <canvas id="land" height="500" width="500"></canvas>
+        <canvas id="perlin" hidden="true"></canvas>
 <div id="joyrideTips" style="display:none">
 <!-- jquery joyride container http://zurb.com/playground/jquery-joyride-feature-tour-plugin -->
 </div>
