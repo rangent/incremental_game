@@ -32,7 +32,9 @@ function initializeTerrainDiv() {
 		$("#terrainSection").hide();
 	}
 	else {
-		updateCurrentTerrain();
+		if (player.availableTerrain.length > 0) {
+			updateCurrentTerrain();
+		}
 	}
 	checkIfDisableLeftTravelButton();
 	checkIfDisableRightTravelButton();

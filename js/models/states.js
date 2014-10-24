@@ -61,10 +61,10 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 
 
 var playerActions = {
-	Explore	: new PlayerAction("Explore", false, true, true, 0),
-	Forage	: new PlayerAction("Forage", false, true, true, 0),
-	Travel  : new PlayerAction("Travel", false, true, false, 0),
-	Inventory  : new PlayerAction("Inventory", false, true, false, 0),
+	Explore	: new PlayerAction("Explore", true, true, true, 0),
+	Forage	: new PlayerAction("Forage", true, true, true, 0),
+	Travel  : new PlayerAction("Travel", true, true, false, 0),
+	Inventory  : new PlayerAction("Inventory", true, true, false, 0),
 	Craft : new PlayerAction("Craft", true, true, true, 0), 
 	Build : new PlayerAction("Build", true, true, true, 0), 
 };

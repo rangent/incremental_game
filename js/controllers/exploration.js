@@ -6,6 +6,7 @@
  * Run after an explore finishes
  * @region : integer : region explored
  */
+
 function findLand(region) {
 	//setup, need to normalize probabilities
 	normalizeTerrainTypeProbabilities(region);

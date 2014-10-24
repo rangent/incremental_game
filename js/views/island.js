@@ -1,7 +1,7 @@
-
-
 var h = 50;
 var w = 50;
+var mapGrid = null;
+var strt = null;
 
 /**
  * @param {String} biome
@@ -344,16 +344,16 @@ Point.prototype.west = function() {
 //paper.install(window);
 function generateAndDrawLand() {
     
-    Land = generateLandWithMountain(w,h);
+    var Land = generateLandWithMountain(w,h);
     
     //make the array    
     var vidToArrCoords = {};
-    var arr = cloneIsland(Land, w, h, vidToArrCoords);
+    mapGrid = cloneIsland(Land, w, h, vidToArrCoords);
     
-    var strt = findInitialStartingPoint(w, h, arr);
-    strt = adjustStartPoint(strt, arr);
+    strt = findInitialStartingPoint(w, h, mapGrid);
+    strt = adjustStartPoint(strt, mapGrid);
     
-    alignMap(arr, Land, vidToArrCoords);
-    drawMap(arr, strt);
-    drawMiniMap(arr, strt);
+    alignMap(mapGrid, Land, vidToArrCoords);
+    drawMap(mapGrid, strt);
+    drawMiniMap(mapGrid, strt);
 };

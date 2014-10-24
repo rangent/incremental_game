@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 var storyPhases = [
+	/*
 	//PHASE 0: start story, introduce exploration
 	function() {
 		var time = 0;
@@ -75,6 +76,7 @@ var storyPhases = [
 
 	} //end PHASE 2
 	,
+	*/
 ];
 
 function progressStory(phase) {
