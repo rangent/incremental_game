@@ -1,5 +1,3 @@
-var h = 50;
-var w = 50;
 var mapGrid = null;
 var strt = null;
 
@@ -32,8 +30,8 @@ function loc(biome, elevation, moisture, water, ocean, river, riverSize, nextRiv
 function generateLand(w, h) {
     var island = MakeIsland(Math.random());
     island.init({
-        width: w, //BE: SHOULD BE SQRT(NBSITES) - 1
-        height: h, //BE: SHOULD BE SQRT(NBSITES) - 1
+        width: constants.MAP_WIDTH, //BE: SHOULD BE SQRT(NBSITES) - 1
+        height: constants.MAP_HEIGHT, //BE: SHOULD BE SQRT(NBSITES) - 1
         perlinWidth: 200,
         perlinHeight: 200,
         allowDebug: false, // if set to true, you can click on the map to enter "debug" mode. Warning : debug mode is slow to initialize, set to false for faster rendering.
@@ -236,11 +234,11 @@ function drawMap(arr, strt) {
     
     var cnvs=document.getElementById("land");
     var ctx=cnvs.getContext("2d");
-    var xSize = cnvs.width / w;
-    var ySize = cnvs.height / h;
+    var xSize = cnvs.width / constants.MAP_WIDTH;
+    var ySize = cnvs.height / constants.MAP_HEIGHT;
     
-    for (var y = 0; y < h; y++) {
-        for (var x = 0; x < w; x++) {
+    for (var y = 0; y < constants.MAP_HEIGHT; y++) {
+        for (var x = 0; x < constants.MAP_WIDTH; x++) {
             ctx.fillStyle = getBiomeColor(arr[y][x].biome);
             ctx.fillRect(x * xSize, y * ySize, xSize, ySize);
             if (arr[y][x].river) {
@@ -299,19 +297,19 @@ function drawMiniMap(arr, strt) {
 
 function alignMap(arr, Land, vidToArrCoords) {
     
-    var a = new Array(w*h);
-    for (var i = 0; i < w*h; i++) {
+    var a = new Array(constants.MAP_WIDTH * constants.MAP_HEIGHT);
+    for (var i = 0; i < constants.MAP_WIDTH * constants.MAP_HEIGHT; i++) {
         a[i] = 0;
     }
     
-    for (var y = 0; y < h; y++) {
-        for (var x = 0; x < w; x++) {
+    for (var y = 0; y < constants.MAP_HEIGHT; y++) {
+        for (var x = 0; x < constants.MAP_WIDTH; x++) {
             a[arr[y][x].voronoiId]++;
         }
     }
     
     //find the ones that aren't mapped to anything
-    for (var i = 0; i < w*h; i++) {
+    for (var i = 0; i < constants.MAP_WIDTH * constants.MAP_HEIGHT; i++) {
         if (a[i]==0) {
             vidToArrCoords[i] = Land.diagram.cells[i].site.x + "," + Land.diagram.cells[i].site.y;
         }
@@ -342,9 +340,13 @@ Point.prototype.west = function() {
 }
 
 //paper.install(window);
-function generateAndDrawLand() {
+/*
+ * @param w {Width} : map's width
+ * @param h {Integer} : map's height
+ */
+function generateAndDrawLand(w, h) {
     
-    var Land = generateLandWithMountain(w,h);
+    var Land = generateLandWithMountain(w, h);
     
     //make the array    
     var vidToArrCoords = {};

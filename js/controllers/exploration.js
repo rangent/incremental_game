@@ -4,27 +4,26 @@
 
 /*
  * Run after an explore finishes
- * @region : integer : region explored
+ * Adds the terrain features and modifiers to the terraintype found, returns full Terrain
+ * @terrainFound : TerrainType : the TerrainType that was found
+ * @location : Location : coordinate to add the new Terrain to
  */
 
-function findLand(region) {
-	//setup, need to normalize probabilities
-	normalizeTerrainTypeProbabilities(region);
+function findLand(terrainTypeFound, location) {
 	
-	//pick the land, then get the features and modifiers for it
-	var terrainFound = pickNewLand(region);
-	var terrainFeaturesFound = getFeaturesForTerrainFound(terrainFound);
-	var terrainModifiersFound = getModifiersForTerrainFound(terrainFound);
+	//get the features and modifiers for the terrainTypeFound
+	var terrainFeaturesFound = getFeaturesForTerrainFound(terrainTypeFound);
+	var terrainModifiersFound = getModifiersForTerrainFound(terrainTypeFound);
 	
 	//get the printable string
-	var landFoundString =  makePrintableStringForTerrain(terrainFound, terrainModifiersFound, terrainFeaturesFound);
+	var landFoundString =  makePrintableStringForTerrain(terrainTypeFound, terrainModifiersFound, terrainFeaturesFound);
 
 	log("New location found: " + landFoundString);
-	var foundLand = new Terrain( terrainFound, terrainFeaturesFound, terrainModifiersFound);
-	addTerrainToPlayer(foundLand);
+	var foundLand = new Terrain( terrainTypeFound, terrainFeaturesFound, terrainModifiersFound);
+	addTerrainToPlayer(foundLand, location);
 
-	//subsequent explorations should be more difficult
-	game.nextExploreCost *= game.nextExploreCostMultiplier;
+	//subsequent explorations should be more difficult TODO: is this still valid?
+	//game.nextExploreCost *= game.nextExploreCostMultiplier;
 }
 
 function makePrintableStringForTerrain(terrainFound, terrainModifiersFound, terrainFeaturesFound) {
@@ -79,6 +78,7 @@ function getFeaturesForTerrainFound(terrainFound) {
 /*
  *  Need to normalize the probabilities so they all fall within [0-1) range
  */
+/*
 function normalizeTerrainTypeProbabilities(region) {
 	//normalize the terrainType probabilities
 	var total = 0;
@@ -89,7 +89,9 @@ function normalizeTerrainTypeProbabilities(region) {
 		locationTerrainProbabilies[region][l].probability = locationTerrainProbabilies[region][l].probability / total;
 	}
 }
+*/
 
+/*
 function pickNewLand(region) {
 	var terrainFound;
 	//after normalized, pick the new land!
@@ -103,3 +105,4 @@ function pickNewLand(region) {
 	}
 	return terrainFound;
 }
+*/

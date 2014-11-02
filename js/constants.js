@@ -6,6 +6,10 @@ var constants = {
 	TIME_INTERVAL : 1000, //ms
 	MCVERSION : 0.1,
 	
+	//map
+	MAP_HEIGHT : 50,
+	MAP_WIDTH : 50,
+	
 	//action bar
 	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
 	

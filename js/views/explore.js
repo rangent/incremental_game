@@ -2,6 +2,7 @@
  *	View for explore action
  */
 
+/*
 function doExplore() {
 	closeJoyrideTips();
 	if ($( "#progressbar" ).progressbar( "value" ) == $( "#progressbar" ).progressbar( "option", "max" )) {
@@ -14,3 +15,4 @@ function doExplore() {
 	checkIfDisableLeftTravelButton();
 	checkIfDisableRightTravelButton();
 }
+*/

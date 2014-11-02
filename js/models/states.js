@@ -61,7 +61,9 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 
 
 var playerActions = {
+	/*
 	Explore	: new PlayerAction("Explore", true, true, true, 0),
+	*/
 	Forage	: new PlayerAction("Forage", true, true, true, 0),
 	Travel  : new PlayerAction("Travel", true, true, false, 0),
 	Inventory  : new PlayerAction("Inventory", true, true, false, 0),

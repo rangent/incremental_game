@@ -3,10 +3,11 @@
  */
  
  /* 
- * @loc : terrain
+ * @terrainFound : Terrain
+ * @location : Location
  */
-function addTerrainToPlayer(loc) {
-	player.availableTerrain.push(loc);
+function addTerrainToPlayer(terrainFound, location) {
+	player.availableTerrain[location.y][location.x]=terrainFound;
 }
 
 /*

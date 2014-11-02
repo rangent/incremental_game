@@ -187,6 +187,15 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 }
 
 /*
+ * @param x : Integer
+ * @param y : Integer
+ */
+function Location(x,y) {
+	this.x = x;
+	this.y = y;
+}
+
+/*
  * The probability an action succeeds, and the items that can be found if it succeeds
  * @probabilityActionSucceeds : number between 0 and 1 : liklihood <action> successful
  * @itemAndProbability : array of rel_itemAndQuantityProbability : item and relative probability it'll be found

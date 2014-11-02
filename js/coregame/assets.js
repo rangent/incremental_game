@@ -70,7 +70,7 @@ var terrainTypes = {
 	forest 		: new TerrainType("Forest",{}),
 }
 
-
+/*
 var locationTerrainProbabilies = [ 
 	[ // 0th is "local"
 		new rel_terrainTypeProbability(terrainTypes.plains, 5),
@@ -81,6 +81,7 @@ var locationTerrainProbabilies = [
 	[ //1st is "distant area"...
 	]
 ]
+*/
 
 //NOTE: The 
 var terrainFeatures = {
