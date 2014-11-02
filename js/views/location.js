@@ -6,14 +6,18 @@
  *  Update the currently selected terrain in the UI
  *	@terrain : terrain 
  */
+/*
 function updateTargetDestinationTable(terrain) {
 	updateTerrainTable( $("#selectedTerrain"), terrain );
 }
+*/
+
 
 function updateCurrentTerrain() {
 	updateTerrainTable( $("#currentTerrain") , player.availableTerrain[player.currentTerrain] );
 	player.availableTerrain[player.currentTerrain].disabled = true;
 }
+
 
 /*
  * @divToContainTable : jQuery element : pass in the single element (selected by ID)

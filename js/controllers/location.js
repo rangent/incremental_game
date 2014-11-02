@@ -16,6 +16,7 @@ function addTerrainToPlayer(terrainFound, location) {
  *  @probability : number between 0 and 1 : liklihood of occuring on each of the array of terrain types
  *  @return : terrainTypeProbability array
  */
+/*
 function terrainTypesAndProbability(terrainTypes, probability) {
 	var ret = [];
 	for (var t in terrainTypes) {
@@ -23,6 +24,7 @@ function terrainTypesAndProbability(terrainTypes, probability) {
 	}
 	return ret;
 }
+*/
 
 /*
  * @return : terrainType array : all terrain types
@@ -45,6 +47,9 @@ function allTerrainTypesExcept(terrainTypesToExclude) {
 	return returnTerrainTypes;
 }
 
-function travelToLocation(availableTerrainId) {
-	player.currentTerrain = availableTerrainId;
+/*
+ * @param {Location} location : location to send player to
+ */
+function travelToLocation(location) {
+	player.currentTerrain = location;
 }
