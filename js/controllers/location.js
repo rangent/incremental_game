@@ -11,12 +11,11 @@ function addTerrainToPlayer(terrainFound, location) {
 }
 
 /*
- *	Array of relationships between terrain types and probabilities
+ *	Array of relationships between terrain types and probabilities something is found there
  *  @terrainType : terrainType array
  *  @probability : number between 0 and 1 : liklihood of occuring on each of the array of terrain types
  *  @return : terrainTypeProbability array
  */
-/*
 function terrainTypesAndProbability(terrainTypes, probability) {
 	var ret = [];
 	for (var t in terrainTypes) {
@@ -24,7 +23,6 @@ function terrainTypesAndProbability(terrainTypes, probability) {
 	}
 	return ret;
 }
-*/
 
 /*
  * @return : terrainType array : all terrain types

@@ -36,8 +36,6 @@ function initializeTerrainDiv() {
 			updateCurrentTerrain();
 		}
 	}
-	checkIfDisableLeftTravelButton();
-	checkIfDisableRightTravelButton();
 }
 
 function jqueryifyButtons() {

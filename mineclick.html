@@ -37,6 +37,7 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 * Developing incrementals - http://dhmholley.co.uk/incrementals-part-2.html
 * http://diveintohtml5.info/storage.html
 * http://dhmholley.co.uk/civclicker-postmortem.html
+* Civ clicker II dev blog - https://www.passle.net/p/2fkw/civclicker-ii-development-blog
 
 * Alert system: 
 * Noty: http://ned.im/noty/#hi
@@ -202,10 +203,25 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		<div id="currentTerrain" class="footer-left">
 		</div>
 		<div id="terrainSection" class="footer-center">
-			<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span><br/>
-			<button class="clearEvent" onclick="travelLeft();" id="doTravelLeft">&lt;--</button>
+			<!--<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span><br/>-->
+            <table>
+                <tr>
+                    <td><button class="clearEvent" onclick="travel(-1,1);" id="doTravelNW">&#x2196;</button></td>
+                    <td><button class="clearEvent" onclick="travel(0,1);" id="doTravelN">&#x2191;</button></td>
+                    <td><button class="clearEvent" onclick="travel(1,1);" id="doTravelNE">&#x2197;</button></td>
+                </tr>
+                <tr>
+                    <td><button class="clearEvent" onclick="travel(-1,0);" id="doTravelW">&#x2190;</button></td>
+                    <td><button class="clearEvent" onclick="return false;" id="nop">X</button></td>
+                    <td><button class="clearEvent" onclick="travel(1,0);" id="doTravelE">&#x2192;</button></td>
+                </tr>
+                <tr>
+                    <td><button class="clearEvent" onclick="travel(-1,-1);" id="doTravelSW">&#x2199;</button></td>
+                    <td><button class="clearEvent" onclick="travel(0,-1);" id="doTravelS">&#x2193;</button></td>
+                    <td><button class="clearEvent" onclick="travel(1,-1);" id="doTravelSE">&#x2198;</button></td>
+                </tr>
+            </table>
 			<button class="clearEvent" onclick="doTravel();" id="doTravel">Travel</button>
-			<button class="clearEvent" onclick="travelRight();" id="doTravelRight">--&gt;</button>
 		</div>
 		<div id="selectedTerrain" class="footer-right">
 		</div>

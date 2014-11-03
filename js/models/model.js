@@ -219,16 +219,15 @@ function FindProbabilities(probabilityActionSucceeds, itemAndProbabilityArray) {
 //////////////////////////////////////////////////////////////////////////////
 
 /*
- * Relationships between a terrain and its probability of being found
- *  @terrainType : terrainType
- *  @probability : number between 0 and 1 : liklihood of occuring on that terrain type
+ * Relationships between a terrain type and the probability of something being found there
+ * (Used by terrain features and possibly others)
+ *  @param {TerrainType} terrainType
+ *  @param {Double} probability : number between 0 and 1, liklihood of occuring on that terrain type
  */
-/*
 function rel_terrainTypeProbability(terrainType, probability) {
 	this.terrainType = terrainType;
 	this.probability = probability;
 }
-*/
 
 /*
  * Relationships between an item and its probability of being found
