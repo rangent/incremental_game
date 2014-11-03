@@ -9,7 +9,7 @@
  * @location : Location : coordinate to add the new Terrain to
  */
 
-function findLand(terrainTypeFound, location) {
+function createFullLand(terrainTypeFound, location) {
 	
 	//get the features and modifiers for the terrainTypeFound
 	var terrainFeaturesFound = getFeaturesForTerrainFound(terrainTypeFound);

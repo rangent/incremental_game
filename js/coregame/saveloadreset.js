@@ -36,7 +36,9 @@ function resetState() {
 		localStorage.removeItem("masterState");
 		location.reload();
 	}
-	else {}
+	else {
+		//TODO display appropriate error
+	}
 }
 
 function autosave() {

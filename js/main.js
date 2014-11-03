@@ -1,15 +1,16 @@
 
 //////////////////////////////////////////////////////////////////////////////
-// BUILDABLES
+// GAME'S START
 //////////////////////////////////////////////////////////////////////////////
 
 function setupNewGame() {
-	initializePlayer();
+	initializePlayerAsset();
     var ms = generateAndDrawLand(constants.MAP_WIDTH, constants.MAP_HEIGHT);
+	initializeMap(ms.map);
 	//debugger;
 }
 
-function initializePlayer() {
+function initializePlayerAsset() {
 	for (var y in player.availableTerrain) {
 		player.availableTerrain[y] = new Array(constants.MAP_WIDTH);
 	}

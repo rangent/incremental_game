@@ -68,6 +68,8 @@ var terrainTypes = {
 			}
 		),
 	forest 		: new TerrainType("Forest",{}),
+    ocean       : new TerrainType("Ocean",{}),
+    beach       : new TerrainType("Beach",{}),
 }
 
 /*
