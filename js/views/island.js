@@ -1,6 +1,3 @@
-var mapGrid = null;
-var strt = null;
-
 /**
  * @param {String} biome
  * @param {Number} elevation
@@ -343,6 +340,8 @@ Point.prototype.west = function() {
 /*
  * @param w {Width} : map's width
  * @param h {Integer} : map's height
+ * @returns {Object} : object.map a multidimensional array of just the pseudo-terrain
+ *      (metrics only, no proper Terrain, modifiers, or features), start: is start location
  */
 function generateAndDrawLand(w, h) {
     
@@ -350,12 +349,13 @@ function generateAndDrawLand(w, h) {
     
     //make the array    
     var vidToArrCoords = {};
-    mapGrid = cloneIsland(Land, w, h, vidToArrCoords);
+    var mapGrid = cloneIsland(Land, w, h, vidToArrCoords);
     
-    strt = findInitialStartingPoint(w, h, mapGrid);
+    var strt = findInitialStartingPoint(w, h, mapGrid);
     strt = adjustStartPoint(strt, mapGrid);
     
     alignMap(mapGrid, Land, vidToArrCoords);
     drawMap(mapGrid, strt);
     drawMiniMap(mapGrid, strt);
+    return {map: mapGrid, start: strt};
 };

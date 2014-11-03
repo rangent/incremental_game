@@ -2,22 +2,18 @@
 //////////////////////////////////////////////////////////////////////////////
 // BUILDABLES
 //////////////////////////////////////////////////////////////////////////////
-//function costArray(resources) {
-//	for (var r in resources) {
-//		//...
-//	}
-//}
-//function building(bname, total, age, cost) {
-//	this.bname = bname;
-//	this.total = total;
-//	this.age = age;
-//	this.cost = 
-//}
-//var buildings = {
-//
-//	hut : 
-//
-//}
+
+function setupNewGame() {
+	initializePlayer();
+    var ms = generateAndDrawLand(constants.MAP_WIDTH, constants.MAP_HEIGHT);
+	//debugger;
+}
+
+function initializePlayer() {
+	for (var y in player.availableTerrain) {
+		player.availableTerrain[y] = new Array(constants.MAP_WIDTH);
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // INCREMENTAL LOOP

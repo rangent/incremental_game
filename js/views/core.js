@@ -32,7 +32,7 @@ function initializeTerrainDiv() {
 		$("#terrainSection").hide();
 	}
 	else {
-		if (player.availableTerrain.length > 0) {
+		if (player.availableTerrain != null && player.availableTerrain.length > 0) {
 			updateCurrentTerrain();
 		}
 	}

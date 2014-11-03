@@ -36,11 +36,11 @@ var game = {
 
 //player's state
 var player = {
-	availableTerrain : [],
+	availableTerrain : null,
 	inventory : false,
 	currentRegion : 0,
 	atHome : true,
-	currentTerrain : 0, //availableTerrain's ID
+	currentTerrain : null, //availableTerrain's ID
 }
 
 /*

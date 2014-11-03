@@ -78,7 +78,7 @@ function drawInventoryTable() {
 		}
 
 		//items on the ground that have never been picked up by player
-		if (player.availableTerrain.length > 0 && player.availableTerrain[player.currentTerrain] !== "undefined") {
+		if (player.availableTerrain != null && player.availableTerrain.length > 0 && player.availableTerrain[player.currentTerrain] !== "undefined") {
 			for (var v in player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection) {
 				
 				itemAndQuantity = player.availableTerrain[player.currentTerrain].inventory.itemQuantityCollection[v];

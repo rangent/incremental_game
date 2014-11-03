@@ -23,7 +23,7 @@ function doTravelToLocation(terrainLocation) {
 		player.availableTerrain[player.currentTerrain].text = player.availableTerrain[player.currentTerrain].text.substring(2);
 	}
 
-	travelToLocation(selectedTerrainIdToTravelTo);
+	travelToLocation(terrainLocation);
 	updateCurrentTerrain();
 	player.availableTerrain[player.currentTerrain].text = "* " + player.availableTerrain[player.currentTerrain].text;
 	$("#availableTerrain").select2("val", "");

@@ -150,11 +150,14 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		player.inventory = new Inventory(100, {});
 		masterState = new MasterState();
     
-        generateAndDrawLand(constants.MAP_WIDTH, constants.MAP_HEIGHT);
 
 		if (hasSavedGameState()) {
 			loadState();
 		}
+        else {
+            //start a new game!
+            setupNewGame();
+        }
 
 		redrawBoard();
 			
