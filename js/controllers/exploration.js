@@ -25,7 +25,7 @@ function createFullLand(ijsloc, location) {
 	var landFoundString =  makePrintableStringForTerrain(terrainTypeFound, terrainModifiersFound, terrainFeaturesFound);
 
 	log("New location found: " + landFoundString);
-	var foundLand = new Terrain( terrainTypeFound, terrainFeaturesFound, terrainModifiersFound, ijsloc);
+	var foundLand = new Terrain( terrainTypeFound, terrainFeaturesFound, terrainModifiersFound, ijsloc, location);
 	addTerrainToPlayer(foundLand, location);
 
 	//subsequent explorations should be more difficult TODO: is this still valid?

@@ -110,9 +110,10 @@ function removeItemsFromInventoryModel(inventory, genericItem, quantity) {
  * @terrainType : single terrainType
  * @terrainFeature : terrainFeature array : possible features of this terrain element
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
- * @loc : loc : location generated from island.js
+ * @ijsloc : loc : location generated from island.js
+ * @location : Location : Terrain's location
  */
-function Terrain(terrainType, terrainFeatures, terrainModifiers, loc) {
+function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, location) {
 	this.id = seeds.terrainIdSeed++;
 	this.type = "Terrain";
 	this.capacity = 30;
@@ -137,17 +138,18 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, loc) {
 	this.terrainModifiers = terrainModifiers;
 	this.inventory = new Inventory(Number.MAX_VALUE, {});
 	this.explored = false; //all new locations are unexplored
+	this.location = location;
 	
 	//from island.js' loc:
-	this.elevation = loc.elevation;
-	this.moisture = loc.moisture;
-	this.nextRiver = loc.nextRiver;
-	this.ocean = loc.ocean;
-	this.river = loc.river;
-	this.riverSize = loc.riverSize;
-	this.source = loc.source;
+	this.elevation = ijsloc.elevation;
+	this.moisture = ijsloc.moisture;
+	this.nextRiver = ijsloc.nextRiver;
+	this.ocean = ijsloc.ocean;
+	this.river = ijsloc.river;
+	this.riverSize = ijsloc.riverSize;
+	this.source = ijsloc.source;
 	//this.voronoiId = loc.voronoiId; //dont think I'll need this
-	this.water = loc.water;
+	this.water = ijsloc.water;
 }
 //TODO: does this make sense?  What does it mean to be a "home"?
 //We should have some charactarization other than this?
@@ -206,6 +208,13 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 function Location(x,y) {
 	this.x = x;
 	this.y = y;
+}
+
+function isSameLocation(l1, l2) {
+	if (typeof l1 === "Location" && typeof l2 === "Location" ) {
+		return l1.x == l2.x && l1.y == l2.y;
+	}
+	return false;
 }
 
 /*

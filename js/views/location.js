@@ -24,7 +24,6 @@ function updateCurrentTerrain() {
  * @terrain : Terrain
  */
 function updateTerrainTable(divToContainTable, terrain) {
-	debugger; //TODO: this wont work, likely we'll need a location passed in as well, or Terrain will need an x and y coordinate
 	divToContainTable.empty();
 	var features = "None";
 	if (terrain.terrainFeatures.length > 0) {
@@ -42,7 +41,7 @@ function updateTerrainTable(divToContainTable, terrain) {
 		}
 	}
 	var terrainPrintedName = terrain.terrainType.ttname;
-	if (terrain.id == player.currentTerrain) {
+	if (isSameLocation(terrain.location, player.currentTerrain)) {
 		terrainPrintedName = "* " + terrainPrintedName;
 	}
 	if (terrain.isHome) {
