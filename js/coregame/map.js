@@ -12,9 +12,8 @@ function initializeMap(m) {
         var i = 0;
         for (var x in m[y]) {
             var l = m[y][x];
-            debugger;
-            var tt = translateTerrainType(l.biome);
-            createFullLand(tt, new Location(i, j));
+            //debugger;
+            createFullLand(l, new Location(i, j));
             i++;
         }
         j++;
@@ -38,6 +37,8 @@ function translateTerrainType(ttstring) {
             return terrainTypes.forest;
         case "BEACH" :
             return terrainTypes.beach;
+        case "LAKE" :
+            return terrainTypes.lake;
     }
     return null;
 }

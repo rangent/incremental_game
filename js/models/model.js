@@ -110,8 +110,9 @@ function removeItemsFromInventoryModel(inventory, genericItem, quantity) {
  * @terrainType : single terrainType
  * @terrainFeature : terrainFeature array : possible features of this terrain element
  * @terrainModifier : terrainModifier array : possible modifiers to this terrain
+ * @loc : loc : location generated from island.js
  */
-function Terrain(terrainType, terrainFeatures, terrainModifiers) {
+function Terrain(terrainType, terrainFeatures, terrainModifiers, loc) {
 	this.id = seeds.terrainIdSeed++;
 	this.type = "Terrain";
 	this.capacity = 30;
@@ -135,6 +136,18 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers) {
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 	this.inventory = new Inventory(Number.MAX_VALUE, {});
+	this.explored = false; //all new locations are unexplored
+	
+	//from island.js' loc:
+	this.elevation = loc.elevation;
+	this.moisture = loc.moisture;
+	this.nextRiver = loc.nextRiver;
+	this.ocean = loc.ocean;
+	this.river = loc.river;
+	this.riverSize = loc.riverSize;
+	this.source = loc.source;
+	//this.voronoiId = loc.voronoiId; //dont think I'll need this
+	this.water = loc.water;
 }
 //TODO: does this make sense?  What does it mean to be a "home"?
 //We should have some charactarization other than this?

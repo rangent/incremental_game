@@ -38,7 +38,6 @@ var game = {
 var player = {
 	availableTerrain : null,
 	inventory : false,
-	currentRegion : 0,
 	atHome : true,
 	currentTerrain : null, //availableTerrain's ID
 }

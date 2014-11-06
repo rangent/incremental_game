@@ -5,21 +5,27 @@
 /*
  * Run after an explore finishes
  * Adds the terrain features and modifiers to the terraintype found, returns full Terrain
- * @terrainFound : TerrainType : the TerrainType that was found
+ * @ijsloc : loc : a loc generated from island.js
  * @location : Location : coordinate to add the new Terrain to
  */
 
-function createFullLand(terrainTypeFound, location) {
+function createFullLand(ijsloc, location) {
+	
+    var terrainTypeFound = translateTerrainType(ijsloc.biome);
 	
 	//get the features and modifiers for the terrainTypeFound
+	//add random features
 	var terrainFeaturesFound = getFeaturesForTerrainFound(terrainTypeFound);
+	//add pre-set features
+	addLocFeatures(terrainFeaturesFound, ijsloc);
+	//add random modifiers
 	var terrainModifiersFound = getModifiersForTerrainFound(terrainTypeFound);
 	
 	//get the printable string
 	var landFoundString =  makePrintableStringForTerrain(terrainTypeFound, terrainModifiersFound, terrainFeaturesFound);
 
 	log("New location found: " + landFoundString);
-	var foundLand = new Terrain( terrainTypeFound, terrainFeaturesFound, terrainModifiersFound);
+	var foundLand = new Terrain( terrainTypeFound, terrainFeaturesFound, terrainModifiersFound, ijsloc);
 	addTerrainToPlayer(foundLand, location);
 
 	//subsequent explorations should be more difficult TODO: is this still valid?
@@ -75,6 +81,15 @@ function getFeaturesForTerrainFound(terrainFound) {
 	return terrainFeaturesFound;
 }
 
+function addLocFeatures(terrainFeaturesFound, loc) {
+	if (loc.river) {
+		terrainFeaturesFound.push(terrainFeatures.river);
+	}
+	if (loc.source) {
+		terrainFeaturesFound.push(terrainFeatures.waterSource);
+	}
+	return terrainFeaturesFound;
+}
 /*
  *  Need to normalize the probabilities so they all fall within [0-1) range
  */

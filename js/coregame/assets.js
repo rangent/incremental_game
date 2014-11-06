@@ -70,6 +70,7 @@ var terrainTypes = {
 	forest 		: new TerrainType("Forest",{}),
     ocean       : new TerrainType("Ocean",{}),
     beach       : new TerrainType("Beach",{}),
+    lake        : new TerrainType("Lake",{}),
 }
 
 /*
@@ -87,12 +88,13 @@ var locationTerrainProbabilies = [
 
 //NOTE: The 
 var terrainFeatures = {
-	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5) ], [], {}),
-	river : new TerrainFeature("River", "Rivers allow easier travel and increased fertility.", terrainTypesAndProbability(allTerrainTypes(), 0.5), [], {}),
+	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5), new rel_terrainTypeProbability(terrainTypes.hill, 0.99) ], [], {}),
+	river : new TerrainFeature("River", "Rivers allow easier travel and increased fertility.", [], [], {}),
+    waterSource : new TerrainFeature("waterSource", "Source of water.", [], [], {}),
 }
 
 var terrainModifiers = {
-	serene : new TerrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.5), []),
+	serene : new TerrainModifier("Serene", "Serene locations cannot be attacked by enemies.", terrainTypesAndProbability(allTerrainTypes(), 0.01), []),
 }
 
 /*

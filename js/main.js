@@ -7,11 +7,13 @@ function setupNewGame() {
 	initializePlayerAsset();
     var ms = generateAndDrawLand(constants.MAP_WIDTH, constants.MAP_HEIGHT);
 	initializeMap(ms.map);
-	//debugger;
+	player.currentTerrain = new Location(ms.start[0], ms.start[1]);
+	debugger;
 }
 
 function initializePlayerAsset() {
-	for (var y in player.availableTerrain) {
+	player.availableTerrain = new Array(constants.MAP_HEIGHT);
+	for (var y = 0; y < player.availableTerrain.length; y++) {
 		player.availableTerrain[y] = new Array(constants.MAP_WIDTH);
 	}
 }
