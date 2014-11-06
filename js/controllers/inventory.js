@@ -70,8 +70,8 @@ function resolveInventory(inventory) {
 	if (inventory == "player") {
 		return player.inventory;
 	}
-	else if (typeof inventory === "number" && typeof player.availableTerrain[inventory] !== "undefined") {
-		return player.availableTerrain[inventory].inventory;
+	else if (typeof inventory === "number" && typeof getCurrentTerrain()[inventory] !== "undefined") {
+		return getCurrentTerrain()[inventory].inventory;
 	}
 	return null;
 }

@@ -58,6 +58,14 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 	this.age = age;
 }
 
+function getCurrentTerrain() {
+	return player.availableTerrain[player.currentTerrain.y][player.currentTerrain.x];
+}
+
+function getTerrainAtLocation(location) {
+	return player.availableTerrain[location.y][location.x];
+}
+
 
 var playerActions = {
 	/*

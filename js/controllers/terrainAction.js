@@ -5,14 +5,15 @@
 /*
  * do <action> on terrain, return item(s) if any found
  * @action : string : name of action
- * @terrainId : integer : id of location assocaited with player.availableTerrain
+ * @terrainId : integer : id of location associated with player.availableTerrain
  */
 
 function resolveActionOnTerrain(action, terrainId) {
+	debugger; //TODO: this wont work, terrains dont have IDs any more
 
 	//this is going to be complicated... :(
 
-	var t = player.availableTerrain[terrainId];
+	var t = player.availableTerrain[terrainId]; //TODO: Should be getCurrentTerrain()
 	var findProbability = 0;
 	var itemsAndProbabilitiesArray = [];
 

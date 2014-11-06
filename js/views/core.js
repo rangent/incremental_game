@@ -32,7 +32,7 @@ function initializeTerrainDiv() {
 		$("#terrainSection").hide();
 	}
 	else {
-		if (player.availableTerrain != null && player.availableTerrain.length > 0) {
+		if (player.availableTerrain != null) {
 			updateCurrentTerrain();
 		}
 	}
@@ -52,7 +52,7 @@ function initializeAvailableTerrain() {
 	$("#availableTerrain").select2({
 		placeholder: "Select travel destination",
 		allowClear: true,
-		data: player.availableTerrain
+		data: player.availableTerrain //TODO: this wont work
 	}); 
 	$("#availableTerrain").on("select2-highlight",
 		function(e) { 
@@ -63,7 +63,6 @@ function initializeAvailableTerrain() {
 		    updateTargetDestinationTable(e.added); }
 		);
 }  
-
 
 // the grand daddy
 function redrawBoard() { //initialize DOM elements

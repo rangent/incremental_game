@@ -18,14 +18,14 @@ function doTravel() {
 function doTravelToLocation(terrainLocation) {
 	//logic to "enable" currently selected drop down item if it wasn't the  "select travel destination" item
 	//also remove the "* " indicating the player's current location
-	if (typeof player.availableTerrain[player.currentTerrain] === "object") {
-		player.availableTerrain[player.currentTerrain].disabled = false;
-		player.availableTerrain[player.currentTerrain].text = player.availableTerrain[player.currentTerrain].text.substring(2);
+	if (typeof getCurrentTerrain() === "object") {
+		getCurrentTerrain().disabled = false;
+		getCurrentTerrain().text = getCurrentTerrain().text.substring(2);
 	}
 
 	travelToLocation(terrainLocation);
 	updateCurrentTerrain();
-	player.availableTerrain[player.currentTerrain].text = "* " + player.availableTerrain[player.currentTerrain].text;
+	getCurrentTerrain().text = "* " + getCurrentTerrain().text;
 	$("#availableTerrain").select2("val", "");
 	$("#selectedTerrain").empty();
 
@@ -43,7 +43,7 @@ function travelLeft() {
 */
 
 function travel(x, y) {
-	
+	debugger; //TODO: implement this, maybe rename to travelInDirection, this seems like "travel to destination" which it isn't
 }
 
 /*
