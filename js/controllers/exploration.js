@@ -24,7 +24,7 @@ function createFullLand(ijsloc, location) {
 	//get the printable string
 	var landFoundString =  makePrintableStringForTerrain(terrainTypeFound, terrainModifiersFound, terrainFeaturesFound);
 
-	log("New location found: " + landFoundString);
+	//log("New location found: " + landFoundString);
 	var foundLand = new Terrain( terrainTypeFound, terrainFeaturesFound, terrainModifiersFound, ijsloc, location);
 	addTerrainToPlayer(foundLand, location);
 

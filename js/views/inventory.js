@@ -53,7 +53,7 @@ function drawInventoryTable() {
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
-					dropResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+					dropResource.push({currentTerrain: getCurrentTerrain(), item: itemAndQuantity.item.name});
 				}
 				else {
 					rows += constants.BLANK_PLAYER_INVENTORY_ROW;
@@ -69,7 +69,7 @@ function drawInventoryTable() {
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
-					pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+					pickupResource.push({currentTerrain: getCurrentTerrain(), item: itemAndQuantity.item.name});
 				}
 				else {
 					rows += constants.BLANK_LOCATION_INVENTORY_ROW;

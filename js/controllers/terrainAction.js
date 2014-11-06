@@ -9,11 +9,9 @@
  */
 
 function resolveActionOnTerrain(action, terrainId) {
-	debugger; //TODO: this wont work, terrains dont have IDs any more
-
 	//this is going to be complicated... :(
 
-	var t = player.availableTerrain[terrainId]; //TODO: Should be getCurrentTerrain()
+	var t = getCurrentTerrain();
 	var findProbability = 0;
 	var itemsAndProbabilitiesArray = [];
 
