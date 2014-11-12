@@ -210,19 +210,19 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 			<!--<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span><br/>-->
             <table>
                 <tr>
-                    <td><button class="clearEvent" onclick="travel(-1,1);" id="doTravelNW">&#x2196;</button></td>
-                    <td><button class="clearEvent" onclick="travel(0,1);" id="doTravelN">&#x2191;</button></td>
-                    <td><button class="clearEvent" onclick="travel(1,1);" id="doTravelNE">&#x2197;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(-1,-1);" id="doTravelNW">&#x2196;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(0,-1);" id="doTravelN">&#x2191;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(1,-1);" id="doTravelNE">&#x2197;</button></td>
                 </tr>
                 <tr>
-                    <td><button class="clearEvent" onclick="travel(-1,0);" id="doTravelW">&#x2190;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(-1,0);" id="doTravelW">&#x2190;</button></td>
                     <td><button class="clearEvent" onclick="return false;" id="nop">X</button></td>
-                    <td><button class="clearEvent" onclick="travel(1,0);" id="doTravelE">&#x2192;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(1,0);" id="doTravelE">&#x2192;</button></td>
                 </tr>
                 <tr>
-                    <td><button class="clearEvent" onclick="travel(-1,-1);" id="doTravelSW">&#x2199;</button></td>
-                    <td><button class="clearEvent" onclick="travel(0,-1);" id="doTravelS">&#x2193;</button></td>
-                    <td><button class="clearEvent" onclick="travel(1,-1);" id="doTravelSE">&#x2198;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(-1,1);" id="doTravelSW">&#x2199;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(0,1);" id="doTravelS">&#x2193;</button></td>
+                    <td><button class="clearEvent" onclick="travelRelative(1,1);" id="doTravelSE">&#x2198;</button></td>
                 </tr>
             </table>
 			<button class="clearEvent" onclick="doTravel();" id="doTravel">Travel</button>

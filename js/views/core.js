@@ -44,6 +44,10 @@ function jqueryifyButtons() {
 	});
 }
 
+function redrawMaps() {
+	drawMaps(player.availableTerrain, player.currentTerrain);	
+}
+
 function setupInitialProgressBar() {
 	makeProgressBar(game.nextExploreCost, playerActions.Explore, progressStory, 0);	
 }
@@ -74,5 +78,5 @@ function redrawBoard() { //initialize DOM elements
 	jqueryifyButtons();
 	setupInitialProgressBar();
 	writeGameLog();
-	drawMaps(player.availableTerrain, player.currentTerrain);
+	redrawMaps();
 }

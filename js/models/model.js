@@ -151,6 +151,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.biome = ijsloc.biome;
 	this.water = ijsloc.water;
 }
+
 //TODO: does this make sense?  What does it mean to be a "home"?
 //We should have some charactarization other than this?
 function setAsHome(terrain, homeName) { 

@@ -42,8 +42,10 @@ function travelLeft() {
 }
 */
 
-function travel(x, y) {
-	debugger; //TODO: implement this, maybe rename to travelInDirection, this seems like "travel to destination" which it isn't
+function travelRelative(x, y) {
+	//debugger; //TODO: implement this, maybe rename to travelInDirection, this seems like "travel to destination" which it isn't
+	player.currentTerrain = new Location(player.currentTerrain.x + x, player.currentTerrain.y + y);
+	redrawMaps();
 }
 
 /*

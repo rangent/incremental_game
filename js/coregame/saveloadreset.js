@@ -37,7 +37,7 @@ function resetState() {
 		location.reload();
 	}
 	else {
-		//TODO display appropriate error
+		alert("Browser does not support local storage, game cannot save!");
 	}
 }
 
