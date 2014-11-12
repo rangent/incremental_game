@@ -148,6 +148,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.river = ijsloc.river;
 	this.riverSize = ijsloc.riverSize;
 	this.source = ijsloc.source;
+	this.biome = ijsloc.biome;
 	//this.voronoiId = loc.voronoiId; //dont think I'll need this
 	this.water = ijsloc.water;
 }

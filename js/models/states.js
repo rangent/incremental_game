@@ -6,6 +6,7 @@
 var global = {
 	storyStarted : false,
 	initializedPlayer : false,
+	mapGenerated : false,
 }
 
 //seeds for entities

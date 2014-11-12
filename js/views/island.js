@@ -116,8 +116,8 @@ function adjustStartPoint(strt, arr) {
     //start on a hilltop
     var moved = false;
     for (var c in check) {
-        var xcoord = strt[0]+check[c][0];
-        var ycoord = strt[1]+check[c][1];
+        var xcoord = strt.x+check[c][0];
+        var ycoord = strt.y+check[c][1];
         if (ycoord >= 0 && xcoord >= 0) { //dont think I need to check right or top bounds
             var loc = arr[ycoord][xcoord];
             if (!moved && !loc.water && loc.biome != "BEACH") {
@@ -136,8 +136,8 @@ function adjustStartPoint(strt, arr) {
              [2,0], [2,1], [2,2], [1,2], [0,2], [-1,2], [-2,2], [-2,1], [-2,0],
              [-2,-1], [-2,-2], [-1,-2], [0,-2], [1,-2], [2,-2], [2,-1]];
     for (var c in check) {
-        var xcoord = strt[0]+check[c][0];
-        var ycoord = strt[1]+check[c][1];
+        var xcoord = strt.x+check[c][0];
+        var ycoord = strt.y+check[c][1];
         if (ycoord >= 0 && xcoord >= 0) { //dont think I need to check right or top bounds
             var loc = arr[ycoord][xcoord];
             for (var b in requiredStartingBiomes) {
@@ -150,8 +150,8 @@ function adjustStartPoint(strt, arr) {
     //place any that we need
     for (var c in check) {
         if (requiredStartingBiomes.length > 0) {
-            var xcoord = strt[0]+check[c][0];
-            var ycoord = strt[1]+check[c][1];
+            var xcoord = strt.x+check[c][0];
+            var ycoord = strt.y+check[c][1];
             if (ycoord >= 0 && xcoord >= 0) { //dont think I need to check right or top bounds
                 var loc = arr[ycoord][xcoord];
                 if (!loc.water && loc.biome != "BEACH") {
@@ -251,7 +251,7 @@ function drawMap(arr, strt) {
     }
     
     ctx.fillStyle="red";
-    ctx.fillRect(strt[0] * xSize, strt[1] * ySize, xSize, ySize);
+    ctx.fillRect(strt.x * xSize, strt.y * ySize, xSize, ySize);
     
 }
 
@@ -263,18 +263,18 @@ function drawMiniMap(arr, strt) {
     var xSize = cnvs.width / minimapSize;
     var ySize = cnvs.height / minimapSize;
     
-    for (var y = (strt[1]-((minimapSize-1)/2)); y <= (strt[1]+((minimapSize-1)/2)); y++) {
-        for (var x = (strt[0]-((minimapSize-1)/2)); x <= (strt[0]+((minimapSize-1)/2)); x++) {
+    for (var y = (strt.y-((minimapSize-1)/2)); y <= (strt.y+((minimapSize-1)/2)); y++) {
+        for (var x = (strt.x-((minimapSize-1)/2)); x <= (strt.x+((minimapSize-1)/2)); x++) {
             if (x < 0 || x >= arr[0].length || y < 0 || y >= arr.length) {
                 ctx.fillStyle = 'black';
-                ctx.fillRect((x - (strt[0]-((minimapSize-1)/2))) * xSize, (y - (strt[1]-((minimapSize-1)/2))) * ySize, xSize, ySize);
+                ctx.fillRect((x - (strt.x-((minimapSize-1)/2))) * xSize, (y - (strt.y-((minimapSize-1)/2))) * ySize, xSize, ySize);
             } else {
                 
                 if (arr[y][x].river ) {
                     ctx.fillStyle =  getBiomeColor(arr[y][x].biome);	
-                    ctx.fillRect((x - (strt[0]-((minimapSize-1)/2))) * xSize, (y - (strt[1]-((minimapSize-1)/2))) * ySize, xSize, ySize);
-                    var xctr = (x - (strt[0]-((minimapSize-1)/2))) * xSize + (xSize / 2);
-                    var yctr = (y - (strt[1]-((minimapSize-1)/2))) * ySize + (ySize / 2);
+                    ctx.fillRect((x - (strt.x-((minimapSize-1)/2))) * xSize, (y - (strt.y-((minimapSize-1)/2))) * ySize, xSize, ySize);
+                    var xctr = (x - (strt.x-((minimapSize-1)/2))) * xSize + (xSize / 2);
+                    var yctr = (y - (strt.y-((minimapSize-1)/2))) * ySize + (ySize / 2);
                     ctx.beginPath();
                     ctx.arc(xctr, yctr, (xSize / 2), 0, 2 * Math.PI, false);
                     ctx.fillStyle = "#2f9ceb";
@@ -283,7 +283,7 @@ function drawMiniMap(arr, strt) {
                 }
                 else {
                     ctx.fillStyle = getBiomeColor(arr[y][x].biome);	
-                    ctx.fillRect((x - (strt[0]-((minimapSize-1)/2))) * xSize, (y - (strt[1]-((minimapSize-1)/2))) * ySize, xSize, ySize);
+                    ctx.fillRect((x - (strt.x-((minimapSize-1)/2))) * xSize, (y - (strt.y-((minimapSize-1)/2))) * ySize, xSize, ySize);
                 }
             }
         }
@@ -336,14 +336,13 @@ Point.prototype.west = function() {
     return new Point(this.x-1, this.y);
 }
 
-//paper.install(window);
 /*
  * @param w {Width} : map's width
  * @param h {Integer} : map's height
  * @returns {Object} : object.map a multidimensional array of just the pseudo-terrain
  *      (metrics only, no proper Terrain, modifiers, or features), start: is start location
  */
-function generateAndDrawLand(w, h) {
+function generateMap(w, h) {
     
     var Land = generateLandWithMountain(w, h);
     
@@ -354,8 +353,13 @@ function generateAndDrawLand(w, h) {
     var strt = findInitialStartingPoint(w, h, mapGrid);
     strt = adjustStartPoint(strt, mapGrid);
     
+    //make sure every coordinate has a corresponding biome (not quite 1:1 with generated)
     alignMap(mapGrid, Land, vidToArrCoords);
+    
+    return {map: mapGrid, start: strt};
+}
+
+function drawMaps(mapGrid, strt) {
     drawMap(mapGrid, strt);
     drawMiniMap(mapGrid, strt);
-    return {map: mapGrid, start: strt};
-};
+}
