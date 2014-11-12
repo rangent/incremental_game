@@ -74,4 +74,5 @@ function redrawBoard() { //initialize DOM elements
 	jqueryifyButtons();
 	setupInitialProgressBar();
 	writeGameLog();
+	drawMaps(player.availableTerrain, player.currentTerrain);
 }

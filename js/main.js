@@ -4,7 +4,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 function setupNewGame() {
-	
 	if (!masterState.global.mapGenerated) {
 		initializePlayerTerrainAsset();
 		var ms = generateMap(constants.MAP_WIDTH, constants.MAP_HEIGHT);
@@ -12,9 +11,6 @@ function setupNewGame() {
 		initializeMap(ms.map);
 		masterState.global.mapGenerated = true;
 	}
-	
-	drawMaps(player.availableTerrain, player.currentTerrain);
-	debugger;
 }
 
 function initializePlayerTerrainAsset() {
