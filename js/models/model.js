@@ -149,7 +149,6 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.riverSize = ijsloc.riverSize;
 	this.source = ijsloc.source;
 	this.biome = ijsloc.biome;
-	//this.voronoiId = loc.voronoiId; //dont think I'll need this
 	this.water = ijsloc.water;
 }
 //TODO: does this make sense?  What does it mean to be a "home"?
