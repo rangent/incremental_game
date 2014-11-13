@@ -86,15 +86,29 @@ function getArrowForDirection(location) {
 	}
 }
 
+function discoverLandAroundLocation(location) {
+	for (var j = -1; j <= 1; j++) {
+		for (var i = -1; i <= 1; i++) {
+			var x = location.x + i;
+			var y = location.y + j;
+			if (y >= 0 && y < constants.MAP_HEIGHT && x >= 0 && x < constants.MAP_WIDTH) {
+				player.availableTerrain[y][x].explored = true;
+			}
+		}
+	}
+}
+
 
 /*
  * primary travel function called by clicking direction button
  */
 function travelRelative(x, y) {
 	player.currentTerrain = new Location(player.currentTerrain.x + x, player.currentTerrain.y + y);
+	discoverLandAroundLocation(player.currentTerrain);
 	redrawMaps();
 	drawTravelDirections();
 }
+
 /*
 function doTravel() {
 	var selectedTerrainId = $("#availableTerrain").select2("val");

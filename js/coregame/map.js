@@ -12,7 +12,6 @@ function initializeMap(m) {
         var i = 0;
         for (var x in m[y]) {
             var l = m[y][x];
-            //debugger;
             createFullLand(l, new Location(i, j));
             i++;
         }

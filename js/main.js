@@ -9,6 +9,7 @@ function setupNewGame() {
 		var ms = generateMap(constants.MAP_WIDTH, constants.MAP_HEIGHT);
 		player.currentTerrain = new Location(ms.start[0], ms.start[1]);
 		initializeMap(ms.map);
+		discoverLandAroundLocation(player.currentTerrain);
 		masterState.global.mapGenerated = true;
 	}
 }

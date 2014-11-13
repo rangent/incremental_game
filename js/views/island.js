@@ -165,16 +165,22 @@ function adjustStartPoint(strt, arr) {
     return strt;
 }
 
-function getBiomeColor(biome) {
-    switch(biome) {
-        case "OCEAN": return '#82caff';
-        case "BEACH": return '#ffe98d';
-        case "LAKE": return '#2f9ceb';
-        case "MOUNTAIN": return '#535353';
-        case "FOREST": return '#a9cca4';
-        case "HILL": return '#a49486';
-        case "PLAINS": return '#c9dca4';
-        default: return '#ffffff';
+function getBiomeColor(loc) {
+    
+    if (!loc.explored) {
+        return "#c3c3c3";
+    }
+    else {
+        switch(loc.biome) {
+            case "OCEAN": return '#82caff';
+            case "BEACH": return '#ffe98d';
+            case "LAKE": return '#2f9ceb';
+            case "MOUNTAIN": return '#535353';
+            case "FOREST": return '#a9cca4';
+            case "HILL": return '#a49486';
+            case "PLAINS": return '#c9dca4';
+            default: return '#ffffff';
+        }
     }
 }
 
@@ -236,9 +242,9 @@ function drawMap(arr, strt) {
     
     for (var y = 0; y < constants.MAP_HEIGHT; y++) {
         for (var x = 0; x < constants.MAP_WIDTH; x++) {
-            ctx.fillStyle = getBiomeColor(arr[y][x].biome);
+            ctx.fillStyle = getBiomeColor(arr[y][x]);
             ctx.fillRect(x * xSize, y * ySize, xSize, ySize);
-            if (arr[y][x].river) {
+            if (arr[y][x].river && arr[y][x].explored) {
                 var xctr = x * xSize + (xSize / 2);
                 var yctr = y * ySize + (ySize / 2);
                 ctx.beginPath();
@@ -270,8 +276,8 @@ function drawMiniMap(arr, strt) {
                 ctx.fillRect((x - (strt.x-((minimapSize-1)/2))) * xSize, (y - (strt.y-((minimapSize-1)/2))) * ySize, xSize, ySize);
             } else {
                 
-                if (arr[y][x].river ) {
-                    ctx.fillStyle =  getBiomeColor(arr[y][x].biome);	
+                if (arr[y][x].river && arr[y][x].explored) {
+                    ctx.fillStyle =  getBiomeColor(arr[y][x]);	
                     ctx.fillRect((x - (strt.x-((minimapSize-1)/2))) * xSize, (y - (strt.y-((minimapSize-1)/2))) * ySize, xSize, ySize);
                     var xctr = (x - (strt.x-((minimapSize-1)/2))) * xSize + (xSize / 2);
                     var yctr = (y - (strt.y-((minimapSize-1)/2))) * ySize + (ySize / 2);
@@ -282,7 +288,7 @@ function drawMiniMap(arr, strt) {
                     ctx.closePath();
                 }
                 else {
-                    ctx.fillStyle = getBiomeColor(arr[y][x].biome);	
+                    ctx.fillStyle = getBiomeColor(arr[y][x]);	
                     ctx.fillRect((x - (strt.x-((minimapSize-1)/2))) * xSize, (y - (strt.y-((minimapSize-1)/2))) * ySize, xSize, ySize);
                 }
             }
