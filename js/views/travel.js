@@ -107,6 +107,8 @@ function travelRelative(x, y) {
 	discoverLandAroundLocation(player.currentTerrain);
 	redrawMaps();
 	drawTravelDirections();
+	updateCurrentTerrain();
+	drawInventoryTable();
 }
 
 /*
