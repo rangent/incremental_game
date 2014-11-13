@@ -143,7 +143,6 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	//from island.js' loc:
 	this.elevation = ijsloc.elevation;
 	this.moisture = ijsloc.moisture;
-	this.nextRiver = ijsloc.nextRiver;
 	this.ocean = ijsloc.ocean;
 	this.river = ijsloc.river;
 	this.riverSize = ijsloc.riverSize;

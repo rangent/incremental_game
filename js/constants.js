@@ -7,8 +7,8 @@ var constants = {
 	MCVERSION : 0.1,
 	
 	//map
-	MAP_HEIGHT : 50,
-	MAP_WIDTH : 50,
+	MAP_HEIGHT : 100,
+	MAP_WIDTH : 100,
 	
 	//action bar
 	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
