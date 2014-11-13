@@ -48,6 +48,10 @@ function redrawMaps() {
 	drawMaps(player.availableTerrain, player.currentTerrain);	
 }
 
+function redrawTravelDirections() {
+	drawTravelDirections();
+}
+
 function setupInitialProgressBar() {
 	makeProgressBar(game.nextExploreCost, playerActions.Explore, progressStory, 0);	
 }
@@ -79,4 +83,5 @@ function redrawBoard() { //initialize DOM elements
 	setupInitialProgressBar();
 	writeGameLog();
 	redrawMaps();
+	redrawTravelDirections();
 }

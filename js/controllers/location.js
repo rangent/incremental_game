@@ -44,10 +44,3 @@ function allTerrainTypesExcept(terrainTypesToExclude) {
 	}
 	return returnTerrainTypes;
 }
-
-/*
- * @param {Location} location : location to send player to
- */
-function travelToLocation(location) {
-	player.currentTerrain = location;
-}
