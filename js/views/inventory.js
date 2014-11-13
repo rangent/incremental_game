@@ -102,40 +102,40 @@ function drawInventoryTable() {
 		for (var p in pickupResource) {
 			// debugger;
 			var item = pickupResource[p].item;
-			var tid = pickupResource[p].currentTerrain; //TODO: currentTerrain is a location now, not an int
-			var f = new Function("handlePickupItemPress('" + item + "'," + tid + ")");
+			var loc = pickupResource[p].currentTerrain.location;
+			var f = new Function("handlePickupItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
 			$("#" + item + "Pickup").on("click", f );
 		}
 
 		for (var p in dropResource) {
-			debugger;
+			// debugger;
 			var item = dropResource[p].item;
-			var tid = dropResource[p].currentTerrain; //TODO: currentTerrain is a location now, not an int
-			var f = new Function("handleDropItemPress('" + item + "'," + tid + ")");
+			var loc = dropResource[p].currentTerrain.location;
+			var f = new Function("handleDropItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
 			$("#" + item + "Drop").on("click", f );	
 		}
 
 	}
 }
 
-function handleDropItemPress(item, tid) {
+function handleDropItemPress(item, loc) {
 	closeJoyrideTips();
 	var repetitions = 1;
 	if (keys.shiftPressed) {
 		repetitions = 10;
 	}
 	for (var r = 0; r < repetitions; r++) {
-		dropItem(tid, item, 1);
+		dropItem(loc, item, 1);
 	}
 }
 
-function handlePickupItemPress(item, tid) {
+function handlePickupItemPress(item, loc) {
 	closeJoyrideTips();
 	var repetitions = 1;
 	if (keys.shiftPressed) {
 		repetitions = 10;
 	}
 	for (var r = 0; r < repetitions; r++) {
-		pickupItem(tid, item, 1);
+		pickupItem(loc, item, 1);
 	}
 }
