@@ -45,7 +45,7 @@ function jqueryifyButtons() {
 }
 
 function redrawMaps() {
-	drawMaps(player.availableTerrain, player.currentTerrain);	
+	drawMaps(player.availableTerrain, player.currentLocation);	
 }
 
 function redrawTravelDirections() {

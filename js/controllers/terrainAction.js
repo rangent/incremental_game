@@ -11,7 +11,7 @@
 function resolveActionOnTerrain(action, terrainId) {
 	//this is going to be complicated... :(
 
-	var t = getCurrentTerrain();
+	var t = getCurrentLocation();
 	var findProbability = 0;
 	var itemsAndProbabilitiesArray = [];
 

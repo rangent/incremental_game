@@ -31,8 +31,8 @@ function drawTravelDirections() {
 function isTerrainTraversable(location) {
 	var dx = location.x;
 	var dy = location.y;
-	var x = player.currentTerrain.x + dx;
-	var y = player.currentTerrain.y + dy;
+	var x = player.currentLocation.x + dx;
+	var y = player.currentLocation.y + dy;
 	var loc = player.availableTerrain[y][x];
 	
 	//maybe we want to do a special action with the center travel button eventually
@@ -103,8 +103,8 @@ function discoverLandAroundLocation(location) {
  * primary travel function called by clicking direction button
  */
 function travelRelative(x, y) {
-	player.currentTerrain = new Location(player.currentTerrain.x + x, player.currentTerrain.y + y);
-	discoverLandAroundLocation(player.currentTerrain);
+	player.currentLocation = new Location(player.currentLocation.x + x, player.currentLocation.y + y);
+	discoverLandAroundLocation(player.currentLocation);
 	redrawMaps();
 	drawTravelDirections();
 	updateCurrentTerrain();
@@ -114,7 +114,7 @@ function travelRelative(x, y) {
 /*
 function doTravel() {
 	var selectedTerrainId = $("#availableTerrain").select2("val");
-	if (selectedTerrainId != "" && selectedTerrainId != player.currentTerrain) {
+	if (selectedTerrainId != "" && selectedTerrainId != player.currentLocation) {
 		doTravelToLocation(parseInt(selectedTerrainId));
 	}
 }
@@ -128,14 +128,14 @@ function doTravel() {
 function doTravelToLocation(terrainLocation) {
 	//logic to "enable" currently selected drop down item if it wasn't the  "select travel destination" item
 	//also remove the "* " indicating the player's current location
-	if (typeof getCurrentTerrain() === "object") {
-		getCurrentTerrain().disabled = false;
-		getCurrentTerrain().text = getCurrentTerrain().text.substring(2);
+	if (typeof getCurrentLocation() === "object") {
+		getCurrentLocation().disabled = false;
+		getCurrentLocation().text = getCurrentLocation().text.substring(2);
 	}
 
 	travelToLocation(terrainLocation);
 	updateCurrentTerrain();
-	getCurrentTerrain().text = "* " + getCurrentTerrain().text;
+	getCurrentLocation().text = "* " + getCurrentLocation().text;
 	$("#availableTerrain").select2("val", "");
 	$("#selectedTerrain").empty();
 
@@ -146,9 +146,9 @@ function doTravelToLocation(terrainLocation) {
 
 /*
 function travelLeft() {
-	if ((player.currentTerrain - 1) >= 0  && 
-		typeof player.availableTerrain[player.currentTerrain - 1] === "object") {
-		doTravelToLocation(parseInt(player.currentTerrain) - 1);
+	if ((player.currentLocation - 1) >= 0  && 
+		typeof player.availableTerrain[player.currentLocation - 1] === "object") {
+		doTravelToLocation(parseInt(player.currentLocation) - 1);
 	}
 }
 */
@@ -156,7 +156,7 @@ function travelLeft() {
 
 /*
 function checkIfDisableLeftTravelButton() {
-	if (player.currentTerrain == 0) {
+	if (player.currentLocation == 0) {
 		disableButton("doTravelLeft");
 	}
 	else {
@@ -167,16 +167,16 @@ function checkIfDisableLeftTravelButton() {
 
 /*
 function travelRight() {
-	if ((player.currentTerrain + 1) < (player.availableTerrain.length)  && 
-		typeof player.availableTerrain[player.currentTerrain + 1] === "object") {
-		doTravelToLocation(parseInt(player.currentTerrain) + 1);
+	if ((player.currentLocation + 1) < (player.availableTerrain.length)  && 
+		typeof player.availableTerrain[player.currentLocation + 1] === "object") {
+		doTravelToLocation(parseInt(player.currentLocation) + 1);
 	}
 }
 */
 
 /*
 function checkIfDisableRightTravelButton() {
-	if (player.availableTerrain.length == 0 || player.currentTerrain == (player.availableTerrain.length - 1)) {
+	if (player.availableTerrain.length == 0 || player.currentLocation == (player.availableTerrain.length - 1)) {
 		disableButton("doTravelRight");
 	}
 	else {

@@ -44,8 +44,8 @@ function drawInventoryTable() {
 		for (var v in player.inventory.itemQuantityCollection) {
 			var itemAndQuantity = player.inventory.itemQuantityCollection[v];
 			if ((itemAndQuantity.quantity > 0) ||
-				(typeof getCurrentTerrain().inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-				getCurrentTerrain().inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)) {
+				(typeof getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
+				getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)) {
 				
 				if (itemAndQuantity.quantity > 0) {
 					rows += constants.PLAYER_INVENTORY_ROW
@@ -53,23 +53,23 @@ function drawInventoryTable() {
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
-					dropResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+					dropResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
 				}
 				else {
 					rows += constants.BLANK_PLAYER_INVENTORY_ROW;
 				}
 	
 				//add the mirroring button, otherwise add blank row
-				if (typeof getCurrentTerrain().inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-					getCurrentTerrain().inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
+				if (typeof getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
+					getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
 	
-					itemAndQuantity = getCurrentTerrain().inventory.itemQuantityCollection[itemAndQuantity.item.name];
+					itemAndQuantity = getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name];
 					rows += constants.LOCATION_INVENTORY_ROW
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
-					pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+					pickupResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
 				}
 				else {
 					rows += constants.BLANK_LOCATION_INVENTORY_ROW;
@@ -78,10 +78,10 @@ function drawInventoryTable() {
 		}
 
 		//items on the ground that have never been picked up by player
-		if (player.availableTerrain != null && getCurrentTerrain() !== "undefined") {
-			for (var v in getCurrentTerrain().inventory.itemQuantityCollection) {
+		if (player.availableTerrain != null && getCurrentLocation() !== "undefined") {
+			for (var v in getCurrentLocation().inventory.itemQuantityCollection) {
 				
-				itemAndQuantity = getCurrentTerrain().inventory.itemQuantityCollection[v];
+				itemAndQuantity = getCurrentLocation().inventory.itemQuantityCollection[v];
 				
 				if (typeof player.inventory.itemQuantityCollection[itemAndQuantity.item.name] === "undefined") {
 					
@@ -91,7 +91,7 @@ function drawInventoryTable() {
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
-					pickupResource.push({currentTerrain: player.currentTerrain, item: itemAndQuantity.item.name});
+					pickupResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
 				}
 			}
 		}
@@ -102,7 +102,7 @@ function drawInventoryTable() {
 		for (var p in pickupResource) {
 			// debugger;
 			var item = pickupResource[p].item;
-			var loc = pickupResource[p].currentTerrain;
+			var loc = pickupResource[p].currentLocation;
 			var f = new Function("handlePickupItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
 			$("#" + item + "Pickup").on("click", f );
 		}
@@ -110,7 +110,7 @@ function drawInventoryTable() {
 		for (var p in dropResource) {
 			// debugger;
 			var item = dropResource[p].item;
-			var loc = dropResource[p].currentTerrain;
+			var loc = dropResource[p].currentLocation;
 			var f = new Function("handleDropItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
 			$("#" + item + "Drop").on("click", f );	
 		}

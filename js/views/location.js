@@ -14,8 +14,8 @@ function updateTargetDestinationTable(terrain) {
 
 
 function updateCurrentTerrain() {
-	updateTerrainTable( $("#currentTerrain") , getCurrentTerrain() );
-	getCurrentTerrain().disabled = true;
+	updateTerrainTable( $("#currentTerrain") , getCurrentLocation() );
+	getCurrentLocation().disabled = true;
 }
 
 
@@ -41,7 +41,7 @@ function updateTerrainTable(divToContainTable, terrain) {
 		}
 	}
 	var terrainPrintedName = terrain.terrainType.ttname;
-	if (isSameLocation(terrain.location, player.currentTerrain)) {
+	if (isSameLocation(terrain.location, player.currentLocation)) {
 		terrainPrintedName = "* " + terrainPrintedName;
 	}
 	if (terrain.isHome) {
@@ -68,5 +68,5 @@ function updateTerrainTable(divToContainTable, terrain) {
 }
 
 function updateLocationTextBasedOnPlayersLocation() {
-	getCurrentTerrain().text = "* " + getCurrentTerrain().text;
+	getCurrentLocation().text = "* " + getCurrentLocation().text;
 }

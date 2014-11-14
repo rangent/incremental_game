@@ -8,5 +8,5 @@
  */
 function travelToLocation(location) {
     debugger; //is this function even used?
-	player.currentTerrain = location;
+	player.currentLocation = location;
 }

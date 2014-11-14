@@ -5,10 +5,10 @@ function doForage() {
 	closeJoyrideTips();	
 	// progressStory(1); //second phase of the game
 	//debugger;
-	var i = resolveActionOnTerrain("Forage", getCurrentTerrain());
+	var i = resolveActionOnTerrain("Forage", getCurrentLocation());
 	if (i != null) {
 		addJoyrideTip(replaceAll("%ITEM%",i.item, constants.ITEM_FOUND_TIP));
-		addItemsToInventory(getCurrentTerrain().location, i.item, i.count);
+		addItemsToInventory(getCurrentLocation().location, i.item, i.count);
 		drawInventoryTable();
 		letsJoyride(i.item);
 	}

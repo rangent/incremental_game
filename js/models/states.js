@@ -40,7 +40,7 @@ var player = {
 	availableTerrain : null,
 	inventory : false,
 	atHome : true,
-	currentTerrain : null, //availableTerrain's ID
+	currentLocation : null, //availableTerrain's ID
 }
 
 /*
@@ -59,8 +59,8 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 	this.age = age;
 }
 
-function getCurrentTerrain() {
-	return player.availableTerrain[player.currentTerrain.y][player.currentTerrain.x];
+function getCurrentLocation() {
+	return player.availableTerrain[player.currentLocation.y][player.currentLocation.x];
 }
 
 function getTerrainAtLocation(location) {

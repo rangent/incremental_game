@@ -14,5 +14,5 @@ function getInventoriesWithCraftableMaterialsForPlayer() {
  * @returns {[String]} InventoryArray (strings) - 
  */
 function getInventoriesWithBuildableMaterialsForPlayer() {
-    return ['player', player.currentTerrain];
+    return ['player', player.currentLocation];
 }

@@ -11,7 +11,7 @@ function drawBuildingTable() {
                 var name = buildable[b].building.name;
                 var printableName = buildable[b].building.printableName;
                 var jquerySelectorId = "#" + name + "Build";
-                var loc = player.currentTerrain;
+                var loc = player.currentLocation;
                 $("#buildTable").append(
                     constants.BUILDABLE_ITEM_ROW.replace("%ITEM%",name).replace("%ITEM_NAME%",printableName));
                 $(jquerySelectorId).button();
@@ -33,7 +33,7 @@ function drawBuildingTable() {
 }
 
 function buildItemClick(buildableIndex, location) {
-    var result = makeItemFromInventories(itemLibrary.buildable[buildableIndex], ['player', player.currentTerrain], player.currentTerrain);
+    var result = makeItemFromInventories(itemLibrary.buildable[buildableIndex], ['player', player.currentLocation], player.currentLocation);
     if (result == "success") {
         drawInventoryTable();
         drawCraftingTable();
