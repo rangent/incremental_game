@@ -7,6 +7,7 @@
  * @param {Building} building : pass in a Building to get an array of Buildables for how we can build that building
  * @returns {Array} array of Buildables, returns empty array if item is unbuildable
  */
+/*
 function getBuildRecipesForItem(building) {
     var ret = [];
     for (var i in itemLibrary.buildable) {
@@ -15,4 +16,11 @@ function getBuildRecipesForItem(building) {
         }
     }
     return ret;
+}
+*/
+
+
+function buildBuildingAtLocation(buildable, location) {
+    var t = player.availableTerrain[location.y][location.x];
+    t.buildings.push(buildable.building);
 }

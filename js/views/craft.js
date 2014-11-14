@@ -20,6 +20,7 @@ function craftItem(craftable) {
     if (result == "success") {
         drawInventoryTable();
         drawCraftingTable();
+        drawBuildingTable();
     }
     else {
         log(result);
@@ -30,7 +31,7 @@ function drawCraftingTable() {
     if (playerActions.Craft.availableToPlayer) {
         $("#craftTable").empty().append(constants.CRAFTABLE_TABLE_HEADER);
         for (var c in craftable) {
-            if (isPossibleToMakeItemWithInventories(craftable[c], getInventoriesWithMakeableMaterialsForPlayer())) {
+            if (isPossibleToMakeItemWithInventories(craftable[c], getInventoriesWithCraftableMaterialsForPlayer())) {
                 var name = craftable[c].craftableItem.name;
                 var printableName = craftable[c].craftableItem.printableName;
                 var jquerySelectorId = "#" + name + "Craft";

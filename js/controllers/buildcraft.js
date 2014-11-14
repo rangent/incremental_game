@@ -78,7 +78,12 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
     }
     
     //finally "craft" the item (add it to player's inventory)
-    addItemsToInventoryModel(resolveInventory(targetInventoryForMadeItem), makeableItem, makeable.numProduced);
+    if (makeable.type == "Buildable") {
+        buildBuildingAtLocation(makeable, targetInventoryForMadeItem);
+    }
+    else {
+        addItemsToInventoryModel(resolveInventory(targetInventoryForMadeItem), makeableItem, makeable.numProduced);
+    }
     
     return "success"; //string to indicate successful
 }

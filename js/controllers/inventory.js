@@ -70,8 +70,9 @@ function resolveInventory(inventory) {
 	if (inventory == "player") {
 		return player.inventory;
 	}
-	else if (typeof inventory === "object" && inventory instanceof Location && typeof getCurrentTerrain() !== "undefined") {
+	else if (typeof inventory === "object" && inventory.hasOwnProperty("x") && inventory.hasOwnProperty("y") && typeof getCurrentTerrain() !== "undefined") {
 		return getCurrentTerrain().inventory;
 	}
+	console.log("Could not translate inventory: " + JSON.stringify(inventory));
 	return null;
 }

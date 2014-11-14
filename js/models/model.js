@@ -136,6 +136,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
+	this.buildings = [];
 	this.inventory = new Inventory(Number.MAX_VALUE, {});
 	this.explored = false; //all new locations are unexplored
 	this.location = location;

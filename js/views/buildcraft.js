@@ -6,7 +6,13 @@
 /**
  * @returns {[String]} InventoryArray (strings) - 
  */
-function getInventoriesWithMakeableMaterialsForPlayer() {
-    //TODO: Should return more than just player inventory when we get storage setup
+function getInventoriesWithCraftableMaterialsForPlayer() {
     return ['player'];
+}
+
+/**
+ * @returns {[String]} InventoryArray (strings) - 
+ */
+function getInventoriesWithBuildableMaterialsForPlayer() {
+    return ['player', player.currentTerrain];
 }

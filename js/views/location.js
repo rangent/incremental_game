@@ -47,11 +47,21 @@ function updateTerrainTable(divToContainTable, terrain) {
 	if (terrain.isHome) {
 		terrainPrintedName += " (Home)";
 	}
+	var buildings = "None";
+	var bldArr = terrain.buildings;
+	if (bldArr.length > 0) {
+		buildings = "";
+		for (var i = 0; i < bldArr.length; i++) {
+			buildings += bldArr[i].name + ", ";
+		}
+		buildings = buildings.substring(0,buildings.length-2);
+	}
 
 	var s = constants.TERRAIN_TABLE
 		.replace("%TERRAIN_NAME%", terrainPrintedName)
 		.replace("%FEATURES%",features)
-		.replace("%MODIFIERS%",modifiers);
+		.replace("%MODIFIERS%",modifiers)
+		.replace("%BUILDINGS%",buildings);
 
 	divToContainTable.append(s);
 	$(".tooltip").tooltip();

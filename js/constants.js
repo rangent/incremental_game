@@ -7,8 +7,8 @@ var constants = {
 	MCVERSION : 0.1,
 	
 	//map
-	MAP_HEIGHT : 100,
-	MAP_WIDTH : 100,
+	MAP_HEIGHT : 60,
+	MAP_WIDTH : 60,
 	
 	//action bar
 	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
@@ -28,7 +28,7 @@ var constants = {
 	//ADD_TO_INVENTORY_TIP : "<ol id=\"joyrideResourceTable\"><li id=\"inventoryTip\" data-id=\"ResourceTable\">This is your inventory...</li></ol>",
 	
 	//terrain
-	TERRAIN_TABLE : "<table class=\"terrainTable\"><tr><th colspan=\"2\" id=\"selectedTerrainTable\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr></table>",
+	TERRAIN_TABLE : "<table class=\"terrainTable\"><tr><th colspan=\"2\" id=\"selectedTerrainTable\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr><tr><td>Buildings:</td><td>%BUILDINGS%</td></tr></table>",
 	
 	//crafting
 	CRAFTABLE_TABLE_HEADER : "<tr><th>Craft</th></tr>",
