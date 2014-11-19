@@ -70,7 +70,17 @@ function initializeAvailableTerrain() {
 		function(e) { 
 		    updateTargetDestinationTable(e.added); }
 		);
-}  
+}
+
+function showMap() {
+	//need to have researching to enable map making to enable ability to view maps
+	if (DEBUG) {
+		$("#mapContainer").show();
+	}
+	else {
+		$("#mapContainer").hide();
+	}
+}
 
 // the grand daddy
 function redrawBoard() { //initialize DOM elements
@@ -83,5 +93,6 @@ function redrawBoard() { //initialize DOM elements
 	setupInitialProgressBar();
 	writeGameLog();
 	redrawMaps();
+	showMap();
 	redrawTravelDirections();
 }
