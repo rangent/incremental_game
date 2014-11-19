@@ -88,7 +88,7 @@ var locationTerrainProbabilies = [
 
 //NOTE: The 
 var terrainFeatures = {
-	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5), new rel_terrainTypeProbability(terrainTypes.hill, 0.99) ], [], {}),
+	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5), new rel_terrainTypeProbability(terrainTypes.hill, 0.1) ], [], {}),
 	river : new TerrainFeature("River", "Rivers allow easier travel and increased fertility.", [], [], {}),
     waterSource : new TerrainFeature("Fresh Water Source", "Source of water.", [], [], {}),
 }

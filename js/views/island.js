@@ -111,6 +111,7 @@ function findInitialStartingPoint(w, h, arr) {
 
 function adjustStartPoint(strt, arr) {
     
+    strt = new Location(strt[0], strt[1]);
     var check = [[1,0], [1,1], [0,1], [-1,1], [-1,0], [-1,-1], [0,-1], [1,-1]];
     
     //start on a hilltop
@@ -124,7 +125,7 @@ function adjustStartPoint(strt, arr) {
                 loc.biome = "HILL";
                 loc.water = false;
                 loc.river = false;
-                strt = [xcoord, ycoord];
+                strt = new Location(xcoord, ycoord);
                 moved = true;
             }
         }

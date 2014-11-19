@@ -7,7 +7,7 @@ function setupNewGame() {
 	if (!masterState.global.mapGenerated) {
 		initializePlayerTerrainAsset();
 		var ms = generateMap(constants.MAP_WIDTH, constants.MAP_HEIGHT);
-		player.currentLocation = new Location(ms.start[0], ms.start[1]);
+		player.currentLocation = ms.start;
 		initializeMap(ms.map);
 		discoverLandAroundLocation(player.currentLocation);
 		masterState.global.mapGenerated = true;
