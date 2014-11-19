@@ -167,7 +167,7 @@ function adjustStartPoint(strt, arr) {
 
 function getBiomeColor(loc) {
     
-    if (!loc.explored) {
+    if (!loc.explored && !DEBUG) {
         return "#e3e3e3";
     }
     else {
