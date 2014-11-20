@@ -20,3 +20,10 @@ function establishSettledArea(location) {
 function enterSettlement(index) { 
 	player.inSettlement = index;
 }
+
+/*
+ * Have player exit a settlement, assumes check was done to make sure player was in a settlement
+ */
+function exitSettlement() {
+    player.inSettlement = null;
+}

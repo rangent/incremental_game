@@ -9,7 +9,18 @@ function drawTravelDirections() {
 		for (var j = -1; j <= 1; j++) {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
-				str += "<td><button class=\"clearEvent\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
+				//give player ability to enter the city if possible
+				if (i == 0 && j == 0 && getCurrentLocation().settlement != null) {
+					if (player.inSettlement == null) {
+						str += "<td><button class=\"clearEvent\" onclick=\"doEnterSettlement(" + getCurrentLocation().settlement + ")\" ";
+					}
+					else {
+						str += "<td><button class=\"clearEvent\" onclick=\"doExitSettlement()\" ";
+					}
+				}
+				else {
+					str += "<td><button class=\"clearEvent\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
+				}
 				if (!isTerrainTraversable(new Location(i, j))) {
 					str += " disabled ";
 				}
@@ -37,6 +48,9 @@ function isTerrainTraversable(location) {
 	
 	//maybe we want to do a special action with the center travel button eventually
 	if (dx == 0 && dy == 0) {
+		if (getCurrentLocation().settlement != null) {
+			return true;
+		}
 		return false;
 	}
 	//dont want to let player fall of the map
@@ -67,7 +81,13 @@ function getArrowForDirection(location) {
 			 return "id=\"doTravelW\">&#x2190;";
 		}
 		if (location.x == 0) {
-			return "id=\"nop\">X";
+			if (player.inSettlement == null && getCurrentLocation().settlement != null ) {
+				return "id=\"nop\">+";
+			}
+			else if (player.inSettlement != null) {
+				return "id=\"nop\">X";
+			}
+			return "id=\"nop\">&nbsp;";
 		}
 		if (location.x == 1) {
 			return "id=\"doTravelE\">&#x2192;";
