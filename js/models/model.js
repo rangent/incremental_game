@@ -118,7 +118,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.id = seeds.terrainIdSeed++;
 	this.type = "Terrain";
 	this.capacity = 30;
-	this.isHome = false;
+	this.inSettlement = false;
 	var text = terrainType.ttname;
 	if (terrainModifiers.length > 0) {
 		for (var t in terrainModifiers) {

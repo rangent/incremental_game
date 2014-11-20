@@ -13,9 +13,10 @@ function establishSettledArea(location) {
     player.settlements.push(settlement);
 }
 
-//TODO: does this make sense?  What does it mean to be a "home"?
-//We should have some charactarization other than this?
-function setAsHome(terrain, homeName) { 
-	terrain.isHome = true;
-	terrain.text = homeName + " - " + terrain.text;
+/*
+ * Have player enter the settlement, assumes check was done to make sure a settlement is actually there
+ * @param {Integer} index : index of the settlement, or null if not
+ */
+function enterSettlement(index) { 
+	player.inSettlement = index;
 }

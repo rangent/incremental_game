@@ -44,7 +44,8 @@ function updateTerrainTable(divToContainTable, terrain) {
 	if (isSameLocation(terrain.location, player.currentLocation)) {
 		terrainPrintedName = "* " + terrainPrintedName;
 	}
-	if (terrain.isHome) {
+	//TODO: needs refactor since settlements are a thing now
+	if (terrain.inSettlement) {
 		terrainPrintedName += " (Home)";
 	}
 	var buildings = "None";

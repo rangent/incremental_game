@@ -40,7 +40,7 @@ var game = {
 var player = {
 	availableTerrain : null,
 	inventory : false,
-	atHome : true,
+	inSettlement : null,
 	currentLocation : null, //Location
 	settlements : [],
 }
