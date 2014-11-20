@@ -29,16 +29,18 @@ var consumable = {
 var building = {
     // Building(uniqueName, printableName, size, age) {
     Firepit : new Building("Firepit", "Firepit", 1, 0),
+	Stockpile : new Building("Stockpile", "Stockpile", 10, 0),
 }
 
 var craftable = [
 	new Craftable(consumable.FirewoodBundle, 1, [new rel_inventoryQuantity(consumable.Stick, 6)]),
-    new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)])
+    new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)]),
 ]
 
 var buildable = [
-    //Buildable(building, numProduced, itemIngredientsAndQuantityArray)
-    new Buildable(building.Firepit, 1, [new rel_inventoryQuantity(consumable.FirewoodBundle, 1)]),
+    //Buildable(building, numProduced, isBuiltInSettlement, isBuiltInWilds, itemIngredientsAndQuantityArray)
+    new Buildable(building.Firepit, 1, true, true, [new rel_inventoryQuantity(consumable.FirewoodBundle, 1)]),
+	new Buildable(building.Stockpile, 1, true, false, [new rel_inventoryQuantity(consumable.stick, 1)]),
 ]
 
 // var equipables = {

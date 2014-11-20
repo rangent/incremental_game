@@ -67,14 +67,18 @@ function getMakeableItem(item) {
 }
 
 /**
- * building : building
- * numProduced : number of buildings built per build order
+ * @param {Building} building
+ * @param {Integer} numProduced : number of buildings built per build order
+ * @param {Boolean} isBuiltInSettlement : can the buildable be made in a settlement
+ * @param {Boolean} isBuiltInWilds : can the buildable be built in the wilds
  * itemIngredientsArray : array of rel_inventoryQuantity : items needed to craft the craftableItem
  */
-function Buildable(building, numProduced, itemIngredientsAndQuantityArray) {
+function Buildable(building, numProduced, isBuiltInSettlement, isBuildInWilds, itemIngredientsAndQuantityArray) {
 	this.id = seeds.buildableSeed++;
 	this.type = "Buildable";
 	this.building = building;
+	this.isBuiltInSettlent = isBuiltInSettlement;
+	this.isBuiltinWilds = isBuildInWilds;
 	this.numProduced = numProduced;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }
