@@ -19,6 +19,21 @@ function establishSettledArea(location) {
  */
 function enterSettlement(index) { 
 	player.inSettlement = index;
+    togglePlayerEnterOrExitSettlementActions();
+}
+
+/*
+ * Some actions should be enabled or disabled based on whether or not player is in a proper venue
+ */
+function togglePlayerEnterOrExitSettlementActions() {
+    //if player entering town
+    if (playerInTown()) { //will eventually expand this if production buildings are in camps
+        playerActions.Forage.availableToPlayer = false;
+    }
+    //if player exiting town
+    else {
+        playerActions.Forage.availableToPlayer = true;
+    }
 }
 
 /*
@@ -26,4 +41,9 @@ function enterSettlement(index) {
  */
 function exitSettlement() {
     player.inSettlement = null;
+    togglePlayerEnterOrExitSettlementActions();
+}
+
+function playerInTown() {
+    return player.inSettlement != null;
 }

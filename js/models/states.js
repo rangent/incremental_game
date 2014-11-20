@@ -55,8 +55,8 @@ var player = {
 function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, age) {
 	this.id = seeds.actionIdSeed++;
 	this.aname = aname;
-	this.availableToPlayer = availableToPlayer;
-	this.actionEnabled = actionEnabled;
+	this.availableToPlayer = availableToPlayer; //should it even show up
+	this.actionEnabled = actionEnabled; //temporarily disabled vs. not showing up
 	this.showInActionBar = showInActionBar;
 	this.age = age;
 }
