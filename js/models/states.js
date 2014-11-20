@@ -22,6 +22,7 @@ var seeds = {
 	buildingIdSeed : 0,
 	buildableSeed : 0,
 	inventoryModelIdSeed : 0,
+	settlementIdSeed : 0,
 }
 
 //game's state

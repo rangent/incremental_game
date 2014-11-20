@@ -81,11 +81,12 @@ function Buildable(building, numProduced, itemIngredientsAndQuantityArray) {
 
 
 // inventory
-function Inventory(capacity, itemQuantityCollection) {
+function Inventory(capacity, itemQuantityCollection, inventoryType) {
 	this.id = seeds.inventoryModelIdSeed++;
 	this.type = "Inventory";
 	this.capacity = capacity; //weight-based inventory model
 	this.itemQuantityCollection = itemQuantityCollection;
+	this.inventoryType = inventoryType;
 }
 //Should not call this unless a check to see if this breaches the capacity has been done
 function addItemsToInventoryModel(inventory, genericItem, quantity) { 
@@ -137,7 +138,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 	this.buildings = [];
-	this.inventory = new Inventory(Number.MAX_VALUE, {});
+	this.inventory = new Inventory(Number.MAX_VALUE, {}, "Terrain");
 	this.explored = false; //all new locations are unexplored
 	this.location = location;
 	
@@ -150,6 +151,15 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.source = ijsloc.source;
 	this.biome = ijsloc.biome;
 	this.water = ijsloc.water;
+}
+
+function Settlement(location, size) {
+	this.id = seeds.settlementIdSeed++;
+	this.location = location;
+	this.size = size;
+	this.name = null;
+	this.buildings = [];
+	this.inventory = new Inventory(100, {}, "Settlement");
 }
 
 //TODO: does this make sense?  What does it mean to be a "home"?

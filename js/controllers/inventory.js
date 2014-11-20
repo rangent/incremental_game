@@ -3,7 +3,7 @@
  */
 
 function initializePlayerInventory() {
-	player.inventory = new Inventory(100, {});
+	player.inventory = new Inventory(100, {}, "Player");
 }
 
 /*
