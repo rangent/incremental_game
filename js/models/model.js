@@ -134,6 +134,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 		text += ")";
 	}
 	this.text = text;
+	this.settlement = null;
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
@@ -151,22 +152,6 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.source = ijsloc.source;
 	this.biome = ijsloc.biome;
 	this.water = ijsloc.water;
-}
-
-function Settlement(location, size) {
-	this.id = seeds.settlementIdSeed++;
-	this.location = location;
-	this.size = size;
-	this.name = null;
-	this.buildings = [];
-	this.inventory = new Inventory(100, {}, "Settlement");
-}
-
-//TODO: does this make sense?  What does it mean to be a "home"?
-//We should have some charactarization other than this?
-function setAsHome(terrain, homeName) { 
-	terrain.isHome = true;
-	terrain.text = homeName + " - " + terrain.text;
 }
 
 /*
@@ -210,6 +195,28 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 	this.description = description;
 	this.applicableTerrainTypeAndProbabilities = applicableTerrainTypeAndProbabilities;
 	this.incompatibleTerrainModifiers = incompatibleTerrainModifiers;
+}
+
+function Settlement(location, size) {
+	this.id = seeds.settlementIdSeed++;
+	this.location = location;
+	this.size = (size == null) ? 0 : size;
+	this.name = null;
+	this.buildings = [];
+	this.inventory = new Inventory(100, {}, "Settlement");
+}
+
+function getSettlementSizeName(settlement) {
+	switch (settlement.size) {
+		case 0 : return "Camp";
+		case 1 : return "Large Camp";
+		case 2 : return "Commune";
+		case 3 : return "Village";
+		case 4 : return "Town";
+		case 5 : return "City";
+		//I could keep going...
+	}
+	return null;
 }
 
 /*

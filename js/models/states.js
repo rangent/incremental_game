@@ -41,7 +41,8 @@ var player = {
 	availableTerrain : null,
 	inventory : false,
 	atHome : true,
-	currentLocation : null, //availableTerrain's ID
+	currentLocation : null, //Location
+	settlements : [],
 }
 
 /*
