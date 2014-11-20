@@ -53,6 +53,9 @@ function isTerrainTraversable(location) {
 		}
 		return false;
 	}
+	if (player.inSettlement != null) {
+		return false;
+	}
 	//dont want to let player fall of the map
 	else if (x < 0 || x >= constants.MAP_WIDTH || y < 0 || y >= constants.MAP_HEIGTH) {
 		return false;

@@ -41,12 +41,9 @@ function updateTerrainTable(divToContainTable, terrain) {
 		}
 	}
 	var terrainPrintedName = terrain.terrainType.ttname;
-	if (isSameLocation(terrain.location, player.currentLocation)) {
-		terrainPrintedName = "* " + terrainPrintedName;
-	}
 	//TODO: needs refactor since settlements are a thing now
-	if (terrain.inSettlement) {
-		terrainPrintedName += " (Home)";
+	if (player.inSettlement != null) {
+		terrainPrintedName = getSettlementSizeName(player.settlements[player.inSettlement]) + " @ " + terrainPrintedName;
 	}
 	var buildings = "None";
 	var bldArr = terrain.buildings;
