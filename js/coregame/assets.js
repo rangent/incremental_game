@@ -40,7 +40,7 @@ var craftable = [
 var buildable = [
     //Buildable(building, numProduced, isBuiltInSettlement, isBuiltInWilds, itemIngredientsAndQuantityArray)
     new Buildable(building.Firepit, 1, true, true, [new rel_inventoryQuantity(consumable.FirewoodBundle, 1)]),
-	new Buildable(building.Stockpile, 1, true, false, [new rel_inventoryQuantity(consumable.stick, 1)]),
+	new Buildable(building.Stockpile, 1, true, false, [new rel_inventoryQuantity(consumable.Stick, 1)]),
 ]
 
 // var equipables = {

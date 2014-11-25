@@ -7,7 +7,9 @@ function drawBuildingTable() {
     if (playerActions.Build.availableToPlayer) {
         $("#buildTable").empty().append(constants.BUILDABLE_TABLE_HEADER);
         for (var b in buildable) {
-            if (isPossibleToMakeItemWithInventories(buildable[b], getInventoriesWithBuildableMaterialsForPlayer())) {
+            if (isPossibleToBuildAtCurrentLocation(buildable[b]) && 
+                isPossibleToMakeItemWithInventories(buildable[b], getInventoriesWithBuildableMaterialsForPlayer())) {
+                
                 var name = buildable[b].building.name;
                 var printableName = buildable[b].building.printableName;
                 var jquerySelectorId = "#" + name + "Build";
@@ -30,6 +32,16 @@ function drawBuildingTable() {
     else {
         $("#buildTable").hide();
     }
+}
+
+function isPossibleToBuildAtCurrentLocation(buildable) {
+    if (player.inSettlement != null && buildable.isBuiltInSettlement) {
+        return true;
+    }
+    else if (player.inSettlement == null && buildable.isBuiltInWilds) {
+        return true;
+    }
+    return false;
 }
 
 function buildItemClick(buildableIndex, location) {

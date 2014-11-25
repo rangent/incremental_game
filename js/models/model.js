@@ -77,8 +77,8 @@ function Buildable(building, numProduced, isBuiltInSettlement, isBuildInWilds, i
 	this.id = seeds.buildableSeed++;
 	this.type = "Buildable";
 	this.building = building;
-	this.isBuiltInSettlent = isBuiltInSettlement;
-	this.isBuiltinWilds = isBuildInWilds;
+	this.isBuiltInSettlement = isBuiltInSettlement;
+	this.isBuiltInWilds = isBuildInWilds;
 	this.numProduced = numProduced;
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }
