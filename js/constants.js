@@ -38,6 +38,10 @@ var constants = {
 	BUILDABLE_TABLE_HEADER : "<tr><th>Build</th></tr>",
 	BUILDABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Build\">%ITEM_NAME%</button></td></tr>",
 	
+	INVENTORY : {
+		WEIGHTED : 0,
+		RULEOF99 : 1,
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////

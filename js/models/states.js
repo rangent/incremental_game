@@ -34,6 +34,7 @@ var game = {
 	exploreClicks : 0,
 	log : [], //array of strings
 	storyPhase : 0,
+	seed : null,
 }
 
 //player's state

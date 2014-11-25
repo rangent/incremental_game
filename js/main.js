@@ -8,6 +8,7 @@ function setupNewGame() {
 		initializePlayerTerrainAsset();
 		var ms = generateMap(constants.MAP_WIDTH, constants.MAP_HEIGHT);
 		player.currentLocation = ms.start;
+		game.seed = ms.map.seed;
 		initializeMap(ms.map);
 		establishSettledArea(player.currentLocation);
 		enterSettlement(0);

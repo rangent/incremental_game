@@ -84,7 +84,11 @@ function Buildable(building, numProduced, isBuiltInSettlement, isBuildInWilds, i
 }
 
 
-// inventory
+/*
+ * @param {Integer} capacity : inventory's capacity
+ * @param {rel_inventoryQuantity} itemQuantityCollection
+ * @param {constants.INVENTORY} inventoryType
+ */
 function Inventory(capacity, itemQuantityCollection, inventoryType) {
 	this.id = seeds.inventoryModelIdSeed++;
 	this.type = "Inventory";
@@ -142,7 +146,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
 	this.buildings = [];
-	this.inventory = new Inventory(Number.MAX_VALUE, {}, "Terrain");
+	this.inventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
 	this.explored = false; //all new locations are unexplored
 	this.location = location;
 	
@@ -206,7 +210,7 @@ function Settlement(location, size) {
 	this.size = (size == null) ? 0 : size;
 	this.name = null;
 	this.buildings = [];
-	this.inventory = new Inventory(100, {}, "Settlement");
+	this.inventory = new Inventory(10, {}, constants.INVENTORY.RULEOF99);
 }
 
 function getSettlementSizeName(settlement) {

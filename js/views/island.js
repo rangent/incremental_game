@@ -73,12 +73,12 @@ function findInitialStartingPoint(w, h, arr) {
     var c = new Point(parseInt(w/2), parseInt(h/2));
     var found = false;
     if (arr[c.y][c.x].water) {
-        //search northeast for land
+        //search northwest for land
         var inWater = true;
         while (inWater) {
             c = c.north();
             inWater = (arr[c.y][c.x].water);
-            var c2 = c.east();
+            var c2 = c.west();
             if (inWater && !arr[c2.y][c2.x].water) {
                 inWater = false;
                 c = c2;
@@ -87,6 +87,7 @@ function findInitialStartingPoint(w, h, arr) {
                 c = c2;
             }
         }
+        console.log('started in water!');
     }			
     
     //search southwest for starting point
@@ -106,6 +107,7 @@ function findInitialStartingPoint(w, h, arr) {
             c = c2;
         }
     }
+    console.log('ended at land?');
     return [c.x,c.y];
 }
 
@@ -231,6 +233,7 @@ function cloneIsland(Land, w, h, vidToArrCoords) {
             arr[y][x] = new loc(cell.biome, cell.elevation, cell.moisture, cell.water, cell.ocean, river, riverSize, cell.nextRiver, cell.source, cell.site.voronoiId, x, y);
         }
     }
+    arr.seed = Land.seed;
     return arr;
 }
 

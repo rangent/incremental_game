@@ -3,7 +3,7 @@
  */
 
 function initializePlayerInventory() {
-	player.inventory = new Inventory(100, {}, "Player");
+	player.inventory = new Inventory(100, {}, constants.INVENTORY.WEIGHTED);
 }
 
 /*
@@ -14,7 +14,11 @@ function initializePlayerInventory() {
 function addItemsToInventory(inventory, itemName, quantity) {
 	inventory = resolveInventory(inventory);
 	var item = getGenericItemAsset(itemName);
-	if ((item.weight * quantity) <= getRemainingCapacity(inventory)) {
+	var itemWeightInInventory = quantity;
+	if (inventory.inventoryType == constants.INVENTORY.WEIGHTED) {
+		itemWeightInInventory = itemWeightInInventory * item.weight;
+	}
+	if ((itemWeightInInventory) <= getRemainingCapacity(inventory)) {
 		addItemsToInventoryModel(inventory, item, quantity);
 		return true;
 	}
@@ -41,12 +45,30 @@ function getCapacity(inventory) {
 	return currentWeight;
 }
 
-function getRemainingCapacity(inventory) { 
+function getRemainingCapacity(inventory) {
 	var currentWeight = 0;
 	for (var i in inventory.itemQuantityCollection) {
-		currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
+		if (inventory.inventoryType == constants.INVENTORY.RULEOF99) {
+			currentWeight += inventory.itemQuantityCollection[i].quantity;
+		}
+		else if (inventory.inventoryType == constants.INVENTORY.WEIGHTED) {
+			currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
+		}
 	}
 	return inventory.capacity - currentWeight;
+}
+
+function hasRoomInInventoryForItems(inventory, itemName, quantity) {
+	var inv = resolveInventory(inventory);
+	var item = getGenericItemAsset(itemName);
+	var remainingCapacity = getRemainingCapacity(inv);
+	if (inv.inventoryType == constants.INVENTORY.RULEOF99) {
+		return (remainingCapacity - quantity) >= 0;
+	}
+	else if (inv.inventoryType == constants.INVENTORY.WEIGHTED) {
+		return (remainingCapacity - (quantity * item.weight)) >= 0;
+	}
+	throw "Unimplemented inventory type";
 }
 
 function hasItemsInInventory(inventory, item, quantity) {

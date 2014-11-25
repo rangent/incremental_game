@@ -11,7 +11,8 @@ function unhideInventoryTabs() {
  */ 
 function dropItem(inventory, itemName, quantity) {
 	//remove from player inventory
-	if (removeItemsFromInventory('player', itemName, quantity)) {
+	if (hasRoomInInventoryForItems(inventory, itemName, quantity) &&
+		removeItemsFromInventory('player', itemName, quantity)) {
 		//add to terrain's inventory
 		addItemsToInventory(inventory, itemName, quantity);
 		drawInventoryTable();
