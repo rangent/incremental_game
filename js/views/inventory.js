@@ -30,6 +30,7 @@ function pickupItem(inventory, itemName, quantity) {
 	}	
 }
 
+//TODO: this is a long ugly function, buggy, definitely needs refactor
 function drawInventoryTable() {
 	if (playerActions.Inventory.availableToPlayer) {
 		$("#resourceTable").empty();
@@ -44,8 +45,8 @@ function drawInventoryTable() {
 		for (var v in player.inventory.itemQuantityCollection) {
 			var itemAndQuantity = player.inventory.itemQuantityCollection[v];
 			if ((itemAndQuantity.quantity > 0) ||
-				(typeof getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-				getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)) {
+				(typeof getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
+				getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)) {
 				
 				if (itemAndQuantity.quantity > 0) {
 					rows += constants.PLAYER_INVENTORY_ROW
@@ -60,10 +61,10 @@ function drawInventoryTable() {
 				}
 	
 				//add the mirroring button, otherwise add blank row
-				if (typeof getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-					getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
+				if (typeof getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
+					getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
 	
-					itemAndQuantity = getCurrentLocation().inventory.itemQuantityCollection[itemAndQuantity.item.name];
+					itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name];
 					rows += constants.LOCATION_INVENTORY_ROW
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
@@ -79,9 +80,9 @@ function drawInventoryTable() {
 
 		//items on the ground that have never been picked up by player
 		if (player.availableTerrain != null && getCurrentLocation() !== "undefined") {
-			for (var v in getCurrentLocation().inventory.itemQuantityCollection) {
+			for (var v in getCurrentLocationInventory().itemQuantityCollection) {
 				
-				itemAndQuantity = getCurrentLocation().inventory.itemQuantityCollection[v];
+				itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[v];
 				
 				if (typeof player.inventory.itemQuantityCollection[itemAndQuantity.item.name] === "undefined") {
 					

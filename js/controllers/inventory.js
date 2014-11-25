@@ -21,6 +21,18 @@ function addItemsToInventory(inventory, itemName, quantity) {
 	return false;
 }
 
+/*
+ * Return the correct inventory, whether player is inside or outside
+ */
+function getCurrentLocationInventory() {
+	if (player.inSettlement != null) {
+		return player.settlements[player.inSettlement].inventory;
+	}
+	else {
+		return getCurrentLocation().inventory;
+	}
+}
+
 function getCapacity(inventory) {
 	var currentWeight = 0;
 	for (var i in inventory.itemQuantityCollection) {
@@ -73,6 +85,7 @@ function resolveInventory(inventory) {
 	else if (player.inSettlement != null) {
 		return player.settlements[player.inSettlement].inventory;
 	}
+	//if it's a location
 	else if (typeof inventory === "object" && inventory.hasOwnProperty("x") &&
 			 inventory.hasOwnProperty("y") && typeof getCurrentLocation() !== "undefined") {
 		return getCurrentLocation().inventory;
