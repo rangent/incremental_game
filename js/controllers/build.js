@@ -21,6 +21,6 @@ function getBuildRecipesForItem(building) {
 
 
 function buildBuildingAtLocation(buildable, location) {
-    var t = player.availableTerrain[location.y][location.x];
+    var t = (player.inSettlement != null) ? player.settlements[player.inSettlement] : player.availableTerrain[location.y][location.x];
     t.buildings.push(buildable.building);
 }
