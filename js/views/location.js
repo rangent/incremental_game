@@ -46,7 +46,7 @@ function updateTerrainTable(divToContainTable, terrain) {
 		terrainPrintedName = getSettlementSizeName(player.settlements[player.inSettlement]) + " @ " + terrainPrintedName;
 	}
 	var buildings = "None";
-	var bldArr = terrain.buildings;
+	var bldArr = (player.inSettlement != null) ? player.settlements[player.inSettlement].buildings : terrain.buildings;
 	if (bldArr.length > 0) {
 		buildings = "";
 		for (var i = 0; i < bldArr.length; i++) {
