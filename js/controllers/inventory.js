@@ -54,6 +54,9 @@ function getRemainingCapacity(inventory) {
 		else if (inventory.inventoryType == constants.INVENTORY.WEIGHTED) {
 			currentWeight += inventory.itemQuantityCollection[i].item.weight * inventory.itemQuantityCollection[i].quantity;
 		}
+		else if (DEBUG) {
+			throw "Inventory does not have recognized inventory type!";
+		}
 	}
 	return inventory.capacity - currentWeight;
 }

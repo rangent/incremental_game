@@ -33,7 +33,7 @@ function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
     var playerRemainingCapacity = getRemainingCapacity(resolveInventory(inventory));
     var ingredients = makeable.itemIngredientsAndQuantityArray;
     var ingredientWeight = 0;
-    var item = getMakeableItem(makeable);
+    var itemToBeMade = getMakeableItem(makeable);
     for (var i in ingredients) {
         var item = ingredients[i].item;
         var numIngredientsNeeded = ingredients[i].count;
@@ -42,7 +42,7 @@ function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
         //         b) we have some of the needed ingredients in the player's inventory, so use 'numIngredientsInPlayerInventory' insteaad
         ingredientWeight = Math.min(numIngredientsNeeded, numIngredientsInPlayerInventory) * item.weight;
     }
-    return ( (playerRemainingCapacity) >= (item.weight * makeable.numProduced  - ingredientWeight) );
+    return ( (playerRemainingCapacity) >= (itemToBeMade.weight * makeable.numProduced  - ingredientWeight) );
 }
 
 
