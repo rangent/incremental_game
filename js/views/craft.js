@@ -2,13 +2,15 @@
  * Crafting-specific views
  */
 
-/**
- * @param {Integer} index of the craftable item to create
- */
+
 function doCraft() {
+    //TODO: This should be in a popup some day
     drawCraftingTable();
 }
 
+/**
+ * @param {Integer} index of the craftable item to create
+ */
 function craftItemClick(craftIndex) {
     craftItem(craftable[craftIndex]);
 }
