@@ -89,13 +89,9 @@ function findInitialStartingPoint(w, h, arr) {
         while (inWater) {
             c = c.north();
             inWater = (arr[c.y][c.x].water);
-            var c2 = c.west();
-            if (inWater && !arr[c2.y][c2.x].water) {
-                inWater = false;
-                c = c2;
-            }
-            else {
-                c = c2;
+            if (inWater) {
+                c = c.west();
+                inWater = (arr[c.y][c.x].water);
             }
         }
         console.log('started in water!');
@@ -103,20 +99,21 @@ function findInitialStartingPoint(w, h, arr) {
     
     //search southwest for starting point
     while (!found) {
-        var c2 = c.south();
-        if (arr[c2.y][c2.x].biome == "OCEAN") {
+        c = c.south();
+        if (arr[c.y][c.x].biome == "OCEAN") {
             found = true;
+            c = c.north();
         }
         else {
-            c = c2;
+            c = c.west();
+            if (arr[c.y][c.x].biome == "OCEAN") {
+                found = true;
+                c = c.east();
+            }
         }
-        var c2 = c.west();
-        if (!found && arr[c2.y][c2.x].biome == "OCEAN") {
-            found = true;
-        }
-        else {
-            c = c2;
-        }
+    }
+    if (arr[c.y][c.x].biome == "OCEAN") {
+        debugger; //ENDED IN OCEAN SOMEHOW?
     }
     console.log('ended at land?');
     return [c.x,c.y];
