@@ -2,7 +2,7 @@
  * Settlement controller
  */
 
-/*
+/**
  * Establish a settled area at the specificed location
  * @param {Location} location : location to establish the new settlement
  */
@@ -13,7 +13,7 @@ function establishSettledArea(location) {
     player.settlements.push(settlement);
 }
 
-/*
+/**
  * Have player enter the settlement, assumes check was done to make sure a settlement is actually there
  * @param {Integer} index : index of the settlement, or null if not
  */

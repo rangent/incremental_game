@@ -118,7 +118,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="js/controllers/exploration.js"></script>
 <script type="text/javascript" src="js/controllers/inventory.js"></script>
 <script type="text/javascript" src="js/controllers/terrainAction.js"></script>
-<script type="text/javascript" src="js/controllers/forage.js"></script>
 <script type="text/javascript" src="js/controllers/buildcraft.js"></script>
 <script type="text/javascript" src="js/controllers/craft.js"></script>
 <script type="text/javascript" src="js/controllers/build.js"></script>
@@ -131,7 +130,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="js/views/events.js"></script>
 <script type="text/javascript" src="js/views/island.js"></script>
 <script type="text/javascript" src="js/views/location.js"></script>
-<script type="text/javascript" src="js/views/explore.js"></script>
 <script type="text/javascript" src="js/views/inventory.js"></script>
 <script type="text/javascript" src="js/views/joyride.js"></script>
 <script type="text/javascript" src="js/views/progressbar.js"></script>
@@ -215,28 +213,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		<div id="currentTerrain" class="footer-left">
 		</div>
 		<div id="terrainSection" class="footer-center">
-			<!--<input id="availableTerrain" class="terrainSelect" /><span id="availTer">&nbsp;</span><br/>-->
-            <div id="travelSection" ><!--
-                <table>
-                    <tr>
-                        <td><button class="clearEvent" onclick="travelRelative(-1,-1);" id="doTravelNW">&#x2196;</button></td>
-                        <td><button class="clearEvent" onclick="travelRelative(0,-1);" id="doTravelN">&#x2191;</button></td>
-                        <td><button class="clearEvent" onclick="travelRelative(1,-1);" id="doTravelNE">&#x2197;</button></td>
-                    </tr>
-                    <tr>
-                        <td><button class="clearEvent" onclick="travelRelative(-1,0);" id="doTravelW">&#x2190;</button></td>
-                        <td><button class="clearEvent" onclick="return false;" id="nop">X</button></td>
-                        <td><button class="clearEvent" onclick="travelRelative(1,0);" id="doTravelE">&#x2192;</button></td>
-                    </tr>
-                    <tr>
-                        <td><button class="clearEvent" onclick="travelRelative(-1,1);" id="doTravelSW">&#x2199;</button></td>
-                        <td><button class="clearEvent" onclick="travelRelative(0,1);" id="doTravelS">&#x2193;</button></td>
-                        <td><button class="clearEvent" onclick="travelRelative(1,1);" id="doTravelSE">&#x2198;</button></td>
-                    </tr>
-                </table>-->
-            </div>
-            <!-- not sure if fast travel will be a thing: -->
-			<!--<button class="clearEvent" onclick="doTravel();" id="doTravel">Travel</button>-->
+            <div id="travelSection" >&nbsp;</div>
 		</div>
 		<div id="selectedTerrain" class="footer-right">
 		</div>

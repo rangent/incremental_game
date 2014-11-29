@@ -84,7 +84,7 @@ function Buildable(building, numProduced, isBuiltInSettlement, isBuildInWilds, i
 }
 
 
-/*
+/**
  * @param {Integer} capacity : inventory's capacity
  * @param {rel_inventoryQuantity} itemQuantityCollection
  * @param {constants.INVENTORY} inventoryType
@@ -226,7 +226,7 @@ function getSettlementSizeName(settlement) {
 	return null;
 }
 
-/*
+/**
  * @param x : Integer
  * @param y : Integer
  */
@@ -242,7 +242,7 @@ function isSameLocation(l1, l2) {
 	return false;
 }
 
-/*
+/**
  * Point
  * @param {Integer} x : integer between 0 and constants.MAP_WIDTH
  * @param {Integer} y : integer between 0 and constants.MAP_HEIGHT
@@ -287,7 +287,7 @@ function FindProbabilities(probabilityActionSucceeds, itemAndProbabilityArray) {
 // RELATIONSHIPS
 //////////////////////////////////////////////////////////////////////////////
 
-/*
+/**
  * Relationships between a terrain type and the probability of something being found there
  * (Used by terrain features and possibly others)
  *  @param {TerrainType} terrainType

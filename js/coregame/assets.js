@@ -75,19 +75,6 @@ var terrainTypes = {
     lake        : new TerrainType("Lake",{}),
 }
 
-/*
-var locationTerrainProbabilies = [ 
-	[ // 0th is "local"
-		new rel_terrainTypeProbability(terrainTypes.plains, 5),
-		new rel_terrainTypeProbability(terrainTypes.mountain, 1),
-		new rel_terrainTypeProbability(terrainTypes.hill, 1),
-		new rel_terrainTypeProbability(terrainTypes.forest, 2),
-	],
-	[ //1st is "distant area"...
-	]
-]
-*/
-
 //NOTE: The 
 var terrainFeatures = {
 	caves : new TerrainFeature("Caves", "Cave systems make simple mining possible.", [ new rel_terrainTypeProbability(terrainTypes.mountain, 0.5), new rel_terrainTypeProbability(terrainTypes.hill, 0.1) ], [], {}),

@@ -90,34 +90,3 @@ function addLocFeatures(terrainFeaturesFound, loc) {
 	}
 	return terrainFeaturesFound;
 }
-/*
- *  Need to normalize the probabilities so they all fall within [0-1) range
- */
-/*
-function normalizeTerrainTypeProbabilities(region) {
-	//normalize the terrainType probabilities
-	var total = 0;
-	for (var l in locationTerrainProbabilies[region]) {
-		total += locationTerrainProbabilies[region][l].probability;
-	}
-	for (var l in locationTerrainProbabilies[region]) {
-		locationTerrainProbabilies[region][l].probability = locationTerrainProbabilies[region][l].probability / total;
-	}
-}
-*/
-
-/*
-function pickNewLand(region) {
-	var terrainFound;
-	//after normalized, pick the new land!
-	var rand = Math.random();
-	for (var l in locationTerrainProbabilies[region]) {
-		rand -= locationTerrainProbabilies[region][l].probability;
-		if (rand <= 0) {
-			terrainFound = locationTerrainProbabilies[region][l].terrainType;
-			break;
-		}
-	}
-	return terrainFound;
-}
-*/
