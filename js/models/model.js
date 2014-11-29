@@ -243,6 +243,28 @@ function isSameLocation(l1, l2) {
 }
 
 /*
+ * Point
+ * @param {Integer} x : integer between 0 and constants.MAP_WIDTH
+ * @param {Integer} y : integer between 0 and constants.MAP_HEIGHT
+ */
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+Point.prototype.north = function() {
+    return new Point(this.x, this.y-1);
+}
+Point.prototype.south = function() {
+    return new Point(this.x, this.y+1);
+}
+Point.prototype.east = function() {
+    return new Point(this.x+1, this.y);
+}
+Point.prototype.west = function() {
+    return new Point(this.x-1, this.y);
+}
+
+/*
  * The probability an action succeeds, and the items that can be found if it succeeds
  * @probabilityActionSucceeds : number between 0 and 1 : liklihood <action> successful
  * @itemAndProbability : array of rel_itemAndQuantityProbability : item and relative probability it'll be found

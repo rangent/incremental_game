@@ -1,4 +1,15 @@
+/*
+ * Island controller
+ */
+
+function distance(a, b) {
+    var dx = a.x - b.x,
+        dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
 /**
+ * Loc only used by 
  * @param {String} biome
  * @param {Number} elevation
  * @param {Number} moisture
@@ -187,6 +198,28 @@ function getBiomeColor(loc) {
     }
 }
 
+
+function alignMap(arr, Land, vidToArrCoords) {
+    
+    var a = new Array(constants.MAP_WIDTH * constants.MAP_HEIGHT);
+    for (var i = 0; i < constants.MAP_WIDTH * constants.MAP_HEIGHT; i++) {
+        a[i] = 0;
+    }
+    
+    for (var y = 0; y < constants.MAP_HEIGHT; y++) {
+        for (var x = 0; x < constants.MAP_WIDTH; x++) {
+            a[arr[y][x].voronoiId]++;
+        }
+    }
+    
+    //find the ones that aren't mapped to anything
+    for (var i = 0; i < constants.MAP_WIDTH * constants.MAP_HEIGHT; i++) {
+        if (a[i]==0) {
+            vidToArrCoords[i] = Land.diagram.cells[i].site.x + "," + Land.diagram.cells[i].site.y;
+        }
+    }
+}
+
 function landHasMountain(Land) {
     var numMtn = 0
     for (var i = 0; i < Land.diagram.cells.length; i++) {
@@ -236,6 +269,8 @@ function cloneIsland(Land, w, h, vidToArrCoords) {
     arr.seed = Land.seed;
     return arr;
 }
+
+
 
 function drawMap(arr, strt) {
     
@@ -300,76 +335,4 @@ function drawMiniMap(arr, strt) {
     }
     ctx.fillStyle="red";
     ctx.fillRect(xSize * ((minimapSize-1)/2), ySize * ((minimapSize-1)/2), xSize, ySize);
-}
-
-function alignMap(arr, Land, vidToArrCoords) {
-    
-    var a = new Array(constants.MAP_WIDTH * constants.MAP_HEIGHT);
-    for (var i = 0; i < constants.MAP_WIDTH * constants.MAP_HEIGHT; i++) {
-        a[i] = 0;
-    }
-    
-    for (var y = 0; y < constants.MAP_HEIGHT; y++) {
-        for (var x = 0; x < constants.MAP_WIDTH; x++) {
-            a[arr[y][x].voronoiId]++;
-        }
-    }
-    
-    //find the ones that aren't mapped to anything
-    for (var i = 0; i < constants.MAP_WIDTH * constants.MAP_HEIGHT; i++) {
-        if (a[i]==0) {
-            vidToArrCoords[i] = Land.diagram.cells[i].site.x + "," + Land.diagram.cells[i].site.y;
-        }
-    }
-}
-
-function distance(a, b) {
-    var dx = a.x - b.x,
-        dy = a.y - b.y;
-    return Math.sqrt(dx * dx + dy * dy);
-}
-
-function Point(x, y) {
-    this.x = x;
-    this.y = y;
-}
-Point.prototype.north = function() {
-    return new Point(this.x, this.y-1);
-}
-Point.prototype.south = function() {
-    return new Point(this.x, this.y+1);
-}
-Point.prototype.east = function() {
-    return new Point(this.x+1, this.y);
-}
-Point.prototype.west = function() {
-    return new Point(this.x-1, this.y);
-}
-
-/*
- * @param w {Width} : map's width
- * @param h {Integer} : map's height
- * @returns {Object} : object.map a multidimensional array of just the pseudo-terrain
- *      (metrics only, no proper Terrain, modifiers, or features), start: is start location
- */
-function generateMap(w, h) {
-    
-    var Land = generateLandWithMountain(w, h);
-    
-    //make the array    
-    var vidToArrCoords = {};
-    var mapGrid = cloneIsland(Land, w, h, vidToArrCoords);
-    
-    var strt = findInitialStartingPoint(w, h, mapGrid);
-    strt = adjustStartPoint(strt, mapGrid);
-    
-    //make sure every coordinate has a corresponding biome (not quite 1:1 with generated)
-    alignMap(mapGrid, Land, vidToArrCoords);
-    
-    return {map: mapGrid, start: strt};
-}
-
-function drawMaps(mapGrid, strt) {
-    drawMap(mapGrid, strt);
-    drawMiniMap(mapGrid, strt);
 }
