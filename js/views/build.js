@@ -22,8 +22,8 @@ function drawBuildingTable() {
                 var f = new Function("buildItemClick(" + buildableIndex + ",new Location(" + loc.x + "," + loc.y +"))");
                 $(jquerySelectorId).on("click", f );
                 
-                debugger;
-                if (!isInventoryCapableOfCarryingMadeItem(buildable[b], 'player') || !playerActions.Build.actionEnabled) {
+                if ((player.inSettlement != null && buildable[b].building.size * buildable[b].numProduced <= player.settlements[player.inSettlement].size)
+                    || !playerActions.Build.actionEnabled) {
                     disableButton(name + "Build");
                 }
             }
