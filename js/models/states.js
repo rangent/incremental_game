@@ -44,6 +44,7 @@ var player = {
 	inSettlement : null,
 	currentLocation : null, //Location
 	settlements : [],
+	globalInventory : null,
 }
 
 /*

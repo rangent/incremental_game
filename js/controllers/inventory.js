@@ -4,6 +4,7 @@
 
 function initializePlayerInventory() {
 	player.inventory = new Inventory(100, {}, constants.INVENTORY.WEIGHTED);
+	player.globalInventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
 }
 
 /*
@@ -30,7 +31,7 @@ function addItemsToInventory(inventory, itemName, quantity) {
  */
 function getCurrentLocationInventory() {
 	if (player.inSettlement != null) {
-		return player.settlements[player.inSettlement].inventory;
+		return player.globalInventory;
 	}
 	else {
 		return getCurrentLocation().inventory;
@@ -108,7 +109,7 @@ function resolveInventory(inventory) {
 		return player.inventory;
 	}
 	else if (player.inSettlement != null) {
-		return player.settlements[player.inSettlement].inventory;
+		return player.globalInventory;
 	}
 	//if it's a location
 	else if (typeof inventory === "object" && inventory.hasOwnProperty("x") &&

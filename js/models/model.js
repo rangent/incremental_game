@@ -210,7 +210,6 @@ function Settlement(location, size) {
 	this.size = (size == null) ? 0 : size;
 	this.name = null;
 	this.buildings = [];
-	this.inventory = new Inventory(10, {}, constants.INVENTORY.RULEOF99);
 }
 
 function getSettlementSizeName(settlement) {
