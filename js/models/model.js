@@ -278,6 +278,20 @@ function FindProbabilities(probabilityActionSucceeds, itemAndProbabilityArray) {
 
 }
 
+/**
+ * Single category node definition.  Category tree is defined in assets and built at runtime.
+ * @param {Category[]} parents : categor(y/ies) above this category if subcategory.  Empty array if top-level
+ * @param {String} name : category name (should be unique!)
+ * @param {Object[]} children : 
+ */
+function Category (parents, name) {
+	this.parents = parents;
+	this.name = name;
+	this.type = "Category";
+	//children: array of categories or items that are this category's children.  This is defined at run time however, so should be initialized with 
+	this.children = [];
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // END OF CONSTRUCTORS
 //////////////////////////////////////////////////////////////////////////////

@@ -18,30 +18,45 @@ var rawResources = {
 var food = {
 	Apple : new Food("Apple", "Apple", 1, 0),
 	// carrot : new Food("Carrot", "Carrot", 1, 0),
-}
+};
 
 var consumable = {
 	Stick : new Consumable("Stick", "Stick", 1, 0),
 	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0),
     TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0),
-}
+};
 
 var building = {
     // Building(uniqueName, printableName, size, age) {
     Firepit : new Building("Firepit", "Firepit", 1, 0),
 	Stockpile : new Building("Stockpile", "Stockpile", 10, 0),
-}
+};
 
 var craftable = [
 	new Craftable(consumable.FirewoodBundle, 1, [new rel_inventoryQuantity(consumable.Stick, 6)]),
     new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)]),
-]
+];
 
 var buildable = [
     //Buildable(building, numProduced, isBuiltInSettlement, isBuiltInWilds, itemIngredientsAndQuantityArray)
     new Buildable(building.Firepit, 1, true, true, [new rel_inventoryQuantity(consumable.FirewoodBundle, 1)]),
 	new Buildable(building.Stockpile, 1, true, false, [new rel_inventoryQuantity(consumable.Stick, 1)]),
-]
+];
+
+//Important, sub-categories need to be defined *after* any of their parents are defined
+var categories = [
+	//ROOT CATEGORY:
+	constants.ROOT_CATEGORY,
+	
+	//TOP-LEVEL CATEGORIES:
+	new Category([constants.ROOT_CATEGORY_NAME], "Raw"),
+	new Category([constants.ROOT_CATEGORY_NAME], "Food"),
+	//new Category([constants.ROOT_CATEGORY_NAME], ""),
+	
+	//SUB-CATEGORIES:
+	new Category(["Raw"], "Wood"),
+	
+];
 
 // var equipables = {
 // 	hat : new GenericItem("Hat", 1),
