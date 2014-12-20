@@ -43,6 +43,11 @@ var buildable = [
 	new Buildable(building.Stockpile, 1, true, false, [new rel_inventoryQuantity(consumable.Stick, 1)]),
 ];
 
+
+//need to define new constants since assets weren't defined until now :-/
+constants.ROOT_CATEGORY_NAME = "ROOT";
+constants.ROOT_CATEGORY = new Category([], ROOT_CATEGORY_NAME);
+
 //Important, sub-categories need to be defined *after* any of their parents are defined
 var categories = [
 	//ROOT CATEGORY:

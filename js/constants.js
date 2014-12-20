@@ -41,9 +41,6 @@ var constants = {
 		WEIGHTED : 0,
 		RULEOF99 : 1,
 	},
-	
-	ROOT_CATEGORY_NAME : "ROOT",
-	ROOT_CATEGORY : new Category([], ROOT_CATEGORY_NAME),
 }
 
 //////////////////////////////////////////////////////////////////////////////
