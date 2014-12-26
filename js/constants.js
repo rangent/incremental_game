@@ -41,6 +41,16 @@ var constants = {
 		WEIGHTED : 0,
 		RULEOF99 : 1,
 	},
+	
+	ROOT_CATEGORY : null, //defined in main.js at run time
+}
+
+var categoryNames = {
+    ROOT : "ROOT",
+    RAW : "Raw",
+	FOOD : "Food",
+	WOOD : "Wood",
+	CONSUMABLE : "Consumable",
 }
 
 //////////////////////////////////////////////////////////////////////////////

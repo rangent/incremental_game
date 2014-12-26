@@ -127,6 +127,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="js/controllers/travel.js"></script>
 <script type="text/javascript" src="js/controllers/island.js"></script>
 <script type="text/javascript" src="js/controllers/settlement.js"></script>
+<script type="text/javascript" src="js/controllers/category.js"></script>
 
 <!-- views -->
 <script type="text/javascript" src="js/views/core.js"></script>
@@ -159,8 +160,8 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		//////////////////////////////////////////////////////////////////////////////
 		initializePlayerInventory();
 		masterState = new MasterState();
-    
-
+        defineRuntimeConstants();
+        
 		if (hasSavedGameState()) {
 			loadState();
 		}

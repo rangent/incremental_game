@@ -7,40 +7,45 @@
 //////////////////////////////////////////////////////////////////////////////
 
 //RESOURCES
-function Resource(uniqueName, printableName, weight, age) {
+// @param {Category[]} categories : array of categoryName(s)
+function Resource(uniqueName, printableName, weight, age, categories) {
 	this.id = seeds.itemIdSeed++;
 	this.type = "Resource";
 	this.name = uniqueName;
 	this.printableName = printableName;
 	this.weight = weight;
 	this.age = age;
+	this.categories = categories;
 }
 
-function Food(uniqueName, printableName, weight, age) {
+function Food(uniqueName, printableName, weight, age, categories) {
 	this.id = seeds.itemIdSeed++;
 	this.type = "Food";
 	this.name = uniqueName;
 	this.printableName = printableName;
 	this.weight = weight;   
     this.age = age;
+	this.categories = categories;
 }
 
-function Consumable(uniqueName, printableName, weight, age) {
+function Consumable(uniqueName, printableName, weight, age, categories) {
 	this.id = seeds.itemIdSeed++;
 	this.type = "Consumable";
 	this.name = uniqueName;
 	this.printableName = printableName;
 	this.weight = weight;   
     this.age = age;
+	this.categories = categories;
 }
 
-function Building(uniqueName, printableName, size, age) {
+function Building(uniqueName, printableName, size, age, categories) {
     this.id = seeds.buildingIdSeed++;
 	this.type = "Building";
 	this.name = uniqueName;
 	this.printableName = printableName;
 	this.size = size;
 	this.age = age;
+	this.categories = categories;
 }
 
 /**
@@ -290,6 +295,7 @@ function Category (parents, name) {
 	this.type = "Category";
 	//children: array of categories or items that are this category's children.  This is defined at run time however, so should be initialized with 
 	this.children = [];
+	this.count = 0; //number of items associated with this category
 }
 
 //////////////////////////////////////////////////////////////////////////////

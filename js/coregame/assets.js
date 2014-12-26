@@ -7,8 +7,8 @@
 
 //carriable resources
 var rawResources = {
-	Wood 	: new Resource("Wood", "Wood", 3, 0),
-	Stone 	: new Resource("Stone", "Stone", 10, 0),
+	Wood 	: new Resource("Wood", "Wood", 3, 0, [categoryNames.RAW]),
+	Stone 	: new Resource("Stone", "Stone", 10, 0, [categoryNames.RAW]),
 	// Dirt 	: new Resource("Dirt", "Dirt", 5, 0),
 	// Water 	: new Resource("Water", "Water", 3, 0),
 	// Clay 	: new Resource("Clay", "Clay", 5, 0),
@@ -16,20 +16,20 @@ var rawResources = {
 
 //various kinds of food
 var food = {
-	Apple : new Food("Apple", "Apple", 1, 0),
+	Apple : new Food("Apple", "Apple", 1, 0, [categoryNames.FOOD]),
 	// carrot : new Food("Carrot", "Carrot", 1, 0),
 };
 
 var consumable = {
-	Stick : new Consumable("Stick", "Stick", 1, 0),
-	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0),
-    TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0),
+	Stick : new Consumable("Stick", "Stick", 1, 0, [categoryNames.CONSUMABLE]),
+	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0, [categoryNames.CONSUMABLE]),
+    TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0, [categoryNames.CONSUMABLE]),
 };
 
 var building = {
-    // Building(uniqueName, printableName, size, age) {
-    Firepit : new Building("Firepit", "Firepit", 1, 0),
-	Stockpile : new Building("Stockpile", "Stockpile", 10, 0),
+    // Building(uniqueName, printableName, size, age, categories) {
+    Firepit : new Building("Firepit", "Firepit", 1, 0, []),
+	Stockpile : new Building("Stockpile", "Stockpile", 10, 0, []),
 };
 
 var craftable = [
@@ -43,23 +43,19 @@ var buildable = [
 	new Buildable(building.Stockpile, 1, true, false, [new rel_inventoryQuantity(consumable.Stick, 1)]),
 ];
 
-
-//need to define new constants since assets weren't defined until now :-/
-constants.ROOT_CATEGORY_NAME = "ROOT";
-constants.ROOT_CATEGORY = new Category([], ROOT_CATEGORY_NAME);
-
 //Important, sub-categories need to be defined *after* any of their parents are defined
-var categories = [
+var globalCategories = [
 	//ROOT CATEGORY:
 	constants.ROOT_CATEGORY,
 	
 	//TOP-LEVEL CATEGORIES:
-	new Category([constants.ROOT_CATEGORY_NAME], "Raw"),
-	new Category([constants.ROOT_CATEGORY_NAME], "Food"),
-	//new Category([constants.ROOT_CATEGORY_NAME], ""),
+	//(they should have root as their only parent)
+	new Category([categoryNames.ROOT], categoryNames.RAW),
+	new Category([categoryNames.ROOT], categoryNames.FOOD),
 	
 	//SUB-CATEGORIES:
-	new Category(["Raw"], "Wood"),
+	new Category([categoryNames.RAW], categoryNames.FOOD),
+	new Category([categoryNames.RAW], categoryNames.CONSUMABLE),
 	
 ];
 

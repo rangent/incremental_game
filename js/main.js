@@ -17,6 +17,12 @@ function setupNewGame() {
 	}
 }
 
+function defineRuntimeConstants() {
+	//need to define new constants since assets weren't defined until now :-/
+	constants.ROOT_CATEGORY = new Category([], categoryNames.ROOT);
+	globalCategories[0] = constants.ROOT_CATEGORY;
+}
+
 function initializePlayerTerrainAsset() {
 	player.availableTerrain = new Array(constants.MAP_HEIGHT);
 	for (var y = 0; y < player.availableTerrain.length; y++) {
