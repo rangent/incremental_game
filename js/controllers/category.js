@@ -1,16 +1,23 @@
 /*
  * Category controller
+ *
+ * USAGE:
+ * To start, run buildInitialCategoryTree();
+ * Then drop something (eg: an apple), then run this handy debug statement:
+ *   updateCategoryTree(); console.log(categoryTree["Food"].children["Apple"]);
  */
 
 function buildInitialCategoryTree() {
-    //first reset category tree, this method should be as idempotent as we can make it
+    //first reset category tree and remove references to the tree, this method should be as idempotent as we can make it
+    globalCategories = createGlobalCategories();
     categoryTree = {};
+    
     addCategoriesToCategoryTree();
 }
 
 function updateCategoryTree() {
     //reset item counts
-    resetItemCountsAndRemoveItemsFromTree();
+    resetCategoryTreeItemCounts();
     //add items to tree (updating category counts)
     addItemsToCategoryTree();
     //recaculate category counts
@@ -28,8 +35,8 @@ function addCategoriesToCategoryTree() {
         //add category as child of parents
         for (var pid in c.parents) {
             var parentName = c.parents[pid];
-            var n = categoryTree[parentName];
-            n.children.push(c.name);
+            var parentCategoryNode = categoryTree[parentName];
+            parentCategoryNode.children[c.name] = c;
         }
         
         //finally add reference to the categoryTree
@@ -38,24 +45,42 @@ function addCategoriesToCategoryTree() {
 }
 
 function addItemsToCategoryTree() {
-    for (var i in player.globalInventory.itemQuantityCollection) {
-        var itemQuantity = player.globalInventory.itemQuantityCollection[i];
-        var categories = itemQuantity.item.categories;
-        for (var catId in categories) {
-            //TODO: need to check for existing items
-            //TODO: need to update category counts
-            categoryTree[categories[catId]].children[itemQuantity.item.name] = itemQuantity.quantity;
+    if (DEBUG) {
+        //player.availableTerrain[][].itemQuantityCollection[i] is the world's inventory
+        //in debug mode it's helpful to see all of the global items
+        for (var terrainArray in player.availableTerrain) {
+            for (var terrain in player.availableTerrain[terrainArray]) {
+                processItemQuantityCollection(player.availableTerrain[terrainArray][terrain].inventory.itemQuantityCollection);
+            }
         }
     }
+    //player.globalInventory.itemQuantityCollection[i] is the player's "usable" inventory
+    processItemQuantityCollection(player.globalInventory.itemQuantityCollection);
 }
 
-function resetItemCountsAndRemoveItemsFromTree() {
+function processItemQuantityCollection(itemQuantityCollection) {
+    for (var i in itemQuantityCollection) {
+        var itemQuantity = itemQuantityCollection[i];
+        var categories = itemQuantity.item.categories;
+        for (var catId in categories) {
+            if (itemQuantity.item.name in categoryTree[categories[catId]].children) {
+                //just add the amount to the existing count
+                categoryTree[categories[catId]].children[itemQuantity.item.name] += itemQuantity.quantity;
+            }
+            else {
+                categoryTree[categories[catId]].children[itemQuantity.item.name] = itemQuantity.quantity;
+            }
+        }
+    }
+    
+}
+
+function resetCategoryTreeItemCounts() {
     //walk the tree, set everything to 0
     for (var n in categoryTree) {
-        for (var c in n.children) {
-            if (n.children[c].type != "Category") {
-                debugger; //check if this works
-                n.children.splice(c,1);
+        for (var c in categoryTree[n].children) {
+            if (categoryTree[n].children[c].type != "Category") {
+                categoryTree[n].children[c] = 0;
             }
             n.count = 0;
         }

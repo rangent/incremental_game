@@ -294,7 +294,7 @@ function Category (parents, name) {
 	this.name = name;
 	this.type = "Category";
 	//children: array of categories or items that are this category's children.  This is defined at run time however, so should be initialized with 
-	this.children = [];
+	this.children = {};
 	this.count = 0; //number of items associated with this category
 }
 

@@ -44,20 +44,24 @@ var buildable = [
 ];
 
 //Important, sub-categories need to be defined *after* any of their parents are defined
-var globalCategories = [
+function createGlobalCategories() {
+    return [
 	//ROOT CATEGORY:
 	constants.ROOT_CATEGORY,
 	
 	//TOP-LEVEL CATEGORIES:
 	//(they should have root as their only parent)
 	new Category([categoryNames.ROOT], categoryNames.RAW),
-	new Category([categoryNames.ROOT], categoryNames.FOOD),
+	//new Category([categoryNames.ROOT], categoryNames.FOOD),
 	
 	//SUB-CATEGORIES:
 	new Category([categoryNames.RAW], categoryNames.FOOD),
 	new Category([categoryNames.RAW], categoryNames.CONSUMABLE),
 	
-];
+    ];
+}
+var globalCategories = createGlobalCategories();
+
 
 // var equipables = {
 // 	hat : new GenericItem("Hat", 1),
