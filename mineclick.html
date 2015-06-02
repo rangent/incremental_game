@@ -5,6 +5,7 @@
 <link href="lib/joyride-master/joyride-2.1.css" rel="stylesheet"/>
 <link href="lib/select2-3.5.1/select2.css" rel="stylesheet"/>
 <link href="lib/island/css/map.css" rel="stylesheet">
+<link href="lib/collapsiblelists/CollapsibleLists.css" rel="stylesheet"/>
 <link href="css/mineclick.css" rel="stylesheet" />
 
 <!-- ideas
@@ -71,6 +72,8 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 
 * UI Ideas:
 * Clicking FF7 http://clickingff7.com/#/map
+* Collapsable tree menu: http://www.thecssninja.com/css/css-tree-menu
+* Collapsable list: http://code.stephenmorley.org/javascript/collapsible-lists/
 
 * Dark Room - Web -> IOS
 * http://www.gamasutra.com/view/news/212230/A_Dark_Rooms_unique_journey_from_the_web_to_iOS.php
@@ -108,6 +111,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="lib/island/Simplex.js"></script>
 <script type="text/javascript" src="lib/island/perlin.js"></script>
 <script type="text/javascript" src="lib/island/Island.js"></script>
+<script type="text/javascript" src="lib/collapsiblelists/CollapsibleLists.js"></script>
 
 <!-- core -->
 <script type="text/javascript" src="js/constants.js"></script>
@@ -146,6 +150,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="js/views/craft.js"></script>
 <script type="text/javascript" src="js/views/build.js"></script>
 <script type="text/javascript" src="js/views/settlement.js"></script>
+<script type="text/javascript" src="js/views/category.js"></script>
 
 <!-- core game -->
 <script type="text/javascript" src="js/coregame/assets.js"></script>
@@ -179,6 +184,9 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 			global.storyStarted = true;
 			progressStory(0);  //start game
 		}
+        
+        //TODO MOVE THIS INTO PROPER LOCAITON
+        CollapsibleLists.apply();
         
         console.log('size of masterState: ' + JSON.stringify(masterState).length);
 	});
@@ -229,6 +237,42 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 		<div id="miniMapContainer" class="footer-right">
             <canvas id="minimap" height="300" width="300"></canvas>
 		</div>
+        <div id="categoryListContainer" class="footer-right">
+            <ul id="categoryList" class="treeView">
+                <li>
+                  Collapsible lists
+                  <ul class="collapsibleList">
+                    <li>
+                      Actions
+                      <ul>
+                        <li>
+                          Creation
+                          <ul>
+                            <li>apply()</li>
+                            <li class="lastChild">applyTo(node)</li>
+                          </ul>
+                        </li>
+                        <li class="lastChild">
+                          Toggling
+                          <ul>
+                            <li>Expanding/opening</li>
+                            <li class="lastChild">Collapsing/closing</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="lastChild">
+                      Uses
+                      <ul>
+                        <li>Directory listings</li>
+                        <li>Tree views</li>
+                        <li class="lastChild">Outline views</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+            </ul>
+        </div>
 	</div>
 </div>
 <div id="mapContainer">
@@ -238,5 +282,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <div id="joyrideTips" style="display:none">
 <!-- jquery joyride container http://zurb.com/playground/jquery-joyride-feature-tour-plugin -->
 </div>
+
 </body>
 </html>
