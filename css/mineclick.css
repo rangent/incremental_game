@@ -71,6 +71,11 @@
 	float: left;
 }
 
+#categoryListContainer {
+	min-width: 350px;
+	
+}
+
 table.terrainTable, table.terrainTable th, table.terrainTable td {
    border: 1px solid black;
 }
