@@ -10,6 +10,7 @@ function doForage() {
 		addJoyrideTip(replaceAll("%ITEM%",i.item, constants.ITEM_FOUND_TIP));
 		addItemsToInventory(getCurrentLocation().location, i.item, i.count);
 		drawInventoryTable();
+		updateCategoryTreeUi();
 		letsJoyride(i.item);
 	}
 	else {
