@@ -17,6 +17,7 @@ function dropItem(inventory, itemName, quantity) {
 		addItemsToInventory(inventory, itemName, quantity);
 		drawInventoryTable();
 		drawCraftingTable();
+		updateCategoryTreeUi();
 	}
 }
 
@@ -28,6 +29,7 @@ function pickupItem(inventory, itemName, quantity) {
 		removeItemsFromInventory(inventory, itemName, quantity);
 		drawInventoryTable();
 		drawCraftingTable();
+		updateCategoryTreeUi();
 	}	
 }
 

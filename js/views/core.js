@@ -95,4 +95,6 @@ function redrawBoard() { //initialize DOM elements
 	redrawMaps();
 	showMap();
 	redrawTravelDirections();
+	initializeCategoryTreeUi(); //first initialize the tree
+	updateCategoryTreeUi(); //then fill in the inventory
 }
