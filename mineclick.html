@@ -186,7 +186,19 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 			progressStory(0);  //start game
 		}
         
-        console.log('size of masterState: ' + JSON.stringify(masterState).length);
+        if (DEBUG) {
+            console.log('size of masterState: ' + JSON.stringify(masterState).length);
+            for (var key in masterState) {
+                if (typeof masterState[key] !== "function") {
+                    console.log('size of masterState["' + key + '"]: ' + JSON.stringify(masterState[key]).length);
+                }
+            }
+            //biggest is masterState["player"]:
+            for (var key in masterState["player"]) {
+                console.log('size of masterState["player"]["' + key + '"]: ' + JSON.stringify(masterState["player"][key]).length);
+            }
+        }
+        
         
         // AT THIS POINT, EVERYTHING IN THE DOM SHOULD HAVE BEEN INITIALIZED
         // NOW main.js STARTS THE INCREMENTAL LOOP
