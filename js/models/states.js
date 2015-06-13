@@ -7,6 +7,7 @@ var global = {
 	storyStarted : false,
 	initializedPlayer : false,
 	mapGenerated : false,
+	stateVersion : {major: 0, minor: 0, patch: 1},  //will eventually be useful if we need to upgrade the states... :-/
 }
 
 //seeds for entities
