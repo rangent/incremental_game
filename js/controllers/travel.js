@@ -15,7 +15,12 @@ function travelToLocation(location) {
 /**
  * @param {Location} location
  */
-function isTerrainTraversable(location) {
+function isDirectionTraversable(location, internalLocation) {
+	
+	if (internalLocation != null) {
+		return isInternalLocationTraversable(location, internalLocation);
+	}
+	
 	var dx = location.x;
 	var dy = location.y;
 	var x = player.currentLocation.x + dx;
@@ -29,9 +34,6 @@ function isTerrainTraversable(location) {
 		}
 		return false;
 	}
-	if (player.currentInternalLocation != null) {
-		return false;
-	}
 	//dont want to let player fall of the map
 	else if (x < 0 || x >= constants.MAP_WIDTH || y < 0 || y >= constants.MAP_HEIGTH) {
 		return false;
@@ -40,6 +42,43 @@ function isTerrainTraversable(location) {
 		return false; //not until we get proper "ship" or something that lets us cross water
 	}
 	return true; //TODO: restrict movement
+}
+
+function isInternalLocationTraversable(location, internalLocation) {
+	if (location.y == -1) {
+		if (location.x == -1) {
+			 return internalLocation.directions.hasOwnProperty("northwest");
+		}
+		if (location.x == 0) {
+			return internalLocation.directions.hasOwnProperty("north");
+		}
+		if (location.x == 1) {
+			return internalLocation.directions.hasOwnProperty("northeast");
+		}
+	}
+	else if (location.y == 0) {
+		if (location.x == -1) {
+			 return internalLocation.directions.hasOwnProperty("west");
+		}
+		if (location.x == 0) {
+			return internalLocation.location != null;
+		}
+		if (location.x == 1) {
+			return internalLocation.directions.hasOwnProperty("east");
+		}
+	}
+	else if (location.y == 1) {
+		if (location.x == -1) {
+			 return internalLocation.directions.hasOwnProperty("southwest");
+		}
+		if (location.x == 0) {
+			return internalLocation.directions.hasOwnProperty("south");
+		}
+		if (location.x == 1) {
+			return internalLocation.directions.hasOwnProperty("southeast");
+		}
+	}
+	throw "no arrow for direction location(" + location.x + "," + location.y + ")";
 }
 
 function discoverLandAroundLocation(location) {

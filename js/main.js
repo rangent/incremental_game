@@ -34,25 +34,25 @@ function initializePlayerTerrainAsset() {
 $(document).keydown(function(e) {
     switch(e.which) {
         case 37: // left
-			if (isTerrainTraversable(new Location(-1,0))) {
+			if (isDirectionTraversable(new Location(-1,0))) {
 				travelRelative(-1, 0);
 			}
         break;
 
         case 38: // up
-			if (isTerrainTraversable(new Location(0,-1))) {
+			if (isDirectionTraversable(new Location(0,-1))) {
 				travelRelative(0, -1);
 			}
         break;
 
         case 39: // right
-			if (isTerrainTraversable(new Location(1,0))) {
+			if (isDirectionTraversable(new Location(1,0))) {
 				travelRelative(1, 0);
 			}
         break;
 
         case 40: // down
-			if (isTerrainTraversable(new Location(0,1))) {
+			if (isDirectionTraversable(new Location(0,1))) {
 				travelRelative(0, 1);
 			}
         break;

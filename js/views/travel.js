@@ -6,6 +6,7 @@
 function drawTravelDirections() {
 	if (playerActions.Travel.availableToPlayer && playerActions.Travel.actionEnabled) {
 		var str = "<table>";
+		var playerInteralLocation = (player.currentInternalLocation != null) ? player.internalEnvironments[player.currentInternalLocation] : null;
 		for (var j = -1; j <= 1; j++) {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
@@ -21,7 +22,8 @@ function drawTravelDirections() {
 				else {
 					str += "<td><button class=\"clearEvent\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
 				}
-				if (!isTerrainTraversable(new Location(i, j))) {
+				
+				if (!isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
 					str += " disabled ";
 				}
 				str += getArrowForDirection(new Location(i, j)) + "</button></td>";
@@ -35,7 +37,6 @@ function drawTravelDirections() {
 		jqueryifyButtons();
 	}
 }
-
 
 function getArrowForDirection(location) {
     if (location.y == -1) {
