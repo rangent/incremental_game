@@ -23,7 +23,7 @@ function drawBuildingTable() {
                 $(jquerySelectorId).on("click", f );
                 
                 //TODO: BE: THE internalEnvironment.size IS NOT THE ALLOWABLE SIZE!  ITS THE SIZE OF THE PLACE (CAMP, VILLAGE, ETC)
-                if ((isPlayerInInternalLocation()
+                if ((player.currentInternalLocation != null
                     && buildable[b].building.size * buildable[b].numProduced <= player.internalEnvironments[player.currentInternalLocation].size)
                     || !playerActions.Build.actionEnabled) {
                         disableButton(name + "Build");
@@ -38,7 +38,7 @@ function drawBuildingTable() {
 }
 
 function isPossibleToBuildAtCurrentLocation(buildable) {
-    if (isPlayerInInternalLocation() && buildable.isBuiltInSettlement) {
+    if (player.currentInternalLocation != null && buildable.isBuiltInSettlement) {
         return true;
     }
     else if (player.currentInternalLocation == null && buildable.isBuiltInWilds) {

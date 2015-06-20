@@ -6,7 +6,7 @@
 function drawTravelDirections() {
 	if (playerActions.Travel.availableToPlayer && playerActions.Travel.actionEnabled) {
 		var str = "<table>";
-		var playerInteralLocation = (isPlayerInInternalLocation()) ? player.internalEnvironments[player.currentInternalLocation] : null;
+		var playerInteralLocation = (player.currentInternalLocation != null) ? player.internalEnvironments[player.currentInternalLocation] : null;
 		for (var j = -1; j <= 1; j++) {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
@@ -61,7 +61,7 @@ function getArrowForDirection(location) {
 			if (player.currentInternalLocation == null) {
 				return "id=\"nop\">+";
 			}
-			else if (isPlayerInInternalLocation()) {
+			else if (player.currentInternalLocation != null) {
 				return "id=\"nop\">X";
 			}
 			return "id=\"nop\">&nbsp;";
