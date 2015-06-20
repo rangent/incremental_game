@@ -46,5 +46,16 @@ function exitInternalLocation() {
 }
 
 function playerInTown() {
-    return player.currentInternalLocation != null && player.internalEnvironments[player.currentInternalLocation].isSettlement;
+    return isPlayerInInternalLocation() && player.internalEnvironments[player.currentInternalLocation].isSettlement;
+}
+
+function isPlayerInInternalLocation() {
+	return player.currentInternalLocation != null;
+}
+
+/**
+ * returns null if not in internal location
+ */
+function getCurrentInternalLocation() {
+	return (isPlayerInInternalLocation()) ? player.internalEnvironments[player.currentInternalLocation] : null;
 }
