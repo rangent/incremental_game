@@ -22,9 +22,11 @@ function drawBuildingTable() {
                 var f = new Function("buildItemClick(" + buildableIndex + ",new Location(" + loc.x + "," + loc.y +"))");
                 $(jquerySelectorId).on("click", f );
                 
-                if ((player.inInternalEnvironment != null && buildable[b].building.size * buildable[b].numProduced <= player.settlements[player.inInternalEnvironment].size)
+                //TODO: BE: THE internalEnvironment.size IS NOT THE ALLOWABLE SIZE!  ITS THE SIZE OF THE PLACE (CAMP, VILLAGE, ETC)
+                if ((player.currentInternalLocation != null
+                    && buildable[b].building.size * buildable[b].numProduced <= player.internalEnvironments[player.currentInternalLocation].size)
                     || !playerActions.Build.actionEnabled) {
-                    disableButton(name + "Build");
+                        disableButton(name + "Build");
                 }
             }
         }
@@ -36,10 +38,10 @@ function drawBuildingTable() {
 }
 
 function isPossibleToBuildAtCurrentLocation(buildable) {
-    if (player.inInternalEnvironment != null && buildable.isBuiltInSettlement) {
+    if (player.currentInternalLocation != null && buildable.isBuiltInSettlement) {
         return true;
     }
-    else if (player.inInternalEnvironment == null && buildable.isBuiltInWilds) {
+    else if (player.currentInternalLocation == null && buildable.isBuiltInWilds) {
         return true;
     }
     return false;

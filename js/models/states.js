@@ -23,8 +23,7 @@ var seeds = {
 	buildingIdSeed : 0,
 	buildableSeed : 0,
 	inventoryModelIdSeed : 0,
-	settlementIdSeed : 0,
-	internalLocations : 0,
+	internalLocationIdSeed : 0,
 }
 
 //game's state
@@ -44,10 +43,10 @@ var player = {
 	availableTerrain : null,
 	internalEnvironments : null,
 	inventory : false,
-	inSettlement : null, //BE: NEED TO VERIFY THAT ALL player.inInternalEnvironment ARE APPROPRIATE
-	inInternalEnvironment : null,
+	inSettlement : null, //BE: NEED TO VERIFY THAT ALL player.currentInternalLocation ARE APPROPRIATE
+	currentInternalLocation : null, //the index of the InternalEnvironment they're in
 	currentLocation : null, //Location
-	settlements : [],
+	settlements : [], //store the indices of the internal locations that are the start of the settlements
 	globalInventory : null,
 }
 

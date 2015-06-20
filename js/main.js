@@ -6,15 +6,15 @@
 function setupNewGame() {
 	if (!masterState.global.mapGenerated) {
 		initializePlayerTerrainAsset();
+		player.internalEnvironments = new Object();
 		var ms = generateMap(constants.MAP_WIDTH, constants.MAP_HEIGHT);
 		player.currentLocation = ms.start;
 		game.seed = ms.map.seed;
 		initializeMap(ms.map);
-		establishSettledArea(player.currentLocation); //BE: NEED TO CHANGE THIS TO I.E.
-		enterSettlement(0);
+		establishSettledArea(player.currentLocation);
+		enterInternalLocation(0);
 		discoverLandAroundLocation(player.currentLocation);
 		masterState.global.mapGenerated = true;
-		player.internalEnvironments = new Object();
 	}
 }
 

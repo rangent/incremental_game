@@ -24,12 +24,12 @@ function isTerrainTraversable(location) {
 	
 	//maybe we want to do a special action with the center travel button eventually
 	if (dx == 0 && dy == 0) {
-		if (getCurrentLocation().settlement != null) {
+		if (getCurrentLocation().internalLocation != null) {
 			return true;
 		}
 		return false;
 	}
-	if (player.inInternalEnvironment != null) {
+	if (player.currentInternalLocation != null) {
 		return false;
 	}
 	//dont want to let player fall of the map

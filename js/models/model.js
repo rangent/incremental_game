@@ -146,7 +146,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 		text += ")";
 	}
 	this.text = text;
-	this.settlement = null;
+	this.internalLocation = null;
 	this.terrainType = terrainType;
 	this.terrainFeatures = terrainFeatures;
 	this.terrainModifiers = terrainModifiers;
@@ -170,11 +170,16 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
  * Call this to get a single InternalLocation item.  This is meant to be part of the player.internalLocation array
  * @param {object} directions : The possible directions you can leave from this InternalLocation
  * 		eg: {"n" : 16, "w" : 44 , "s" : 0}
+ * @param {boolean} isSettlement : is the IL a settlement?
  */
-function InternalLocation(directions) {
-	this.id = seeds.internalLocations++;
+function InternalLocation(directions, isSettlement, location) {
+	this.id = seeds.internalLocationIdSeed++;
 	this.type = "InternalLocation";
+	this.location = location; //for backwards compatibility with Settlement
 	this.directions = directions;
+	this.isSettlement = isSettlement;
+	this.buildings = [];
+	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
 }
 
 /*
@@ -220,6 +225,7 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 	this.incompatibleTerrainModifiers = incompatibleTerrainModifiers;
 }
 
+/*
 function Settlement(location, size) {
 	this.id = seeds.settlementIdSeed++;
 	this.location = location;
@@ -227,6 +233,7 @@ function Settlement(location, size) {
 	this.name = null;
 	this.buildings = [];
 }
+*/
 
 function getSettlementSizeName(settlement) {
 	switch (settlement.size) {

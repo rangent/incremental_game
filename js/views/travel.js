@@ -10,12 +10,12 @@ function drawTravelDirections() {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
 				//give player ability to enter the city if possible
-				if (i == 0 && j == 0 && getCurrentLocation().settlement != null) {
-					if (player.inInternalEnvironment == null) {
-						str += "<td><button class=\"clearEvent\" onclick=\"doEnterSettlement(" + getCurrentLocation().settlement + ")\" ";
+				if (i == 0 && j == 0 && getCurrentLocation().internalLocation != null) {
+					if (player.currentInternalLocation == null) {
+						str += "<td><button class=\"clearEvent\" onclick=\"doEnterInternalLocation(" + getCurrentLocation().internalLocation + ")\" ";
 					}
 					else {
-						str += "<td><button class=\"clearEvent\" onclick=\"doExitSettlement()\" ";
+						str += "<td><button class=\"clearEvent\" onclick=\"doExitInternalLocation()\" ";
 					}
 				}
 				else {
@@ -54,10 +54,10 @@ function getArrowForDirection(location) {
 			 return "id=\"doTravelW\">&#x2190;";
 		}
 		if (location.x == 0) {
-			if (player.inInternalEnvironment == null && getCurrentLocation().settlement != null ) {
+			if (player.currentInternalLocation == null) {
 				return "id=\"nop\">+";
 			}
-			else if (player.inInternalEnvironment != null) {
+			else if (player.currentInternalLocation != null) {
 				return "id=\"nop\">X";
 			}
 			return "id=\"nop\">&nbsp;";

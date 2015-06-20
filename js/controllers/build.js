@@ -4,6 +4,6 @@
 
 
 function buildBuildingAtLocation(buildable, location) {
-    var t = (player.inInternalEnvironment != null) ? player.settlements[player.inInternalEnvironment] : player.availableTerrain[location.y][location.x];
+    var t = (player.currentInternalLocation != null) ? player.internalEnvironments[player.currentInternalLocation] : player.availableTerrain[location.y][location.x];
     t.buildings.push(buildable.building);
 }

@@ -1,19 +1,19 @@
 /*
- * Settlement views
+ * Internal Location views
  */
 
-function doEnterSettlement(index) {
-    //TODO: make sure settlement exists
+function doEnterInternalLocation(index) {
+    //TODO: make sure internal location exists
     if (true) {
-        enterSettlement(index);
+        enterInternalLocation(index);
         redrawBoard();
     }
 }
 
-function doExitSettlement() {
-    //TODO: dont allow if there isn't a settlement to exit
+function doExitInternalLocation() {
+    //TODO: dont allow if there isn't a terrain to exit to
     if (true) {
-        exitSettlement();
+        exitInternalLocation();
         redrawBoard();
     }
 }
