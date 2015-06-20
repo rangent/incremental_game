@@ -166,6 +166,26 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 	this.water = ijsloc.water;
 }
 
+/**
+ * Call this to get a single InternalLocation item
+ * @param {Directions} directions : The possible directions you can leave from this InternalLocation
+ */
+function InternalLocation(directions) {
+	this.id = seeds.internalLocations++;
+	this.type = "InternalLocation";
+	this.directions = directions;
+}
+
+/**
+ * Object containing driections of possible travel
+ * @param {object} dirs : object containing a direction -> InternalLoation ID mapping
+ * eg: {"n" : 16, "w" : 44 , "s" : 0}
+ */
+function Directions(dirs) {
+	this.type = "Directions";
+	this.dirs = dirs;
+}
+
 /*
  *	@ttname : string name
  *  @terrainActionsAndFindProbabilities : association between action -> FindProbabilities

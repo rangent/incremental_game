@@ -14,6 +14,7 @@ function setupNewGame() {
 		enterSettlement(0);
 		discoverLandAroundLocation(player.currentLocation);
 		masterState.global.mapGenerated = true;
+		player.internalEnvironments = [];
 	}
 }
 

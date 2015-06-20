@@ -24,6 +24,7 @@ var seeds = {
 	buildableSeed : 0,
 	inventoryModelIdSeed : 0,
 	settlementIdSeed : 0,
+	internalLocations : 0,
 }
 
 //game's state
@@ -41,6 +42,7 @@ var game = {
 //player's state
 var player = {
 	availableTerrain : null,
+	internalEnvironments : null,
 	inventory : false,
 	inSettlement : null,
 	currentLocation : null, //Location
