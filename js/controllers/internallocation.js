@@ -9,7 +9,7 @@
 function establishSettledArea(location) {
     var terrain = player.availableTerrain[location.y][location.x];
 	var settlement = new InternalLocation({}, true, location);
-	player.internalEnvironments[settlement.id ] = settlement;
+	player.internalEnvironments[settlement.id] = settlement;
     terrain.internalLocation = settlement.id;
     player.settlements.push(settlement);
 }
@@ -58,4 +58,17 @@ function isPlayerInInternalLocation() {
  */
 function getCurrentInternalLocation() {
 	return (isPlayerInInternalLocation()) ? player.internalEnvironments[player.currentInternalLocation] : null;
+}
+
+/**
+ * @param {InternalLocation} currentInternalLocation : source internal location
+ * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
+ * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
+ */
+function createConnectedInternalEnvironment(currentInternalLocation, direction, mapLocationToExitTo) {
+	var newInternalLoc = new InternalLocation({}, true, mapLocationToExitTo);
+	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
+	//setup directions
+	currentInternalLocation.directions[direction] = newInternalLoc.id;
+	newInternalLoc.directions[getOpposingDirection(direction)] = currentInternalLocation.id;
 }
