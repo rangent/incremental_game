@@ -10,7 +10,7 @@ function setupNewGame() {
 		player.currentLocation = ms.start;
 		game.seed = ms.map.seed;
 		initializeMap(ms.map);
-		establishSettledArea(player.currentLocation);
+		establishSettledArea(player.currentLocation); //BE: NEED TO CHANGE THIS TO I.E.
 		enterSettlement(0);
 		discoverLandAroundLocation(player.currentLocation);
 		masterState.global.mapGenerated = true;

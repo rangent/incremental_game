@@ -30,7 +30,7 @@ function addItemsToInventory(inventory, itemName, quantity) {
  * Return the correct inventory, whether player is inside or outside
  */
 function getCurrentLocationInventory() {
-	if (player.inSettlement != null) {
+	if (player.inInternalEnvironment != null) {
 		return player.globalInventory;
 	}
 	else {
@@ -108,7 +108,7 @@ function resolveInventory(inventory) {
 	if (inventory == "player") {
 		return player.inventory;
 	}
-	else if (player.inSettlement != null) {
+	else if (player.inInternalEnvironment != null) {
 		return player.globalInventory;
 	}
 	//if it's a location

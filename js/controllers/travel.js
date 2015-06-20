@@ -29,7 +29,7 @@ function isTerrainTraversable(location) {
 		}
 		return false;
 	}
-	if (player.inSettlement != null) {
+	if (player.inInternalEnvironment != null) {
 		return false;
 	}
 	//dont want to let player fall of the map

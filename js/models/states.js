@@ -44,7 +44,7 @@ var player = {
 	availableTerrain : null,
 	internalEnvironments : null,
 	inventory : false,
-	inSettlement : null,
+	inInternalEnvironment : null,
 	currentLocation : null, //Location
 	settlements : [],
 	globalInventory : null,

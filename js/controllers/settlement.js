@@ -18,7 +18,7 @@ function establishSettledArea(location) {
  * @param {Integer} index : index of the settlement, or null if not
  */
 function enterSettlement(index) { 
-	player.inSettlement = index;
+	player.inInternalEnvironment = index;
     togglePlayerEnterOrExitSettlementActions();
 }
 
@@ -40,10 +40,10 @@ function togglePlayerEnterOrExitSettlementActions() {
  * Have player exit a settlement, assumes check was done to make sure player was in a settlement
  */
 function exitSettlement() {
-    player.inSettlement = null;
+    player.inInternalEnvironment = null;
     togglePlayerEnterOrExitSettlementActions();
 }
 
 function playerInTown() {
-    return player.inSettlement != null;
+    return player.inInternalEnvironment != null;
 }

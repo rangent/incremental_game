@@ -42,11 +42,11 @@ function updateTerrainTable(divToContainTable, terrain) {
 	}
 	var terrainPrintedName = terrain.terrainType.ttname;
 	//TODO: needs refactor since settlements are a thing now
-	if (player.inSettlement != null) {
-		terrainPrintedName = getSettlementSizeName(player.settlements[player.inSettlement]) + " @ " + terrainPrintedName;
+	if (player.inInternalEnvironment != null) {
+		terrainPrintedName = getSettlementSizeName(player.settlements[player.inInternalEnvironment]) + " @ " + terrainPrintedName;
 	}
 	var buildings = "None";
-	var bldArr = (player.inSettlement != null) ? player.settlements[player.inSettlement].buildings : terrain.buildings;
+	var bldArr = (player.inInternalEnvironment != null) ? player.settlements[player.inInternalEnvironment].buildings : terrain.buildings;
 	if (bldArr.length > 0) {
 		buildings = "";
 		for (var i = 0; i < bldArr.length; i++) {
