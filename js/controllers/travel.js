@@ -45,37 +45,42 @@ function isDirectionTraversable(location, internalLocation) {
 }
 
 function isInternalLocationTraversable(location, internalLocation) {
+	var f = getInternalLocationTowardsDirection(location, internalLocation);
+	return "undefined" !== f && null != f;
+}
+
+function getInternalLocationTowardsDirection(location, internalLocation) {
 	if (location.y == -1) {
 		if (location.x == -1) {
-			 return internalLocation.directions.hasOwnProperty("northwest");
+			 return internalLocation.directions.northwest;
 		}
 		if (location.x == 0) {
-			return internalLocation.directions.hasOwnProperty("north");
+			return internalLocation.directions.north;
 		}
 		if (location.x == 1) {
-			return internalLocation.directions.hasOwnProperty("northeast");
+			return internalLocation.directions.northeast;
 		}
 	}
 	else if (location.y == 0) {
 		if (location.x == -1) {
-			 return internalLocation.directions.hasOwnProperty("west");
+			 return internalLocation.directions.west;
 		}
 		if (location.x == 0) {
-			return internalLocation.location != null;
+			return internalLocation.location;
 		}
 		if (location.x == 1) {
-			return internalLocation.directions.hasOwnProperty("east");
+			return internalLocation.directions.east;
 		}
 	}
 	else if (location.y == 1) {
 		if (location.x == -1) {
-			 return internalLocation.directions.hasOwnProperty("southwest");
+			 return internalLocation.directions.southwest;
 		}
 		if (location.x == 0) {
-			return internalLocation.directions.hasOwnProperty("south");
+			return internalLocation.directions.south;
 		}
 		if (location.x == 1) {
-			return internalLocation.directions.hasOwnProperty("southeast");
+			return internalLocation.directions.southeast;
 		}
 	}
 	throw "no arrow for direction location(" + location.x + "," + location.y + ")";
@@ -102,5 +107,13 @@ function travelRelative(x, y) {
 	redrawMaps();
 	drawTravelDirections();
 	updateCurrentTerrain();
+	drawInventoryTable();
+}
+
+function doTravelToInternalLocation(internalLocationIndex) {
+	player.currentInternalLocation = internalLocationIndex;
+	//TODO: BE: DISCOVER AREA AROUND INTERNAL LOCATION
+	redrawMaps();
+	drawTravelDirections();
 	drawInventoryTable();
 }

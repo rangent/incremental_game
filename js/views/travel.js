@@ -19,6 +19,9 @@ function drawTravelDirections() {
 						str += "<td><button class=\"clearEvent\" onclick=\"doExitInternalLocation()\" ";
 					}
 				}
+				else if (playerInteralLocation != null) {
+					str += "<td><button class=\"clearEvent\" onclick=\"doTravelToInternalLocation(" + getInternalLocationTowardsDirection(new Location(i, j), playerInteralLocation) + ")\" ";
+				}
 				else {
 					str += "<td><button class=\"clearEvent\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
 				}
