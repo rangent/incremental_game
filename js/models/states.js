@@ -44,6 +44,7 @@ var player = {
 	availableTerrain : null,
 	internalEnvironments : null,
 	inventory : false,
+	inSettlement : null, //BE: NEED TO VERIFY THAT ALL player.inInternalEnvironment ARE APPROPRIATE
 	inInternalEnvironment : null,
 	currentLocation : null, //Location
 	settlements : [],
