@@ -167,7 +167,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 }
 
 /**
- * Call this to get a single InternalLocation item
+ * Call this to get a single InternalLocation item.  This is meant to be part of the player.internalLocation array
  * @param {object} directions : The possible directions you can leave from this InternalLocation
  * 		eg: {"n" : 16, "w" : 44 , "s" : 0}
  */
