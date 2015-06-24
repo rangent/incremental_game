@@ -19,7 +19,7 @@ function doExitInternalLocation() {
 }
 
 function drawInternalLocationMap() {
-    var cy = cytoscape({
+    cytoscape({
         container: document.getElementById('internalMapContainer'),
         
         style: cytoscape.stylesheet()
@@ -34,13 +34,9 @@ function drawInternalLocationMap() {
                 'line-color': '#ddd',
                 'target-arrow-color': '#ddd'
             })
-            .selector('.highlighted')
+            .selector('.currentNode')
             .css({
-                'background-color': '#61bffc',
-                'line-color': '#61bffc',
-                'target-arrow-color': '#61bffc',
-                'transition-property': 'background-color, line-color, target-arrow-color',
-                'transition-duration': '0.5s'
+              'background-color': '#61bffc',
             }),
         elements: getInternalEnvironmentMap(),
         autoungrabify: true,

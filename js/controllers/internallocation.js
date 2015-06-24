@@ -101,10 +101,14 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	if (elements.visitedNodes.hasOwnProperty(internalLocation.id)) {
 		return;
 	}
+	
 	var nodeLocation = new Object();
+	var firstNode = false;
+	
 	if (Object.keys(elements.visitedNodes).length == 0) {
 		//first node case
 		nodeLocation = { x: 0, y: 0};
+		firstNode = true;
 	}
 	else {
 		//otherwise find where this node should be relative to any previously visited node
@@ -167,7 +171,10 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	}
 	//finally add the node
 	//BE: DOES THE id NEED TO BE A STRING?
-	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation};
+	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation };
+	if (firstNode) {
+		node.classes = "currentNode";
+	}
 	elements.nodes.push(node);	
 	elements.visitedNodes[internalLocation.id] = nodeLocation;
 	
