@@ -72,3 +72,104 @@ function createConnectedInternalEnvironment(currentInternalLocation, direction, 
 	currentInternalLocation.directions[direction] = newInternalLoc.id;
 	newInternalLoc.directions[getOpposingDirection(direction)] = currentInternalLocation.id;
 }
+
+/**
+ * Gets relative coordinates to current location.
+ * @returns "elements" object compatible with Cytoscape.js
+ */
+function getInternalEnvironmentMap() {
+	if (isPlayerInInternalLocation()) {
+		var elements = new Object();
+		elements.visitedNodes = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+		elements.visitedEdges = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+		elements.nodes = [];
+		elements.edges = [];
+		debugger;
+		var il = getCurrentInternalLocation();
+		buildNodeAndEdgeMap(internalLocation, elements);
+		delete elements.visitedNodes;
+		delete elements.visitedEdges;
+		return elements;
+	}
+	else
+		return null;
+}
+
+/**
+ * recursive method to build the node and edge map
+ */
+function buildNodeAndEdgeMap(internalLocation, elements) {
+	if (elements.visitedNodes.hasOwnProperty(internalLocation.id)) {
+		return;
+	}
+	var nodeLocation = new Object();
+	if (Object.keys(elements.visitedNodes) == 0) {
+		//first node case
+		nodeLocation = { x: 0, y: 0};
+	}
+	else {
+		//otherwise find where this node should be relative to any previously visited node
+		for (var direction in internalLocation.directions) {
+			if (elements.visitedNodes.hasOwnProperty(internalLocation.directions[direction])) {
+				nodeLocation = elements.visitedNodes[internalLocation.directions[direction]];
+				switch(direction) {
+					//Cytoscape.js's canvas has y-coordinates increasing downwards, x-coordinates increasing right
+					//these directions are were the visited node is in relation to the current node
+					case "northeast":
+						nodeLocation.x -= 100;
+						nodeLocation.y += 100;
+						break;
+					case "north":
+						nodeLocation.y += 100;
+						break;
+					case "northwest":
+						nodeLocation.x += 100;
+						nodeLocation.y += 100;
+						break;
+					case "east":
+						nodeLocation.x -= 100;
+						break;
+					case "west":
+						nodeLocation.x += 100;
+						break;
+					case "southeast":
+						nodeLocation.x -= 100;
+						nodeLocation.y -= 100;
+						break;
+					case "south":
+						nodeLocation.y -= 100;
+						break;
+					case "southwest":
+						nodeLocation.x += 100;
+						nodeLocation.y -= 100;
+						break;
+					default:
+						throw "Unexpected direction!";
+				}
+				break;
+			}
+		}
+	}
+	
+	//add any non-existant edges
+	for (var direction in internalLocation.directions) {
+		debugger;
+		if (!elements.visitedEdges.hasOwnProperty(String( internalLocation.directions[direction] + "-" + internalLocation.id))) {
+			var edgeId = String( internalLocation.id + "-" + internalLocation.directions[direction] );
+			var edge = { data: {
+				id : edgeId,
+				weight : 1,
+				source : String(internalLocation.id),
+				target : String(internalLocation.directions[direction])
+				}}
+			elements.edges.push(edge);
+			elements.visitedEdges[edgeId] = 1;
+		}
+	}
+	//finally add the node
+	//BE: DOES THE id NEED TO BE A STRING?
+	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation};
+	elements.nodes.push(node);	
+	elements.visitedNodes[internalLocation.id] = nodeLocation;
+	return;
+}
