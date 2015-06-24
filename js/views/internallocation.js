@@ -42,13 +42,12 @@ function drawInternalLocationMap() {
                 'transition-property': 'background-color, line-color, target-arrow-color',
                 'transition-duration': '0.5s'
             }),
-        elements: { nodes :[{ data :{ id :"0"}, position :{ x :0, y :0}},{ data :{ id :"1"}, position :{ x :-100, y :-100}}], edges :[{ data :{ id :"0-1", weight :1, source :"0", target :"1"}}]},
+        elements: getInternalEnvironmentMap(),
         autoungrabify: true,
         
         layout: {
             name: 'preset',
             directed: false,
-            roots: '#a',
             padding: 10
         }
     });
