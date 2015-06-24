@@ -84,9 +84,8 @@ function getInternalEnvironmentMap() {
 		elements.visitedEdges = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
 		elements.nodes = [];
 		elements.edges = [];
-		debugger;
 		var il = getCurrentInternalLocation();
-		buildNodeAndEdgeMap(internalLocation, elements);
+		buildNodeAndEdgeMap(il, elements);
 		delete elements.visitedNodes;
 		delete elements.visitedEdges;
 		return elements;
@@ -103,7 +102,7 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 		return;
 	}
 	var nodeLocation = new Object();
-	if (Object.keys(elements.visitedNodes) == 0) {
+	if (Object.keys(elements.visitedNodes).length == 0) {
 		//first node case
 		nodeLocation = { x: 0, y: 0};
 	}
@@ -111,7 +110,8 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 		//otherwise find where this node should be relative to any previously visited node
 		for (var direction in internalLocation.directions) {
 			if (elements.visitedNodes.hasOwnProperty(internalLocation.directions[direction])) {
-				nodeLocation = elements.visitedNodes[internalLocation.directions[direction]];
+				var visitedNodeLocation = elements.visitedNodes[internalLocation.directions[direction]];
+				nodeLocation = { x : visitedNodeLocation.x, y : visitedNodeLocation.y };
 				switch(direction) {
 					//Cytoscape.js's canvas has y-coordinates increasing downwards, x-coordinates increasing right
 					//these directions are were the visited node is in relation to the current node
@@ -153,7 +153,6 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	
 	//add any non-existant edges
 	for (var direction in internalLocation.directions) {
-		debugger;
 		if (!elements.visitedEdges.hasOwnProperty(String( internalLocation.directions[direction] + "-" + internalLocation.id))) {
 			var edgeId = String( internalLocation.id + "-" + internalLocation.directions[direction] );
 			var edge = { data: {
@@ -171,5 +170,9 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation};
 	elements.nodes.push(node);	
 	elements.visitedNodes[internalLocation.id] = nodeLocation;
-	return;
+	
+	//recursive step:
+	for (var direction in internalLocation.directions) {
+		buildNodeAndEdgeMap(player.internalEnvironments[internalLocation.directions[direction]], elements);
+	}
 }
