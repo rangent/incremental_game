@@ -83,3 +83,26 @@ function getArrowForDirection(location) {
 	}
 	throw "no arrow for direction location(" + location.x + "," + location.y + ")";
 }
+
+function redrawTablesAfterLocationChange() {
+	redrawMaps();
+	drawTravelDirections();
+	drawInventoryTable();
+}
+
+/*
+ * primary travel function called by clicking direction button
+ */
+function travelRelative(x, y) {
+	updatePlayerCurrentLocation(x, y);
+	discoverLandAroundLocation(player.currentLocation);
+	redrawTablesAfterLocationChange();
+	updateCurrentTerrain();
+}
+
+
+function doTravelToInternalLocation(internalLocationIndex) {
+	updatePlayerCurrentInternalLocation(internalLocationIndex);
+	redrawTablesAfterLocationChange();
+	drawInternalLocationMap();
+}
