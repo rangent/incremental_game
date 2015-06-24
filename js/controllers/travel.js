@@ -113,7 +113,9 @@ function travelRelative(x, y) {
 function doTravelToInternalLocation(internalLocationIndex) {
 	player.currentInternalLocation = internalLocationIndex;
 	//TODO: BE: DISCOVER AREA AROUND INTERNAL LOCATION
+	//TODO: BE: MOVE THIS TO VIEW!
 	redrawMaps();
 	drawTravelDirections();
 	drawInventoryTable();
+	drawInternalLocationMap();
 }
