@@ -91,7 +91,7 @@ function getInternalEnvironmentMap() {
 		return elements;
 	}
 	else
-		return null;
+		return {};
 }
 
 /**
