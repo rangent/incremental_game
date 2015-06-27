@@ -5,7 +5,7 @@
 function saveState() {
 	if (Modernizr.localstorage) {
 		masterState.updateState(global, seeds, game, player, playerActions);
-		localStorage.setItem("masterState", JSON.stringify(masterState));
+		localStorage.setItem("masterState", LZString.compress(JSON.stringify(masterState)));
 		logNoSave("SAVED!");//should add different indicator instead of logging to game window
 	}
 	else {
@@ -16,7 +16,7 @@ function saveState() {
 function loadState() {
 	if (Modernizr.localstorage) {
 		if (hasSavedGameState()) {
-	 		var m = JSON.parse(localStorage.getItem("masterState"));
+	 		var m = JSON.parse(LZString.decompress(localStorage.getItem("masterState")));
 	 		masterState.setMasterState(m);
 	 		logNoSave("LOADED!"); //should add different indicator instead of logging to game window
 	 	}
