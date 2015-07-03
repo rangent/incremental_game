@@ -61,16 +61,41 @@ function getCurrentInternalLocation() {
 }
 
 /**
- * @param {InternalLocation} currentInternalLocation : source internal location
+ * Checks if location is valid first, if it is, it makes the IE
+ * @param {InternalLocation} sourceInternalLocation : source internal location
  * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  */
-function createConnectedInternalEnvironment(currentInternalLocation, direction, mapLocationToExitTo) {
+function createConnectedInternalEnvironment(sourceInternalLocation, direction, mapLocationToExitTo) {
+	if (!isValidInternalLocation(sourceInternalLocation, direction)) {
+		throw "Invalid location, another internal location exists there";
+	}
+	
 	var newInternalLoc = new InternalLocation({}, true, mapLocationToExitTo);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
-	currentInternalLocation.directions[direction] = newInternalLoc.id;
-	newInternalLoc.directions[getOpposingDirection(direction)] = currentInternalLocation.id;
+	sourceInternalLocation.directions[direction] = newInternalLoc.id;
+	newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+}
+
+/**
+ * Verifies that the intendedDirection is a valid direction for the source location
+ */
+function isValidInternalLocation(sourceInternalLocation, intendedDirection) {
+	//BE: THIS ISN'T WORKING.
+	if (sourceInternalLocation.directions.hasOwnProperty(intendedDirection)) {
+		return false;
+	}
+	var internalMap = getInternalEnvironmentMap();
+	var attemptedDirection = invertDirection(getPositionOfAttemptedDirection(intendedDirection, null));
+	for (var x in internalMap.nodes) {
+		var node = internalMap.nodes[x];
+		if (node.position.x == attemptedDirection.x && node.position.y == attemptedDirection.y) {
+			return false;
+		}
+	}
+	
+	return true;
 }
 
 /**
@@ -95,7 +120,7 @@ function getInternalEnvironmentMap() {
 }
 
 /**
- * recursive method to build the node and edge map
+ * recursive method to build the node and edge map, called by getInternalEnvironmentMap
  */
 function buildNodeAndEdgeMap(internalLocation, elements) {
 	if (elements.visitedNodes.hasOwnProperty(internalLocation.id)) {
@@ -116,40 +141,7 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 			if (elements.visitedNodes.hasOwnProperty(internalLocation.directions[direction])) {
 				var visitedNodeLocation = elements.visitedNodes[internalLocation.directions[direction]];
 				nodeLocation = { x : visitedNodeLocation.x, y : visitedNodeLocation.y };
-				switch(direction) {
-					//Cytoscape.js's canvas has y-coordinates increasing downwards, x-coordinates increasing right
-					//these directions are were the visited node is in relation to the current node
-					case "northeast":
-						nodeLocation.x -= 100;
-						nodeLocation.y += 100;
-						break;
-					case "north":
-						nodeLocation.y += 100;
-						break;
-					case "northwest":
-						nodeLocation.x += 100;
-						nodeLocation.y += 100;
-						break;
-					case "east":
-						nodeLocation.x -= 100;
-						break;
-					case "west":
-						nodeLocation.x += 100;
-						break;
-					case "southeast":
-						nodeLocation.x -= 100;
-						nodeLocation.y -= 100;
-						break;
-					case "south":
-						nodeLocation.y -= 100;
-						break;
-					case "southwest":
-						nodeLocation.x += 100;
-						nodeLocation.y -= 100;
-						break;
-					default:
-						throw "Unexpected direction!";
-				}
+				nodeLocation = getPositionOfAttemptedDirection(direction, nodeLocation);
 				break;
 			}
 		}
@@ -182,4 +174,58 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	for (var direction in internalLocation.directions) {
 		buildNodeAndEdgeMap(player.internalEnvironments[internalLocation.directions[direction]], elements);
 	}
+}
+
+/**
+ * needed when getting a position relative to other nodes
+ */
+function invertDirection(il) {
+	il.x = -(il.x);
+	il.y = -(il.y);
+	return il;
+}
+
+/**
+ * simple lookup, pass in null for nodeLocation to get a relative locaiton from 0,0
+ * Note: coordinate systems assume right and down to be positive axes, and left and up to be negative
+ */
+function getPositionOfAttemptedDirection(direction, nodeLocation) {
+	if (nodeLocation == null || typeof nodeLocation === "undefined") {
+		nodeLocation = { x: 0, y: 0};
+	}
+	switch(direction) {
+		//Cytoscape.js's canvas has y-coordinates increasing downwards, x-coordinates increasing right
+		//these directions are were the visited node is in relation to the current node
+		case "northeast":
+			nodeLocation.x -= 100;
+			nodeLocation.y += 100;
+			break;
+		case "north":
+			nodeLocation.y += 100;
+			break;
+		case "northwest":
+			nodeLocation.x += 100;
+			nodeLocation.y += 100;
+			break;
+		case "east":
+			nodeLocation.x -= 100;
+			break;
+		case "west":
+			nodeLocation.x += 100;
+			break;
+		case "southeast":
+			nodeLocation.x -= 100;
+			nodeLocation.y -= 100;
+			break;
+		case "south":
+			nodeLocation.y -= 100;
+			break;
+		case "southwest":
+			nodeLocation.x += 100;
+			nodeLocation.y -= 100;
+			break;
+		default:
+			throw "Unexpected direction!";
+	}
+	return nodeLocation;
 }
