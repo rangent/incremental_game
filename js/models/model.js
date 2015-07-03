@@ -179,6 +179,7 @@ function InternalLocation(directions, isSettlement, location) {
 	this.directions = directions;
 	this.isSettlement = isSettlement;
 	this.buildings = [];
+	this.inventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
 	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
 }
 
