@@ -64,8 +64,10 @@ function getCurrentInternalLocation() {
 /** 
  * create an internal location based on an array of directions, starting at sourceInternalLocation
  */
-function quickstitchDirections(sourceInternalLocation, directionArray) {
-	//TODO
+function quickstitchInternalEnvironment(sourceInternalLocation, directionArray) {
+	for (var i in directionArray) {
+		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, directionArray[i], null, true);
+	}
 }
 
 /**
@@ -86,19 +88,19 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
  * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
  */
 function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges) {
-	if (!shouldStitchEdges) {
-		if (getInternalLocationFromDirection(sourceInternalLocation, direction) != null) {
+	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
+	if (nodeAtTargetLocation != null) {
+		if (!shouldStitchEdges) {
 			throw "Invalid location, another internal location exists there";
+		} else {
+			//an internal location exists, check if we should create an edge between the two internal locations
+			//if a node exists in the attempted direction and there is not an edge between the two, create an edge
+			if (!sourceInternalLocation.directions.hasOwnProperty(direction)) {
+				sourceInternalLocation.directions[direction] = nodeAtTargetLocation.id;
+				nodeAtTargetLocation.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+			}
+			return nodeAtTargetLocation;
 		}
-	} else {
-		var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
-		debugger;
-		//if a node exists there and there is not an edge between the two
-		if (nodeAtTargetLocation != null && !sourceInternalLocation.directions.hasOwnProperty[direction]) {
-			sourceInternalLocation.directions[direction] = nodeAtTargetLocation.id;
-			nodeAtTargetLocation.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
-		}
-		return nodeAtTargetLocation;
 	}
 	
 	//create the new node and link it to current node:
@@ -115,9 +117,9 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
  */
 function getInternalLocationFromDirection(sourceInternalLocation, intendedDirection) {
 	if (sourceInternalLocation.directions.hasOwnProperty(intendedDirection)) {
-		return sourceInternalLocation.directions[intendedDirection];
+		return player.internalEnvironments[sourceInternalLocation.directions[intendedDirection]];
 	}
-	var internalMap = getInternalEnvironmentMap();
+	var internalMap = getInternalEnvironmentMap(sourceInternalLocation);
 	var attemptedDirection = invertDirection(getPositionOfAttemptedDirection(intendedDirection, null));
 	for (var x in internalMap.nodes) {
 		var node = internalMap.nodes[x];
@@ -133,15 +135,14 @@ function getInternalLocationFromDirection(sourceInternalLocation, intendedDirect
  * Gets relative coordinates to current location.
  * @returns "elements" object compatible with Cytoscape.js
  */
-function getInternalEnvironmentMap() {
+function getInternalEnvironmentMap(sourceInternalLocation) {
 	if (isPlayerInInternalLocation()) {
 		var elements = new Object();
 		elements.visitedNodes = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
 		elements.visitedEdges = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
 		elements.nodes = [];
 		elements.edges = [];
-		var il = getCurrentInternalLocation();
-		buildNodeAndEdgeMap(il, elements);
+		buildNodeAndEdgeMap(sourceInternalLocation, elements);
 		delete elements.visitedNodes;
 		delete elements.visitedEdges;
 		return elements;

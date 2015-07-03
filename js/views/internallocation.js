@@ -40,7 +40,7 @@ function drawInternalLocationMap() {
                 .css({
                   'background-color': '#61bffc',
                 }),
-            elements: getInternalEnvironmentMap(),
+            elements: getInternalEnvironmentMap(getCurrentInternalLocation()),
             autoungrabify: true,
             
             layout: {
