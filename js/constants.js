@@ -53,6 +53,18 @@ var categoryNames = {
 	CONSUMABLE : "Consumable",
 }
 
+var internalEnvironmentConstants = {
+    TOWN1 : ["north", "south", "west", "north","northeast", "southeast", "east", "west", "west", "east", "southwest"],
+	TOWN2 : ["west", "west", "east", "northeast", "north", "south", "southeast", "west", "east", "east", "west", "southwest", "south", "north", "northwest"],
+}
+
+var internalEnvironmentSegments = {
+    "3x3Connected" : ["north", "east", "southwest", "northeast", "south", "west", "east", "south",
+					  "northwest", "southeast", "west", "north", "south", "west", "northeast", "southwest",
+					  "north", "east", "west", "north", "southeast", "northwest", "east",
+					  "southeast", "southwest", "northwest", "northeast"],
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // DEBUG
 //////////////////////////////////////////////////////////////////////////////
