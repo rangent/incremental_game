@@ -60,42 +60,73 @@ function getCurrentInternalLocation() {
 	return (isPlayerInInternalLocation()) ? player.internalEnvironments[player.currentInternalLocation] : null;
 }
 
+
+/** 
+ * create an internal location based on an array of directions, starting at sourceInternalLocation
+ */
+function quickstitchDirections(sourceInternalLocation, directionArray) {
+	//TODO
+}
+
 /**
- * Checks if location is valid first, if it is, it makes the IE
+ * Checks if location is valid first, if it is, it makes the IE (doesn't create an edge though)
  * @param {InternalLocation} sourceInternalLocation : source internal location
  * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  */
 function createConnectedInternalEnvironment(sourceInternalLocation, direction, mapLocationToExitTo) {
-	if (!isValidInternalLocation(sourceInternalLocation, direction)) {
-		throw "Invalid location, another internal location exists there";
+	return createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, false);
+}
+
+/**
+ * Checks if location is valid first, if it is, it makes the IE
+ * @param {InternalLocation} sourceInternalLocation : source internal location
+ * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
+ * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
+ * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
+ */
+function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges) {
+	if (!shouldStitchEdges) {
+		if (getInternalLocationFromDirection(sourceInternalLocation, direction) != null) {
+			throw "Invalid location, another internal location exists there";
+		}
+	} else {
+		var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
+		debugger;
+		//if a node exists there and there is not an edge between the two
+		if (nodeAtTargetLocation != null && !sourceInternalLocation.directions.hasOwnProperty[direction]) {
+			sourceInternalLocation.directions[direction] = nodeAtTargetLocation.id;
+			nodeAtTargetLocation.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+		}
+		return nodeAtTargetLocation;
 	}
 	
+	//create the new node and link it to current node:
 	var newInternalLoc = new InternalLocation({}, true, mapLocationToExitTo);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
 	sourceInternalLocation.directions[direction] = newInternalLoc.id;
 	newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+	return newInternalLoc;
 }
 
 /**
  * Verifies that the intendedDirection is a valid direction for the source location
  */
-function isValidInternalLocation(sourceInternalLocation, intendedDirection) {
-	//BE: THIS ISN'T WORKING.
+function getInternalLocationFromDirection(sourceInternalLocation, intendedDirection) {
 	if (sourceInternalLocation.directions.hasOwnProperty(intendedDirection)) {
-		return false;
+		return sourceInternalLocation.directions[intendedDirection];
 	}
 	var internalMap = getInternalEnvironmentMap();
 	var attemptedDirection = invertDirection(getPositionOfAttemptedDirection(intendedDirection, null));
 	for (var x in internalMap.nodes) {
 		var node = internalMap.nodes[x];
 		if (node.position.x == attemptedDirection.x && node.position.y == attemptedDirection.y) {
-			return false;
+			return player.internalEnvironments[node.data.id];
 		}
 	}
 	
-	return true;
+	return null;
 }
 
 /**
