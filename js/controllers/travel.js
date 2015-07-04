@@ -101,19 +101,10 @@ function discoverLandAroundLocation(location) {
 /*
  * primary travel function called by clicking direction button
  */
-function travelRelative(x, y) {
+function updatePlayerCurrentLocation(x, y) {
 	player.currentLocation = new Location(player.currentLocation.x + x, player.currentLocation.y + y);
-	discoverLandAroundLocation(player.currentLocation);
-	redrawMaps();
-	drawTravelDirections();
-	updateCurrentTerrain();
-	drawInventoryTable();
 }
 
-function doTravelToInternalLocation(internalLocationIndex) {
+function updatePlayerCurrentInternalLocation(internalLocationIndex) {
 	player.currentInternalLocation = internalLocationIndex;
-	//TODO: BE: DISCOVER AREA AROUND INTERNAL LOCATION
-	redrawMaps();
-	drawTravelDirections();
-	drawInventoryTable();
 }

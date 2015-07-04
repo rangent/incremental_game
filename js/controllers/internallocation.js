@@ -60,15 +60,204 @@ function getCurrentInternalLocation() {
 	return (isPlayerInInternalLocation()) ? player.internalEnvironments[player.currentInternalLocation] : null;
 }
 
+
+/** 
+ * create an internal location based on an array of directions, starting at sourceInternalLocation
+ */
+function quickstitchInternalEnvironment(sourceInternalLocation, directionArray) {
+	for (var i in directionArray) {
+		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, directionArray[i], null, true);
+	}
+}
+
 /**
- * @param {InternalLocation} currentInternalLocation : source internal location
+ * Checks if location is valid first, if it is, it makes the IE (doesn't create an edge though)
+ * @param {InternalLocation} sourceInternalLocation : source internal location
  * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  */
-function createConnectedInternalEnvironment(currentInternalLocation, direction, mapLocationToExitTo) {
+function createConnectedInternalEnvironment(sourceInternalLocation, direction, mapLocationToExitTo) {
+	return createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, false);
+}
+
+/**
+ * Checks if location is valid first, if it is, it makes the IE
+ * @param {InternalLocation} sourceInternalLocation : source internal location
+ * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
+ * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
+ * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
+ */
+function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges) {
+	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
+	if (nodeAtTargetLocation != null) {
+		if (!shouldStitchEdges) {
+			throw "Invalid location, another internal location exists there";
+		} else {
+			//an internal location exists, check if we should create an edge between the two internal locations
+			//if a node exists in the attempted direction and there is not an edge between the two, create an edge
+			if (!sourceInternalLocation.directions.hasOwnProperty(direction)) {
+				sourceInternalLocation.directions[direction] = nodeAtTargetLocation.id;
+				nodeAtTargetLocation.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+			}
+			return nodeAtTargetLocation;
+		}
+	}
+	
+	//create the new node and link it to current node:
 	var newInternalLoc = new InternalLocation({}, true, mapLocationToExitTo);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
-	currentInternalLocation.directions[direction] = newInternalLoc.id;
-	newInternalLoc.directions[getOpposingDirection(direction)] = currentInternalLocation.id;
+	sourceInternalLocation.directions[direction] = newInternalLoc.id;
+	newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+	return newInternalLoc;
+}
+
+/**
+ * Verifies that the intendedDirection is a valid direction for the source location
+ */
+function getInternalLocationFromDirection(sourceInternalLocation, intendedDirection) {
+	if (sourceInternalLocation.directions.hasOwnProperty(intendedDirection)) {
+		return player.internalEnvironments[sourceInternalLocation.directions[intendedDirection]];
+	}
+	var internalMap = getInternalEnvironmentMap(sourceInternalLocation);
+	var attemptedDirection = invertDirection(getPositionOfAttemptedDirection(intendedDirection, null));
+	for (var x in internalMap.nodes) {
+		var node = internalMap.nodes[x];
+		if (node.position.x == attemptedDirection.x && node.position.y == attemptedDirection.y) {
+			return player.internalEnvironments[node.data.id];
+		}
+	}
+	
+	return null;
+}
+
+/**
+ * Gets relative coordinates to current location.
+ * @returns "elements" object compatible with Cytoscape.js
+ */
+function getInternalEnvironmentMap(sourceInternalLocation) {
+	if (isPlayerInInternalLocation()) {
+		var elements = new Object();
+		elements.visitedNodes = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+		elements.visitedEdges = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+		elements.nodes = [];
+		elements.edges = [];
+		buildNodeAndEdgeMap(sourceInternalLocation, elements);
+		delete elements.visitedNodes;
+		delete elements.visitedEdges;
+		return elements;
+	}
+	else
+		return { nodes: [], edges: []};
+}
+
+/**
+ * recursive method to build the node and edge map, called by getInternalEnvironmentMap
+ */
+function buildNodeAndEdgeMap(internalLocation, elements) {
+	if (elements.visitedNodes.hasOwnProperty(internalLocation.id)) {
+		return;
+	}
+	
+	var nodeLocation = new Object();
+	var firstNode = false;
+	
+	if (Object.keys(elements.visitedNodes).length == 0) {
+		//first node case
+		nodeLocation = { x: 0, y: 0};
+		firstNode = true;
+	}
+	else {
+		//otherwise find where this node should be relative to any previously visited node
+		for (var direction in internalLocation.directions) {
+			if (elements.visitedNodes.hasOwnProperty(internalLocation.directions[direction])) {
+				var visitedNodeLocation = elements.visitedNodes[internalLocation.directions[direction]];
+				nodeLocation = { x : visitedNodeLocation.x, y : visitedNodeLocation.y };
+				nodeLocation = getPositionOfAttemptedDirection(direction, nodeLocation);
+				break;
+			}
+		}
+	}
+	
+	//add any non-existant edges
+	for (var direction in internalLocation.directions) {
+		if (!elements.visitedEdges.hasOwnProperty(String( internalLocation.directions[direction] + "-" + internalLocation.id))) {
+			var edgeId = String( internalLocation.id + "-" + internalLocation.directions[direction] );
+			var edge = { data: {
+				id : edgeId,
+				weight : 1,
+				source : String(internalLocation.id),
+				target : String(internalLocation.directions[direction])
+				}}
+			elements.edges.push(edge);
+			elements.visitedEdges[edgeId] = 1;
+		}
+	}
+	//finally add the node
+	//BE: DOES THE id NEED TO BE A STRING?
+	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation };
+	if (firstNode) {
+		node.classes = "currentNode";
+	}
+	elements.nodes.push(node);	
+	elements.visitedNodes[internalLocation.id] = nodeLocation;
+	
+	//recursive step:
+	for (var direction in internalLocation.directions) {
+		buildNodeAndEdgeMap(player.internalEnvironments[internalLocation.directions[direction]], elements);
+	}
+}
+
+/**
+ * needed when getting a position relative to other nodes
+ */
+function invertDirection(il) {
+	il.x = -(il.x);
+	il.y = -(il.y);
+	return il;
+}
+
+/**
+ * simple lookup, pass in null for nodeLocation to get a relative locaiton from 0,0
+ * Note: coordinate systems assume right and down to be positive axes, and left and up to be negative
+ */
+function getPositionOfAttemptedDirection(direction, nodeLocation) {
+	if (nodeLocation == null || typeof nodeLocation === "undefined") {
+		nodeLocation = { x: 0, y: 0};
+	}
+	switch(direction) {
+		//Cytoscape.js's canvas has y-coordinates increasing downwards, x-coordinates increasing right
+		//these directions are were the visited node is in relation to the current node
+		case "northeast":
+			nodeLocation.x -= 100;
+			nodeLocation.y += 100;
+			break;
+		case "north":
+			nodeLocation.y += 100;
+			break;
+		case "northwest":
+			nodeLocation.x += 100;
+			nodeLocation.y += 100;
+			break;
+		case "east":
+			nodeLocation.x -= 100;
+			break;
+		case "west":
+			nodeLocation.x += 100;
+			break;
+		case "southeast":
+			nodeLocation.x -= 100;
+			nodeLocation.y -= 100;
+			break;
+		case "south":
+			nodeLocation.y -= 100;
+			break;
+		case "southwest":
+			nodeLocation.x += 100;
+			nodeLocation.y -= 100;
+			break;
+		default:
+			throw "Unexpected direction!";
+	}
+	return nodeLocation;
 }

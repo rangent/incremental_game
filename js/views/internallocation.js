@@ -17,3 +17,39 @@ function doExitInternalLocation() {
         redrawBoard();
     }
 }
+
+function drawInternalLocationMap() {
+    if (getCurrentInternalLocation() != null) {
+        $("#internalMapContainer").show(); 
+        cytoscape({
+            container: document.getElementById('internalMapContainer'),
+            
+            style: cytoscape.stylesheet()
+                .selector('node')
+                .css({
+                    'content': 'data(id)',
+                    'shape' : 'roundrectangle'
+                })
+                .selector('edge')
+                .css({
+                    'width': 4,
+                    'line-color': '#ddd',
+                    'target-arrow-color': '#ddd'
+                })
+                .selector('.currentNode')
+                .css({
+                  'background-color': '#61bffc',
+                }),
+            elements: getInternalEnvironmentMap(getCurrentInternalLocation()),
+            autoungrabify: true,
+            
+            layout: {
+                name: 'preset',
+                directed: false,
+                padding: 10
+            }
+        });
+    } else {
+        $("#internalMapContainer").hide();  
+    }
+}

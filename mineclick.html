@@ -102,12 +102,16 @@ http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
 Graphs:
 * http://stackoverflow.com/questions/16058073/how-do-i-draw-a-graph-or-tree-structure-in-javascript
 * http://theory.stanford.edu/~amitp/GameProgramming/MapRepresentations.html
+<<<<<<< HEAD
 * MUD javascript map: http://www.mudconnect.com/SMF/index.php?topic=74492.msg163422#msg163422 , https://github.com/arendjr/PlainText
 
 INSPIRATION:
 Dynamic worlds, dynamic creatures, dynamic quests:
 * http://web.archive.org/web/20080211222642/http://www.cs.umd.edu/~jra/craft3.pdf -
    - Concepts: 
+=======
+* This one may work!  http://js.cytoscape.org/#top
+>>>>>>> origin/master
 -->
 
 <!-- 
@@ -128,6 +132,8 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 <script type="text/javascript" src="lib/island/perlin.js"></script>
 <script type="text/javascript" src="lib/island/Island.js"></script>
 <script type="text/javascript" src="lib/collapsiblelists/CollapsibleLists.js"></script>
+<script type="text/javascript" src="lib/cytoscape.js-2.4.2/build/cytoscape.min.js"></script>
+<script type="text/javascript" src="lib/lz-string-master/libs/lz-string.min.js"></script>
 
 <!-- core -->
 <script type="text/javascript" src="js/constants.js"></script>
@@ -274,6 +280,9 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 </div>
 <div id="mapContainer">
         <canvas id="land" height="500" width="500"></canvas>
+</div>
+<div id="internalMapContainer">
+        
 </div>
         <canvas id="perlin" hidden="true"></canvas>
 <div id="joyrideTips" style="display:none">
