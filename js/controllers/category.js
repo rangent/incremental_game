@@ -53,9 +53,20 @@ function addItemsToCategoryTree() {
                 processItemQuantityCollection(player.availableTerrain[terrainArray][terrain].inventory.itemQuantityCollection);
             }
         }
+        //everything else thats not a settlement (caves, etc)
+        for (var i in player.internalEnvironments) {
+            if (!player.internalEnvironments[i].isSettlement) {
+                processItemQuantityCollection(player.internalEnvironments[i].inventory.itemQuantityCollection);
+            }
+        }
     }
     //player.globalInventory.itemQuantityCollection[i] is the player's "usable" inventory
     processItemQuantityCollection(player.globalInventory.itemQuantityCollection);
+    for (var i in player.internalEnvironments) {
+        if (player.internalEnvironments[i].isSettlement) {
+            processItemQuantityCollection(player.internalEnvironments[i].inventory.itemQuantityCollection);
+        }
+    }
 }
 
 function processItemQuantityCollection(itemQuantityCollection) {

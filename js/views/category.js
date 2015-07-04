@@ -1,5 +1,5 @@
 /*
- * Category tree menu view
+ * Category tree menu view (Global Inventory)
  */
 
 function initializeCategoryTreeUi() {
