@@ -30,8 +30,11 @@ function addItemsToInventory(inventory, itemName, quantity) {
  * Return the correct inventory, whether player is inside or outside
  */
 function getCurrentLocationInventory() {
-	if (player.currentInternalLocation != null) {
-		return player.globalInventory;
+	//if (player.currentInternalLocation != null) {
+	//	return player.globalInventory;
+	//}
+	if (isPlayerInInternalLocation()) {
+		return resolveInventory(getCurrentInternalLocation().id);
 	}
 	else {
 		return getCurrentLocation().inventory;
@@ -108,9 +111,13 @@ function resolveInventory(inventory) {
 	if (inventory == "player") {
 		return player.inventory;
 	}
-	else if (player.currentInternalLocation != null) {
-		return player.globalInventory;
+	//assuming a numeric "inventory" is an index of an internalEnvironment
+	else if ($.isNumeric(inventory)) {
+		return player.internalEnvironments[inventory].inventory;
 	}
+	//else if (player.currentInternalLocation != null) {
+	//	return player.globalInventory;
+	//}
 	//if it's a location
 	else if (typeof inventory === "object" && inventory.hasOwnProperty("x") &&
 			 inventory.hasOwnProperty("y") && typeof getCurrentLocation() !== "undefined") {

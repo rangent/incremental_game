@@ -22,10 +22,9 @@ function dropItem(inventory, itemName, quantity) {
 }
 
 function pickupItem(inventory, itemName, quantity) {
-	//remove from player inventory
+	//add to player inventory
 	if (hasItemsInInventory(resolveInventory(inventory), getGenericItemAsset(itemName), quantity) && 
 			addItemsToInventory('player', itemName, quantity)) {
-
 		removeItemsFromInventory(inventory, itemName, quantity);
 		drawInventoryTable();
 		drawCraftingTable();
@@ -106,16 +105,28 @@ function drawInventoryTable() {
 		for (var p in pickupResource) {
 			// debugger;
 			var item = pickupResource[p].item;
-			var loc = pickupResource[p].currentLocation;
-			var f = new Function("handlePickupItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
+			if (isPlayerInInternalLocation()) {
+				var loc = getCurrentInternalLocation();
+				var f = new Function("handlePickupItemPress('" + item + "'," + loc.id + ")");
+			} else {
+				//player is in wilds
+				var loc = pickupResource[p].currentLocation;
+				var f = new Function("handlePickupItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
+			}
 			$("#" + item + "Pickup").on("click", f );
 		}
 
 		for (var p in dropResource) {
 			// debugger;
 			var item = dropResource[p].item;
-			var loc = dropResource[p].currentLocation;
-			var f = new Function("handleDropItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
+			if (isPlayerInInternalLocation()) {
+				var loc = getCurrentInternalLocation();
+				var f = new Function("handleDropItemPress('" + item + "'," + loc.id + ")");
+			} else {
+				//player is in wilds
+				var loc = dropResource[p].currentLocation;
+				var f = new Function("handleDropItemPress('" + item + "',new Location(" + loc.x + "," + loc.y + "))");
+			}
 			$("#" + item + "Drop").on("click", f );	
 		}
 
