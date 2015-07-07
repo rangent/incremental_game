@@ -1,3 +1,4 @@
+/* Flexbox sticky footer work from https://css-tricks.com/forums/topic/flexbox-sticky-footer/ */
 body {
   display: flex;
   min-height: 100vh;
