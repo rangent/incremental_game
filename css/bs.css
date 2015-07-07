@@ -1,0 +1,17 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+}
+
+header, footer {
+  background: #ccc;
+  h1 {
+    padding: 10px;
+    margin: 0;
+  }
+}
