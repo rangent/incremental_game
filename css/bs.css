@@ -17,8 +17,8 @@ header, footer {
   }
 }
 
-/* .container isn't 100% width, creating my own .container-full class */
-.container-full {
+/* .container isn't 100% width, creating my own .full class */
+.full {
   margin: 0 auto;
   width: 100%;
 }
