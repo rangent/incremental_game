@@ -31,3 +31,18 @@ header, footer {
     width: 50%;
     margin: 0 auto;
 }
+
+.full-height {
+  height:  100%;
+  overflow: scroll;
+}
+/* Mac doesn't show scroll bars... grr */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
