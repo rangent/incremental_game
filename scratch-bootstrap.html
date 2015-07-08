@@ -23,9 +23,9 @@
       <h3>header</h3>
     </header>
     
-    <div id="maincol" class="main container full">
+    <div id="maincol" class="main container-fluid full">
       <div id="mainrow" class="row">
-        <div id="playercol" class="col-xs-1 full-height">
+        <div id="playercol" class="col-xs-2 full-height">
           <div>
             <h4 class="center">Player</h4>
             <button class="btn btn-default">Apple</button>
@@ -50,7 +50,7 @@
             <button class="btn btn-default">Stickz</button>
           </div>
         </div>
-        <div class="col-xs-1 full-height">
+        <div class="col-xs-2 full-height">
           <h4 class="center">Ground</h4>
           <button class="btn btn-default">Stick</button>
           <button class="btn btn-default">Stick</button>
@@ -83,9 +83,17 @@
           <button class="btn btn-default">Stick</button>
           <button class="btn btn-default">Stick</button>
         </div>
-        <div id="centercol" class="col-xs-8">
-          <h4 class="center">Console...</h4>
-          <div id="eventDiv" class="contentholder content-center"></div>
+        <div id="centercol" class="col-xs-6">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#eventDiv" data-toggle="tab">Events</a></li>
+            <li><a href="#otherContent" data-toggle="tab">Map</a></li>
+          </ul>
+          <div class="tab-content  content-center ">
+            <div id="eventDiv" class="contentholder tab-pane fade in active"></div>
+            <div id="otherContent" class="tab-pane fade">
+              <p> some content</p>
+            </div>
+          </div>
         </div>
         <div class="col-xs-2">
           <div class="centered">
