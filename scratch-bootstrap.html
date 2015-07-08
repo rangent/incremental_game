@@ -15,6 +15,9 @@
     <script src="lib/jquery-1.11.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-toolkit/bootstrap-toolkit.min.js"></script>
+    
+    <script src="js/scratch-bootstrap.js"></script>
   </head>
   <body>
     <header>
@@ -22,9 +25,8 @@
     </header>
     
     <div class="main container full">
-      <p>Hello, world!</p>
       <div class="row">
-        <h3>Inventory</h4>
+        <p>Inventory</p>
         <div class="col-xs-1">
           <h4 class="center">Player</h4>
         </div>
@@ -47,7 +49,26 @@
       <div class="row">
         <div class="col-xs-4">.col-xs-4</div>
         <div class="col-xs-4">.col-xs-4</div>
-        <div class="col-xs-4">.col-xs-4</div>
+        <div class="col-xs-1">.col-xs-2</div>
+        <div class="col-xs-3">.col-xs-2
+          <table>
+            <tr>
+              <td><button id="nwbutton" type="button" class="btn btn-default">NW</button></td>
+              <td><button type="button" class="btn btn-default">N</button></td>
+              <td><button type="button" class="btn btn-default">NE</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-default">W</button></td>
+              <td><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></td>
+              <td><button type="button" class="btn btn-default">E</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-default">SW</button></td>
+              <td><button type="button" class="btn btn-default">S</button></td>
+              <td><button type="button" class="btn btn-default">SE</button></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </footer>
   </body>
