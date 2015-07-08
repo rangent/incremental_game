@@ -46,3 +46,15 @@ header, footer {
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
+
+.contentholder {
+  padding: 10px;
+  overflow: auto;
+}
+.content-center {
+	border: 1px solid black;
+	float: top;
+	height: auto;
+	width: auto;
+	overflow: auto;
+}

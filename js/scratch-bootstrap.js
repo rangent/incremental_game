@@ -5,8 +5,7 @@ $( document ).ready(function() {
     var w = $("#nwbutton").width();
     $("button").addClass("btn-" + windowSize);
     $(".direction-button").width(w);
-    $("#maincol").height($(window).height() - $("footer").height() - $("header").height());
-    $("#mainrow").height($(window).height() - $("footer").height() - $("header").height());
+    resizeElements();
 });
 
 function getWindowSize() {
@@ -23,7 +22,14 @@ function getWindowSize() {
 }
 
 $( window ).resize(function() {
+    resizeElements();
+});
+
+function resizeElements() {
+    var centerHeight= $(window).height() - $("footer").height() - $("header").height();
     $("#maincol").height($(window).height() - $("footer").height() - $("header").height());
     $("#mainrow").height($(window).height() - $("footer").height() - $("header").height());
-});
+    $("#eventDiv").height($("#playercol").height()- $("footer").height());
+}
+
 
