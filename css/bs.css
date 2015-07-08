@@ -22,3 +22,7 @@ header, footer {
   margin: 0 auto;
   width: 100%;
 }
+
+.center {
+  text-align: center;
+}
