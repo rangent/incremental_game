@@ -1,51 +1,25 @@
-// Wrap IIFE around your code
-(function($, viewport){
+var windowSize = -1;
 
-    // Executes only in XS breakpoint
-    if( viewport.is('xs') ) {
-        setUiFor("xs");
-    }
-    
-    if( viewport.is('sm') ) {
-        setUiFor("sm");
-    }
-    
-    if( viewport.is('md') ) {
-        setUiFor("md");
-    }
-    
-    if( viewport.is('lg') ) {
-        setUiFor("lg");
-    }
-
-    //// Executes in SM, MD and LG breakpoints
-    //if( viewport.is('>=sm') ) {
-    //    $("button").addClass("btn-sm");
-    //}
-    //
-    //// Executes in XS and SM breakpoints
-    //if( viewport.is('<md') ) {
-    //    $("button").addClass("btn-md");
-    //}
-    //
-    //// Execute code each time window size changes
-    //$(window).resize(
-    //    viewport.changed(function(){
-    //        if( viewport.is('xs') ) {
-    //            // ...
-    //        }
-    //    })
-    //);
-
-})(jQuery, ResponsiveBootstrapToolkit);
-
-function setUiFor(uiSize) {
-    var buttonClass = "btn-" + uiSize;
-    $("button").addClass(buttonClass);
-}
 
 
 $( document ).ready(function() {
+    var windowSize = getWindowSize();
     var w = $("#nwbutton").width();
-    $("button").width(w);
+    $("button").addClass("btn-" + windowSize);
+    $(".direction-button").width(w);
+    
 });
+
+function getWindowSize() {
+    var w = $(window).width();
+    /*if (w >= 1200) {
+        return 'lg';
+    } else if (w >= 980) {
+        return 'md';
+    } else*/ if (w >= 768) {
+        return 'sm';
+    } else {
+        return 'xs';
+    }
+}
+

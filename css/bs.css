@@ -26,3 +26,8 @@ header, footer {
 .center {
   text-align: center;
 }
+
+.centered {
+    width: 50%;
+    margin: 0 auto;
+}
