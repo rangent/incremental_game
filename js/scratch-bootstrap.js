@@ -10,9 +10,9 @@ $( document ).ready(function() {
 
 function getWindowSize() {
     var w = $(window).width();
-    /*if (w >= 1200) {
+    if (w >= 1200) {
         return 'lg';
-    } else*/ if (w >= 980) {
+    } else if (w >= 980) {
         return 'md';
     } else if (w >= 768) {
         return 'sm';
@@ -29,7 +29,10 @@ function resizeElements() {
     var centerHeight= $(window).height() - $("footer").height() - $("header").height();
     $("#maincol").height($(window).height() - $("footer").height() - $("header").height());
     $("#mainrow").height($(window).height() - $("footer").height() - $("header").height());
-    $("#eventDiv").height($("#playercol").height()- $("footer").height());
+    var centerColHeight = $("#playercol").height()- $("footer").height();
+    $("#eventDiv,#otherContent").height(centerColHeight);
+    $("#mapImage").height((centerColHeight > 500) ? 500 : centerColHeight);
+    $("#minimapImage").height((3 * $("#nwbutton").outerHeight()));
 }
 
 

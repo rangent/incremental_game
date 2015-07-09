@@ -85,13 +85,16 @@
         </div>
         <div id="centercol" class="col-xs-6">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#eventDiv" data-toggle="tab">Events</a></li>
+            <li class="active"><a href="#eventDivHolder" data-toggle="tab">Events</a></li>
             <li><a href="#otherContent" data-toggle="tab">Map</a></li>
           </ul>
           <div class="tab-content  contentholder ">
-            <div id="eventDiv" class="content-center  tab-pane fade in active"></div>
+            <div id="eventDivHolder" class="  tab-pane fade in active">
+              <div id="eventDiv" class="content-center"></div>
+              <button class="btn btn-default">Clear</button>
+             </div>
             <div id="otherContent" class="tab-pane fade">
-              <p> some content</p>
+                <img id="mapImage" class="img-responsive" src="images/map.png" alt="canvas" />
             </div>
           </div>
         </div>
@@ -107,7 +110,9 @@
     
     <footer class="site-footer full">
       <div class="row full">
-        <div class="col-xs-4">.col-xs-4</div>
+        <div class="col-xs-4">
+          <img id="minimapImage" class="img-responsive" src="images/minimap.png" alt="canvas2" style="max-height: 150px" />
+        </div>
         <div class="col-xs-4">.col-xs-4</div>
         <div class="col-xs-4">
           <table class="pull-right">
