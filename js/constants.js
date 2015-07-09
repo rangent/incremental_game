@@ -65,6 +65,27 @@ var internalEnvironmentSegments = {
 					  "southeast", "southwest", "northwest", "northeast"],
 }
 
+/*
+ * http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+ */
+var keyboardKeys = {
+		NUMPAD_0 : 96,
+		NUMPAD_1 : 97,
+		NUMPAD_2 : 98,
+		NUMPAD_3 : 99,
+		NUMPAD_4 : 100,
+		NUMPAD_5 : 101,
+		NUMPAD_6 : 102,
+		NUMPAD_7 : 103,
+		NUMPAD_8 : 104,
+		NUMPAD_9 : 105,
+		NUMPAD_MULTIPLY : 106,
+		NUMPAD_ADD : 107,
+		NUMPAD_SUBTRACT : 109,
+		NUMPAD_DECIMAL_POINT : 110,
+		NUMPAD_DIVIDE : 111,
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // DEBUG
 //////////////////////////////////////////////////////////////////////////////

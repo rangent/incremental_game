@@ -33,6 +33,7 @@ function resizeElements() {
     $("#mapImage").height((centerColHeight > 500) ? 500 : centerColHeight);
     $("#minimapImage").height((3 * $("#nwbutton").outerHeight()));
     $("#mainrow").height($("#maincol").height());
+    $("#centercol").height($("#maincol").height());
 }
 
 
