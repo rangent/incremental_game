@@ -30,10 +30,10 @@ function resizeElements() {
     $("#maincol").height($(window).height() - $("footer").innerHeight() - $("header").innerHeight());
     var centerColHeight = $("#maincol").outerHeight() /*- $("footer").innerHeight()*/;
     $("#eventDiv,#otherContent").height(centerColHeight);
-    $("#mapImage").height((centerColHeight > 500) ? 500 : centerColHeight);
     $("#minimapImage").height((3 * $("#nwbutton").outerHeight()));
     $("#mainrow").height($("#maincol").height());
     $("#centercol").height($("#maincol").height());
+    $("#mapImage").height($("#mapImage").parent().height());
 }
 
 
