@@ -27,12 +27,12 @@ $( window ).resize(function() {
 
 function resizeElements() {
     var centerHeight= $(window).height() - $("footer").height() - $("header").height();
-    $("#maincol").height($(window).height() - $("footer").height() - $("header").height());
-    $("#mainrow").height($(window).height() - $("footer").height() - $("header").height());
-    var centerColHeight = $("#playercol").height()- $("footer").height();
+    $("#maincol").height($(window).height() - $("footer").innerHeight() - $("header").innerHeight());
+    var centerColHeight = $("#maincol").outerHeight() /*- $("footer").innerHeight()*/;
     $("#eventDiv,#otherContent").height(centerColHeight);
     $("#mapImage").height((centerColHeight > 500) ? 500 : centerColHeight);
     $("#minimapImage").height((3 * $("#nwbutton").outerHeight()));
+    $("#mainrow").height($("#maincol").height());
 }
 
 
