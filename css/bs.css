@@ -58,3 +58,6 @@ header, footer {
 	width: auto;
 	overflow: auto;
 }
+.noscroll {
+  overflow: hidden;
+}
