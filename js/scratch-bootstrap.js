@@ -6,6 +6,9 @@ $( document ).ready(function() {
     $("button").addClass("btn-" + windowSize);
     $(".direction-button").width(w);
     resizeElements();
+    $('label.tree-toggler').click(function () {
+		$(this).parent().children('ul.tree').toggle(300);
+	});
 });
 
 function getWindowSize() {
