@@ -33,7 +33,7 @@
         <div id="playercol" class="col-xs-2 full-height">
           <div>
             <h4 class="center">Player</h4>
-            <button class="btn btn-default">Apple (5)</button>
+            <button class="btn btn-default">Apple <span class="badge">5</span></button>
             <button class="btn btn-default">Stick</button>
             <button class="btn btn-default">Salamander</button>
             <button class="btn btn-default">Giant</button>
@@ -91,9 +91,9 @@
         <div id="centercol" class="col-xs-6">
           <ul id="maincol-tabs" class="nav nav-tabs">
             <li class="active"><a href="#eventDivHolder" data-toggle="tab">Events</a></li>
-            <li><a href="#otherContent" data-toggle="tab">Map</a></li>
+            <li><a href="#otherContent" data-toggle="tab">World Map</a></li>
             <li><a href="#categoryListContainer" data-toggle="tab">Global Inventory</a></li>
-            <li><a href="#list2" data-toggle="tab">List2</a></li>
+            <li><a href="#internalMap" data-toggle="tab">Internal Map</a></li>
           </ul>
           <div class="tab-content  contentholder ">
             <div id="eventDivHolder" class="  tab-pane fade in active">
@@ -119,8 +119,8 @@
                 </li>
               </ul>
             </div>
-            <div id="list2" class="tab-pane fade">
-              &nbsp;content.
+            <div id="internalMap" class="tab-pane fade">
+                <img id="internalMapImage" class="img-responsive" src="images/internal_map.png" alt="canvas" />
             </div>
           </div>
         </div>
@@ -136,11 +136,11 @@
     
     <footer class="site-footer full">
       <div class="row full">
-        <div class="col-xs-4">
+        <div class="col-xs-3">
           <img id="minimapImage" class="img-responsive" src="images/minimap.png" alt="canvas2" style="max-height: 150px" />
         </div>
-        <div class="col-xs-4">.col-xs-4</div>
-        <div class="col-xs-4">
+        <div class="col-xs-6">.col-xs-4</div>
+        <div class="col-xs-3">
           <table class="pull-right">
             <tr>
               <td><button id="nwbutton" type="button" class="btn btn-default direction-button">NW</button></td>

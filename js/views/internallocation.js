@@ -59,8 +59,12 @@ function drawInternalLocationMap() {
     }
 }
 
-function rezoom() {
+function rezoom(zoomLevel) {
+    zoomLevel = (typeof zoomLevel === "undefined") ? 1.5 : zoomLevel;
     if (typeof cy !== "undefined") {
-        cy.zoom(2.5);
+        //1.5 is good for a mini local map,
+        //~1 is good for regular map.
+        //Need to do more cytosape js research to determine how to auto zoom.
+        cy.zoom(zoomLevel); 
     }
 }
