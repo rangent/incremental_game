@@ -129,6 +129,7 @@
             <h4 class="center">Actions</h4>
             <button class="btn btn-default">Forage</button>
             <button class="btn btn-default">Build</button>
+            <button class="btn btn-default" data-toggle="modal" data-target="#craftingModal">Craft</button>
           </div>
         </div>
       </div>
@@ -183,5 +184,28 @@
         </div>
       </div>
     </footer>
+    
+    <div id="craftingModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Craftable items</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              <a title="Crafting ingredients: 6 sticks" data-toggle="tooltip" data-placement="bottom" ><button class="btn btn-default">Bundle of Firewood</button></a>
+              <a title="Crafting ingredients: 4 apples" data-toggle="tooltip" data-placement="bottom" ><button class="btn btn-default">TestHeavyObject</button></a>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
   </body>
 </html>
