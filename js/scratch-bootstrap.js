@@ -37,7 +37,7 @@ function resizeElements() {
     $("#mainrow").height($("#maincol").height());
     var fudgeFactor = 20; //not sure why I need this yet, some padding I'm not accounting for
     $("#centercol").height($("#maincol").height());
-    $("#mapImage").height($("#mapImage").parent().height() - $("#maincol-tabs").outerHeight());
+    $("#mapImage").height($("#mapImage").parent().height() - $("#maincol-tabs").outerHeight() - fudgeFactor);
     $("#eventDiv").height($("#centercol").height() - $("#maincol-tabs").outerHeight() - $("#clearButton").outerHeight() - fudgeFactor);
 }
 
