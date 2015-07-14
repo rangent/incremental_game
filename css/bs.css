@@ -61,3 +61,10 @@ header, footer {
 .noscroll {
   overflow: hidden;
 }
+#currentTerrain td, .nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+table th {
+  text-align: center;
+}
