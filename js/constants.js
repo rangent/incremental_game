@@ -27,7 +27,7 @@ var constants = {
 	ITEM_FOUND_TIP : "<ol id=\"joyride%ITEM%\"><li id=\"forageTip\" data-id=\"%ITEM%Pickup\">Forage: Found %ITEM%!</li></ol>",
 	
 	//terrain
-	TERRAIN_TABLE : "<table class=\"terrainTable\"><tr><th colspan=\"2\" id=\"selectedTerrainTable\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr><tr><td>Buildings:</td><td>%BUILDINGS%</td></tr></table>",
+	TERRAIN_TABLE : "<table class=\"terrainTable table\"><tr><th colspan=\"2\" id=\"selectedTerrainTable\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr><tr><td>Buildings:</td><td>%BUILDINGS%</td></tr></table>",
 	
 	//crafting
 	CRAFTABLE_TABLE_HEADER : "<tr><th>Craft</th></tr>",
