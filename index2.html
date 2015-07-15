@@ -1,5 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- ideas
+
+* Minecraft "Empire Building Challenge"
+* http://www.citybuildergames.com/index.php/topic,3051.0.html 
+* http://www.minecraftforum.net/forums/minecraft-discussion/survival-mode/296505-the-empire-building-challenge-inspired-by-age-of
+concepts: 
+*	"ages"
+
+* CSS selectors:
+* http://www.w3schools.com/cssref/css_selectors.asp
+
+* JQuery mobile:
+* http://www.w3schools.com/jquerymobile/default.asp
+
+* Civcraft tech tree
+http://hydra-media.cursecdn.com/civcraft.gamepedia.com/5/5c/Phase_8_TT.jpg
+concepts:
+*	tech tree?
+
+* Civilization 2 tech tree
+http://old.civfanatics.com/images/civ2/poster/civ2chart.jpg
+
+* How fast should a game go "auto"
+* http://www.reddit.com/r/incremental_games/comments/2eau8j/query_how_fast_should_a_game_go_auto/
+
+* Rise of Nations Tech Tree
+* http://ron.heavengames.com/gameinfo/tech/techpage.php?action=Age&seltype=3
+* http://gamestudies.org/articleimages/101_Tech_Tree_RoN.jpg?m
+
+* Civ clicker 
+* Developing incrementals - http://dhmholley.co.uk/incrementals-part-2.html
+* http://diveintohtml5.info/storage.html
+* http://dhmholley.co.uk/civclicker-postmortem.html
+* Civ clicker II dev blog - https://www.passle.net/p/2fkw/civclicker-ii-development-blog
+
+* Alert system: 
+* Noty: http://ned.im/noty/#hi
+* Qtip2: http://qtip2.com/demos
+
+* Map: http://i.imgur.com/80Xmfrr.png
+* World generator: http://donjon.bin.sh/world/
+* http://topps.diku.dk/torbenm/maps.msp
+* (Google) "fractal map generator" https://www.google.com/webhp?sourceid=chrome-instant&rlz=1C1CHFX_enUS601US601&ion=1&espv=2&es_th=1&ie=UTF-8#q=fractal%20map%20generator
+* Polygon map generation: http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/
+* https://github.com/lebesnec/island.js
+* Dungeon generator (free server-side map generator):
+*   https://donjon.bin.sh/d20/dungeon/
+*   https://donjon.bin.sh/apps/
+
+
+
+**DESIGN
+
+* General:
+* Game development design - http://gamedevelopment.tutsplus.com/
+* Game Design Patterns: http://gameprogrammingpatterns.com/
+* Procedural dungeon generation: http://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/
+* Procedural content generation (dynamic room descriptions... etc): http://pcg.wikidot.com/
+
+* Babel - js framework Derrick recommended 
+
+* Battle:
+* Alightments: good/evil, neutral: if you run into good guys, can recruit(/fight if evil), if you run into bad, can recruit/fight (hero/bandit)
+* Attacks: swipe (1/5th second), strike (3/4 second), bash (2 seconds), etc.  Button mashing, penalty for hitting too early?
+*    critical hit if you hit the button within xx% of when that action becomes available (like 10% of attack time is a critical attack instead of regular)
+*    back/forward move back or forward in rows (less or more damage from melee/ranged), allows player to attack or recover
+*    bow damage 100% at range 10-40, 80% at [0-10, 40-50], 50% [50-60], 20% [70-80], 0% [80+]
+*    sword damage 100% at range 0-10, 0% [10+]... etc
+
+* UI:
+* Design School for Developers - http://webdesign.tutsplus.com/series/design-school-for-developers--webdesign-13793
+** Step 1 Planning a Design Project - http://webdesign.tutsplus.com/articles/planning-a-design-project--webdesign-13277
+** Introducing Wireframes to your Design Process: http://webdesign.tutsplus.com/articles/introducing-wireframes-to-your-design-process--webdesign-13284
+* (paid) Flat UI design and development: http://webdesign.tutsplus.com/courses/flat-ui-design-and-development
+* (paid) Best practices for UI development and Design: http://webdesign.tutsplus.com/courses/flat-ui-design-and-development/lessons/best-practices-for-ui-development-design
+* (paid) JS libraries for web design: http://webdesign.tutsplus.com/courses/essential-js-libraries-for-web-design
+* (paid) User Interface Design for the Web: http://webdesign.tutsplus.com/courses/user-interface-design-for-the-web
+* Examples:
+* Tympanous (tons of images) : http://tympanus.net/codrops/category/playground/
+* Modal Windows: http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/ , Demo: http://tympanus.net/Development/ModalWindowEffects/
+* Iphone minimal-ui -- need minimal ui to hide address bar: https://github.com/gajus/brim
+
+* UI Ideas:
+* Clicking FF7 http://clickingff7.com/#/map
+* Collapsable tree menu: http://www.thecssninja.com/css/css-tree-menu
+* Collapsable list: http://code.stephenmorley.org/javascript/collapsible-lists/
+* 8 best jquery trees: http://webrevisions.com/jquery-plugins/8-best-jquery-tree-view-plugin/#.VW0gElVViko
+
+* Bootstrap:
+** Documentation: http://getbootstrap.com/
+** W3 Schools: http://www.w3schools.com/bootstrap/default.asp
+** Font-Awesome (extra glyphicons): extra icons http://fortawesome.github.io/Font-Awesome/icons/
+** Rotated Glyphicon css example (for diagonal arrows): http://bootsnipp.com/snippets/featured/glyphicon-animate-rotation-and-flip
+** Progress bar stacked (for battles): http://getbootstrap.com/components/#progress-stacked
+** sticky footer: http://stackoverflow.com/questions/17966140/twitter-bootstrap-3-sticky-footer
+** Flexbox sticky footer: http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+** 50 must-have plugins: http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/
+
+* Our World is Broken:
+** Players should not need instruction, they should learn from the *feedback systems*, and then reference documentation if they get stuck
+** Make a game to help players do hard work that they enjoy and appreciate
+** Help them choose the right work for themselves at the right time
+** All good gameplay is hard work, it's hard work they choose for themselves, and when they do the hard work they prime their minds for happiness
+** The right hard work takes different forms for different people at different times:
+*** High stakes work: high action, thrills player for success, but also for spectacular failure
+*** Risk of game's "failure", makes player feel more alive
+** There is also busy work: when chosen by player can also make them feel just as good
+*** Busy work enabled by focused activity for hands + mind for a clear result
+** "Always connect the individual to something bigger"
+
+
+** Incremental game design:
+* http://gamedevelopment.tutsplus.com/series/numbers-getting-bigger--cms-847
+
+* Dark Room - Web -> IOS
+* http://www.gamasutra.com/view/news/212230/A_Dark_Rooms_unique_journey_from_the_web_to_iOS.php
+
+* Design of Inventory system & Inventory items
+* http://gamedevelopment.tutsplus.com/articles/designing-an-rpg-inventory-system-that-fits-preliminary-steps--gamedev-14725
+
+**STORY
+* RPG solo
+* http://www.rpgsolo.com/play.php
+* Writing Excuses 10.17 http://www.writingexcuses.com/2015/04/26/writing-excuses-10-17-qa-on-beginnings/, podcast all, but @7:50-8:34 - How to stage action at the beginning of a story
+
+** Media (free, creative commons)
+* Creative commons photos: http://commons.wikimedia.org/wiki/Main_Page
+* landscapes: http://commons.wikimedia.org/wiki/Category:Landscapes
+* quality landscapes: http://commons.wikimedia.org/wiki/Category:Quality_images_of_landscapes
+* Free game art: http://opengameart.org/
+* Game icons: http://game-icons.net/
+
+Graphs:
+* http://stackoverflow.com/questions/16058073/how-do-i-draw-a-graph-or-tree-structure-in-javascript
+* http://theory.stanford.edu/~amitp/GameProgramming/MapRepresentations.html
+* MUD javascript map: http://www.mudconnect.com/SMF/index.php?topic=74492.msg163422#msg163422 , https://github.com/arendjr/PlainText
+
+Cytoscape: http://js.cytoscape.org/#top
+* Cytoscape work on jsbin: http://jsbin.com/kiyoqo/edit?css,js,output
+
+Quests:
+* randomly generated WoW-style quests: who, what, when, where, why spelled out
+
+
+INSPIRATION:
+Dynamic worlds, dynamic creatures, dynamic quests:
+* http://web.archive.org/web/20080211222642/http://www.cs.umd.edu/~jra/craft3.pdf -
+   - Concepts: 
+-->
+
+<!-- 
+Thanks to:
+Select2 from http://ivaynberg.github.io/select2/
+Derrick for JS polymorphism help: http://collabedit.com/qbtb4
+-->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
