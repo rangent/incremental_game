@@ -252,6 +252,51 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     <script type="text/javascript" src="js/story.js"></script>
     
     <script src="js/scratch-bootstrap.js"></script> <!-- BE: NEEDS INTEGRATION INTO INCLUDED JS! -->
+    
+    <!-- document ready: initialize DOM, load, etc -->
+    <script>
+        $(document).ready(function() { 
+            
+            //////////////////////////////////////////////////////////////////////////////
+            // SETUP AND GO!
+            //////////////////////////////////////////////////////////////////////////////
+            initializePlayerInventory();
+            masterState = new MasterState();
+            defineRuntimeConstants();
+            /*
+            if (hasSavedGameState()) {
+                loadState();
+            }
+            else {
+                //start a new game!
+                setupNewGame();
+            }
+    
+            redrawBoard();
+                
+            if (!global.storyStarted) {
+                global.storyStarted = true;
+                progressStory(0);  //start game
+            }
+            
+            if (DEBUG) {
+                console.log('size of masterState: ' + JSON.stringify(masterState).length);
+                for (var key in masterState) {
+                    if (typeof masterState[key] !== "function") {
+                        console.log('size of masterState["' + key + '"]: ' + JSON.stringify(masterState[key]).length);
+                    }
+                }
+                //biggest is masterState["player"]:
+                for (var key in masterState["player"]) {
+                    console.log('size of masterState["player"]["' + key + '"]: ' + JSON.stringify(masterState["player"][key]).length);
+                }
+            }
+            */
+            
+            // AT THIS POINT, EVERYTHING IN THE DOM SHOULD HAVE BEEN INITIALIZED
+            // NOW main.js STARTS THE INCREMENTAL LOOP
+        });
+    </script>
   </head>
   <body class="noscroll">
       <header>
