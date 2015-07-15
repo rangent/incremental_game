@@ -263,7 +263,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
             initializePlayerInventory();
             masterState = new MasterState();
             defineRuntimeConstants();
-            /*
+            
             if (hasSavedGameState()) {
                 loadState();
             }
@@ -271,7 +271,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
                 //start a new game!
                 setupNewGame();
             }
-    
+            /*
             redrawBoard();
                 
             if (!global.storyStarted) {
@@ -388,7 +388,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
           <div class="tab-content  contentholder ">
             <div id="eventDivHolder" class="tab-pane fade in active">
               <div id="eventDiv" class="content-center"></div>
-              <button class="btn btn-default" id="clearButton">Clear</button>
+              <button class="btn btn-default" id="clearButton" onclick="clearEventWindow();">Clear</button>
              </div>
             <div id="otherContent" class="tab-pane fade">
                 <img id="mapImage" class="img-responsive" src="images/map.png" alt="canvas" />
