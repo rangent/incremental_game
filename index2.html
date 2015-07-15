@@ -4,24 +4,49 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-64789225-1', 'auto');
+      ga('send', 'pageview');
+    
+    </script>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Mineclicks</title>
-
-    <!-- Bootstrap -->
+    
+    <!-- CSS -->
+    
+    <link href="lib/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
+    <link href="lib/joyride-master/joyride-2.1.css" rel="stylesheet"/>
+    <link href="lib/select2-3.5.1/select2.css" rel="stylesheet"/>
+    <link href="lib/island/css/map.css" rel="stylesheet">
+    <link href="lib/collapsiblelists/CollapsibleLists.css" rel="stylesheet"/>
+    <link href="css/mineclicks.css" rel="stylesheet" />
     <link href="lib/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bs.css" rel="stylesheet">
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="lib/jquery-1.11.3.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    
+    
+    <!-- 3rd party libraries -->
+    <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui-1.11.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="lib/joyride-master/jquery.joyride-2.1.js"></script>
+    <script type="text/javascript" src="lib/select2-3.5.1/select2.js"></script>
+    <script type="text/javascript" src="lib/modernizr.custom.21726.js"></script>
+    <script type="text/javascript" src="lib/island/rhill-voronoi-core.min.js"></script>
+    <script type="text/javascript" src="lib/island/paper.js"></script>
+    <script type="text/javascript" src="lib/island/Simplex.js"></script>
+    <script type="text/javascript" src="lib/island/perlin.js"></script>
+    <script type="text/javascript" src="lib/island/Island.js"></script>
+    <script type="text/javascript" src="lib/collapsiblelists/CollapsibleLists.js"></script>
+    <script type="text/javascript" src="lib/cytoscape.js-2.4.2/build/cytoscape.min.js"></script>
+    <script type="text/javascript" src="lib/lz-string-master/libs/lz-string.min.js"></script>
     <script src="lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     
-    
-    <script type="text/javascript" src="lib/collapsiblelists/CollapsibleLists.js"></script>
-    
-    <link href="lib/collapsiblelists/CollapsibleLists.css" rel="stylesheet"/>
-    
-    <script src="js/scratch-bootstrap.js"></script>
+    <script src="js/scratch-bootstrap.js"></script> <!-- BE: NEEDS INTEGRATION INTO INCLUDED JS! -->
   </head>
   <body class="noscroll">
       <header>
@@ -34,10 +59,10 @@
           </div>
           <div class="col-xs-3">
             <div class="pull-right">
-              <span>1234</span>
-              <button class="btn btn-default">Save</button>
-              <button class="btn btn-default">Load</button>
-              <button class="btn btn-default">Reset</button>
+              <span id="cntr">&nbsp;</span>
+              <button onclick="saveState();" id="saveButton" class="btn btn-default">Save</button>
+              <button onclick="loadState();" id="loadButton" class="btn btn-default">Load</button>
+              <button onclick="resetState();" id="loadButton" class="btn btn-default">Reset</button>
             </div>
           </div>
         </div>
