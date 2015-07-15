@@ -35,6 +35,7 @@ function pickupItem(inventory, itemName, quantity) {
 //TODO: this is a long ugly function, buggy, definitely needs refactor
 function drawInventoryTable() {
 	if (playerActions.Inventory.availableToPlayer) {
+		/*
 		$("#resourceTable").empty();
 		$("#resourceTable").append(constants.INVENTORY_TABLE_INVENTORY_WEIGHT
 						.replace("%INVENTORY_WEIGHT%", getCapacity(resolveInventory('player')))
@@ -129,7 +130,7 @@ function drawInventoryTable() {
 			}
 			$("#" + item + "Drop").on("click", f );	
 		}
-
+		*/
 	}
 }
 
