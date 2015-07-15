@@ -84,6 +84,7 @@ function showMap() {
 
 // the grand daddy
 function redrawBoard() { //initialize DOM elements
+	debugger; //until integration is finished, I need to work through every one of these suckers
 	initializeActionDiv();
 	initializeTerrainDiv();
 	drawInventoryTable();

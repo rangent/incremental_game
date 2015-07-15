@@ -251,7 +251,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/story.js"></script>
     
-    <script src="js/scratch-bootstrap.js"></script> <!-- BE: NEEDS INTEGRATION INTO INCLUDED JS! -->
+    <script src="js/scratch-bootstrap2.js"></script> <!-- BE: NEEDS INTEGRATION INTO INCLUDED JS! -->
     
     <!-- document ready: initialize DOM, load, etc -->
     <script>
@@ -391,7 +391,10 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
               <button class="btn btn-default" id="clearButton" onclick="clearEventWindow();">Clear</button>
              </div>
             <div id="otherContent" class="tab-pane fade">
-                <img id="mapImage" class="img-responsive" src="images/map.png" alt="canvas" />
+              <div id="mapContainer">
+                      <canvas id="land" height="500" width="500" class="img-responsive"></canvas>
+              </div>
+                <!--<img id="mapImage" class="img-responsive" src="images/map.png" alt="canvas" />-->
             </div>
             <div id="categoryListContainer" class="tab-pane fade">
               <ul id="categoryListRoot" class="treeView">
@@ -410,7 +413,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
               </ul>
             </div>
             <div id="internalMap" class="tab-pane fade">
-                <img id="internalMapImage" class="img-responsive" src="images/internal_map.png" alt="canvas" />
+              <img id="internalMapImage" class="img-responsive" src="images/internal_map.png" alt="canvas" />
             </div>
           </div>
         </div>
@@ -497,5 +500,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     
       </div>
     </div>
+    <canvas id="perlin" hidden="true"></canvas> <!-- to capture noise information about the map -->
   </body>
 </html>
