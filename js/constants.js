@@ -11,7 +11,7 @@ var constants = {
 	MAP_WIDTH : 60,
 	
 	//action bar
-	ACTION_ROW : "<tr><td><button class=\"clearEvent\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button></td></tr>",
+	ACTION_ROW : "<button class=\"clearEvent btn btn-default btn-lg\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button>",
 	
 	//inventory area
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
