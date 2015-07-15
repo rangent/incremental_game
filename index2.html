@@ -271,9 +271,9 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
                 //start a new game!
                 setupNewGame();
             }
-            /*
+            
             redrawBoard();
-                
+            /*    
             if (!global.storyStarted) {
                 global.storyStarted = true;
                 progressStory(0);  //start game
@@ -431,7 +431,10 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     <footer class="site-footer full">
       <div class="row full">
         <div class="col-xs-3">
-          <img id="minimapImage" class="img-responsive" src="images/minimap.png" alt="canvas2" style="max-height: 150px" />
+          <div id="miniMapContainer" class="footer-right">
+            <canvas id="minimap" height="300" width="300" class="img-responsive" style="max-height: 150px"  ></canvas>
+          </div>
+          <!--<img id="minimapImage" class="img-responsive" src="images/minimap.png" alt="canvas2" style="max-height: 150px" />-->
         </div>
         <div class="col-xs-6">
           <div id="currentTerrain" class="well nopadding">

@@ -5,7 +5,6 @@
 
 function setupNewGame() {
 	if (!masterState.global.mapGenerated) {
-		debugger; //until integration is finished, I need to run through every one of these
 		initializePlayerTerrainAsset();
 		player.internalEnvironments = new Object();
 		var ms = generateMap(constants.MAP_WIDTH, constants.MAP_HEIGHT);
