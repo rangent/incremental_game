@@ -37,7 +37,7 @@ function drawTravelDirections() {
 	
 		//clear travelSection then append
 		$("#travelSection").empty().append(str);
-		//jqueryifyButtons();
+		//jqueryifyButtons(); //BE: IS THIS USED ANY MORE?  IF NOT DELETE IT.
 		var windowSize = getWindowSize();
 		var w = $("#doTravelNW").width();
 		$("button").addClass("btn-" + windowSize);
