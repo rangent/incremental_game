@@ -4,7 +4,7 @@
 
 var constants = {
 	TIME_INTERVAL : 1000, //ms
-	MCVERSION : 0.1,
+	MCVERSION : "0.0.1",
 	
 	//map
 	MAP_HEIGHT : 60,

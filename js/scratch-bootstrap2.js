@@ -23,6 +23,7 @@ function resizeElements() {
     $("#eventDiv").height($("#mainrow").height() - $("#maincol-tabs").outerHeight() - $("#clearButton").outerHeight() - fudgeFactor);
 	if (typeof cy !== "undefined") {
 		cy.resize();
+		rezoom(1.5);
 	}
 }
 
