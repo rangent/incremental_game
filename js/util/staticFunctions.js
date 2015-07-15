@@ -20,3 +20,19 @@ function getOpposingDirection(direction) {
 			return null;
 	}
 }
+
+/**
+ * Get the bootstrap "sizes"
+ */
+function getWindowSize() {
+    var w = $(window).width();
+    if (w >= 1200) {
+        return 'lg';
+    } else if (w >= 980) {
+        return 'md';
+    } else if (w >= 768) {
+        return 'sm';
+    } else {
+        return 'xs';
+    }
+}

@@ -5,7 +5,7 @@
 
 function drawTravelDirections() {
 	if (playerActions.Travel.availableToPlayer && playerActions.Travel.actionEnabled) {
-		var str = "<table>";
+		var str = "<table class=\"pull-right\">";
 		var playerInteralLocation = (player.currentInternalLocation != null) ? player.internalEnvironments[player.currentInternalLocation] : null;
 		for (var j = -1; j <= 1; j++) {
 			str += "<tr>";
@@ -13,17 +13,17 @@ function drawTravelDirections() {
 				//give player ability to enter the city if possible
 				if (i == 0 && j == 0 && getCurrentLocation().internalLocation != null) {
 					if (player.currentInternalLocation == null) {
-						str += "<td><button class=\"clearEvent\" onclick=\"doEnterInternalLocation(" + getCurrentLocation().internalLocation + ")\" ";
+						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doEnterInternalLocation(" + getCurrentLocation().internalLocation + ")\" ";
 					}
 					else {
-						str += "<td><button class=\"clearEvent\" onclick=\"doExitInternalLocation()\" ";
+						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doExitInternalLocation()\" ";
 					}
 				}
 				else if (playerInteralLocation != null) {
-					str += "<td><button class=\"clearEvent\" onclick=\"doTravelToInternalLocation(" + getInternalLocationTowardsDirection(new Location(i, j), playerInteralLocation) + ")\" ";
+					str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doTravelToInternalLocation(" + getInternalLocationTowardsDirection(new Location(i, j), playerInteralLocation) + ")\" ";
 				}
 				else {
-					str += "<td><button class=\"clearEvent\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
+					str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
 				}
 				
 				if (!isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
@@ -37,48 +37,52 @@ function drawTravelDirections() {
 	
 		//clear travelSection then append
 		$("#travelSection").empty().append(str);
-		jqueryifyButtons();
+		//jqueryifyButtons();
+		var windowSize = getWindowSize();
+		var w = $("#doTravelNW").width();
+		$("button").addClass("btn-" + windowSize);
+		$(".direction-button").width(w);
 	}
 }
 
 function getArrowForDirection(location) {
     if (location.y == -1) {
 		if (location.x == -1) {
-			 return "id=\"doTravelNW\">&#x2196;";
+			 return "id=\"doTravelNW\">NW";
 		}
 		if (location.x == 0) {
-			return "id=\"doTravelN\">&#x2191;";
+			return "id=\"doTravelN\">N";
 		}
 		if (location.x == 1) {
-			return "id=\"doTravelNE\">&#x2197;";
+			return "id=\"doTravelNE\">NE";
 		}
 	}
 	else if (location.y == 0) {
 		if (location.x == -1) {
-			 return "id=\"doTravelW\">&#x2190;";
+			 return "id=\"doTravelW\">W";
 		}
 		if (location.x == 0) {
 			if (player.currentInternalLocation == null) {
-				return "id=\"nop\">+";
+				return "id=\"nop\"><span class=\"glyphicon glyphicon-plus\"></span>";
 			}
 			else if (player.currentInternalLocation != null) {
-				return "id=\"nop\">X";
+				return "id=\"nop\"><span class=\"glyphicon glyphicon-remove\"></span>";
 			}
 			return "id=\"nop\">&nbsp;";
 		}
 		if (location.x == 1) {
-			return "id=\"doTravelE\">&#x2192;";
+			return "id=\"doTravelE\">E";
 		}
 	}
 	else if (location.y == 1) {
 		if (location.x == -1) {
-			 return "id=\"doTravelSW\">&#x2199;";
+			 return "id=\"doTravelSW\">SW";
 		}
 		if (location.x == 0) {
-			return "id=\"doTravelS\">&#x2193;";
+			return "id=\"doTravelS\">S";
 		}
 		if (location.x == 1) {
-			return "id=\"doTravelSE\">&#x2198;";
+			return "id=\"doTravelSE\">SE";
 		}
 	}
 	throw "no arrow for direction location(" + location.x + "," + location.y + ")";
