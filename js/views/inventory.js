@@ -35,40 +35,39 @@ function pickupItem(inventory, itemName, quantity) {
 //TODO: this is a long ugly function, buggy, definitely needs refactor
 function drawInventoryTable() {
 	if (playerActions.Inventory.availableToPlayer) {
-		/*
-		$("#resourceTable").empty();
-		$("#resourceTable").append(constants.INVENTORY_TABLE_INVENTORY_WEIGHT
+		$("#playerInventory,#groundInventory").empty();
+		$("#playerWeight").text(constants.INVENTORY_TABLE_INVENTORY_WEIGHT
 						.replace("%INVENTORY_WEIGHT%", getCapacity(resolveInventory('player')))
 						.replace("%PLAYER_CAPACITY%", resolveInventory('player').capacity) );
-		var rows = "";
+		
+		var playerInventoryButtons = "";
+		var groundInventoryButtons = "";
 		var pickupResource = [];
 		var dropResource = [];
 
 		//items held by player
 		for (var v in player.inventory.itemQuantityCollection) {
 			var itemAndQuantity = player.inventory.itemQuantityCollection[v];
-			if ((itemAndQuantity.quantity > 0) ||
+			if ((itemAndQuantity.quantity > 0) /*||
 				(typeof getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-				getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)) {
+				getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)*/) {
 				
-				if (itemAndQuantity.quantity > 0) {
-					rows += constants.PLAYER_INVENTORY_ROW
+				//BE: IS THIS CONDITION NEEDED?  I DOUBT IT
+				//if (itemAndQuantity.quantity > 0) {
+					playerInventoryButtons += constants.PLAYER_INVENTORY_BUTTON
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
 					dropResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
-				}
-				else {
-					rows += constants.BLANK_PLAYER_INVENTORY_ROW;
-				}
-	
+				//}
+				/*
 				//add the mirroring button, otherwise add blank row
 				if (typeof getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
 					getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
 	
 					itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name];
-					rows += constants.LOCATION_INVENTORY_ROW
+					rows += constants.LOCATION_INVENTORY_BUTTON
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
@@ -78,6 +77,7 @@ function drawInventoryTable() {
 				else {
 					rows += constants.BLANK_LOCATION_INVENTORY_ROW;
 				}
+				*/
 			}
 		}
 
@@ -87,20 +87,21 @@ function drawInventoryTable() {
 				
 				itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[v];
 				
-				if (typeof player.inventory.itemQuantityCollection[itemAndQuantity.item.name] === "undefined") {
-					
-					rows += constants.BLANK_PLAYER_INVENTORY_ROW;
-					rows += constants.LOCATION_INVENTORY_ROW
+				//if (typeof player.inventory.itemQuantityCollection[itemAndQuantity.item.name] === "undefined") {
+				if ((itemAndQuantity.quantity > 0)){
+					groundInventoryButtons += constants.LOCATION_INVENTORY_BUTTON
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
 						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
 						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
 						.replace("%ITEM%", itemAndQuantity.item.name);
 					pickupResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
 				}
+				//}
 			}
 		}
 
-		$("#resourceTable").append(rows);
+		$("#playerInventory").append(playerInventoryButtons);
+		$("#groundInventory").append(groundInventoryButtons);
 		jqueryifyButtons();
 
 		for (var p in pickupResource) {
@@ -130,7 +131,7 @@ function drawInventoryTable() {
 			}
 			$("#" + item + "Drop").on("click", f );	
 		}
-		*/
+		
 	}
 }
 

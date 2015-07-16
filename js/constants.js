@@ -15,10 +15,11 @@ var constants = {
 	
 	//inventory area
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
-	INVENTORY_TABLE_INVENTORY_WEIGHT : "<tr><th colspan=\"4\" width=\"100\">Inventory</th><th width=\"100\">Ground</th></tr><tr><td>Weight:</td><td id=\"playerWeight\">%INVENTORY_WEIGHT%</td><td>/</td><td id=\"playerCapacity\">%PLAYER_CAPACITY%</td><td>&nbsp;</td></tr>",
-	PLAYER_INVENTORY_ROW : "<tr><td colspan=\"4\"><a title=\"Weight: %ITEM_WEIGHT%\" class=\"tooltip\"><button id=\"%ITEM%Drop\">%ITEM_NAME% (%ITEM_QUANTITY%)</button></a></td>", // onclick=\"dropItem(%CURRENT_LOCATION%, '%ITEM%', 1);\"
+	INVENTORY_TABLE_INVENTORY_WEIGHT : "Weight: %INVENTORY_WEIGHT% / %PLAYER_CAPACITY%",
+	//<button class="btn btn-default">Apple <span class="badge">5</span></button>
+	PLAYER_INVENTORY_BUTTON : "<a title=\"\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-original-title=\"Weight: %ITEM_WEIGHT%\"><button class=\"btn btn-default\" id=\"%ITEM%Drop\">%ITEM_NAME% <span class=\"badge\">%ITEM_QUANTITY%</span></button></a>", // onclick=\"dropItem(%CURRENT_LOCATION%, '%ITEM%', 1);\"
 	BLANK_PLAYER_INVENTORY_ROW : "<tr><td colspan=\"4\">&nbsp;</td>",
-	LOCATION_INVENTORY_ROW : "<td style=\"text-align:right\"><a title=\"Weight: %ITEM_WEIGHT%\" class=\"tooltip\"><button id=\"%ITEM%Pickup\">%ITEM_NAME% (%ITEM_QUANTITY%)</button></a></td></tr>",// onclick=\"pickupItem(%CURRENT_LOCATION%, '%ITEM%', 1);\"
+	LOCATION_INVENTORY_BUTTON : "<a title=\"\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-original-title=\"Weight: %ITEM_WEIGHT%\"><button class=\"btn btn-default\" id=\"%ITEM%Pickup\">%ITEM_NAME% <span class=\"badge\">%ITEM_QUANTITY%</span></button></a>",// onclick=\"pickupItem(%CURRENT_LOCATION%, '%ITEM%', 1);\"
 	BLANK_LOCATION_INVENTORY_ROW : "<td colspan=\"4\">&nbsp;</td></tr>",
 	
 	//Joyride tips
