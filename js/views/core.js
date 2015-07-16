@@ -11,7 +11,6 @@ function enableResourceInDOM(rname, total) {
 function enableActionInDOM(aname) {
 	var sfilled = replaceAll("%ACTION%",aname,constants.ACTION_ROW);
 	$("#action_container").append(sfilled);
-	jqueryifyButtons();
 }
 
 function initializeActionDiv() {

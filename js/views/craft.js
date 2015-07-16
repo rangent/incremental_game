@@ -4,7 +4,6 @@
 
 
 function doCraft() {
-    //TODO: This should be in a popup some day
     drawCraftingTable();
 }
 
@@ -30,29 +29,26 @@ function craftItem(craftable) {
 }
 
 function drawCraftingTable() {
+    $("#craftDiv").empty();
     if (playerActions.Craft.availableToPlayer) {
-        $("#craftTable").empty().append(constants.CRAFTABLE_TABLE_HEADER);
         for (var c in craftable) {
             if (isPossibleToMakeItemWithInventories(craftable[c], getInventoriesWithCraftableMaterialsForPlayer())) {
                 var name = craftable[c].craftableItem.name;
                 var printableName = craftable[c].craftableItem.printableName;
                 var jquerySelectorId = "#" + name + "Craft";
-                $("#craftTable").append(
-                    constants.CRAFTABLE_ITEM_ROW.replace("%ITEM%",name).replace("%ITEM_NAME%",printableName));
-                $(jquerySelectorId).button();
+                $("#craftDiv").append(
+                    constants.CRAFTABLE_ITEM_BUTTON.replace("%ITEM%",name).replace("%ITEM_NAME%",printableName));
                 
                 var index = parseInt(c);
                 var f = new Function("craftItemClick(" + index + ")");
                 $(jquerySelectorId).on("click", f );
                 
                 if (!isInventoryCapableOfCarryingMadeItem(craftable[c], 'player') || !playerActions.Craft.actionEnabled) {
+                    //TODO: I DONT THINK THIS WORKS:
                     disableButton(name + "Craft");
                 }
             }
         }
-        $("#craftTable").show();
-    }
-    else {
-        $("#craftTable").hide();
+        resizePageElements();
     }
 }

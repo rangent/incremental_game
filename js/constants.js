@@ -11,7 +11,8 @@ var constants = {
 	MAP_WIDTH : 60,
 	
 	//action bar
-	ACTION_ROW : "<button class=\"clearEvent btn btn-default btn-lg\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button>",
+	ACTION_ROW : "<button class=\"clearEvent btn btn-default btn-lg\" data-toggle=\"modal\" data-target=\"#%ACTION%Modal\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button>",
+            //<button class="btn btn-default" data-toggle="modal" data-target="#craftingModal">Craft</button>
 	
 	//inventory area
 	RESOURCE_ROW : "<tr class=\"\"><td>%RESOURCE%</td><td id=\"%RESOURCE%_val\">%VAL%</td></tr>", //one day add images here
@@ -32,7 +33,7 @@ var constants = {
 	
 	//crafting
 	CRAFTABLE_TABLE_HEADER : "<tr><th>Craft</th></tr>",
-	CRAFTABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Craft\">%ITEM_NAME%</button></td></tr>",
+	CRAFTABLE_ITEM_BUTTON : "<button class=\"btn btn-default\" id=\"%ITEM%Craft\">%ITEM_NAME%</button>",
 	
 	//building
 	BUILDABLE_TABLE_HEADER : "<tr><th>Build</th></tr>",
