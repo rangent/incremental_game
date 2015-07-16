@@ -90,6 +90,7 @@ function redrawTablesAfterLocationChange() {
 	redrawMaps();
 	drawTravelDirections();
 	drawInventoryTable();
+	initializeActionDiv();
 }
 
 /*
