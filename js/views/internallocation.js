@@ -6,7 +6,8 @@ function doEnterInternalLocation(index) {
     //TODO: make sure internal location exists
     if (true) {
         enterInternalLocation(index);
-        redrawBoard();
+        redrawTablesAfterLocationChange();
+        updateCurrentTerrain();
     }
 }
 
@@ -14,7 +15,8 @@ function doExitInternalLocation() {
     //TODO: dont allow if there isn't a terrain to exit to
     if (true) {
         exitInternalLocation();
-        redrawBoard();
+        redrawTablesAfterLocationChange();
+        updateCurrentTerrain();
     }
 }
 

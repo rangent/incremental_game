@@ -47,7 +47,7 @@ function logAppendNoSave(s) {
 }
 
 function writeLogLineToEventDiv(s) {
-	$("#eventDiv").prepend("<span class=\"logLine\">" + s + "</span><br/>");
+	$("#eventDiv").prepend("<span class=\"logline\">" + s + "</span><br/>");
 	$(".logline:eq(1)").removeClass("logLine").addClass("oldLogLine");
 }
 

@@ -44,8 +44,12 @@ function jqueryifyButtons() {
 	});
 }
 
+/*
+ * Redraws the world map, mini map, and internal location map
+ */
 function redrawMaps() {
-	drawMaps(player.availableTerrain, player.currentLocation);	
+	drawMaps(player.availableTerrain, player.currentLocation);
+	drawInternalLocationMap();
 }
 
 function redrawTravelDirections() {
@@ -91,8 +95,11 @@ function resizePageElements() {
 	$(".direction-button").width(w);
 }
 
-// the grand daddy
-function redrawBoard() { //initialize DOM elements
+// the grand daddy, this should really only be done when doing a full load from scratch!
+function redrawBoard() { //initialize *all* DOM elements
+	if (masterState.global.boardInitialized) {
+		console.log("redrawBoard called again after state already initialized!");
+	}
 	initializeActionDiv();
 	initializeTerrainDiv();
 	drawInventoryTable();
@@ -108,4 +115,5 @@ function redrawBoard() { //initialize DOM elements
 	updateCategoryTreeUi(); //then fill in the inventory
 	drawInternalLocationMap();
 	resizePageElements();
+	masterState.global.boardInitialized = true;
 }

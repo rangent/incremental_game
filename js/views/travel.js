@@ -85,6 +85,7 @@ function getArrowForDirection(location) {
 	throw "no arrow for direction location(" + location.x + "," + location.y + ")";
 }
 
+//BE: This should be renamed since we aren't using tables any more really
 function redrawTablesAfterLocationChange() {
 	redrawMaps();
 	drawTravelDirections();
