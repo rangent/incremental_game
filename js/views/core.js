@@ -82,6 +82,15 @@ function showMap() {
 	}
 }
 
+//BE: THIS HAS A BAD SMELL.  EVERY TIME WE ADD A BUTTON WE NEED TO RESIZE THEM... HOW CAN WE DO THIS ON BUTTON ADD EVENTS
+//AND NOT MANUALLY LIKE THIS EVERY TIME?
+function resizePageElements() {
+	var windowSize = getWindowSize();
+	var w = $("#doTravelNW").width();
+	$("button").addClass("btn-" + windowSize);
+	$(".direction-button").width(w);
+}
+
 // the grand daddy
 function redrawBoard() { //initialize DOM elements
 	initializeActionDiv();
@@ -98,4 +107,5 @@ function redrawBoard() { //initialize DOM elements
 	initializeCategoryTreeUi(); //first initialize the tree
 	updateCategoryTreeUi(); //then fill in the inventory
 	drawInternalLocationMap();
+	resizePageElements();
 }

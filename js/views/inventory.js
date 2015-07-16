@@ -32,62 +32,37 @@ function pickupItem(inventory, itemName, quantity) {
 	}	
 }
 
-//TODO: this is a long ugly function, buggy, definitely needs refactor
 function drawInventoryTable() {
 	if (playerActions.Inventory.availableToPlayer) {
-		$("#playerInventory,#groundInventory").empty();
-		$("#playerWeight").text(constants.INVENTORY_TABLE_INVENTORY_WEIGHT
-						.replace("%INVENTORY_WEIGHT%", getCapacity(resolveInventory('player')))
-						.replace("%PLAYER_CAPACITY%", resolveInventory('player').capacity) );
 		
 		var playerInventoryButtons = "";
 		var groundInventoryButtons = "";
 		var pickupResource = [];
 		var dropResource = [];
+		
+		
+		$("#playerInventory,#groundInventory").empty();
+		$("#playerWeight").text(constants.INVENTORY_TABLE_INVENTORY_WEIGHT
+						.replace("%INVENTORY_WEIGHT%", getCapacity(resolveInventory('player')))
+						.replace("%PLAYER_CAPACITY%", resolveInventory('player').capacity) );
 
 		//items held by player
 		for (var v in player.inventory.itemQuantityCollection) {
 			var itemAndQuantity = player.inventory.itemQuantityCollection[v];
-			if ((itemAndQuantity.quantity > 0) /*||
-				(typeof getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-				getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0)*/) {
-				
-				//BE: IS THIS CONDITION NEEDED?  I DOUBT IT
-				//if (itemAndQuantity.quantity > 0) {
-					playerInventoryButtons += constants.PLAYER_INVENTORY_BUTTON
-						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
-						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-						.replace("%ITEM%", itemAndQuantity.item.name);
-					dropResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
-				//}
-				/*
-				//add the mirroring button, otherwise add blank row
-				if (typeof getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name] !== "undefined" && 
-					getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name].quantity > 0) {
-	
-					itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[itemAndQuantity.item.name];
-					rows += constants.LOCATION_INVENTORY_BUTTON
-						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
-						.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
-						.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
-						.replace("%ITEM%", itemAndQuantity.item.name);
-					pickupResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
-				}
-				else {
-					rows += constants.BLANK_LOCATION_INVENTORY_ROW;
-				}
-				*/
+			if (itemAndQuantity.quantity > 0) {
+				playerInventoryButtons += constants.PLAYER_INVENTORY_BUTTON
+					.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
+					.replace("%ITEM_NAME%", itemAndQuantity.item.printableName)
+					.replace("%ITEM_QUANTITY%", itemAndQuantity.quantity)
+					.replace("%ITEM%", itemAndQuantity.item.name);
+				dropResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
 			}
 		}
 
-		//items on the ground that have never been picked up by player
+		//items on the ground
 		if (player.availableTerrain != null && getCurrentLocation() !== "undefined") {
 			for (var v in getCurrentLocationInventory().itemQuantityCollection) {
-				
 				itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[v];
-				
-				//if (typeof player.inventory.itemQuantityCollection[itemAndQuantity.item.name] === "undefined") {
 				if ((itemAndQuantity.quantity > 0)){
 					groundInventoryButtons += constants.LOCATION_INVENTORY_BUTTON
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)
@@ -96,7 +71,6 @@ function drawInventoryTable() {
 						.replace("%ITEM%", itemAndQuantity.item.name);
 					pickupResource.push({currentLocation: player.currentLocation, item: itemAndQuantity.item.name});
 				}
-				//}
 			}
 		}
 
@@ -133,6 +107,7 @@ function drawInventoryTable() {
 		}
 		
 	}
+	resizePageElements();
 }
 
 function handleDropItemPress(item, loc) {
