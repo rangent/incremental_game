@@ -23,6 +23,7 @@ function doExitInternalLocation() {
 function drawInternalLocationMap() {
     if (getCurrentInternalLocation() != null) {
         $("#internalMapContainer").show();
+        $("#internalMapTab").show();
         //set global cy defined in dataStructures.js
         cy = cytoscape({
             container: document.getElementById('internalMapContainer'),
@@ -57,7 +58,8 @@ function drawInternalLocationMap() {
         });
         rezoom();
     } else {
-        $("#internalMapContainer").hide();  
+        $("#internalMapContainer").hide();
+        $("#internalMapTab").hide();
     }
 }
 
