@@ -1,25 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Google Analytics -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-64789225-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-    
-<title>Mineclicks</title>
-<link href="lib/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
-<link href="lib/joyride-master/joyride-2.1.css" rel="stylesheet"/>
-<link href="lib/select2-3.5.1/select2.css" rel="stylesheet"/>
-<link href="lib/island/css/map.css" rel="stylesheet">
-<link href="lib/collapsiblelists/CollapsibleLists.css" rel="stylesheet"/>
-<link href="css/mineclicks.css" rel="stylesheet" />
-
 <!-- ideas
 
 * Minecraft "Empire Building Challenge"
@@ -175,175 +155,257 @@ Thanks to:
 Select2 from http://ivaynberg.github.io/select2/
 Derrick for JS polymorphism help: http://collabedit.com/qbtb4
 -->
-
-<!-- 3rd party libraries -->
-<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="lib/jquery-ui-1.11.1/jquery-ui.js"></script>
-<script type="text/javascript" src="lib/joyride-master/jquery.joyride-2.1.js"></script>
-<script type="text/javascript" src="lib/select2-3.5.1/select2.js"></script>
-<script type="text/javascript" src="lib/modernizr.custom.21726.js"></script>
-<script type="text/javascript" src="lib/island/rhill-voronoi-core.min.js"></script>
-<script type="text/javascript" src="lib/island/paper.js"></script>
-<script type="text/javascript" src="lib/island/Simplex.js"></script>
-<script type="text/javascript" src="lib/island/perlin.js"></script>
-<script type="text/javascript" src="lib/island/Island.js"></script>
-<script type="text/javascript" src="lib/collapsiblelists/CollapsibleLists.js"></script>
-<script type="text/javascript" src="lib/cytoscape.js-2.4.2/build/cytoscape.min.js"></script>
-<script type="text/javascript" src="lib/lz-string-master/libs/lz-string.min.js"></script>
-
-<!-- core -->
-<script type="text/javascript" src="js/constants.js"></script>
-<script type="text/javascript" src="js/debug.js"></script>
-
-<!-- utility functions -->
-<script type="text/javascript" src="js/util/staticFunctions.js"></script>
-
-<!-- model -->
-<script type="text/javascript" src="js/models/states.js"></script>
-<script type="text/javascript" src="js/models/model.js"></script>
-<script type="text/javascript" src="js/models/dataStructures.js"></script>
-
-<!-- controllers -->
-<script type="text/javascript" src="js/controllers/core.js"></script>
-<script type="text/javascript" src="js/controllers/location.js"></script>
-<script type="text/javascript" src="js/controllers/exploration.js"></script>
-<script type="text/javascript" src="js/controllers/inventory.js"></script>
-<script type="text/javascript" src="js/controllers/terrainAction.js"></script>
-<script type="text/javascript" src="js/controllers/buildcraft.js"></script>
-<script type="text/javascript" src="js/controllers/craft.js"></script>
-<script type="text/javascript" src="js/controllers/build.js"></script>
-<script type="text/javascript" src="js/controllers/travel.js"></script>
-<script type="text/javascript" src="js/controllers/island.js"></script>
-<script type="text/javascript" src="js/controllers/internallocation.js"></script>
-<script type="text/javascript" src="js/controllers/category.js"></script>
-
-<!-- views -->
-<script type="text/javascript" src="js/views/core.js"></script>
-<script type="text/javascript" src="js/views/events.js"></script>
-<script type="text/javascript" src="js/views/island.js"></script>
-<script type="text/javascript" src="js/views/location.js"></script>
-<script type="text/javascript" src="js/views/inventory.js"></script>
-<script type="text/javascript" src="js/views/joyride.js"></script>
-<script type="text/javascript" src="js/views/progressbar.js"></script>
-<script type="text/javascript" src="js/views/travel.js"></script>
-<script type="text/javascript" src="js/views/forage.js"></script>
-<script type="text/javascript" src="js/views/buildcraft.js"></script>
-<script type="text/javascript" src="js/views/craft.js"></script>
-<script type="text/javascript" src="js/views/build.js"></script>
-<script type="text/javascript" src="js/views/internallocation.js"></script>
-<script type="text/javascript" src="js/views/category.js"></script>
-
-<!-- core game -->
-<script type="text/javascript" src="js/coregame/assets.js"></script>
-<script type="text/javascript" src="js/coregame/saveloadreset.js"></script>
-<script type="text/javascript" src="js/coregame/map.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/story.js"></script>
-
-<!-- document ready: initialize DOM, load, etc -->
-<script>
-	$(document).ready(function() { 
-		
-		//////////////////////////////////////////////////////////////////////////////
-		// SETUP AND GO!
-		//////////////////////////////////////////////////////////////////////////////
-		initializePlayerInventory();
-		masterState = new MasterState();
-        defineRuntimeConstants();
-        
-		if (hasSavedGameState()) {
-			loadState();
-		}
-        else {
-            //start a new game!
-            setupNewGame();
-        }
-
-		redrawBoard();
-			
-		if (!global.storyStarted) {
-			global.storyStarted = true;
-			progressStory(0);  //start game
-		}
-        
-        if (DEBUG) {
-            console.log('size of masterState: ' + JSON.stringify(masterState).length);
-            for (var key in masterState) {
-                if (typeof masterState[key] !== "function") {
-                    console.log('size of masterState["' + key + '"]: ' + JSON.stringify(masterState[key]).length);
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-64789225-1', 'auto');
+      ga('send', 'pageview');
+    
+    </script>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Mineclicks</title>
+    
+    <!-- CSS -->
+    
+    <link href="lib/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet" />
+    <link href="lib/joyride-master/joyride-2.1.css" rel="stylesheet"/>
+    <link href="lib/select2-3.5.1/select2.css" rel="stylesheet"/>
+    <link href="lib/island/css/map.css" rel="stylesheet">
+    <link href="lib/collapsiblelists/CollapsibleLists.css" rel="stylesheet"/>
+    <link href="css/mineclicks.css" rel="stylesheet" />
+    <link href="lib/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bs.css" rel="stylesheet">
+    
+    
+    <!-- 3rd party libraries -->
+    <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui-1.11.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="lib/joyride-master/jquery.joyride-2.1.js"></script>
+    <script type="text/javascript" src="lib/select2-3.5.1/select2.js"></script>
+    <script type="text/javascript" src="lib/modernizr.custom.21726.js"></script>
+    <script type="text/javascript" src="lib/island/rhill-voronoi-core.min.js"></script>
+    <script type="text/javascript" src="lib/island/paper.js"></script>
+    <script type="text/javascript" src="lib/island/Simplex.js"></script>
+    <script type="text/javascript" src="lib/island/perlin.js"></script>
+    <script type="text/javascript" src="lib/island/Island.js"></script>
+    <script type="text/javascript" src="lib/collapsiblelists/CollapsibleLists.js"></script>
+    <script type="text/javascript" src="lib/cytoscape.js-2.4.2/build/cytoscape.min.js"></script>
+    <script type="text/javascript" src="lib/lz-string-master/libs/lz-string.min.js"></script>
+    <script src="lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    
+    <!-- core -->
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/debug.js"></script>
+    
+    <!-- utility functions -->
+    <script type="text/javascript" src="js/util/staticFunctions.js"></script>
+    
+    <!-- model -->
+    <script type="text/javascript" src="js/models/states.js"></script>
+    <script type="text/javascript" src="js/models/model.js"></script>
+    <script type="text/javascript" src="js/models/dataStructures.js"></script>
+    
+    <!-- controllers -->
+    <script type="text/javascript" src="js/controllers/core.js"></script>
+    <script type="text/javascript" src="js/controllers/location.js"></script>
+    <script type="text/javascript" src="js/controllers/exploration.js"></script>
+    <script type="text/javascript" src="js/controllers/inventory.js"></script>
+    <script type="text/javascript" src="js/controllers/terrainAction.js"></script>
+    <script type="text/javascript" src="js/controllers/buildcraft.js"></script>
+    <script type="text/javascript" src="js/controllers/craft.js"></script>
+    <script type="text/javascript" src="js/controllers/build.js"></script>
+    <script type="text/javascript" src="js/controllers/travel.js"></script>
+    <script type="text/javascript" src="js/controllers/island.js"></script>
+    <script type="text/javascript" src="js/controllers/internallocation.js"></script>
+    <script type="text/javascript" src="js/controllers/category.js"></script>
+    
+    <!-- views -->
+    <script type="text/javascript" src="js/views/core.js"></script>
+    <script type="text/javascript" src="js/views/events.js"></script>
+    <script type="text/javascript" src="js/views/island.js"></script>
+    <script type="text/javascript" src="js/views/location.js"></script>
+    <script type="text/javascript" src="js/views/inventory.js"></script>
+    <script type="text/javascript" src="js/views/joyride.js"></script>
+    <script type="text/javascript" src="js/views/progressbar.js"></script>
+    <script type="text/javascript" src="js/views/travel.js"></script>
+    <script type="text/javascript" src="js/views/forage.js"></script>
+    <script type="text/javascript" src="js/views/buildcraft.js"></script>
+    <script type="text/javascript" src="js/views/craft.js"></script>
+    <script type="text/javascript" src="js/views/build.js"></script>
+    <script type="text/javascript" src="js/views/internallocation.js"></script>
+    <script type="text/javascript" src="js/views/category.js"></script>
+    
+    <!-- core game -->
+    <script type="text/javascript" src="js/coregame/assets.js"></script>
+    <script type="text/javascript" src="js/coregame/saveloadreset.js"></script>
+    <script type="text/javascript" src="js/coregame/map.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/story.js"></script>
+    
+    <!-- document ready: initialize DOM, load, etc -->
+    <script>
+        $(document).ready(function() { 
+            
+            //////////////////////////////////////////////////////////////////////////////
+            // SETUP AND GO!
+            //////////////////////////////////////////////////////////////////////////////
+            initializePlayerInventory();
+            masterState = new MasterState();
+            defineRuntimeConstants();
+            
+            if (hasSavedGameState()) {
+                loadState();
+            }
+            else {
+                //start a new game!
+                setupNewGame();
+            }
+            
+			masterState.global.boardInitialized = false;
+            redrawBoard();
+            documentReadyFunctions();
+            
+            if (!global.storyStarted) {
+                global.storyStarted = true;
+                progressStory(0);  //start game
+            }
+            
+            if (DEBUG) {
+                console.log('size of masterState: ' + JSON.stringify(masterState).length);
+                for (var key in masterState) {
+                    if (typeof masterState[key] !== "function") {
+                        console.log('size of masterState["' + key + '"]: ' + JSON.stringify(masterState[key]).length);
+                    }
+                }
+                //biggest is masterState["player"]:
+                for (var key in masterState["player"]) {
+                    console.log('size of masterState["player"]["' + key + '"]: ' + JSON.stringify(masterState["player"][key]).length);
                 }
             }
-            //biggest is masterState["player"]:
-            for (var key in masterState["player"]) {
-                console.log('size of masterState["player"]["' + key + '"]: ' + JSON.stringify(masterState["player"][key]).length);
-            }
-        }
-        
-        
-        // AT THIS POINT, EVERYTHING IN THE DOM SHOULD HAVE BEEN INITIALIZED
-        // NOW main.js STARTS THE INCREMENTAL LOOP
-	});
-</script>
-
-</head>
-<body>
-<input type="button" onClick="ftest1();" value="ftest1" />
-<span id="cntr">&nbsp;</span>
-<button onclick="saveState();" id="saveButton">save</button>
-<button onclick="loadState();" id="loadButton">load</button>
-<button onclick="resetState();" id="loadButton">reset</button>
-<div class="page">
-	<div class="content">
-		<div class="content-left contentholder">
-          <div id="resourceSection">
-              <table id="resourceTable" style="font-size:10pt" class="contentholder"></table>
+            
+            // AT THIS POINT, EVERYTHING IN THE DOM SHOULD HAVE BEEN INITIALIZED
+            // NOW main.js STARTS THE INCREMENTAL LOOP
+        });
+    </script>
+  </head>
+  <body class="noscroll">
+      <header>
+        <div class="row full">
+          <div class="col-xs-3">
+            <h3>Mineclicks</h3>
           </div>
-		</div>
-		<div id="centerPane" class="main-center">
-			<div id="progressbar"><div class="progress-label">&nbsp;</div></div>
-			<div id="eventDiv" class="contentholder content-center"></div>
-			<button class="clearEvent" onclick="clearEventWindow();">Clear Event Window</input>
-		</div>
-		<div id="actionDiv" class="content-right contentholder">
-			<h3>Actions</h3>
-			<table id="action_container"></table>
+          <div class="col-xs-6">
+            &nbsp;
+          </div>
+          <div class="col-xs-3">
+            <div class="pull-right">
+              <span id="cntr">&nbsp;</span>
+              <button onclick="saveState();" id="saveButton" class="btn btn-default">Save</button>
+              <button onclick="loadState();" id="loadButton" class="btn btn-default">Load</button>
+              <button onclick="resetState();" id="loadButton" class="btn btn-default">Reset</button>
+            </div>
+          </div>
         </div>
-		<div id="craftDiv" class="contentholder content-craft">
-            <table id="craftTable" style="font-size:10pt" class="contentholder"></table>
+      </header>
+    
+    <div id="maincol" class="main container-fluid full">
+      <div id="mainrow" class="row">
+        <div class="col-xs-2 full-height">
+          <h4 class="center">Player</h4>
+          <h5 id="playerWeight" class="center">&nbsp;</h5>
+          <div id="playerInventory">
+          </div>
         </div>
-        <div id="buildDiv" class="contentholder content-build">
-            <table id="buildTable" style="font-size:10pt" class="contentholder">
-                <tr><th>blah</th></tr>
-                <tr><td>CRAFT</td></tr>
+        <div class="col-xs-2 full-height">
+          <h4 class="center">Ground</h4>
+          <h5>&nbsp;</h5>
+          <div id="groundInventory">
+          </div>
+        </div>
+        <div id="centercol" class="col-xs-6">
+          <ul id="maincol-tabs" class="nav nav-tabs">
+            <li class="active"><a href="#eventDivHolder" data-toggle="tab" onclick="setTimeout(resizeElements, 250)">Events</a></li>
+            <li><a href="#mapTabContents" data-toggle="tab" onclick="setTimeout(resizeElements, 250)">World Map</a></li>
+            <li><a href="#internalMapContainer" data-toggle="tab" onclick="setTimeout(resizeElements, 250)">Internal Map</a></li>
+            <li><a href="#categoryListContainer" data-toggle="tab">Global Inventory</a></li>
+          </ul>
+          <div class="tab-content  contentholder ">
+            <div id="eventDivHolder" class="tab-pane fade in active">
+              <div id="eventDiv" class="content-center"></div>
+              <button class="btn btn-default" id="clearButton" onclick="clearEventWindow();">Clear</button>
+             </div>
+            <div id="mapTabContents" class="tab-pane fade">
+              <div id="mapContainer">
+                <canvas id="land" height="500" width="500" class="img-responsive"></canvas>
+              </div>
+            </div>
+            <div id="categoryListContainer" class="tab-pane fade">
+            </div>
+            <div id="internalMapContainer" class="tab-pane fade">
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <div class="centered" id="actionDiv">
+            <h4 class="center">Actions</h4>
+            <div id="action_container">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="site-footer full">
+      <div class="row full">
+        <div class="col-xs-3">
+          <div id="miniMapContainer" class="footer-right">
+            <canvas id="minimap" height="150" width="150" class="img-responsive" style="max-height: 150px"></canvas>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div id="currentTerrain" class="well nopadding">
+            <table class="terrainTable table nopadding">
             </table>
+          </div>
         </div>
-		<br class="clearer"/>
-	</div>
-	<div class="footer contentholder">
-		<div id="currentTerrain" class="footer-left">
-		</div>
-		<div id="terrainSection" class="footer-center">
-            <div id="travelSection" >&nbsp;</div>
-		</div>
-		<div id="selectedTerrain" class="footer-right">
-		</div>
-		<div id="miniMapContainer" class="footer-right">
-            <canvas id="minimap" height="300" width="300"></canvas>
-		</div>
-        <div id="categoryListContainer" class="footer-right">
+        <div id="travelSection"  class="col-xs-3">
         </div>
-	</div>
-</div>
-<div id="mapContainer">
-        <canvas id="land" height="500" width="500"></canvas>
-</div>
-<div id="internalMapContainer"> <!-- Cytoscape js -->
-        
-</div>
-        <canvas id="perlin" hidden="true"></canvas>
-<div id="joyrideTips" style="display:none">
-<!-- jquery joyride container http://zurb.com/playground/jquery-joyride-feature-tour-plugin -->
-</div>
-
-</body>
+      </div>
+    </footer>
+    
+    <!-- BEGIN INVISIBLE/OFF DOCUMENT ELEMENTS -->
+    
+    <!-- CRAFTING MODAL (Popup thingy) -->
+    <div id="CraftModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Craftable items</h4>
+          </div>
+          <div class="modal-body">
+            <div id="craftDiv">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <!-- END CRAFTING MODAL -->
+    <canvas id="perlin" hidden="true"></canvas> <!-- to capture noise information about the map -->
+  </body>
 </html>
