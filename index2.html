@@ -251,8 +251,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/story.js"></script>
     
-    <script src="js/scratch-bootstrap2.js"></script> <!-- BE: NEEDS INTEGRATION INTO INCLUDED JS! -->
-    
     <!-- document ready: initialize DOM, load, etc -->
     <script>
         $(document).ready(function() { 
@@ -272,8 +270,10 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
                 setupNewGame();
             }
             
+			masterState.global.boardInitialized = false;
             redrawBoard();
-            /*    
+            documentReadyFunctions();
+            
             if (!global.storyStarted) {
                 global.storyStarted = true;
                 progressStory(0);  //start game
@@ -291,7 +291,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
                     console.log('size of masterState["player"]["' + key + '"]: ' + JSON.stringify(masterState["player"][key]).length);
                 }
             }
-            */
             
             // AT THIS POINT, EVERYTHING IN THE DOM SHOULD HAVE BEEN INITIALIZED
             // NOW main.js STARTS THE INCREMENTAL LOOP
@@ -322,16 +321,14 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
       <div id="mainrow" class="row">
         <div class="col-xs-2 full-height">
           <h4 class="center">Player</h4>
-          <h5 id="playerWeight" class="center">Weight: 0 / 100</h5>
+          <h5 id="playerWeight" class="center">&nbsp;</h5>
           <div id="playerInventory">
-            <button class="btn btn-default">Apple <span class="badge">5</span></button>
           </div>
         </div>
         <div class="col-xs-2 full-height">
           <h4 class="center">Ground</h4>
           <h5>&nbsp;</h5>
           <div id="groundInventory">
-            <button class="btn btn-default">Stick</button>
           </div>
         </div>
         <div id="centercol" class="col-xs-6">
@@ -348,14 +345,12 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
              </div>
             <div id="mapTabContents" class="tab-pane fade">
               <div id="mapContainer">
-                      <canvas id="land" height="500" width="500" class="img-responsive"></canvas>
+                <canvas id="land" height="500" width="500" class="img-responsive"></canvas>
               </div>
-                <!--<img id="mapImage" class="img-responsive" src="images/map.png" alt="canvas" />-->
             </div>
             <div id="categoryListContainer" class="tab-pane fade">
             </div>
             <div id="internalMapContainer" class="tab-pane fade">
-              <!--<img id="internalMapImage" class="img-responsive" src="images/internal_map.png" alt="canvas" />-->
             </div>
           </div>
         </div>
@@ -363,9 +358,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
           <div class="centered" id="actionDiv">
             <h4 class="center">Actions</h4>
             <div id="action_container">
-            <button class="btn btn-default">Forage</button>
-            <button class="btn btn-default">Build</button>
-            <button class="btn btn-default" data-toggle="modal" data-target="#craftingModal">Craft</button>
             </div>
           </div>
         </div>
@@ -376,55 +368,23 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
       <div class="row full">
         <div class="col-xs-3">
           <div id="miniMapContainer" class="footer-right">
-            <canvas id="minimap" height="300" width="300" class="img-responsive" style="max-height: 150px"  ></canvas>
+            <canvas id="minimap" height="150" width="150" class="img-responsive" style="max-height: 150px"></canvas>
           </div>
-          <!--<img id="minimapImage" class="img-responsive" src="images/minimap.png" alt="canvas2" style="max-height: 150px" />-->
         </div>
         <div class="col-xs-6">
           <div id="currentTerrain" class="well nopadding">
             <table class="terrainTable table nopadding">
-              <tbody>
-                <tr>
-                  <th colspan="2" id="selectedTerrainTable">Camp @ Hill</th>
-                </tr>
-                <tr>
-                  <td>Features:</td>
-                  <td><a title="Rivers allow easier travel and increased fertility." data-toggle="tooltip" data-placement="left" >River</a>, <a title="Source of water." data-toggle="tooltip" data-placement="right" >Fresh Water Source</a></td>
-                </tr>
-                <tr>
-                  <td>Special Traits:</td>
-                  <td>None</td>
-                </tr>
-                <tr>
-                  <td>Buildings:</td>
-                  <td>None</td>
-                </tr>
-              </tbody>
             </table>
           </div>
         </div>
         <div id="travelSection"  class="col-xs-3">
-          <table class="pull-right">
-            <tr>
-              <td><button id="nwbutton" type="button" class="btn btn-default direction-button">NW</button></td>
-              <td><button type="button" class="btn btn-default direction-button">N</button></td>
-              <td><button type="button" class="btn btn-default direction-button">NE</button></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn btn-default direction-button">W</button></td>
-              <td><button type="button" class="btn btn-default direction-button"><span class="glyphicon glyphicon-remove"></span></button></td>
-              <td><button type="button" class="btn btn-default direction-button">E</button></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn btn-default direction-button">SW</button></td>
-              <td><button type="button" class="btn btn-default direction-button">S</button></td>
-              <td><button type="button" class="btn btn-default direction-button">SE</button></td>
-            </tr>
-          </table>
         </div>
       </div>
     </footer>
     
+    <!-- BEGIN INVISIBLE/OFF DOCUMENT ELEMENTS -->
+    
+    <!-- CRAFTING MODAL (Popup thingy) -->
     <div id="CraftModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
     
@@ -435,10 +395,6 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
             <h4 class="modal-title">Craftable items</h4>
           </div>
           <div class="modal-body">
-            <p>
-              <a title="Crafting ingredients: 6 sticks" data-toggle="tooltip" data-placement="bottom" ><button class="btn btn-default">Bundle of Firewood</button></a>
-              <a title="Crafting ingredients: 4 apples" data-toggle="tooltip" data-placement="bottom" ><button class="btn btn-default">TestHeavyObject</button></a>
-            </p>
             <div id="craftDiv">
             </div>
           </div>
@@ -449,6 +405,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     
       </div>
     </div>
+    <!-- END CRAFTING MODAL -->
     <canvas id="perlin" hidden="true"></canvas> <!-- to capture noise information about the map -->
   </body>
 </html>
