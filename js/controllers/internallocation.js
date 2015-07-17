@@ -16,7 +16,7 @@ function establishSettledArea(location) {
 
 /**
  * Have player enter the internal location (settlement), assumes check was done to make sure an internal location is actually there
- * @param {Integer} index : index of the settlement, or null if not
+ * @param {Integer} index : index of the settlement/internal location
  */
 function enterInternalLocation(index) { 
 	player.currentInternalLocation = index;
@@ -138,8 +138,8 @@ function getInternalLocationFromDirection(sourceInternalLocation, intendedDirect
 function getInternalEnvironmentMap(sourceInternalLocation) {
 	if (isPlayerInInternalLocation()) {
 		var elements = new Object();
-		elements.visitedNodes = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
-		elements.visitedEdges = new Object(); //BE: THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+		elements.visitedNodes = new Object(); //THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+		elements.visitedEdges = new Object(); //THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
 		elements.nodes = [];
 		elements.edges = [];
 		buildNodeAndEdgeMap(sourceInternalLocation, elements);

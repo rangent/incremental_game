@@ -43,6 +43,10 @@ function drawInternalLocationMap() {
                 .selector('.currentNode')
                 .css({
                   'background-color': '#61bffc',
+                })
+                .selector('.unexploredNode')
+                .css({
+                  'display': 'none',
                 }),
             elements: getInternalEnvironmentMap(getCurrentInternalLocation()),
             autoungrabify: true,

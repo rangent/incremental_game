@@ -181,7 +181,7 @@ function InternalLocation(directions, isSettlement, location) {
 	this.buildings = [];
 	this.inventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
 	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
-	this.explored = false; //all new locations are unexplored
+	this.explored = (isSettlement) ? true : false; //settlements are by default known locations
 }
 
 /*
