@@ -199,6 +199,12 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	if (firstNode) {
 		node.classes = "currentNode";
 	}
+	//debugger;
+	if (!internalLocation.explored) {
+		node.classes += " unexploredNode";
+	}
+	//LEFT OFF HERE:
+	//NEED TO ADD DIFFERENT CLASS (ALSO ADD CSS) IF A NODE IS UNFOUND, BUT ADJACENT TO AN EXPLORED NODE
 	elements.nodes.push(node);	
 	elements.visitedNodes[internalLocation.id] = nodeLocation;
 	
