@@ -155,32 +155,67 @@ function getInternalEnvironmentMap(sourceInternalLocation) {
  * recursive method to build the node and edge map, called by getInternalEnvironmentMap
  */
 function buildNodeAndEdgeMap(internalLocation, elements) {
+	//base case: node already exists in visited nodes
 	if (elements.visitedNodes.hasOwnProperty(internalLocation.id)) {
 		return;
 	}
 	
+	//otherwise, this is a new node:
 	var nodeLocation = new Object();
 	var firstNode = false;
+	var cytoscapeCssClassesNeeded = [];
 	
+	//if we have no nodes visited, then assume this node is the first node
 	if (Object.keys(elements.visitedNodes).length == 0) {
-		//first node case
+		//first node case, centered at 0,0
 		nodeLocation = { x: 0, y: 0};
 		firstNode = true;
+		cytoscapeCssClassesNeeded.push("currentNode");
 	}
 	else {
-		//otherwise find where this node should be relative to any previously visited node
-		for (var direction in internalLocation.directions) {
+		//For every other node that isn't the first node:
+		//First, we need to find where this node should be relative to any previously visited node
+		//we only need to find one since everything else in visitedNodes should be relative to this node
+		//and we should only be visiting other nodes based on moving away from an existing and previously processed nodes
+		for (var direction in internalLocation.directions) { //for each direction of possible travel from this new node
+			
+			//if we've already visited the node in that direction (have added it to the list of visitedNodes)
 			if (elements.visitedNodes.hasOwnProperty(internalLocation.directions[direction])) {
+				//then determine where this one should be compared to an existing, already-visited node
 				var visitedNodeLocation = elements.visitedNodes[internalLocation.directions[direction]];
 				nodeLocation = { x : visitedNodeLocation.x, y : visitedNodeLocation.y };
 				nodeLocation = getPositionOfAttemptedDirection(direction, nodeLocation);
-				break;
+				break; //we've determined where the node should be compared to one existing node, break away
 			}
 		}
+		
+		//next, add any visited/unvisited CSS classes to these other non-firstNode nodes:
+		if (internalLocation.explored) {
+			//model.js should be enforcing that "isSettlement" InternalLocations are explored by default
+			cytoscapeCssClassesNeeded.push("visitedNode");
+		}
+		else {
+			//need to see if we're adjacent to a visited node
+			var adjacentToVisitedNode = false;
+			for (var direction in internalLocation.directions) {
+				if (player.internalEnvironments[internalLocation.directions[direction]].explored) {
+					adjacentToVisitedNode = true;
+					break;
+				}
+			}
+			if (adjacentToVisitedNode) {
+				cytoscapeCssClassesNeeded.push("unexploredButAdjacentToExplored");
+			}
+			else {
+				cytoscapeCssClassesNeeded.push("unexploredNode");
+			}
+		}
+		
 	}
 	
 	//add any non-existant edges
 	for (var direction in internalLocation.directions) {
+		//only add an edge if we haven't already added it (all edges are bidrectional, we dont want 2 nodes from every node)
 		if (!elements.visitedEdges.hasOwnProperty(String( internalLocation.directions[direction] + "-" + internalLocation.id))) {
 			var edgeId = String( internalLocation.id + "-" + internalLocation.directions[direction] );
 			var edge = { data: {
@@ -193,18 +228,12 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 			elements.visitedEdges[edgeId] = 1;
 		}
 	}
-	//finally add the node
-	//BE: DOES THE id NEED TO BE A STRING?
+	//finally add the node as a "visited node":
 	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation };
-	if (firstNode) {
-		node.classes = "currentNode";
+	node.classes = "";
+	for (var c in cytoscapeCssClassesNeeded) {
+		node.classes += c + " ";
 	}
-	//debugger;
-	if (!internalLocation.explored) {
-		node.classes += " unexploredNode";
-	}
-	//LEFT OFF HERE:
-	//NEED TO ADD DIFFERENT CLASS (ALSO ADD CSS) IF A NODE IS UNFOUND, BUT ADJACENT TO AN EXPLORED NODE
 	elements.nodes.push(node);	
 	elements.visitedNodes[internalLocation.id] = nodeLocation;
 	

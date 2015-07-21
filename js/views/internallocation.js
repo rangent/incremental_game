@@ -44,6 +44,14 @@ function drawInternalLocationMap() {
                 .css({
                   'background-color': '#61bffc',
                 })
+                .selector('.visitedNode')
+                .css({
+                  'background-color': '#ff0000', //BE: need better colors
+                })
+                .selector('.unexploredButAdjacentToExplored')
+                .css({
+                  'background-color': '#00ff00', //BE: need better colors
+                })
                 .selector('.unexploredNode')
                 .css({
                   'display': 'none',
