@@ -231,7 +231,6 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 	//finally add the node as a "visited node":
 	var node = { data: {id : String(internalLocation.id)}, position : nodeLocation };
 	node.classes = "";
-	debugger;
 	for (var c in cytoscapeCssClassesNeeded) {
 		node.classes += cytoscapeCssClassesNeeded[c] + " ";
 	}
