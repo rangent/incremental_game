@@ -42,15 +42,15 @@ function drawInternalLocationMap() {
                 })
                 .selector('.currentNode')
                 .css({
-                  'background-color': '#61bffc',
+                  'background-color': '#51aff0',
                 })
                 .selector('.visitedNode')
                 .css({
-                  'background-color': '#ff0000', //BE: need better colors
+                  'background-color': '#91dffc',
                 })
                 .selector('.unexploredButAdjacentToExplored')
                 .css({
-                  'background-color': '#00ff00', //BE: need better colors
+                  'background-color': '#ddd',
                 })
                 .selector('.unexploredNode')
                 .css({
