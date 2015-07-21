@@ -11,6 +11,11 @@ function establishSettledArea(location) {
 }
 
 function establishNewInternalEnvironment(location, isSettlement) {
+	//should not be able to explore if already in an IL, or if an IL is connected to the current terrain
+	if (player.currentInternalLocation != null || getCurrentLocation().internalLocation != null) {
+		throw "Invalid exploration area!";
+	}
+	
 	if (typeof isSettlement === "undefined" || isSettlement == null) {
 		isSettlement = false;
 	}
