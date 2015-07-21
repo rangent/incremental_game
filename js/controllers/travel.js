@@ -107,4 +107,5 @@ function updatePlayerCurrentLocation(x, y) {
 
 function updatePlayerCurrentInternalLocation(internalLocationIndex) {
 	player.currentInternalLocation = internalLocationIndex;
+	getCurrentInternalLocation().explored = true;
 }

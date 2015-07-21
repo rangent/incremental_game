@@ -7,11 +7,20 @@
  * @param {Location} location : location to establish the new internal location (settlement)
  */
 function establishSettledArea(location) {
-    var terrain = player.availableTerrain[location.y][location.x];
-	var settlement = new InternalLocation({}, true, location);
-	player.internalEnvironments[settlement.id] = settlement;
-    terrain.internalLocation = settlement.id;
-    player.settlements.push(settlement);
+    establishNewInternalEnvironment(location, true);
+}
+
+function establishNewInternalEnvironment(location, isSettlement) {
+	if (typeof isSettlement === "undefined" || isSettlement == null) {
+		isSettlement = false;
+	}
+	var terrain = player.availableTerrain[location.y][location.x];
+	var internalLocation = new InternalLocation({}, isSettlement, location);
+	player.internalEnvironments[internalLocation.id] = internalLocation;
+    terrain.internalLocation = internalLocation.id;
+	if (isSettlement) {
+		player.settlements.push(internalLocation);
+	}
 }
 
 /**
@@ -20,6 +29,7 @@ function establishSettledArea(location) {
  */
 function enterInternalLocation(index) { 
 	player.currentInternalLocation = index;
+	getCurrentInternalLocation().explored = true;
     togglePlayerEnterOrExitInternalLocationActions();
 }
 
@@ -104,7 +114,7 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 	}
 	
 	//create the new node and link it to current node:
-	var newInternalLoc = new InternalLocation({}, true, mapLocationToExitTo);
+	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
 	sourceInternalLocation.directions[direction] = newInternalLoc.id;
