@@ -1,4 +1,14 @@
-
+function toggleRecording() {
+	if (game.debug.recording) {
+		//do stop-recording stuff
+		
+		game.debug.recording = false;
+		console.log("stopped recording");
+	} else {
+		game.debug.recording = true;
+		console.log("recording");
+	}
+}
 
 /*
 function StonePickup () {
