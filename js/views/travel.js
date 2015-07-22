@@ -11,9 +11,9 @@ function drawTravelDirections() {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
 				//give player ability to enter the city if possible
-				if (i == 0 && j == 0 && getCurrentLocation().internalLocation != null) {
+				if (i == 0 && j == 0 && getTerrainAtCurrentLocation().internalLocation != null) {
 					if (player.currentInternalLocation == null) {
-						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doEnterInternalLocation(" + getCurrentLocation().internalLocation + ")\" ";
+						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doEnterInternalLocation(" + getTerrainAtCurrentLocation().internalLocation + ")\" ";
 					}
 					else {
 						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doExitInternalLocation()\" ";

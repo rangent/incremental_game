@@ -60,9 +60,9 @@ function drawInventoryTable() {
 		}
 
 		//items on the ground
-		if (player.availableTerrain != null && getCurrentLocation() !== "undefined") {
-			for (var v in getCurrentLocationInventory().itemQuantityCollection) {
-				itemAndQuantity = getCurrentLocationInventory().itemQuantityCollection[v];
+		if (player.availableTerrain != null && getTerrainAtCurrentLocation() !== "undefined") {
+			for (var v in getTerrainAtCurrentLocationInventory().itemQuantityCollection) {
+				itemAndQuantity = getTerrainAtCurrentLocationInventory().itemQuantityCollection[v];
 				if ((itemAndQuantity.quantity > 0)){
 					groundInventoryButtons += constants.LOCATION_INVENTORY_BUTTON
 						.replace("%ITEM_WEIGHT%", itemAndQuantity.item.weight)

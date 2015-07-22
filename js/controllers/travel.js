@@ -29,7 +29,7 @@ function isDirectionTraversable(location, internalLocation) {
 	
 	//maybe we want to do a special action with the center travel button eventually
 	if (dx == 0 && dy == 0) {
-		if (getCurrentLocation().internalLocation != null) {
+		if (getTerrainAtCurrentLocation().internalLocation != null) {
 			return true;
 		}
 		return false;

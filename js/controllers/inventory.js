@@ -29,7 +29,7 @@ function addItemsToInventory(inventory, itemName, quantity) {
 /*
  * Return the correct inventory, whether player is inside or outside
  */
-function getCurrentLocationInventory() {
+function getTerrainAtCurrentLocationInventory() {
 	//if (player.currentInternalLocation != null) {
 	//	return player.globalInventory;
 	//}
@@ -37,7 +37,7 @@ function getCurrentLocationInventory() {
 		return resolveInventory(getCurrentInternalLocation().id);
 	}
 	else {
-		return getCurrentLocation().inventory;
+		return getTerrainAtCurrentLocation().inventory;
 	}
 }
 
@@ -120,8 +120,8 @@ function resolveInventory(inventory) {
 	//}
 	//if it's a location
 	else if (typeof inventory === "object" && inventory.hasOwnProperty("x") &&
-			 inventory.hasOwnProperty("y") && typeof getCurrentLocation() !== "undefined") {
-		return getCurrentLocation().inventory;
+			 inventory.hasOwnProperty("y") && typeof getTerrainAtCurrentLocation() !== "undefined") {
+		return getTerrainAtCurrentLocation().inventory;
 	}
 	console.log("Could not translate inventory: " + JSON.stringify(inventory));
 	return null;

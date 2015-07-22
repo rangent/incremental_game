@@ -67,7 +67,7 @@ function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, 
 	this.age = age;
 }
 
-function getCurrentLocation() {
+function getTerrainAtCurrentLocation() {
 	return player.availableTerrain[player.currentLocation.y][player.currentLocation.x];
 }
 
@@ -77,9 +77,7 @@ function getTerrainAtLocation(location) {
 
 
 var playerActions = {
-	/*
 	Explore	: new PlayerAction("Explore", true, true, true, 0),
-	*/
 	Forage	: new PlayerAction("Forage", true, true, true, 0),
 	Travel  : new PlayerAction("Travel", true, true, false, 0),
 	Inventory  : new PlayerAction("Inventory", true, true, false, 0),

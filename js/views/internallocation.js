@@ -4,7 +4,7 @@
 
 function doEnterInternalLocation(index) {
     //only allow user to enter internal location accessible from current terrain
-    if (DEBUG || getCurrentLocation().internalLocation == index) {
+    if (DEBUG || getTerrainAtCurrentLocation().internalLocation == index) {
         enterInternalLocation(index);
         redrawTablesAfterLocationChange();
         updateCurrentTerrain();
@@ -16,7 +16,7 @@ function doEnterInternalLocation(index) {
 
 function doExitInternalLocation() {
     //only allow user to go out if there is an "out" to go out
-    if (getCurrentInternalLocation().location != null) {
+    if (getCurrentInternalLocation() && getCurrentInternalLocation().location != null) {
         exitInternalLocation();
         redrawTablesAfterLocationChange();
         updateCurrentTerrain();
@@ -89,11 +89,25 @@ function drawInternalLocationMap() {
 }
 
 function rezoom(zoomLevel) {
+    /* BE: THIS NEEDS TO BE FIGURED OUT FOR REAL... THIS SORT OF WORKS BUT IS IT NECESSARY?
     zoomLevel = (typeof zoomLevel === "undefined") ? 1.5 : zoomLevel;
     if (typeof cy !== "undefined") {
         //1.5 is good for a mini local map,
         //~1 is good for regular map.
         //Need to do more cytosape js research to determine how to auto zoom.
         cy.zoom(zoomLevel); 
+    }
+    */
+}
+
+function doExplore() {
+    if (!isPlayerInInternalLocation() && getTerrainAtCurrentLocation().internalLocation == null) {
+        //TODO: Dynamic generation of the internal environments
+        establishNewInternalEnvironment(getCurrentLocation(), false);
+        quickstitchInternalEnvironment(player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation],internalEnvironmentSegments["WINDING_PATH"]);
+        log("You discovered a cave!");
+        drawTravelDirections();
+    } else if (getTerrainAtCurrentLocation().internalLocation != null) {
+        logNoSave("You've already found something here!"); //BE: need IE names, then we can tell them what is already here
     }
 }

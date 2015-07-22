@@ -12,7 +12,7 @@ function establishSettledArea(location) {
 
 function establishNewInternalEnvironment(location, isSettlement) {
 	//should not be able to explore if already in an IL, or if an IL is connected to the current terrain
-	if (player.currentInternalLocation != null || getCurrentLocation().internalLocation != null) {
+	if (player.currentInternalLocation != null || getTerrainAtCurrentLocation().internalLocation != null) {
 		throw "Invalid exploration area!";
 	}
 	
@@ -45,10 +45,12 @@ function togglePlayerEnterOrExitInternalLocationActions() {
     //if player entering town
     if (playerInTown()) { //will eventually expand this if production buildings are in camps
         playerActions.Forage.availableToPlayer = false;
+		playerActions.Explore.availableToPlayer = false;
     }
     //if player exiting town
     else {
         playerActions.Forage.availableToPlayer = true;
+		playerActions.Explore.availableToPlayer = true;
     }
 }
 
@@ -103,6 +105,9 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
  * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
  */
 function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges) {
+	if (sourceInternalLocation.id == 11) {
+		debugger;
+	}
 	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
 	if (nodeAtTargetLocation != null) {
 		if (!shouldStitchEdges) {
@@ -151,19 +156,15 @@ function getInternalLocationFromDirection(sourceInternalLocation, intendedDirect
  * @returns "elements" object compatible with Cytoscape.js
  */
 function getInternalEnvironmentMap(sourceInternalLocation) {
-	if (isPlayerInInternalLocation()) {
-		var elements = new Object();
-		elements.visitedNodes = new Object(); //THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
-		elements.visitedEdges = new Object(); //THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
-		elements.nodes = [];
-		elements.edges = [];
-		buildNodeAndEdgeMap(sourceInternalLocation, elements);
-		delete elements.visitedNodes;
-		delete elements.visitedEdges;
-		return elements;
-	}
-	else
-		return { nodes: [], edges: []};
+	var elements = new Object();
+	elements.visitedNodes = new Object(); //THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+	elements.visitedEdges = new Object(); //THIS SHOULD BE { <location id> : {x : <xcoord>, y : <ycoord>}}
+	elements.nodes = [];
+	elements.edges = [];
+	buildNodeAndEdgeMap(sourceInternalLocation, elements);
+	delete elements.visitedNodes;
+	delete elements.visitedEdges;
+	return elements;
 }
 
 /**
@@ -205,7 +206,7 @@ function buildNodeAndEdgeMap(internalLocation, elements) {
 		}
 		
 		//next, add any visited/unvisited CSS classes to these other non-firstNode nodes:
-		if (internalLocation.explored) {
+		if (DEBUG || internalLocation.explored) {
 			//model.js should be enforcing that "isSettlement" InternalLocations are explored by default
 			cytoscapeCssClassesNeeded.push("visitedNode");
 		}

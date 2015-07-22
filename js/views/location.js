@@ -14,9 +14,9 @@ function updateTargetDestinationTable(terrain) {
 
 
 function updateCurrentTerrain() {
-	var currentPlace = (isPlayerInInternalLocation()) ? getCurrentInternalLocation() : getCurrentLocation();
+	var currentPlace = (isPlayerInInternalLocation()) ? getCurrentInternalLocation() : getTerrainAtCurrentLocation();
 	updateTerrainTable( $("#currentTerrain") , currentPlace );
-	getCurrentLocation().disabled = true;
+	getTerrainAtCurrentLocation().disabled = true;
 }
 
 
@@ -71,6 +71,10 @@ function updateTerrainTable(divToContainTable, currentPlace) {
 	$(".tooltip").tooltip();
 }
 
+function getCurrentLocation() {
+	return player.currentLocation;
+}
+
 function updateLocationTextBasedOnPlayersLocation() {
-	getCurrentLocation().text = "* " + getCurrentLocation().text;
+	getTerrainAtCurrentLocation().text = "* " + getTerrainAtCurrentLocation().text;
 }
