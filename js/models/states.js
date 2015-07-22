@@ -37,6 +37,9 @@ var game = {
 	log : [], //array of strings
 	storyPhase : 0,
 	seed : null,
+	debug : {
+		recording : false,	
+	},
 }
 
 //player's state

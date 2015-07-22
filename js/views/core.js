@@ -113,6 +113,12 @@ function resizeElements() {
 	}
 }
 
+function hideDebugBlocksIfNotDebug() {
+	if (! (DEBUG == true)) {
+		$(".debugBlock").hide();
+	}
+}
+
 function documentReadyFunctions() {
     resizeElements();
 	$('[data-toggle="tooltip"]').tooltip();
@@ -127,6 +133,7 @@ function redrawBoard() { //initialize *all* DOM elements
 	if (masterState.global.boardInitialized) {
 		console.log("redrawBoard called again after state already initialized!");
 	}
+	hideDebugBlocksIfNotDebug();
 	initializeActionDiv();
 	initializeTerrainDiv();
 	drawInventoryTable();

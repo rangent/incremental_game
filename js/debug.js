@@ -1,3 +1,6 @@
+
+
+/*
 function StonePickup () {
 	$("#StonePickup").click();
 }
@@ -68,3 +71,4 @@ function testDoExplore() {
 function testDoForage() {
 	$("#doForage").click();
 }
+*/
