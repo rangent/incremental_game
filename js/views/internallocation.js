@@ -22,7 +22,6 @@ function doExitInternalLocation() {
 
 function drawInternalLocationMap() {
     if (getCurrentInternalLocation() != null) {
-        var t = (new Date()).getTime();
         $("#internalMapContainer").show();
         $("#internalMapTab").show();
         //set global cy defined in dataStructures.js
@@ -77,7 +76,6 @@ function drawInternalLocationMap() {
             cy.fit();
         }
         //rezoom(); BE: do this more predictably if it makes sense
-        console.log("Cytoscape reload took " + ((new Date()).getTime() - t) + "ms");
     } else {
         $("#internalMapContainer").hide();
         $("#internalMapTab").hide();
