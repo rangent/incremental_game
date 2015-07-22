@@ -22,9 +22,11 @@ function doExitInternalLocation() {
 
 function drawInternalLocationMap() {
     if (getCurrentInternalLocation() != null) {
+        var t = (new Date()).getTime();
         $("#internalMapContainer").show();
         $("#internalMapTab").show();
         //set global cy defined in dataStructures.js
+        //Creating a new cytoscape is a huge time sink!  ~150-250ms each time.
         cy = cytoscape({
             container: document.getElementById('internalMapContainer'),
             
@@ -69,6 +71,7 @@ function drawInternalLocationMap() {
             zoom: 2.5,
         });
         rezoom();
+        console.log("Cytoscape reload took " + ((new Date()).getTime() - t) + "ms");
     } else {
         $("#internalMapContainer").hide();
         $("#internalMapTab").hide();

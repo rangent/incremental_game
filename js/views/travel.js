@@ -107,5 +107,4 @@ function travelRelative(x, y) {
 function doTravelToInternalLocation(internalLocationIndex) {
 	updatePlayerCurrentInternalLocation(internalLocationIndex);
 	redrawTablesAfterLocationChange();
-	drawInternalLocationMap();
 }
