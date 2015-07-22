@@ -103,8 +103,12 @@ function rezoom(zoomLevel) {
 function doExplore() {
     if (!isPlayerInInternalLocation() && getTerrainAtCurrentLocation().internalLocation == null) {
         //TODO: Dynamic generation of the internal environments
-        establishNewInternalEnvironment(getCurrentLocation(), false);
-        quickstitchInternalEnvironment(player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation],internalEnvironmentSegments["WINDING_PATH"]);
+        var internalEnvironmentName = "Cave";
+        establishNewInternalEnvironment(getCurrentLocation(), false, internalEnvironmentName);
+        quickstitchInternalEnvironment(
+            player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation],
+            internalEnvironmentSegments["WINDING_PATH"],
+            internalEnvironmentName);
         log("You discovered a cave!");
         drawTravelDirections();
     } else if (getTerrainAtCurrentLocation().internalLocation != null) {

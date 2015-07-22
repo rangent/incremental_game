@@ -10,7 +10,7 @@ function establishSettledArea(location) {
     establishNewInternalEnvironment(location, true);
 }
 
-function establishNewInternalEnvironment(location, isSettlement) {
+function establishNewInternalEnvironment(location, isSettlement, internalEnvironmentName) {
 	//should not be able to explore if already in an IL, or if an IL is connected to the current terrain
 	if (player.currentInternalLocation != null || getTerrainAtCurrentLocation().internalLocation != null) {
 		throw "Invalid exploration area!";
@@ -20,7 +20,7 @@ function establishNewInternalEnvironment(location, isSettlement) {
 		isSettlement = false;
 	}
 	var terrain = player.availableTerrain[location.y][location.x];
-	var internalLocation = new InternalLocation({}, isSettlement, location);
+	var internalLocation = new InternalLocation({}, isSettlement, location, internalEnvironmentName);
 	player.internalEnvironments[internalLocation.id] = internalLocation;
     terrain.internalLocation = internalLocation.id;
 	if (isSettlement) {
@@ -81,9 +81,9 @@ function getCurrentInternalLocation() {
 /** 
  * create an internal location based on an array of directions, starting at sourceInternalLocation
  */
-function quickstitchInternalEnvironment(sourceInternalLocation, directionArray) {
+function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, name) {
 	for (var i in directionArray) {
-		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, directionArray[i], null, true);
+		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, directionArray[i], null, true, name);
 	}
 }
 
@@ -93,8 +93,8 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray) 
  * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  */
-function createConnectedInternalEnvironment(sourceInternalLocation, direction, mapLocationToExitTo) {
-	return createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, false);
+function createConnectedInternalEnvironment(sourceInternalLocation, direction, mapLocationToExitTo, name) {
+	return createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, false, name);
 }
 
 /**
@@ -104,10 +104,7 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
  */
-function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges) {
-	if (sourceInternalLocation.id == 11) {
-		debugger;
-	}
+function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges, name) {
 	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
 	if (nodeAtTargetLocation != null) {
 		if (!shouldStitchEdges) {
@@ -124,7 +121,7 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 	}
 	
 	//create the new node and link it to current node:
-	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo);
+	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
 	sourceInternalLocation.directions[direction] = newInternalLoc.id;

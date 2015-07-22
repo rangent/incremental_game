@@ -25,6 +25,7 @@ function updateCurrentTerrain() {
  * @terrain : Terrain
  */
 function updateTerrainTable(divToContainTable, currentPlace) {
+	//BE: Refactor and remove all "Terrain" references if we can since it also applies to internal environments
 	divToContainTable.empty();
 	var features = "None";
 	if (currentPlace.hasOwnProperty("terrainFeatures") && currentPlace.terrainFeatures.length > 0) {
@@ -45,8 +46,14 @@ function updateTerrainTable(divToContainTable, currentPlace) {
 	var terrainPrintedName = "";
 	if (isPlayerInInternalLocation() && player.internalEnvironments[player.currentInternalLocation].isSettlement) {
 		terrainPrintedName = getSettlementSizeName(player.internalEnvironments[player.currentInternalLocation]);
+		if (currentPlace.hasOwnProperty("text") && currentPlace.text.length > 0) {
+			terrainPrintedName += " " + currentPlace.text;
+		}
 	} else if (isPlayerInInternalLocation()) {
-		terrainPrintedName = "INSIDE"; 
+		terrainPrintedName = "INSIDE";
+		if (currentPlace.hasOwnProperty("text") && currentPlace.text.length > 0) {
+			terrainPrintedName = currentPlace.text;
+		}
 	} else if (currentPlace.hasOwnProperty("terrainType")) {
 		terrainPrintedName = currentPlace.terrainType.ttname;
 	}

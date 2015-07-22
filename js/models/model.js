@@ -172,7 +172,7 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
  * 		eg: {"n" : 16, "w" : 44 , "s" : 0}
  * @param {boolean} isSettlement : is the IL a settlement?
  */
-function InternalLocation(directions, isSettlement, location) {
+function InternalLocation(directions, isSettlement, location, name) {
 	this.id = seeds.internalLocationIdSeed++;
 	this.type = "InternalLocation";
 	this.location = location; //for backwards compatibility with Settlement
@@ -182,6 +182,7 @@ function InternalLocation(directions, isSettlement, location) {
 	this.inventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
 	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
 	this.explored = (isSettlement) ? true : false; //settlements are by default known locations
+	this.text = (typeof name === "undefined") ? "" : name;
 }
 
 /*
