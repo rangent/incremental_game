@@ -3,20 +3,26 @@
  */
 
 function doEnterInternalLocation(index) {
-    //TODO: make sure internal location exists
-    if (true) {
+    //only allow user to enter internal location accessible from current terrain
+    if (DEBUG || getCurrentLocation().internalLocation == index) {
         enterInternalLocation(index);
         redrawTablesAfterLocationChange();
         updateCurrentTerrain();
+        if ($("#worldMapTab").attr("aria-expanded")) {
+            $("#internalMapTab").click();
+        }
     }
 }
 
 function doExitInternalLocation() {
-    //TODO: dont allow if there isn't a terrain to exit to
-    if (true) {
+    //only allow user to go out if there is an "out" to go out
+    if (getCurrentInternalLocation().location != null) {
         exitInternalLocation();
         redrawTablesAfterLocationChange();
         updateCurrentTerrain();
+        if ($("#internalMapTab").attr("aria-expanded")) {
+            $("#worldMapTab").click();
+        }
     }
 }
 
