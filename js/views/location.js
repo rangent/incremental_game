@@ -14,7 +14,8 @@ function updateTargetDestinationTable(terrain) {
 
 
 function updateCurrentTerrain() {
-	updateTerrainTable( $("#currentTerrain") , getCurrentLocation() );
+	var currentPlace = (isPlayerInInternalLocation()) ? getCurrentInternalLocation() : getCurrentLocation();
+	updateTerrainTable( $("#currentTerrain") , currentPlace );
 	getCurrentLocation().disabled = true;
 }
 
@@ -23,29 +24,35 @@ function updateCurrentTerrain() {
  * @divToContainTable : jQuery element : pass in the single element (selected by ID)
  * @terrain : Terrain
  */
-function updateTerrainTable(divToContainTable, terrain) {
+function updateTerrainTable(divToContainTable, currentPlace) {
 	divToContainTable.empty();
 	var features = "None";
-	if (terrain.terrainFeatures.length > 0) {
+	if (currentPlace.hasOwnProperty("terrainFeatures") && currentPlace.terrainFeatures.length > 0) {
 		features = "";
-		for (var t in terrain.terrainFeatures) {
-			features += "<a title=\""+ terrain.terrainFeatures[t].description + "\" class=\"tooltip\">" +  terrain.terrainFeatures[t].tfname + "</a>, ";
+		for (var t in currentPlace.terrainFeatures) {
+			features += "<a title=\""+ currentPlace.terrainFeatures[t].description + "\" class=\"tooltip\">" +  currentPlace.terrainFeatures[t].tfname + "</a>, ";
 		}
 		features = features.substring(0,features.length-2);
 	}
 	var modifiers = "None";
-	if (terrain.terrainModifiers.length > 0 ) {
+	if (currentPlace.hasOwnProperty("terrainModifiers") && currentPlace.terrainModifiers.length > 0 ) {
 		modifiers = "";
-		for (var t in terrain.terrainModifiers) {
-			modifiers += "<a title=\""+ terrain.terrainModifiers[t].description + "\" class=\"tooltip\">" + terrain.terrainModifiers[t].tmname + "</a> ";
+		for (var t in currentPlace.terrainModifiers) {
+			modifiers += "<a title=\""+ currentPlace.terrainModifiers[t].description + "\" class=\"tooltip\">" + currentPlace.terrainModifiers[t].tmname + "</a> ";
 		}
 	}
-	var terrainPrintedName = terrain.terrainType.ttname;
-	if (player.currentInternalLocation != null && player.internalEnvironments[player.currentInternalLocation].isSettlement) {
-		terrainPrintedName = getSettlementSizeName(player.internalEnvironments[player.currentInternalLocation]) + " @ " + terrainPrintedName;
+	
+	var terrainPrintedName = "";
+	if (isPlayerInInternalLocation() && player.internalEnvironments[player.currentInternalLocation].isSettlement) {
+		terrainPrintedName = getSettlementSizeName(player.internalEnvironments[player.currentInternalLocation]);
+	} else if (isPlayerInInternalLocation()) {
+		terrainPrintedName = "INSIDE"; 
+	} else if (currentPlace.hasOwnProperty("terrainType")) {
+		terrainPrintedName = currentPlace.terrainType.ttname;
 	}
+	
 	var buildings = "None";
-	var bldArr = (player.currentInternalLocation != null) ? player.internalEnvironments[player.currentInternalLocation].buildings : terrain.buildings;
+	var bldArr = currentPlace.buildings;
 	if (bldArr.length > 0) {
 		buildings = "";
 		for (var i = 0; i < bldArr.length; i++) {
