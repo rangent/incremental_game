@@ -4,9 +4,10 @@
 
 
 function drawTravelDirections() {
-	if (playerActions.Travel.availableToPlayer && playerActions.Travel.actionEnabled) {
+	if ( (DEBUG && isGameRecording() ) ||
+		(playerActions.Travel.availableToPlayer && playerActions.Travel.actionEnabled)) {
 		var str = "<table class=\"pull-right\">";
-		var playerInteralLocation = (player.currentInternalLocation != null) ? player.internalEnvironments[player.currentInternalLocation] : null;
+		var playerInteralLocation = (isPlayerInInternalLocation()) ? player.internalEnvironments[player.currentInternalLocation] : null;
 		for (var j = -1; j <= 1; j++) {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
@@ -20,13 +21,18 @@ function drawTravelDirections() {
 					}
 				}
 				else if (playerInteralLocation != null) {
-					str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doTravelToInternalLocation(" + getInternalLocationTowardsDirection(new Location(i, j), playerInteralLocation) + ")\" ";
+					if (DEBUG && isGameRecording()) {
+						//need to do something here conditionally add "recording" logic
+						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doRecordedTravel('" + getDirectionFromRelativeLocation(new Location(i, j)) + "')\" ";
+					} else {
+						str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"doTravelToInternalLocation(" + getInternalLocationTowardsDirection(new Location(i, j), playerInteralLocation) + ")\" ";
+					}
 				}
 				else {
 					str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"travelRelative(" + i + "," + j + ")\" ";
 				}
 				
-				if (!isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
+				if (!(DEBUG && isGameRecording()) && !isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
 					str += " disabled ";
 				}
 				str += getArrowForDirection(new Location(i, j)) + "</button></td>";

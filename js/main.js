@@ -77,8 +77,16 @@ $(document).keydown(function(e) {
 				}
 			}
         break;
+	
+		case keyboardKeys.SHIFT_KEY:
+			if (DEBUG && isGameRecording() && isPlayerInInternalLocation()) {
+				drawTravelDirections();
+			}
+			break;
 
-        default: return; // exit this handler for other keys
+        default:
+			//console.log(e.which);
+			return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });

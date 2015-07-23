@@ -1,13 +1,41 @@
+var travelLog = {};
+
 function toggleRecording() {
 	if (game.debug.recording) {
-		//do stop-recording stuff
-		
 		game.debug.recording = false;
+		//do stop-recording stuff
+		outputRecordedDirections();
+		drawTravelDirections();
 		console.log("stopped recording");
 	} else {
 		game.debug.recording = true;
+		//initialize the recorder
+		travelLog["recordedDirections"] = [];
+		drawTravelDirections();
 		console.log("recording");
 	}
+}
+
+/**
+ * @param {String} direction : the cardinal direction to travel in
+ */
+function doRecordedTravel(direction) {
+	travelLog["recordedDirections"].push(direction);
+	quickstitchInternalEnvironment(getCurrentInternalLocation(),[direction]);
+	doTravelToInternalLocation(getCurrentInternalLocation().directions[direction]);
+}
+
+function outputRecordedDirections() {
+	var str = "SOME_NAME : [";
+	for (var s in travelLog["recordedDirections"]) {
+		str += "\"" + travelLog["recordedDirections"][s] + "\", ";
+	}
+	str = str.substring(0,str.length-2) + "],";
+	console.log(str);
+}
+
+function isGameRecording() {
+	return game.debug.recording;
 }
 
 /*

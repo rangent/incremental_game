@@ -87,6 +87,7 @@ var keyboardKeys = {
 		NUMPAD_SUBTRACT : 109,
 		NUMPAD_DECIMAL_POINT : 110,
 		NUMPAD_DIVIDE : 111,
+		SHIFT_KEY : 16,
 }
 
 //////////////////////////////////////////////////////////////////////////////

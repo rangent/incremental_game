@@ -21,6 +21,30 @@ function getOpposingDirection(direction) {
 	}
 }
 
+function getDirectionFromRelativeLocation(location) {
+	if (location.x == -1 && location.y == -1) {
+		return "northwest";
+	} else if (location.x == 0 && location.y == -1) {
+		return "north";
+	} else if (location.x == 1 && location.y == -1) {
+		return "northeast";
+	} else if (location.x == -1 && location.y == 0) {
+		return "west";
+	} else if (location.x == 0 && location.y == 0) {
+		return "out";
+	} else if (location.x == 1 && location.y == 0) {
+		return "east";
+	} else if (location.x == -1 && location.y == 1) {
+		return "southwest";
+	} else if (location.x == 0 && location.y == 1) {
+		return "south";
+	} else if (location.x == 1 && location.y == 1) {
+		return "southeast";
+	} else {
+		throw "Unhandled direction";
+	}
+}
+
 /**
  * Get the bootstrap "sizes"
  */
