@@ -1,4 +1,7 @@
-var travelLog = {};
+var travelLog = {
+	recordedDirections : [],
+	savedRecordings : [],
+	};
 
 function toggleRecording() {
 	if (game.debug.recording) {
@@ -32,6 +35,7 @@ function outputRecordedDirections() {
 	}
 	str = str.substring(0,str.length-2) + "],";
 	console.log(str);
+	travelLog["savedRecordings"].push(str);
 }
 
 function isGameRecording() {
