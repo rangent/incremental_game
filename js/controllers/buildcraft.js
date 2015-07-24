@@ -78,7 +78,7 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
     }
     
     //finally "craft" the item (add it to player's inventory)
-    if (makeable.type == "Buildable") {
+    if (isType(makeable,"Buildable")) {
         buildBuildingAtLocation(makeable, targetInventoryForMadeItem);
     }
     else {

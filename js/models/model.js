@@ -62,10 +62,10 @@ function Craftable(craftableItem, numProduced, itemIngredientsAndQuantityArray) 
 }
 
 function getMakeableItem(item) {
-	if (item.type == "Craftable") {
+	if (isType(item,"Craftable")) {
 		return item.craftableItem;
 	}
-	else if (item.type == "Buildable") {
+	else if (isType(item,"Buildable")) {
 		return item.building;
 	}
 	return null;
