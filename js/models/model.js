@@ -171,8 +171,10 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
  * @param {object} directions : The possible directions you can leave from this InternalLocation
  * 		eg: {"n" : 16, "w" : 44 , "s" : 0}
  * @param {boolean} isSettlement : is the IL a settlement?
+ * @param {Object} bindPoints : array of objects, something like [{direction: {String} <direction>, weight: {Integer}}...]
+ * 		can be null/undefined.
  */
-function InternalLocation(directions, isSettlement, location, name) {
+function InternalLocation(directions, isSettlement, location, name, bindPoints) {
 	this.id = seeds.internalLocationIdSeed++;
 	this.type = "InternalLocation";
 	this.location = location; //for backwards compatibility with Settlement
@@ -183,6 +185,7 @@ function InternalLocation(directions, isSettlement, location, name) {
 	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
 	this.explored = (isSettlement) ? true : false; //settlements are by default known locations
 	this.text = (typeof name === "undefined") ? "" : name;
+	this.bindPoints = bindPoints;
 }
 
 /*

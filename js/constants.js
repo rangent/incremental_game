@@ -66,6 +66,8 @@ var internalEnvironmentSegments = {
 					  "north", "east", "west", "north", "southeast", "northwest", "east",
 					  "southeast", "southwest", "northwest", "northeast"],
 	WINDING_PATH : ["west", "northwest", "southwest", "west", "northwest", "southwest", "west", "southwest", "north", "north", "southeast"],
+	
+	OVAL01 : ["northwest", "north", "north", "northeast", "south", "southeast", "south", "southwest"],
 }
 
 /*
