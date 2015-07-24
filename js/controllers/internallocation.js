@@ -80,10 +80,38 @@ function getCurrentInternalLocation() {
 
 /** 
  * create an internal location based on an array of directions, starting at sourceInternalLocation
+ * @param {InternalLocation} sourceInternalLocation
+ * @param {Array of Strings, or Segment} directionArray
+ * @param {String} name : name for all the nodes of the internal environment
  */
 function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, name) {
-	for (var i in directionArray) {
-		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, directionArray[i], null, true, name);
+	var directions = [];
+	
+	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
+	if (isType(directionArray,"Segment") ) {
+		//fancy Segment object
+		directions = directionArray.directions;
+	} else {
+		directions = directionArray;
+	}
+	
+	//determine the direction of quick stitch, and bind point if applicable
+	for (var i in directions) {
+		var direction = "";
+		var bindPoints = null;
+		
+		if (isType(directions[i],"SegmentBindPointNode")) {
+			direction = directions[i].direction;
+			bindPoints = directions[i].bindpoints;
+			if (direction == null) {
+				//BE: CALLED FUNCTION CAN'T HANDLE THIS YET
+				continue;
+			}
+		} else {
+			//a vanilla direction (simple string of a direction)
+			direction = directions[i];
+		}
+		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, null, true, name);
 	}
 }
 

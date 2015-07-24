@@ -46,6 +46,14 @@ function getDirectionFromRelativeLocation(location) {
 }
 
 /**
+ * @param {Object} obj : any object
+ * @param {String} type : string of a type
+ */
+function isType(obj, type) {
+	return obj.hasOwnProperty("type") && obj.type === type;
+}
+
+/**
  * Get the bootstrap "sizes"
  */
 function getWindowSize() {

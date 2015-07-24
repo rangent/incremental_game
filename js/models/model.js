@@ -185,6 +185,7 @@ function Segment(directions, groups, name) {
 	this.directions = directions;
 	this.groups = groups;
 	this.name = name;
+	this.type = "Segment";
 }
 
 /**
@@ -195,6 +196,7 @@ function Segment(directions, groups, name) {
 function SegmentBindPointNode(direction, bindpoints, weight) {
 	this.direction = direction;
 	this.bindpoints = bindpoints;
+	this.type = "SegmentBindPointNode";
 }
 
 /**
