@@ -60,3 +60,7 @@ function getWindowSize() {
         return 'xs';
     }
 }
+
+function isArray(obj) {
+	return typeof directions !== "object" || Object.prototype.toString.call( directions ) !== "[object Array]";
+}

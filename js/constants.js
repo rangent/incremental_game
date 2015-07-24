@@ -55,20 +55,16 @@ var categoryNames = {
 	CONSUMABLE : "Consumable",
 }
 
-var internalEnvironmentConstants = {
-    TOWN1 : ["north", "south", "west", "north","northeast", "southeast", "east", "west", "west", "east", "southwest"],
-	TOWN2 : ["west", "west", "east", "northeast", "north", "south", "southeast", "west", "east", "east", "west", "southwest", "south", "north", "northwest"],
-}
-
-var internalEnvironmentSegments = {
-    "3x3Connected" : ["north", "east", "southwest", "northeast", "south", "west", "east", "south",
-					  "northwest", "southeast", "west", "north", "south", "west", "northeast", "southwest",
-					  "north", "east", "west", "north", "southeast", "northwest", "east",
-					  "southeast", "southwest", "northwest", "northeast"],
-	WINDING_PATH : ["west", "northwest", "southwest", "west", "northwest", "southwest", "west", "southwest", "north", "north", "southeast"],
-	
-	OVAL01 : ["northwest", "north", "north", "northeast", "south", "southeast", "south", "southwest"],
-}
+var segmentGroups = [
+    //general groups describing "form":
+    "ORIGIN", /* Start using these when building an IE */
+	"JOINER", /* Multiple bind points in multiple directions, good for "gluing" several parts together */
+	"N_S", /* north/south */
+	"ROUND",
+		
+    //Internal environment groups (which IE are these segments useful for?):
+	"CAVE",
+]
 
 /*
  * http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
