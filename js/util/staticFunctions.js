@@ -91,8 +91,5 @@ function isArray(obj) {
 function rand(min, max) {
 	var rand = Math.random();
 	var r = Math.floor( Math.random() * (max - min + 1) + min);
-	if (r >= max) {
-		debugger;
-	}
 	return r;
 }

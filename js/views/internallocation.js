@@ -103,11 +103,13 @@ function rezoom(zoomLevel) {
 function doExplore() {
     if (!isPlayerInInternalLocation() && getTerrainAtCurrentLocation().internalLocation == null) {
         //TODO: Dynamic generation of the internal environments
+        var randomRotationAngle = rand(0,degreesOfRotation.length-1);
         var internalEnvironmentName = "Cave";
         establishNewInternalEnvironment(getCurrentLocation(), false, internalEnvironmentName);
+        var segmentToQuickstitch = rotateDirections(internalEnvironmentSegments["WINDING_PATH"], degreesOfRotation[randomRotationAngle]);
         quickstitchInternalEnvironment(
             player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation],
-            internalEnvironmentSegments["WINDING_PATH"],
+            segmentToQuickstitch,
             internalEnvironmentName);
         log("You discovered a cave!");
         drawTravelDirections();

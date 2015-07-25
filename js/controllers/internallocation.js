@@ -347,7 +347,7 @@ function getPositionOfAttemptedDirection(direction, nodeLocation) {
  * @param {Array of String directions, or a Segment} directionArray
  * @param {Integer} angleOfRotation : angle of rotation, in 45 degree increments
  */
-function rotateDirectionArray(directionArray, angleOfRotation) {
+function rotateDirections(directionArray, angleOfRotation) {
 	var directions = [];
 	
 	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
@@ -358,7 +358,6 @@ function rotateDirectionArray(directionArray, angleOfRotation) {
 		directions = directionArray;
 	}
 	
-	debugger;
 	for (var i in directions) {
 		var direction = null;
 		var bindPoint = null;
@@ -374,9 +373,10 @@ function rotateDirectionArray(directionArray, angleOfRotation) {
 			directions[i] = getRotatedDirection(directions[i], angleOfRotation);
 		}
 	}
-	debugger;
 	return directionArray;
 }
+
+var degreesOfRotation = [0, 45, 90, 135, 180, 225, 270, 315];
 
 /**
  * @param {String} direction
