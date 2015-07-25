@@ -341,3 +341,57 @@ function getPositionOfAttemptedDirection(direction, nodeLocation) {
 	}
 	return nodeLocation;
 }
+
+/**
+ * Rotates the directions by the angle of rotation (and bind points if passing in a Segment)
+ * @param {Array of String directions, or a Segment} directionArray
+ * @param {Integer} angleOfRotation : angle of rotation, in 45 degree increments
+ */
+function rotateDirectionArray(directionArray, angleOfRotation) {
+	var directions = [];
+	
+	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
+	if (isType(directionArray,"Segment") ) {
+		//fancy Segment object
+		directions = directionArray.directions;
+	} else {
+		directions = directionArray;
+	}
+	
+	debugger;
+	for (var i in directions) {
+		var direction = null;
+		var bindPoint = null;
+		
+		if (isType(directions[i],"SegmentBindPointNode")) {
+			directions[i].direction = getRotatedDirection(directions[i].direction, angleOfRotation);
+			bindPoints = directions[i].bindPoints;
+			
+			for (var j in bindPoints) {
+				bindPoints[j].bindDirection = getRotatedDirection(bindPoints[j].bindDirection, angleOfRotation);
+			}
+		} else {
+			directions[i] = getRotatedDirection(directions[i], angleOfRotation);
+		}
+	}
+	debugger;
+	return directionArray;
+}
+
+/**
+ * @param {String} direction
+ * @param {Integer} angleOfRotation : Angle of rotation, in 45 degree increments
+ *
+ */
+function getRotatedDirection(direction, angleOfRotation) {
+	//make sure angle is positive
+	while (angleOfRotation < 0) {
+		angleOfRotation += 360;
+	}
+	
+	while (angleOfRotation > 0) {
+		direction = get45DegreeRotatedDirection(direction);
+		angleOfRotation -= 45;
+	}
+	return direction;
+}

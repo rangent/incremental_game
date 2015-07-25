@@ -16,6 +16,24 @@ var internalEnvironmentConstants = {
 	TOWN2 : ["west", "west", "east", "northeast", "north", "south", "southeast", "west", "east", "east", "west", "southwest", "south", "north", "northwest"],
 }
 
+var segmentGroups = [
+    //general groups describing "form":
+    "ORIGIN", /* Start using these when building an IE */
+	"JOINER", /* Multiple bind points in multiple directions, good for "gluing" several parts together */
+	"N_S", /* north/south */
+	"ROUND",
+    
+    //Sizes:
+    "SMALL",
+    "MEDIUM",
+    "LARGE",
+    "HUGE",
+		
+    //Internal environment groups (which IE are these segments useful for?):
+    "ALL", //available for all segment groupings
+	"CAVE",
+]
+
 //more complicated "segments"
 //function Segment(directions, groups, name)
 var internalEnvironmentSegments = {
@@ -24,16 +42,22 @@ var internalEnvironmentSegments = {
 					  "northwest", "southeast", "west", "north", "south", "west", "northeast", "southwest",
 					  "north", "east", "west", "north", "southeast", "northwest", "east",
 					  "southeast", "southwest", "northwest", "northeast"],
+    N_S_SHORT01 : new Segment(
+        [new SegmentBindPointNode(null,[new BindPoint("north")]), "south", new SegmentBindPointNode("south",[new BindPoint("south",2)])],
+        ["JOINER", "N_S", "SMALL", "ALL"],
+        "N_S_SHORT01"
+        ),
+    
 	WINDING_PATH : new Segment(
 		[new SegmentBindPointNode(null,[new BindPoint("east")]), "west", new SegmentBindPointNode("northwest",[new BindPoint("north",2)]), "southwest", "west", "northwest", "southwest", "west",
 				new SegmentBindPointNode("southwest",[new BindPoint("south",2)]), new SegmentBindPointNode("north",[new BindPoint("west")]), new SegmentBindPointNode("north",[new BindPoint("north",2)]), "southeast"],
-		["ORIGIN","JOINER","CAVE"],
+		["ORIGIN","JOINER","CAVE", "LARGE"],
 		"WINDING_PATH"
 		),
 	
 	OVAL01 : new Segment(
 		[new SegmentBindPointNode(null, [new BindPoint("south")]), "northwest", "north", "north", new SegmentBindPointNode("northeast", [new BindPoint("north")]), "south", "southeast", "south", "southwest"],
-		["ROUND","CAVE","N_S"],
+		["ROUND","CAVE","N_S","MEDIUM"],
 		"OVAL01"
 		),
 }

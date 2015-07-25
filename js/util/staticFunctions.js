@@ -4,7 +4,7 @@
 
 /**
  * @param {String} direction : cardinal direction
- * @returns {String} opposing cardinal direction, null if direction not recognized
+ * @returns {String} opposing cardinal direction, return input if direction not recognized
  */
 function getOpposingDirection(direction) {
 	switch (direction) {
@@ -17,7 +17,22 @@ function getOpposingDirection(direction) {
 		case "southwest" : return "northeast";
 		case "west" : return "east";
 		default:
-			return null;
+			return direction;
+	}
+}
+
+function get45DegreeRotatedDirection(direction) {
+	switch (direction) {
+		case "northwest" : return "north";
+		case "north" : return "northeast";
+		case "northeast" : return "east";
+		case "east" : return "southeast";
+		case "southeast" : return "south";
+		case "south" : return "southwest";
+		case "southwest" : return "west";
+		case "west" : return "northwest";
+		default:
+			return direction;
 	}
 }
 

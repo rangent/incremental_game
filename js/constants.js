@@ -55,17 +55,6 @@ var categoryNames = {
 	CONSUMABLE : "Consumable",
 }
 
-var segmentGroups = [
-    //general groups describing "form":
-    "ORIGIN", /* Start using these when building an IE */
-	"JOINER", /* Multiple bind points in multiple directions, good for "gluing" several parts together */
-	"N_S", /* north/south */
-	"ROUND",
-		
-    //Internal environment groups (which IE are these segments useful for?):
-	"CAVE",
-]
-
 /*
  * http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
  */
@@ -87,6 +76,8 @@ var keyboardKeys = {
 		NUMPAD_DIVIDE : 111,
 		SHIFT_KEY : 16,
 }
+
+var degreesOfRotation = [0, 45, 90, 135, 180, 225, 270, 315];
 
 //////////////////////////////////////////////////////////////////////////////
 // DEBUG
