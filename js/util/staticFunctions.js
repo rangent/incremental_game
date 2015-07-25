@@ -72,3 +72,12 @@ function getWindowSize() {
 function isArray(obj) {
 	return typeof directions !== "object" || Object.prototype.toString.call( directions ) !== "[object Array]";
 }
+
+function rand(min, max) {
+	var rand = Math.random();
+	var r = Math.floor(Math.random()*(max-min+1)+min);
+	if (r >= max) {
+		debugger;
+	}
+	return r;
+}
