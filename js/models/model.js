@@ -169,13 +169,14 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
 /**
  * A map "segment", contains the directions to take to create the segment, and the groups the segment belongs to
  * This object should not be saved in masterState, and is only useful at runime
- * @param {Array of objects} directions : Array of direction/[bindpoint] objects, eg:
+ * @param {Array of objects} directions : Array of direction/[bindPoint] objects, eg:
  * 	[{direction: "xxx", bindPoints: ["xxx","yyy"...]}].  See constants.js's internalEnvironmentSegments
  * 	Note: the first node (the start point of the segment) should be null (or have direction == null if SegmentBindPointNode)
  * @param {Array of strings} groups : the "groups" the segment belongs to (defined in constants.js)
  * @param {String} name : segment name, for debugging purposes
  */
 function Segment(directions, groups, name) {
+	//BE: THIS LOGIC SHOULD BE MOVED OR DUPLICATED INTO WHATEVER INTEGRITY VERIFICATION ROUTINE WE USE TO VERIFY DEFINED SEGMENTS
 	if (!isArray(directions) || typeof directions[0] === "undefined" ||
 		/*first node should be "start node" (direction null)*/
 		!(directions[0] == null || (directions[0].hasOwnProperty("direction") && directions[0].direction == null) )
@@ -191,11 +192,13 @@ function Segment(directions, groups, name) {
 /**
  * Used in segment directions, used to describe both a direction to travel, and the bind points at the node after traveling there
  * @param {String} direction : cardinal direction, in string form, lower case
- * @param {Array of BindPoints} bindpoints 
+ * @param {Array of BindPoints} bindPoints
+ * @param {Integer} weight 
  */
-function SegmentBindPointNode(direction, bindpoints, weight) {
+function SegmentBindPointNode(direction, bindPoints, weight) {
 	this.direction = direction;
-	this.bindpoints = bindpoints;
+	this.bindPoints = bindPoints;
+	this.weight = (typeof weight === "number") ? weight : 1;
 	this.type = "SegmentBindPointNode";
 }
 
@@ -207,6 +210,7 @@ function SegmentBindPointNode(direction, bindpoints, weight) {
 function BindPoint(bindDirection, weight) {
 	this.bindDirection = bindDirection;
 	this.weight = (typeof weight === "number") ? weight : 1;
+	this.type = "BindPoint";
 }
 
 /**

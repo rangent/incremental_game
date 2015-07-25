@@ -25,7 +25,7 @@ var internalEnvironmentSegments = {
 					  "north", "east", "west", "north", "southeast", "northwest", "east",
 					  "southeast", "southwest", "northwest", "northeast"],
 	WINDING_PATH : new Segment(
-		[new SegmentBindPointNode(null,[new BindPoint("east")]), "west", new SegmentBindPointNode("northwest",[BindPoint("north",2)]), "southwest", "west", "northwest", "southwest", "west",
+		[new SegmentBindPointNode(null,[new BindPoint("east")]), "west", new SegmentBindPointNode("northwest",[new BindPoint("north",2)]), "southwest", "west", "northwest", "southwest", "west",
 				new SegmentBindPointNode("southwest",[new BindPoint("south",2)]), new SegmentBindPointNode("north",[new BindPoint("west")]), new SegmentBindPointNode("north",[new BindPoint("north",2)]), "southeast"],
 		["ORIGIN","JOINER","CAVE"],
 		"WINDING_PATH"

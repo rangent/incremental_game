@@ -102,16 +102,18 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 		
 		if (isType(directions[i],"SegmentBindPointNode")) {
 			direction = directions[i].direction;
-			bindPoints = directions[i].bindpoints;
+			bindPoints = directions[i].bindPoints;
 			if (direction == null) {
-				//BE: CALLED FUNCTION CAN'T HANDLE THIS YET
+				//null direction indicates bind points (if any) should be added to the source IL
+				sourceInternalLocation.bindPoints = bindPoints;
 				continue;
+				
 			}
 		} else {
 			//a vanilla direction (simple string of a direction)
 			direction = directions[i];
 		}
-		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, null, true, name);
+		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, null, true, name, bindPoints);
 	}
 }
 
@@ -131,8 +133,10 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
  * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
+ * @param {SegmentBindPointNode} bindPoints : bind points the new IL should have (if applicable),
+ * 		note: if you stitch into an existing node (stitch edges) bindPoints will be ignored
  */
-function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges, name) {
+function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges, name, bindPoints) {
 	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
 	if (nodeAtTargetLocation != null) {
 		if (!shouldStitchEdges) {
@@ -149,7 +153,7 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 	}
 	
 	//create the new node and link it to current node:
-	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name);
+	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name, bindPoints);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
 	sourceInternalLocation.directions[direction] = newInternalLoc.id;
