@@ -109,6 +109,7 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 			if (direction == null) {
 				//null direction indicates bind points (if any) should be added to the source IL
 				sourceInternalLocation.bindPoints = bindPoints;
+				addSegmentNameToNodeIfNeeded(sourceInternalLocation, segmentName);
 				continue;
 				
 			}
@@ -153,23 +154,25 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 				sourceInternalLocation.directions[direction] = nodeAtTargetLocation.id;
 				nodeAtTargetLocation.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
 			}
-			if (typeof segmentName === "string" && !($.inArray(segmentName, nodeAtTargetLocation.originalSegments) > -1)) {
-				nodeAtTargetLocation.originalSegments.push(segmentName);
-			}
+			addSegmentNameToNodeIfNeeded(nodeAtTargetLocation, segmentName);
 			return nodeAtTargetLocation;
 		}
 	}
 	
 	//create the new node and link it to current node:
 	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name, bindPoints);
-	if (typeof segmentName === "string") {
-		newInternalLoc.originalSegments.push(segmentName);
-	}
+	addSegmentNameToNodeIfNeeded(newInternalLoc, segmentName);
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
 	sourceInternalLocation.directions[direction] = newInternalLoc.id;
 	newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
 	return newInternalLoc;
+}
+
+function addSegmentNameToNodeIfNeeded(sourceInternalNode, segmentName) {
+	if (typeof segmentName === "string" && !($.inArray(segmentName, sourceInternalNode.originalSegments) > -1)) {
+		sourceInternalNode.originalSegments.push(segmentName);
+	}
 }
 
 /**
