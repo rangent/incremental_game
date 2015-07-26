@@ -25,6 +25,7 @@ var seeds = {
 	buildableSeed : 0,
 	inventoryModelIdSeed : 0,
 	internalLocationIdSeed : 0,
+	insertedSegmentSeed : 0,
 }
 
 //game's state

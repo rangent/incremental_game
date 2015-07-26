@@ -86,13 +86,16 @@ function getCurrentInternalLocation() {
  */
 function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, name) {
 	var directions = [];
+	var segmentName = null;
 	
 	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
 	if (isType(directionArray,"Segment") ) {
 		//fancy Segment object
 		directions = directionArray.directions;
+		segmentName = directionArray.name + "_" + (seeds.insertedSegmentSeed++);
 	} else {
 		directions = directionArray;
+		segmentName = "STRINGARRAY_" + directionArray.length + "_" + (seeds.insertedSegmentSeed++);
 	}
 	
 	//determine the direction of quick stitch, and bind point if applicable
@@ -113,7 +116,7 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 			//a vanilla direction (simple string of a direction)
 			direction = directions[i];
 		}
-		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, null, true, name, bindPoints);
+		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, null, true, name, bindPoints, segmentName);
 	}
 }
 
@@ -124,6 +127,7 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
  */
 function createConnectedInternalEnvironment(sourceInternalLocation, direction, mapLocationToExitTo, name) {
+	//BE: THIS IS NEVER USED FOR NOW.  IF AFTER RANDOM IE GENERATION IS DONE AND THIS ISN'T USED, DELETE IT
 	return createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, false, name);
 }
 
@@ -135,8 +139,9 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
  * @param {Boolean} shouldStitchEdges : should create a connection between the two rooms if node and location already exist
  * @param {SegmentBindPointNode} bindPoints : bind points the new IL should have (if applicable),
  * 		note: if you stitch into an existing node (stitch edges) bindPoints will be ignored
+ * @param {String} segmentName : the segment creating the internal location (added to the IL for debugging)
  */
-function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges, name, bindPoints) {
+function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges, name, bindPoints, segmentName) {
 	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
 	if (nodeAtTargetLocation != null) {
 		if (!shouldStitchEdges) {
@@ -148,12 +153,18 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 				sourceInternalLocation.directions[direction] = nodeAtTargetLocation.id;
 				nodeAtTargetLocation.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
 			}
+			if (typeof segmentName === "string" && !($.inArray(segmentName, nodeAtTargetLocation.originalSegments) > -1)) {
+				nodeAtTargetLocation.originalSegments.push(segmentName);
+			}
 			return nodeAtTargetLocation;
 		}
 	}
 	
 	//create the new node and link it to current node:
 	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name, bindPoints);
+	if (typeof segmentName === "string") {
+		newInternalLoc.originalSegments.push(segmentName);
+	}
 	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
 	//setup directions
 	sourceInternalLocation.directions[direction] = newInternalLoc.id;

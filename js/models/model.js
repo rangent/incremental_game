@@ -233,6 +233,7 @@ function InternalLocation(directions, isSettlement, location, name, bindPoints) 
 	this.explored = (isSettlement) ? true : false; //settlements are by default known locations
 	this.text = (typeof name === "undefined") ? "" : name;
 	this.bindPoints = bindPoints;
+	this.originalSegments = []; //the segment(s) that originally created this IL (for debugging)
 }
 
 /*
