@@ -176,13 +176,6 @@ function Terrain(terrainType, terrainFeatures, terrainModifiers, ijsloc, locatio
  * @param {String} name : segment name, for debugging purposes
  */
 function Segment(directions, groups, name) {
-	//BE: THIS LOGIC SHOULD BE MOVED OR DUPLICATED INTO WHATEVER INTEGRITY VERIFICATION ROUTINE WE USE TO VERIFY DEFINED SEGMENTS
-	if (!isArray(directions) || typeof directions[0] === "undefined" ||
-		/*first node should be "start node" (direction null)*/
-		!(directions[0] == null || (directions[0].hasOwnProperty("direction") && directions[0].direction == null) )
-		) {
-		throw "Improperly defined directions, please see documentation for this function";
-	} 
 	this.directions = directions;
 	this.groups = groups;
 	this.name = name;

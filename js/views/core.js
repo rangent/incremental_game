@@ -113,6 +113,10 @@ function resizeElements() {
 	}
 }
 
+function verifyStateIsGood() {
+	verifyDataStructures(); //static analysis
+}
+
 function hideDebugBlocksIfNotDebug() {
 	if (! (DEBUG == true)) {
 		$(".debugBlock").hide();

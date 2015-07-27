@@ -91,6 +91,8 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
 	if (isType(directionArray,"Segment") ) {
 		//fancy Segment object
+		verifySegment(directionArray); //quick validation to make sure the segment is structured properly
+		
 		directions = directionArray.directions;
 		segmentName = directionArray.name + "_" + (seeds.insertedSegmentSeed++);
 	} else {

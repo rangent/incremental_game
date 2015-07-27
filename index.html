@@ -256,6 +256,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
     <script type="text/javascript" src="js/views/category.js"></script>
     
     <!-- core game -->
+    <script type="text/javascript" src="js/util/validation.js"></script>
     <script type="text/javascript" src="js/coregame/assets.js"></script>
     <script type="text/javascript" src="js/coregame/saveloadreset.js"></script>
     <script type="text/javascript" src="js/coregame/map.js"></script>
@@ -270,6 +271,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
             //////////////////////////////////////////////////////////////////////////////
             // SETUP AND GO!
             //////////////////////////////////////////////////////////////////////////////
+            verifyStateIsGood();
             initializePlayerInventory();
             masterState = new MasterState();
             defineRuntimeConstants();
@@ -281,7 +283,7 @@ Derrick for JS polymorphism help: http://collabedit.com/qbtb4
                 //start a new game!
                 setupNewGame();
             }
-            
+            verifyStateIsGood()
 			masterState.global.boardInitialized = false;
             redrawBoard();
             documentReadyFunctions();
