@@ -20,7 +20,9 @@ function establishNewInternalEnvironment(location, isSettlement, internalEnviron
 		isSettlement = false;
 	}
 	var terrain = player.availableTerrain[location.y][location.x];
-	var internalLocation = new InternalLocation({}, isSettlement, location, internalEnvironmentName);
+	var bindPoints = (isSettlement) ? null : getOmniBindPoint(); //the "start node" for a wild IE should be an omni bind point
+	var internalLocation = new InternalLocation({}, isSettlement, location, internalEnvironmentName, bindPoint);
+	internalLocation.originalSegments.push("INITIAL");
 	player.internalEnvironments[internalLocation.id] = internalLocation;
     terrain.internalLocation = internalLocation.id;
 	if (isSettlement) {
@@ -410,4 +412,12 @@ function getRotatedDirection(direction, angleOfRotation) {
 		angleOfRotation -= 45;
 	}
 	return direction;
+}
+
+/**
+ * BindPoint array in all direcitons
+ */
+function getOmniBindPoint() {
+	return [new BindPoint("north"), new BindPoint("northeast"), new BindPoint("east"), new BindPoint("southeast"),
+			new BindPoint("south"), new BindPoint("southwest"), new BindPoint("west"), new BindPoint("northwest")];
 }

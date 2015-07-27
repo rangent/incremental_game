@@ -26,7 +26,7 @@ function loadState() {
 	 		logNoSave("NOTHING TO LOAD!");//BE: should add different indicator instead of logging to game window
 	 	}
 	}
-	else {}
+	else { /* some other storage? */}
 }
 
 function hasSavedGameState() {
