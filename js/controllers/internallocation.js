@@ -94,10 +94,10 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 		verifySegment(directionArray); //quick validation to make sure the segment is structured properly
 		
 		directions = directionArray.directions;
-		segmentName = directionArray.name + "_" + (seeds.insertedSegmentSeed++);
+		segmentName = directionArray.name + "_" + (seeds.insertedSegmentSeed++); //get a unique segment name
 	} else {
 		directions = directionArray;
-		segmentName = "STRINGARRAY_" + directionArray.length + "_" + (seeds.insertedSegmentSeed++);
+		segmentName = "DIRECTIONARRAY_" + directionArray.length + "_" + (seeds.insertedSegmentSeed++); //get a unique direction array name
 	}
 	
 	//determine the direction of quick stitch, and bind point if applicable
