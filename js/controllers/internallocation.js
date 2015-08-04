@@ -442,11 +442,78 @@ function bondSegments(il, segment) {
 	var chosenNodeAndBindPoint = pickRandomBindPoint(ilgraph);
 	//TODO: if segment is null/undefined, pick a random segment capable of being bonded to an IL (has opposing bind point direction)
 	//pick a bind point from the segment matching opposite direction from chosen direction
+	var chosenSegmentIndex = null;
+	var numRotations = 0;
+	while (chosenSegmentIndex == null) {
+		chosenSegmentIndex = getSegmentIndexFromBindPoint(segment, getOpposingDirection(chosenNodeAndBindPoint.chosenBindDirection));
+		if (chosenSegmentIndex == null) {
+			//rotate by 45 degrees and try again
+			numRotations++;
+			segment = rotateDirections(segment, degreesOfRotation[numRotations]);
+		}
+		if (numRotations >= degreesOfRotation.length) { //we've rotated a full circle and haven't found a bind point...
+			throw "Can't connect segment " + segment.name + " to internal location " + il.id + "!"; //TODO: ARE THESE PROPERTIES CORRECT?
+		}
+	}
 	
-	
+	//now we have the chosen segment index
 	//bind the internal location and the segment (quickstitch)
+	//BE: LEFT OFF HERE,
+	we need to change quickstitchInternalEnvironment to have an "index" parameter, and make it walk back to the beginning of a segment (reversing directions), then walk forward,
+	when walking forward, we need to figure out how we can add bind points to the existing IL
+	
+	...
+	
 	//TODO: handle collision scenario
 	//TOOD: clean up bind points from connected graph (whole lotta work)
+}
+
+/**
+ * gets the index of the segment containing the bind point to be bound
+ * @returns {Integer} if found, null if no valid bind point found
+ */
+function getSegmentIndexFromBindPoint(segment, neededDirection) {
+	if (typeof neededDirection !== "string") {
+		throw "Can't find bind point for segment if none provided"
+	}
+	//first find the weight of all bind points for the given direction
+	var weightOfBindPointsInDirection = 0;
+	for (var n in segment.directions) {
+		var bps = segment.directions[n].bindPoints;
+		if (isArray(bps)) {
+			for(var b in bps) {
+				//only get the weights in the direction we intend
+				if (typeof neededDirection == "string" && bps[b] == neededDirection) {
+					weightOfBindPointsInDirection += bps[b].weight;
+				}
+			}
+		}
+	}
+	if (weightOfBindPointsInDirection == 0) {
+		//if no valid bind point is found in the given neededDirection, return null indicating nothing found
+		return null; 
+	}
+	
+	//if something was found in the direction, pick a random number:
+	var rnum = rand(1, weightOfBindPointsInDirection * 3) % weightOfBindPointsInDirection;
+	//then find the index of the segment with the bind point associated with the direction
+	while (rnum >= 0) {
+		for (var index in segment.directions) {
+			var bps = segment.directions[index].bindPoints;
+			if (isArray(bps)) {
+				for(var b in bps) {
+					//only get the weights in the direction we intend
+					if (typeof neededDirection == "string" && bps[b] == neededDirection) {
+						rnum -= bps[b].weight;
+					}
+					if (rnum <= 0) {
+						return index;
+					}
+				}
+			}
+		}
+	}
+	throw "Unexpected case when finding bind point index";
 }
 
 /**
