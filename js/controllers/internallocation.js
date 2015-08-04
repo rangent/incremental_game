@@ -21,7 +21,7 @@ function establishNewInternalEnvironment(location, isSettlement, internalEnviron
 	}
 	var terrain = player.availableTerrain[location.y][location.x];
 	var bindPoints = (isSettlement) ? null : getOmniBindPoint(); //the "start node" for a wild IE should be an omni bind point
-	var internalLocation = new InternalLocation({}, isSettlement, location, internalEnvironmentName, bindPoint);
+	var internalLocation = new InternalLocation({}, isSettlement, location, internalEnvironmentName, bindPoints);
 	internalLocation.originalSegments.push("INITIAL");
 	player.internalEnvironments[internalLocation.id] = internalLocation;
     terrain.internalLocation = internalLocation.id;
