@@ -421,3 +421,106 @@ function getOmniBindPoint() {
 	return [new BindPoint("north"), new BindPoint("northeast"), new BindPoint("east"), new BindPoint("southeast"),
 			new BindPoint("south"), new BindPoint("southwest"), new BindPoint("west"), new BindPoint("northwest")];
 }
+
+/*
+ * SEGMENT BINDING FUNCTIONS:
+ */
+
+/**
+ * Main algorithm to bind 2 segments together.  Inputs must be valid segments (can be rotated however)
+ * @param {InternalLocation} il : an internal location, it should be a regular internal location with bind points and everything 
+ * @param {Segment} segment : segment to bind to the existing internal location
+ */
+function bondSegments(il, segment) {
+	if (!isType(il, "InternalLocation") || !isType(segment, "Segment")) {
+		throw "Only allow segments to be bonded!";
+	}
+	//get the connected graph containing the internal location
+	var ilgraph = getInternalEnvironmentMap(il);
+	debugger;
+	//pick a bind point from internal location graph
+	var chosenNodeAndBindPoint = pickRandomBindPoint(ilgraph);
+	//TODO: if segment is null/undefined, pick a random segment capable of being bonded to an IL (has opposing bind point direction)
+	//pick a bind point from the segment matching opposite direction from chosen direction
+	
+	
+	//bind the internal location and the segment (quickstitch)
+	//TODO: handle collision scenario
+	//TOOD: clean up bind points from connected graph (whole lotta work)
+}
+
+/**
+ * Given a network graph (provided by getInternalEnvironmentMap), pick a random node and bind point
+ * @param {Object} ilgraph : graph created by getInternalEnvironmentMap
+ * @param {String} neededDirection : (Optional) direction of bind point needed
+ * @returns {Object} : simple object with nodeId and chosenBindDirection properties
+ */
+function pickRandomBindPoint(ilgraph, neededDirection) {
+	
+	//first: get the total weights of all bind points
+	var totalWeight = getBindPointWeightsInGraph(ilgraph, neededDirection);
+	//verify there is actually an available bind point in needed direction (if needed)
+	if (typeof neededDirection == "string" && totalWeight == 0) {
+		throw "Cannot find a " + neededDirection + " bind point in internal location graph";
+	}
+	
+	//at this point we're guaranteed to have a bind point in the given direction in the il graph (if one defined)
+	//now pick a random bind point (from all or just the given direction)
+	var rnum = rand(1, totalWeight * 3) % totalWeight;
+	
+	return getNodeAndBindPointFromRandNumber(ilgraph, neededDirection, rnum);
+}
+
+/**
+ * returns total weight of bind points of graph (in given direction if neededDirection is defined)
+ */
+function getBindPointWeightsInGraph(ilgraph, neededDirection) {
+	var weightOfBindPointsInDirection = 0;
+	for (var n in ilgraph.nodes) {
+		var internalLocationId = ilgraph.nodes[n].data.id;
+		var bps = player.internalEnvironments[internalLocationId].bindPoints;
+		if (isArray(bps)) {
+			for(var b in bps) {
+				//only get the weights in the direction we intend
+				if (typeof neededDirection == "string" && bps[b] == neededDirection) {
+					weightOfBindPointsInDirection += bps[b].weight;
+				} else if (typeof neededDirection === "undefined" || neededDirection == null) {
+					//if no direction specified, get all directions 
+					weightOfBindPointsInDirection += bps[b].weight;
+				}
+			}
+		}
+	}
+	return weightOfBindPointsInDirection;
+}
+
+function getNodeAndBindPointFromRandNumber(ilgraph, neededDirection, rnum) {
+	
+	//build the object to return
+	var chosenNodeAndBindPoint = new Object();
+	
+	while (rnum >= 0) {
+		for (var n in ilgraph.nodes) {
+			var internalLocationId = ilgraph.nodes[n].data.id;
+			var bps = player.internalEnvironments[internalLocationId].bindPoints;
+			if (isArray(bps)) {
+				for(var b in bps) {
+					//only get the weights in the direction we intend
+					if (typeof neededDirection == "string" && bps[b] == neededDirection) {
+						rnum -= bps[b].weight;
+					} else if (typeof neededDirection === "undefined" || neededDirection == null) {
+						//if no direction specified, get all directions 
+						rnum -= bps[b].weight;
+					}
+					
+					if (rnum <= 0) {
+						chosenNodeAndBindPoint.nodeId = internalLocationId;
+						chosenNodeAndBindPoint.chosenBindDirection = bps[b].bindDirection;
+						return chosenNodeAndBindPoint;
+					}
+				}
+			}
+		}
+	}
+	return chosenNodeAndBindPoint;
+}
