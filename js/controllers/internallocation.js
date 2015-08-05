@@ -85,10 +85,15 @@ function getCurrentInternalLocation() {
  * @param {InternalLocation} sourceInternalLocation
  * @param {Array of Strings, or Segment} directionArray
  * @param {String} name : name for all the nodes of the internal environment
+ * @param {Integer} index : location in the directionArray to start at
+ * @param {Boolean} reverseTraversal : should the map be stitched back from the index? Otherwise, just start at the index
  */
-function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, name) {
+function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, name, index, reverseTraversal) {
 	var directions = [];
 	var segmentName = null;
+	
+	//BE: need to debug:
+	//quickstitchInternalEnvironment(getCurrentInternalLocation(), internalEnvironmentSegments.OVAL01, "FOO", 3, true);
 	
 	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
 	if (isType(directionArray,"Segment") ) {
@@ -102,26 +107,48 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 		segmentName = "DIRECTIONARRAY_" + directionArray.length + "_" + (seeds.insertedSegmentSeed++); //get a unique direction array name
 	}
 	
+	if (typeof index !== "number") {
+		index = 0; //start at the beginning
+	}
+	if (index >= directions.length) {
+		throw "Starting index >= direction array length in quickstitch!";
+	}
+	if (typeof reverseTraversal === "undefined") {
+		reverseTraversal = false;
+	}
+	
 	//determine the direction of quick stitch, and bind point if applicable
-	for (var i in directions) {
+	for (var i = index; i < directions.length;) {
+		if (i <= 0) { //likely only needs to be ==, but just in case
+			reverseTraversal = false; //switch direction, start stitching forward
+		}
 		var direction = "";
 		var bindPoints = null;
 		
 		if (isType(directions[i],"SegmentBindPointNode")) {
-			direction = directions[i].direction;
+			direction = (reverseTraversal) ? getOpposingDirection(directions[i].direction) : directions[i].direction;
 			bindPoints = directions[i].bindPoints;
 			if (direction == null) {
-				//null direction indicates bind points (if any) should be added to the source IL
-				sourceInternalLocation.bindPoints = bindPoints;
+				//null direction indicates initial node in a segment
+				if (typeof sourceInternalLocation.bindPoints === "undefined" || sourceInternalLocation.bindPoints == null) {
+					//if no bind points exist in the (likely newly created) internal location, they should be added to the source IL
+					sourceInternalLocation.bindPoints = bindPoints;	
+				}
 				addSegmentNameToNodeIfNeeded(sourceInternalLocation, segmentName);
+				i++;
 				continue;
-				
 			}
 		} else {
 			//a vanilla direction (simple string of a direction)
-			direction = directions[i];
+			direction = (reverseTraversal) ? getOpposingDirection(directions[i]) : directions[i];
 		}
 		sourceInternalLocation = createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, null, true, name, bindPoints, segmentName);
+		
+		if (reverseTraversal) {
+			i--;
+		} else {
+			i++;
+		}
 	}
 }
 
@@ -459,10 +486,12 @@ function bondSegments(il, segment) {
 	//now we have the chosen segment index
 	//bind the internal location and the segment (quickstitch)
 	//BE: LEFT OFF HERE,
-	we need to change quickstitchInternalEnvironment to have an "index" parameter, and make it walk back to the beginning of a segment (reversing directions), then walk forward,
-	when walking forward, we need to figure out how we can add bind points to the existing IL
+	//we need to change quickstitchInternalEnvironment to have an "index" parameter, and make it walk back to the beginning of a segment (reversing directions)
+	//When creating new ILs, we should add the bind points (directions not reversed)
+	var newSegmentName = il.name;
+	quickstitchInternalEnvironment(il, segment, newSegmentName, chosenSegmentIndex, true);
 	
-	...
+	//...
 	
 	//TODO: handle collision scenario
 	//TOOD: clean up bind points from connected graph (whole lotta work)
