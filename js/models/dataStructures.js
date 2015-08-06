@@ -34,8 +34,11 @@ var segmentGroups = [
 	"CAVE",
 ]
 
-//more complicated "segments"
-//function Segment(directions, groups, name)
+/**
+ * Segments with the intention to bind them together to other segments
+ * NOTE: THESE SHOULD NEVER BE USED DIRECTLY!
+ * Instead, use clone(internalEnvironmentSegments[...]) to get a clone of the segment!
+ */
 var internalEnvironmentSegments = {
     //BE TODO: CONVERT THIS TO A SEGMENT
     "3x3Connected" : ["north", "east", "southwest", "northeast", "south", "west", "east", "south",

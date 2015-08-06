@@ -106,7 +106,7 @@ function doExplore() {
         var randomRotationAngle = rand(0,degreesOfRotation.length-1);
         var internalEnvironmentName = "Cave";
         establishNewInternalEnvironment(getCurrentLocation(), false, internalEnvironmentName);
-        var segmentToQuickstitch = rotateDirections(internalEnvironmentSegments["WINDING_PATH"], degreesOfRotation[randomRotationAngle]);
+        var segmentToQuickstitch = rotateDirections(clone(internalEnvironmentSegments["WINDING_PATH"]), degreesOfRotation[randomRotationAngle]);
         quickstitchInternalEnvironment(
             player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation],
             segmentToQuickstitch,

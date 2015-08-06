@@ -92,9 +92,6 @@ function quickstitchInternalEnvironment(sourceInternalLocation, directionArray, 
 	var directions = [];
 	var segmentName = null;
 	
-	//BE: need to debug:
-	//quickstitchInternalEnvironment(getCurrentInternalLocation(), internalEnvironmentSegments.OVAL01, "FOO", 3, true);
-	
 	//get the representation of the direction array (either the Segment's directions, or the directionArray itself):
 	if (isType(directionArray,"Segment") ) {
 		//fancy Segment object
@@ -389,7 +386,8 @@ function getPositionOfAttemptedDirection(direction, nodeLocation) {
 
 /**
  * Rotates the directions by the angle of rotation (and bind points if passing in a Segment)
- * @param {Array of String directions, or a Segment} directionArray
+ * @param {Array of String directions, or a Segment} directionArray.
+ * 		Do not pass in segments directly from internalEnvironmentSegments, use clone(...) to clone them first!
  * @param {Integer} angleOfRotation : angle of rotation, in 45 degree increments
  */
 function rotateDirections(directionArray, angleOfRotation) {
@@ -470,6 +468,9 @@ function bondSegments(il, segment) {
 	if (!isArray(il.bindPoints)) {
 		throw "Source internal location has no bind points!";
 	}
+	//we dont want to modify segment, we want to modify a copy of it:
+	var segmentClone = clone(segment);
+	
 	//get the connected graph containing the internal location
 	var ilgraph = getInternalEnvironmentMap(il);
 	
@@ -479,21 +480,21 @@ function bondSegments(il, segment) {
 	var chosenSegmentIndex = null;
 	var numRotations = 0;
 	while (chosenSegmentIndex == null) {
-		chosenSegmentIndex = getSegmentIndexFromBindPoint(segment, getOpposingDirection(chosenNodeAndBindPoint.chosenBindDirection));
+		chosenSegmentIndex = getSegmentIndexFromBindPoint(segmentClone, getOpposingDirection(chosenNodeAndBindPoint.chosenBindDirection));
 		if (chosenSegmentIndex == null) {
 			//rotate by 45 degrees and try again
 			numRotations++;
-			segment = rotateDirections(segment, degreesOfRotation[numRotations]);
+			segmentClone = rotateDirections(segmentClone, degreesOfRotation[numRotations]);
 		}
 		if (numRotations >= degreesOfRotation.length) { //we've rotated a full circle and haven't found a bind point...
-			throw "Can't connect segment " + segment.name + " to internal location " + il.id + "!"; //TODO: ARE THESE PROPERTIES CORRECT?
+			throw "Can't connect segment " + segmentClone.name + " to internal location " + il.id + "!"; //TODO: ARE THESE PROPERTIES CORRECT?
 		}
 	}
 	
 	//now we have the chosen segment index
 	//bind the internal location and the segment (quickstitch)
 	var chosenInternalLocation = player.internalEnvironments[chosenNodeAndBindPoint.nodeId];
-	quickstitchInternalEnvironment(chosenInternalLocation, segment, chosenInternalLocation.name, chosenSegmentIndex, true);
+	quickstitchInternalEnvironment(chosenInternalLocation, segmentClone, chosenInternalLocation.name, chosenSegmentIndex, true);
 	
 	//LAZIEST WAY, JUST REMOVE BIND POINTS FROM AN ALERADY BOUND NODE:
 	chosenInternalLocation.bindPoints = undefined;
