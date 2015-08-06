@@ -457,17 +457,24 @@ function getOmniBindPoint() {
  * Main algorithm to bind 2 segments together.  Inputs must be valid segments (can be rotated however)
  * @param {InternalLocation} il : an internal location, it should be a regular internal location with bind points and everything 
  * @param {Segment} segment : segment to bind to the existing internal location
+ *
+ * Usage example:
+ * 		bondSegments(getCurrentInternalLocation(), internalEnvironmentSegments["N_S_SHORT01"])
+ * 		this will find a way 
  */
 function bondSegments(il, segment) {
+	
 	if (!isType(il, "InternalLocation") || !isType(segment, "Segment")) {
 		throw "Only allow segments to be bonded!";
 	}
+	if (!isArray(il.bindPoints)) {
+		throw "Source internal location has no bind points!";
+	}
 	//get the connected graph containing the internal location
 	var ilgraph = getInternalEnvironmentMap(il);
-	debugger;
+	
 	//pick a bind point from internal location graph
 	var chosenNodeAndBindPoint = pickRandomBindPoint(ilgraph);
-	//TODO: if segment is null/undefined, pick a random segment capable of being bonded to an IL (has opposing bind point direction)
 	//pick a bind point from the segment matching opposite direction from chosen direction
 	var chosenSegmentIndex = null;
 	var numRotations = 0;
@@ -485,16 +492,11 @@ function bondSegments(il, segment) {
 	
 	//now we have the chosen segment index
 	//bind the internal location and the segment (quickstitch)
-	//BE: LEFT OFF HERE,
-	//we need to change quickstitchInternalEnvironment to have an "index" parameter, and make it walk back to the beginning of a segment (reversing directions)
-	//When creating new ILs, we should add the bind points (directions not reversed)
-	var newSegmentName = il.name;
-	quickstitchInternalEnvironment(il, segment, newSegmentName, chosenSegmentIndex, true);
+	var chosenInternalLocation = player.internalEnvironments[chosenNodeAndBindPoint.nodeId];
+	quickstitchInternalEnvironment(chosenInternalLocation, segment, chosenInternalLocation.name, chosenSegmentIndex, true);
 	
-	//...
-	
-	//TODO: handle collision scenario
-	//TOOD: clean up bind points from connected graph (whole lotta work)
+	//LAZIEST WAY, JUST REMOVE BIND POINTS FROM AN ALERADY BOUND NODE:
+	chosenInternalLocation.bindPoints = undefined;
 }
 
 /**
@@ -502,6 +504,7 @@ function bondSegments(il, segment) {
  * @returns {Integer} if found, null if no valid bind point found
  */
 function getSegmentIndexFromBindPoint(segment, neededDirection) {
+	
 	if (typeof neededDirection !== "string") {
 		throw "Can't find bind point for segment if none provided"
 	}
@@ -512,7 +515,7 @@ function getSegmentIndexFromBindPoint(segment, neededDirection) {
 		if (isArray(bps)) {
 			for(var b in bps) {
 				//only get the weights in the direction we intend
-				if (typeof neededDirection == "string" && bps[b] == neededDirection) {
+				if (typeof neededDirection == "string" && bps[b].bindDirection == neededDirection) {
 					weightOfBindPointsInDirection += bps[b].weight;
 				}
 			}
@@ -532,7 +535,7 @@ function getSegmentIndexFromBindPoint(segment, neededDirection) {
 			if (isArray(bps)) {
 				for(var b in bps) {
 					//only get the weights in the direction we intend
-					if (typeof neededDirection == "string" && bps[b] == neededDirection) {
+					if (typeof neededDirection == "string" && bps[b].bindDirection == neededDirection) {
 						rnum -= bps[b].weight;
 					}
 					if (rnum <= 0) {
