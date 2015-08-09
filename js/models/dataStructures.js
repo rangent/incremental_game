@@ -41,10 +41,16 @@ var segmentGroups = [
  */
 var internalEnvironmentSegments = {
     //BE TODO: CONVERT THIS TO A SEGMENT
-    "3x3Connected" : ["north", "east", "southwest", "northeast", "south", "west", "east", "south",
-					  "northwest", "southeast", "west", "north", "south", "west", "northeast", "southwest",
-					  "north", "east", "west", "north", "southeast", "northwest", "east",
-					  "southeast", "southwest", "northwest", "northeast"],
+    "3x3Connected" : new Segment(
+        [new SegmentBindPointNode(null,null),"north", new SegmentBindPointNode("east",[new BindPoint("north"), new BindPoint("east")]), "southwest", "northeast",
+            "south", "west", "east", new SegmentBindPointNode("south",[new BindPoint("east"), new BindPoint("south")]),
+            "northwest", "southeast", "west", "north", "south", new SegmentBindPointNode("west",[new BindPoint("west"), new BindPoint("south")]),
+            "northeast", "southwest", "north", "east", "west", new SegmentBindPointNode("north",[new BindPoint("west"), new BindPoint("north")]),
+            "southeast", "northwest", "east",
+            "southeast", "southwest", "northwest", "northeast"],
+        ["MEDIUM", "ALL", "JOINER"],
+        "3x3Connected"
+        ),
     N_S_SHORT01 : new Segment(
         [new SegmentBindPointNode(null,[new BindPoint("north")]), "south", new SegmentBindPointNode("south",[new BindPoint("south",2)])],
         ["JOINER", "N_S", "SMALL", "ALL"],

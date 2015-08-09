@@ -89,7 +89,7 @@ function drawInternalLocationMap() {
 }
 
 function rezoom(zoomLevel) {
-    /* BE: THIS NEEDS TO BE FIGURED OUT FOR REAL... THIS SORT OF WORKS BUT IS IT NECESSARY?
+    /* TODO: THIS NEEDS TO BE FIGURED OUT FOR REAL...
     zoomLevel = (typeof zoomLevel === "undefined") ? 1.5 : zoomLevel;
     if (typeof cy !== "undefined") {
         //1.5 is good for a mini local map,
@@ -102,18 +102,37 @@ function rezoom(zoomLevel) {
 
 function doExplore() {
     if (!isPlayerInInternalLocation() && getTerrainAtCurrentLocation().internalLocation == null) {
-        //TODO: Dynamic generation of the internal environments
-        var randomRotationAngle = rand(0,degreesOfRotation.length-1);
         var internalEnvironmentName = "Cave";
-        establishNewInternalEnvironment(getCurrentLocation(), false, internalEnvironmentName);
-        var segmentToQuickstitch = rotateDirections(clone(internalEnvironmentSegments["WINDING_PATH"]), degreesOfRotation[randomRotationAngle]);
-        quickstitchInternalEnvironment(
-            player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation],
-            segmentToQuickstitch,
-            internalEnvironmentName);
-        log("You discovered a cave!");
-        drawTravelDirections();
+        var createdEnv = false;
+        var createdEnvAttempt = 0;
+        while (!createdEnv && createdEnvAttempt < 10) {
+            try {
+                establishNewInternalEnvironment(getCurrentLocation(), false, internalEnvironmentName); //gets an omni bindPoint by default
+                for (var i = 0; i < constants.NUM_SEGMENTS_FOR_INTERNAL_ENVIRONMENT; i++) {
+                    var randomRotationAngle = rand(0,degreesOfRotation.length-1);
+                    var segmentIndex = rand(0, Object.keys(internalEnvironmentSegments).length - 1);
+                    var segment = clone(internalEnvironmentSegments[Object.keys(internalEnvironmentSegments)[segmentIndex]]);
+                    var segmentToQuickstitch = rotateDirections(segment, degreesOfRotation[randomRotationAngle]);
+                    
+                    bondSegments(player.internalEnvironments[getTerrainAtCurrentLocation().internalLocation], segmentToQuickstitch, internalEnvironmentName);
+                    
+                }
+                createdEnv = true;
+                log("You discovered a cave!");
+                drawTravelDirections();
+            }
+            catch (err) {
+                //TODO: DANGER!  THIS WILL RESULT IN ORPHAN INTERNAL LOCATIONS!  Should delete instead!
+                getTerrainAtCurrentLocation().internalLocation = null;
+                createdEnvAttempt++;
+                console.log("Couldn't create IE, beginning attempt " + createdEnvAttempt);
+            }
+        }
+        if (createdEnvAttempt >= 10) {
+            log("Couldn't find " + internalEnvironmentName + "!")
+        }
     } else if (getTerrainAtCurrentLocation().internalLocation != null) {
+        getTerrainAtCurrentLocation().internalLocation = null;
         logNoSave("You've already found something here!"); //BE: need IE names, then we can tell them what is already here
     }
 }

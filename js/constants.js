@@ -45,6 +45,8 @@ var constants = {
 	},
 	
 	ROOT_CATEGORY : null, //defined in main.js at run time
+	
+	NUM_SEGMENTS_FOR_INTERNAL_ENVIRONMENT : 4,
 }
 
 var categoryNames = {

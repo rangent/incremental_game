@@ -460,7 +460,7 @@ function getOmniBindPoint() {
  * 		bondSegments(getCurrentInternalLocation(), internalEnvironmentSegments["N_S_SHORT01"])
  * 		this will find a way 
  */
-function bondSegments(il, segment) {
+function bondSegments(il, segment, segmentName) {
 	
 	if (!isType(il, "InternalLocation") || !isType(segment, "Segment")) {
 		throw "Only allow segments to be bonded!";
@@ -494,7 +494,8 @@ function bondSegments(il, segment) {
 	//now we have the chosen segment index
 	//bind the internal location and the segment (quickstitch)
 	var chosenInternalLocation = player.internalEnvironments[chosenNodeAndBindPoint.nodeId];
-	quickstitchInternalEnvironment(chosenInternalLocation, segmentClone, chosenInternalLocation.name, chosenSegmentIndex, true);
+	var nameForNewSegment = (typeof segmentName === "string") ? chosenInternalLocation.name : segmentName;
+	quickstitchInternalEnvironment(chosenInternalLocation, segmentClone, nameForNewSegment, chosenSegmentIndex, true);
 	
 	//LAZIEST WAY, JUST REMOVE BIND POINTS FROM AN ALERADY BOUND NODE:
 	chosenInternalLocation.bindPoints = undefined;
@@ -560,7 +561,10 @@ function pickRandomBindPoint(ilgraph, neededDirection) {
 	//first: get the total weights of all bind points
 	var totalWeight = getBindPointWeightsInGraph(ilgraph, neededDirection);
 	//verify there is actually an available bind point in needed direction (if needed)
-	if (typeof neededDirection == "string" && totalWeight == 0) {
+	if (totalWeight == 0) {
+		//because of the awful randomness needed to generate internal environments, we can get ourselves into
+		//situations where we've destroyed all of the bind points.  As a result, this can occur... :(
+		//TODO: RECREATE A BIND POINT AT THE ORIGIN?
 		throw "Cannot find a " + neededDirection + " bind point in internal location graph";
 	}
 	
@@ -621,6 +625,9 @@ function getNodeAndBindPointFromRandNumber(ilgraph, neededDirection, rnum) {
 				}
 			}
 		}
+	}
+	if (typeof chosenNodeAndBindPoint.chosenBindDirection === "undefined") {
+		debugger;
 	}
 	return chosenNodeAndBindPoint;
 }
