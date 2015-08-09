@@ -132,7 +132,6 @@ function doExplore() {
             log("Couldn't find " + internalEnvironmentName + "!")
         }
     } else if (getTerrainAtCurrentLocation().internalLocation != null) {
-        getTerrainAtCurrentLocation().internalLocation = null;
         logNoSave("You've already found something here!"); //BE: need IE names, then we can tell them what is already here
     }
 }

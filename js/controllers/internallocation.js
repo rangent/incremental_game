@@ -487,6 +487,7 @@ function bondSegments(il, segment, segmentName) {
 			segmentClone = rotateDirections(segmentClone, degreesOfRotation[numRotations]);
 		}
 		if (numRotations >= degreesOfRotation.length) { //we've rotated a full circle and haven't found a bind point...
+			debugger;
 			throw "Can't connect segment " + segmentClone.name + " to internal location " + il.id + "!"; //TODO: ARE THESE PROPERTIES CORRECT?
 		}
 	}
