@@ -79,14 +79,16 @@ function getTerrainAtLocation(location) {
 	return player.availableTerrain[location.y][location.x];
 }
 
-
+//see above... function PlayerAction(aname, availableToPlayer, actionEnabled, showInActionBar, age) {
 var playerActions = {
+	//age 0 actions
 	Explore	: new PlayerAction("Explore", true, true, true, 0),
 	Forage	: new PlayerAction("Forage", true, true, true, 0),
 	Travel  : new PlayerAction("Travel", true, true, false, 0),
 	Inventory  : new PlayerAction("Inventory", true, true, false, 0),
 	Craft : new PlayerAction("Craft", true, true, true, 0), 
-	Build : new PlayerAction("Build", true, true, true, 0), 
+	Build : new PlayerAction("Build", true, true, true, 0),
+	Expand : new PlayerAction("Expand", true, true, true, 0),
 };
 
 

@@ -633,6 +633,18 @@ function getNodeAndBindPointFromRandNumber(ilgraph, neededDirection, rnum) {
 	return chosenNodeAndBindPoint;
 }
 
+function isPlayerInSettlement() {
+	if (!isPlayerInInternalLocation()) {
+		return false;
+	}
+	for (var p in player.settlements) {
+		if (player.settlements[p].id == getCurrentInternalLocation().id) {
+			return true;
+		}
+	}
+	return false;
+}
+
 function expandSettlement(direction) {
 	quickstitchInternalEnvironment(getCurrentInternalLocation(), [direction]);
 }

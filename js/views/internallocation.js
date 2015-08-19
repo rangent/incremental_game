@@ -1,5 +1,5 @@
 /*
- * Internal Location views
+ * Internal Location and Expansion views
  */
 
 function doEnterInternalLocation(index) {
@@ -133,5 +133,19 @@ function doExplore() {
         }
     } else if (getTerrainAtCurrentLocation().internalLocation != null) {
         logNoSave("You've already found something here!"); //BE: need IE names, then we can tell them what is already here
+    }
+}
+
+/**
+ * @param {String} direction : cardinal direction to expand in
+ */
+function doExpand(direction) {
+    if (isPlayerInSettlement()) {
+        expandSettlement(direction);
+        drawTravelDirections();
+        drawInternalLocationMap();
+    }
+    else {
+        throw "Cannot expand, not in a settlement!"; //fix this if we start expanding IEs?
     }
 }
