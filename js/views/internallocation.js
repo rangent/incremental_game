@@ -168,7 +168,7 @@ function drawExpandDirections() {
 				if (isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
 					str += " disabled ";
 				}
-				str += getArrowForDirection(new Location(i, j)) + "</button></td>";
+				str += getArrowForDirection(new Location(i, j), "expand") + "</button></td>";
 			}
 			str += "</tr>";
 		}

@@ -35,7 +35,7 @@ function drawTravelDirections() {
 				if (!(DEBUG && isGameRecording()) && !isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
 					str += " disabled ";
 				}
-				str += getArrowForDirection(new Location(i, j)) + "</button></td>";
+				str += getArrowForDirection(new Location(i, j), "doTravel") + "</button></td>";
 			}
 			str += "</tr>";
 		}
@@ -43,26 +43,25 @@ function drawTravelDirections() {
 	
 		//clear travelSection then append
 		$("#travelSection").empty().append(str);
-		//jqueryifyButtons(); //BE: IS THIS USED ANY MORE?  IF NOT DELETE IT.
 		resizePageElements();
 	}
 }
 
-function getArrowForDirection(location) {
+function getArrowForDirection(location, idString) {
     if (location.y == -1) {
 		if (location.x == -1) {
-			 return "id=\"doTravelNW\">NW";
+			 return "id=\"" + idString + "NW\">NW";
 		}
 		if (location.x == 0) {
-			return "id=\"doTravelN\">N";
+			return "id=\"" + idString + "N\">N";
 		}
 		if (location.x == 1) {
-			return "id=\"doTravelNE\">NE";
+			return "id=\"" + idString + "NE\">NE";
 		}
 	}
 	else if (location.y == 0) {
 		if (location.x == -1) {
-			 return "id=\"doTravelW\">W";
+			 return "id=\"" + idString + "W\">W";
 		}
 		if (location.x == 0) {
 			if (player.currentInternalLocation == null) {
@@ -74,18 +73,18 @@ function getArrowForDirection(location) {
 			return "id=\"nop\">&nbsp;";
 		}
 		if (location.x == 1) {
-			return "id=\"doTravelE\">E";
+			return "id=\"" + idString + "E\">E";
 		}
 	}
 	else if (location.y == 1) {
 		if (location.x == -1) {
-			 return "id=\"doTravelSW\">SW";
+			 return "id=\"" + idString + "SW\">SW";
 		}
 		if (location.x == 0) {
-			return "id=\"doTravelS\">S";
+			return "id=\"" + idString + "S\">S";
 		}
 		if (location.x == 1) {
-			return "id=\"doTravelSE\">SE";
+			return "id=\"" + idString + "SE\">SE";
 		}
 	}
 	throw "no arrow for direction location(" + location.x + "," + location.y + ")";
