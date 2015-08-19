@@ -49,6 +49,6 @@ function drawCraftingTable() {
                 }
             }
         }
-        resizePageElements();
+        //resizePageElements(); needed?
     }
 }

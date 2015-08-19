@@ -136,16 +136,46 @@ function doExplore() {
     }
 }
 
+function doExpand() {
+    drawExpandDirections();
+}
+
 /**
  * @param {String} direction : cardinal direction to expand in
  */
-function doExpand(direction) {
-    if (isPlayerInSettlement()) {
+function expand(diretion) {
+    if (typeof direction === "string" /*.... forget this... fix this... left off here */ && isPlayerInSettlement() /* && cost = ... deduct(c0st)... */) {
         expandSettlement(direction);
         drawTravelDirections();
         drawInternalLocationMap();
     }
-    else {
-        throw "Cannot expand, not in a settlement!"; //fix this if we start expanding IEs?
-    }
+    //else {
+    //    throw "Cannot expand, not in a settlement!"; //fix this if we start expanding IEs?
+    //}
+}
+
+function drawExpandDirections() {
+    if (playerActions.Expand.availableToPlayer && playerActions.Expand.actionEnabled && isPlayerInInternalLocation()) {
+		var str = "<table>";
+        var playerInteralLocation = getCurrentInternalLocation();
+		for (var j = -1; j <= 1; j++) {
+			str += "<tr>";
+			for (var i = -1; i <= 1; i++) {
+                
+                str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"expandSettlement('" + getDirectionFromRelativeLocation(new Location(i, j)) + "')\" ";
+				
+                //dont allow player to expand where a road already exists
+				if (isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
+					str += " disabled ";
+				}
+				str += getArrowForDirection(new Location(i, j)) + "</button></td>";
+			}
+			str += "</tr>";
+		}
+		str += "</table>";
+	
+		//clear expandSection then append
+		$("#expandSection").empty().append(str);
+		resizePageElements();
+	}
 }
