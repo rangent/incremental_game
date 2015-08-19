@@ -632,3 +632,7 @@ function getNodeAndBindPointFromRandNumber(ilgraph, neededDirection, rnum) {
 	}
 	return chosenNodeAndBindPoint;
 }
+
+function expandSettlement(direction) {
+	quickstitchInternalEnvironment(getCurrentInternalLocation(), [direction]);
+}
