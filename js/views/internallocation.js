@@ -136,6 +136,7 @@ function doExplore() {
     }
 }
 
+//just draws the modal directions and such..
 function doExpand() {
     drawExpandDirections();
 }
@@ -143,15 +144,13 @@ function doExpand() {
 /**
  * @param {String} direction : cardinal direction to expand in
  */
-function expand(diretion) {
-    if (typeof direction === "string" /*.... forget this... fix this... left off here */ && isPlayerInSettlement() /* && cost = ... deduct(c0st)... */) {
+function expand(direction) {
+    debugger;
+    if (typeof direction === "string" && isPlayerInSettlement() /* && cost = ... deduct(c0st)... */) {
         expandSettlement(direction);
         drawTravelDirections();
         drawInternalLocationMap();
     }
-    //else {
-    //    throw "Cannot expand, not in a settlement!"; //fix this if we start expanding IEs?
-    //}
 }
 
 function drawExpandDirections() {
@@ -162,7 +161,7 @@ function drawExpandDirections() {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
                 
-                str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"expandSettlement('" + getDirectionFromRelativeLocation(new Location(i, j)) + "')\" ";
+                str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"expand('" + getDirectionFromRelativeLocation(new Location(i, j)) + "')\" ";
 				
                 //dont allow player to expand where a road already exists
 				if (isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
