@@ -145,7 +145,8 @@ function doExpand() {
  * @param {String} direction : cardinal direction to expand in
  */
 function expand(direction) {
-    if (typeof direction === "string" && isPlayerInSettlement() /* && cost = ... deduct(c0st)... */) {
+    if (typeof direction === "string" && isPlayerInSettlement() &&
+        typeof getCurrentInternalLocation().directions[direction] === "undefined" /* && cost = ... deduct(c0st)... */) {
         expandSettlement(direction);
         drawTravelDirections();
         drawInternalLocationMap();
