@@ -145,7 +145,6 @@ function doExpand() {
  * @param {String} direction : cardinal direction to expand in
  */
 function expand(direction) {
-    debugger;
     if (typeof direction === "string" && isPlayerInSettlement() /* && cost = ... deduct(c0st)... */) {
         expandSettlement(direction);
         drawTravelDirections();
@@ -161,7 +160,7 @@ function drawExpandDirections() {
 			str += "<tr>";
 			for (var i = -1; i <= 1; i++) {
                 
-                str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" onclick=\"expand('" + getDirectionFromRelativeLocation(new Location(i, j)) + "')\" ";
+                str += "<td><button type=\"button\" class=\"clearEvent btn btn-default direction-button\" data-dismiss=\"modal\" onclick=\"expand('" + getDirectionFromRelativeLocation(new Location(i, j)) + "')\" ";
 				
                 //dont allow player to expand where a road already exists
 				if (isDirectionTraversable(new Location(i, j), playerInteralLocation)) {
