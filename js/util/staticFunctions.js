@@ -88,6 +88,10 @@ function isArray(obj) {
 	return typeof directions !== "object" || Object.prototype.toString.call( directions ) !== "[object Array]";
 }
 
+function isLocation(obj) {
+	return typeof obj === "object" && obj != null && obj.hasOwnProperty("x") && obj.hasOwnProperty("y");
+}
+
 function rand(min, max) {
 	var rand = Math.random();
 	var r = Math.floor( Math.random() * (max - min + 1) + min);

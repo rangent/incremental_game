@@ -163,7 +163,8 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
 }
 
 /**
- * Checks if location is valid first, if it is, it makes the IE
+ * Creates a connection between source node and existing node, or creates a new internal location
+ * if none exists already.  If direction is "out", it creates an exit to the outside from sourceInternalLocation.
  * @param {InternalLocation} sourceInternalLocation : source internal location
  * @param {String} direction : cardinal direction (lower case) ("north", "northeast", "east", ...)
  * @param {Location} mapLocationToExitTo : can be null if you want to disallow exit
@@ -174,6 +175,10 @@ function createConnectedInternalEnvironment(sourceInternalLocation, direction, m
  */
 function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation, direction, mapLocationToExitTo, shouldStitchEdges, name, bindPoints, segmentName) {
 	var nodeAtTargetLocation = getInternalLocationFromDirection(sourceInternalLocation, direction);
+	if (isLocation(nodeAtTargetLocation)) {
+		sourceInternalLocation.location = nodeAtTargetLocation;
+		return sourceInternalLocation;
+	}
 	if (nodeAtTargetLocation != null) {
 		if (!shouldStitchEdges) {
 			throw "Invalid location, another internal location exists there";
@@ -187,16 +192,17 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 			addSegmentNameToNodeIfNeeded(nodeAtTargetLocation, segmentName);
 			return nodeAtTargetLocation;
 		}
+	} else {
+		
+		//create the new node and link it to current node:
+		var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name, bindPoints);
+		addSegmentNameToNodeIfNeeded(newInternalLoc, segmentName);
+		player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
+		//setup directions
+		sourceInternalLocation.directions[direction] = newInternalLoc.id;
+		newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+		return newInternalLoc;
 	}
-	
-	//create the new node and link it to current node:
-	var newInternalLoc = new InternalLocation({}, sourceInternalLocation.isSettlement, mapLocationToExitTo, name, bindPoints);
-	addSegmentNameToNodeIfNeeded(newInternalLoc, segmentName);
-	player.internalEnvironments[newInternalLoc.id] = newInternalLoc;
-	//setup directions
-	sourceInternalLocation.directions[direction] = newInternalLoc.id;
-	newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
-	return newInternalLoc;
 }
 
 function addSegmentNameToNodeIfNeeded(sourceInternalNode, segmentName) {
@@ -209,18 +215,35 @@ function addSegmentNameToNodeIfNeeded(sourceInternalNode, segmentName) {
  * Verifies that the intendedDirection is a valid direction for the source location
  */
 function getInternalLocationFromDirection(sourceInternalLocation, intendedDirection) {
+	//just return the direction if the current location already has it
 	if (sourceInternalLocation.directions.hasOwnProperty(intendedDirection)) {
 		return player.internalEnvironments[sourceInternalLocation.directions[intendedDirection]];
 	}
+	
+	//if not, we need to search for it from all the connected nodes in the map
 	var internalMap = getInternalEnvironmentMap(sourceInternalLocation);
-	var attemptedDirection = invertDirection(getPositionOfAttemptedDirection(intendedDirection, null));
-	for (var x in internalMap.nodes) {
-		var node = internalMap.nodes[x];
-		if (node.position.x == attemptedDirection.x && node.position.y == attemptedDirection.y) {
-			return player.internalEnvironments[node.data.id];
+	
+	if (intendedDirection == "out") {
+		//if attempting to go "out", get the location from any node in the map
+		for (var x in internalMap.nodes) {
+			var node = internalMap.nodes[x];
+			if (typeof player.internalEnvironments[node.data.id].location === "object" &&
+					player.internalEnvironments[node.data.id].location != null) {
+				
+				return player.internalEnvironments[node.data.id].location;
+			}
+		}
+	} else {
+		//otherwise, search the entire map for a position relative to that direction
+		//(to create a path between current node and node that would end up in that direction)
+		var attemptedDirection = invertDirection(getPositionOfAttemptedDirection(intendedDirection, null));
+		for (var x in internalMap.nodes) {
+			var node = internalMap.nodes[x];
+			if (node.position.x == attemptedDirection.x && node.position.y == attemptedDirection.y) {
+				return player.internalEnvironments[node.data.id];
+			}
 		}
 	}
-	
 	return null;
 }
 
