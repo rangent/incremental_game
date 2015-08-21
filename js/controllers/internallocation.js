@@ -62,7 +62,9 @@ function togglePlayerEnterOrExitInternalLocationActions() {
  * Have player exit a settlement, assumes check was done to make sure player was in a settlement
  */
 function exitInternalLocation() {
+	var currentInternalLocationId = getCurrentInternalLocation().id;
     player.currentInternalLocation = null;
+	getTerrainAtCurrentLocation().internalLocation = currentInternalLocationId;
     togglePlayerEnterOrExitInternalLocationActions();
 }
 
