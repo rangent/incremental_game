@@ -639,12 +639,7 @@ function isPlayerInSettlement() {
 	if (!isPlayerInInternalLocation()) {
 		return false;
 	}
-	for (var p in player.settlements) {
-		if (player.settlements[p].id == getCurrentInternalLocation().id) {
-			return true;
-		}
-	}
-	return false;
+	return getCurrentInternalLocation().isSettlement;
 }
 
 function expandSettlement(direction) {
