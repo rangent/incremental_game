@@ -35,6 +35,7 @@ $(document).keydown(function(e) {
 	var il = getCurrentInternalLocation();
     switch(e.which) {
         case 37: // left
+		case keyboardKeys.NUMPAD_4:
 			if (isDirectionTraversable(new Location(-1,0), il)) {
 				if (isPlayerInInternalLocation()) {
 					doTravelToInternalLocation(il.directions["west"]);
@@ -44,8 +45,21 @@ $(document).keydown(function(e) {
 				}
 			}
         break;
+	
+		// up and left
+		case keyboardKeys.NUMPAD_7:
+			if (isDirectionTraversable(new Location(-1,-1), il)) {
+				if (isPlayerInInternalLocation()) {
+					doTravelToInternalLocation(il.directions["northwest"]);
+				}
+				else {
+					travelRelative(-1, -1);
+				}
+			}
+        break;
 
         case 38: // up
+		case keyboardKeys.NUMPAD_8:
 			if (isDirectionTraversable(new Location(0,-1), il)) {
 				if (isPlayerInInternalLocation()) {
 					doTravelToInternalLocation(il.directions["north"]);
@@ -55,8 +69,21 @@ $(document).keydown(function(e) {
 				}
 			}
         break;
+	
+		// up and right
+		case keyboardKeys.NUMPAD_9:
+			if (isDirectionTraversable(new Location(1,-1), il)) {
+				if (isPlayerInInternalLocation()) {
+					doTravelToInternalLocation(il.directions["northeast"]);
+				}
+				else {
+					travelRelative(1, -1);
+				}
+			}
+        break;
 
         case 39: // right
+		case keyboardKeys.NUMPAD_6:
 			if (isDirectionTraversable(new Location(1,0), il)) {
 				if (isPlayerInInternalLocation()) {
 					doTravelToInternalLocation(il.directions["east"]);
@@ -66,14 +93,51 @@ $(document).keydown(function(e) {
 				}
 			}
         break;
+	
+		// right and down
+		case keyboardKeys.NUMPAD_3:
+			if (isDirectionTraversable(new Location(1,1), il)) {
+				if (isPlayerInInternalLocation()) {
+					doTravelToInternalLocation(il.directions["southeast"]);
+				}
+				else {
+					travelRelative(1, 1);
+				}
+			}
+        break;
 
         case 40: // down
+		case keyboardKeys.NUMPAD_2:
 			if (isDirectionTraversable(new Location(0,1), il)) {
 				if (isPlayerInInternalLocation()) {
 					doTravelToInternalLocation(il.directions["south"]);
 				}
 				else {
 					travelRelative(0, 1);
+				}
+			}
+        break;
+	
+		// down and left
+		case keyboardKeys.NUMPAD_1:
+			if (isDirectionTraversable(new Location(-1,1), il)) {
+				if (isPlayerInInternalLocation()) {
+					doTravelToInternalLocation(il.directions["southwest"]);
+				}
+				else {
+					travelRelative(-1, 1);
+				}
+			}
+        break;
+	
+		// down and left
+		case keyboardKeys.NUMPAD_5:
+			if (isDirectionTraversable("out", il)) {
+				if (isPlayerInInternalLocation()) {
+					doExitInternalLocation();
+				}
+				else {
+					doEnterInternalLocation(getTerrainAtCurrentLocation().internalLocation);
 				}
 			}
         break;

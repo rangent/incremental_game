@@ -13,12 +13,17 @@ function travelToLocation(location) {
 
 
 /**
- * @param {Location} location
+ * @param {Location or "out"} location
+ * @param {InternalLocation} internalLocation
  */
 function isDirectionTraversable(location, internalLocation) {
 	
 	if (internalLocation != null) {
 		return isInternalLocationTraversable(location, internalLocation);
+	}
+	
+	if (location == "out") {
+		return typeof getTerrainAtCurrentLocation().internalLocation === "number";
 	}
 	
 	var dx = location.x;
@@ -45,8 +50,12 @@ function isDirectionTraversable(location, internalLocation) {
 }
 
 function isInternalLocationTraversable(location, internalLocation) {
-	var f = getInternalLocationTowardsDirection(location, internalLocation);
-	return "undefined" !== f && null != f;
+	if (location == "out") {
+		return isLocation(internalLocation.location);
+	} else {
+		var f = getInternalLocationTowardsDirection(location, internalLocation);
+		return "undefined" !== f && null != f;
+	}
 }
 
 function getInternalLocationTowardsDirection(location, internalLocation) {
