@@ -20,7 +20,7 @@ function setupNewGame() {
 
 function defineRuntimeConstants() {
 	//need to define new constants since assets weren't defined until now :-/
-	constants.ROOT_CATEGORY = new Category([], categoryNames.ROOT);
+	constants.ROOT_CATEGORY = new Category([], categories.ROOT);
 	globalCategories[0] = constants.ROOT_CATEGORY;
 }
 

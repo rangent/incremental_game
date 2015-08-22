@@ -49,7 +49,7 @@ var constants = {
 	NUM_SEGMENTS_FOR_INTERNAL_ENVIRONMENT : 4,
 }
 
-var categoryNames = {
+var categories = {
     ROOT : "ROOT",
     RAW : "Raw",
 	FOOD : "Food",

@@ -7,8 +7,8 @@
 
 //carriable resources
 var rawResources = {
-	Wood 	: new Resource("Wood", "Wood", 3, 0, [categoryNames.RAW]),
-	Stone 	: new Resource("Stone", "Stone", 10, 0, [categoryNames.RAW]),
+	Wood 	: new Resource("Wood", "Wood", 3, 0, [categories.RAW]),
+	Stone 	: new Resource("Stone", "Stone", 10, 0, [categories.RAW]),
 	// Dirt 	: new Resource("Dirt", "Dirt", 5, 0),
 	// Water 	: new Resource("Water", "Water", 3, 0),
 	// Clay 	: new Resource("Clay", "Clay", 5, 0),
@@ -16,15 +16,15 @@ var rawResources = {
 
 //various kinds of food
 var food = {
-	Apple : new Food("Apple", "Apple", 1, 0, [categoryNames.FOOD]),
+	Apple : new Food("Apple", "Apple", 1, 0, [categories.FOOD]),
 	// carrot : new Food("Carrot", "Carrot", 1, 0),
 };
 
 var consumable = {
-	Stick : new Consumable("Stick", "Stick", 1, 0, [categoryNames.CONSUMABLE]),
-	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0, [categoryNames.CONSUMABLE]),
-    TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0, [categoryNames.CONSUMABLE]),
-	TestRawCraftable : new Consumable("TestRawCraftable", "TestRawCraftable", 1, 0, [categoryNames.RAW]),
+	Stick : new Consumable("Stick", "Stick", 1, 0, [categories.CONSUMABLE]),
+	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0, [categories.CONSUMABLE]),
+    TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0, [categories.CONSUMABLE]),
+	TestRawCraftable : new Consumable("TestRawCraftable", "TestRawCraftable", 1, 0, [categories.RAW]),
 };
 
 var building = {
@@ -36,7 +36,7 @@ var building = {
 var craftable = [
 	new Craftable(consumable.FirewoodBundle, 1, [new rel_inventoryQuantity(consumable.Stick, 6)]),
     new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)]),
-	new Craftable(consumable.TestRawCraftable, 1, [new rel_inventoryQuantity(categoryNames.RAW, 1)]),
+	new Craftable(consumable.TestRawCraftable, 1, [new rel_inventoryQuantity(categories.RAW, 1)]),
 ];
 
 var buildable = [
@@ -53,12 +53,12 @@ function createGlobalCategories() {
 	
 	//TOP-LEVEL CATEGORIES:
 	//(they should have root as their only parent)
-	new Category([categoryNames.ROOT], categoryNames.RAW),
-	//new Category([categoryNames.ROOT], categoryNames.FOOD),
+	new Category([categories.ROOT], categories.RAW),
+	//new Category([categories.ROOT], categories.FOOD),
 	
 	//SUB-CATEGORIES:
-	new Category([categoryNames.RAW], categoryNames.FOOD),
-	new Category([categoryNames.RAW], categoryNames.CONSUMABLE),
+	new Category([categories.RAW], categories.FOOD),
+	new Category([categories.RAW], categories.CONSUMABLE),
 	
     ];
 }
@@ -124,6 +124,13 @@ function getGenericItemAsset(itemName) {
 	else {
 		return null; //not found
 	}
+}
+
+/**
+ * @param {String} itemName - unique item name (see assets.js)
+ */
+function getItem(itemName) {
+	return getGenericItemAsset(itemName);
 }
 
 //////////////////////////////////////////////////////////////////////////////

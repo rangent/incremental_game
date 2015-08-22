@@ -27,8 +27,8 @@ function updateCategoryTree() {
 function addCategoriesToCategoryTree() {
     for (var catId in globalCategories) {
         var c = globalCategories[catId];
-        if (c.name == categoryNames.ROOT) {
-            categoryTree[categoryNames.ROOT] = c;
+        if (c.name == categories.ROOT) {
+            categoryTree[categories.ROOT] = c;
             continue; //ignore the root node
         }
         

@@ -16,7 +16,7 @@ function redrawCategoryListContainer() {
     //var catDiv = $("#categoryListContainer");
     $("#categoryListContainer").empty();
     $("#categoryListContainer").append("<ul id=\"categoryListRoot\" class=\"treeView\"></ul>");
-    $("#categoryListRoot").append(recurseTree(categoryTree[categoryNames.ROOT],false));
+    $("#categoryListRoot").append(recurseTree(categoryTree[categories.ROOT],false));
     //CollapsibleLists.applyTo(document.getElementById("categoryList")); 
 }
 
@@ -25,7 +25,7 @@ function redrawCategoryListContainer() {
  */
 function recurseTree(node, isLastChild) {
     var nodeName = node.name;
-    if (node.name == categoryNames.ROOT) {
+    if (node.name == categories.ROOT) {
          nodeName = "<span onclick=\"CollapsibleLists.applyTo(document.getElementById('categoryList'))\">" +
             ((DEBUG) ? "!Global! Inventory" : "Inventory") + "</span>";
     }
@@ -42,7 +42,7 @@ function recurseTree(node, isLastChild) {
             for (var k in keys) {
                 if (typeof (node.children[keys[k]].children) !== "undefined") {
                     //this node has children (not a leaf)
-                    if (node.name == categoryNames.ROOT) {
+                    if (node.name == categories.ROOT) {
                         s += "<ul id='categoryList'>";
                     }
                     else {
