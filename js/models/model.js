@@ -8,16 +8,16 @@
 
 //RESOURCES
 // @param {Category[]} categories : array of categoryName(s)
-function Resource(uniqueName, printableName, weight, age, categories) {
-	return Item(uniqueName, printableName, weight, age, categories, "Resource", eff);
+function Resource(uniqueName, printableName, weight, age, categories, effectiveness) {
+	return new Item(uniqueName, printableName, weight, age, categories, "Resource", effectiveness);
 }
 
 function Food(uniqueName, printableName, weight, age, categories, effectiveness) {
-	return Item(uniqueName, printableName, weight, age, categories, "Food", eff);
+	return new Item(uniqueName, printableName, weight, age, categories, "Food", effectiveness);
 }
 
 function Consumable(uniqueName, printableName, weight, age, categories, effectiveness) {
-	return Item(uniqueName, printableName, weight, age, categories, "Consumable", eff);
+	return new Item(uniqueName, printableName, weight, age, categories, "Consumable", effectiveness);
 }
 
 function Item(uniqueName, printableName, weight, age, craftableCategories, itemType, effectiveness) {
@@ -27,10 +27,11 @@ function Item(uniqueName, printableName, weight, age, craftableCategories, itemT
 	this.printableName = printableName;
 	this.weight = weight;   
     this.age = age;
-	this.categories = categories;
-	this.itemCategory = itemCategory;
+	this.categories = craftableCategories;
+	
+	// how "potent" the item is in its category, eg: gold may be 100, silver may be 15, quartz may be 2, diamond may be 10000, etc...
 	if (typeof effectiveness === "number" ) {
-		this.effectiveness = effectiveness; // how "potent" the item is in its category, eg: gold may be 100, quartz may be 2, diamond may be 10000, etc...
+		this.effectiveness = effectiveness;
 	} else {
 		this.effectiveness = 1;
 	}
