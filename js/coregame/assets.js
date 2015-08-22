@@ -24,6 +24,7 @@ var consumable = {
 	Stick : new Consumable("Stick", "Stick", 1, 0, [categoryNames.CONSUMABLE]),
 	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0, [categoryNames.CONSUMABLE]),
     TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0, [categoryNames.CONSUMABLE]),
+	TestRawCraftable : new Consumable("TestRawCraftable", "TestRawCraftable", 1, 0, [categoryNames.RAW]),
 };
 
 var building = {
@@ -35,6 +36,7 @@ var building = {
 var craftable = [
 	new Craftable(consumable.FirewoodBundle, 1, [new rel_inventoryQuantity(consumable.Stick, 6)]),
     new Craftable(consumable.TestHeavyObject, 1, [new rel_inventoryQuantity(food.Apple, 1)]),
+	new Craftable(consumable.TestRawCraftable, 1, [new rel_inventoryQuantity(categoryNames.RAW, 1)]),
 ];
 
 var buildable = [
