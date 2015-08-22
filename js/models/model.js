@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 //RESOURCES
-// @param {Category[]} categories : array of categoryName(s)
+// @param {Category[]} categories : array of categories
 function Resource(uniqueName, printableName, weight, age, categories, effectiveness) {
 	return new Item(uniqueName, printableName, weight, age, categories, "Resource", effectiveness);
 }

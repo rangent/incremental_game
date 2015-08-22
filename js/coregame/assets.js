@@ -24,7 +24,7 @@ var consumable = {
 	Stick : new Consumable("Stick", "Stick", 1, 0, [categories.CONSUMABLE]),
 	FirewoodBundle : new Consumable("FirewoodBundle", "Bundle of Firewood", 6, 0, [categories.CONSUMABLE]),
     TestHeavyObject  : new Consumable("TestHeavyObject", "TestHeavyObject", 50, 0, [categories.CONSUMABLE]),
-	TestRawCraftable : new Consumable("TestRawCraftable", "TestRawCraftable", 1, 0, [categories.RAW]),
+	//TestRawCraftable : new Consumable("TestRawCraftable", "TestRawCraftable", 1, 0, [categories.RAW]), todo eventually...?
 };
 
 var building = {
