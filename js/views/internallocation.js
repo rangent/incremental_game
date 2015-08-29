@@ -146,10 +146,18 @@ function doExpand() {
  */
 function expand(direction) {
     if (typeof direction === "string" && isPlayerInSettlement() &&
-        typeof getCurrentInternalLocation().directions[direction] === "undefined" /* && cost = ... deduct(c0st)... */) {
-        expandSettlement(direction);
-        drawTravelDirections();
-        drawInternalLocationMap();
+        typeof getCurrentInternalLocation().directions[direction] === "undefined") {
+        //if player has the proper materials to expand the current settlement:
+        debugger;
+        //TODO: MAKE THIS AGE-BASED SOMEHOW
+        var currentExpansionCost = expansionCosts[player.settlements[getCurrentInternalLocation().baseSettlement].currentExpansion];
+        if (typeof currentExpansionCost !== "undefined" &&
+            isPossibleToMakeItemWithInventories(currentExpansionCost, getInventoriesWithCraftableMaterialsForPlayer())) {
+            expandSettlement(direction);
+            drawTravelDirections();
+            drawInternalLocationMap();
+            player.settlements[getCurrentInternalLocation().baseSettlement].currentExpansion++;
+        }
     }
 }
 

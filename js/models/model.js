@@ -60,6 +60,10 @@ function Craftable(craftableItem, numProduced, itemIngredientsAndQuantityArray) 
 	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
 }
 
+function ExpansionCost(itemIngredientsAndQuantityArray) {
+	this.itemIngredientsAndQuantityArray = itemIngredientsAndQuantityArray;
+}
+
 function getMakeableItem(item) {
 	if (isType(item,"Craftable")) {
 		return item.craftableItem;
@@ -276,6 +280,7 @@ function Settlement(internalLocation) {
 	this.id = seeds.settlementIdSeed++
 	this.type = "Settlement";
 	this.baseInternalLocation = internalLocation;
+	this.currentExpansion = 0; //number of times this settlement has been expanded
 }
 
 function getSettlementSizeName(settlement) {

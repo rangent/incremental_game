@@ -134,17 +134,17 @@ function getItem(itemName) {
 }
 
 /*
- * These are on a per-city basis
+ * These are on a per-city basis, stored in Settlement metadata
  */
 var expansionCosts =
 	[
-		{"Stick" : 1},
-		{"Stick" : 2},
-		{"Stick" : 4},
-		{"Stick" : 8},
-		{"Stick" : 16},
-		{"Stick" : 32},
-		{"Stick" : 64},
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 1)]),
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 2)]),
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 4)]),
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 8)]),
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 16)]),
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 32)]),
+		new ExpansionCost([new rel_inventoryQuantity(consumable.Stick, 64)]),
 	];
 
 //////////////////////////////////////////////////////////////////////////////
