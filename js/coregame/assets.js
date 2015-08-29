@@ -133,6 +133,20 @@ function getItem(itemName) {
 	return getGenericItemAsset(itemName);
 }
 
+/*
+ * These are on a per-city basis
+ */
+var expansionCosts =
+	[
+		{"Stick" : 1},
+		{"Stick" : 2},
+		{"Stick" : 4},
+		{"Stick" : 8},
+		{"Stick" : 16},
+		{"Stick" : 32},
+		{"Stick" : 64},
+	];
+
 //////////////////////////////////////////////////////////////////////////////
 // END CONCRETE GAME ASSET LISTS
 //////////////////////////////////////////////////////////////////////////////

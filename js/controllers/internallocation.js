@@ -26,7 +26,9 @@ function establishNewInternalEnvironment(location, isSettlement, internalEnviron
 	player.internalEnvironments[internalLocation.id] = internalLocation;
     terrain.internalLocation = internalLocation.id;
 	if (isSettlement) {
-		player.settlements.push(internalLocation);
+		var settlement = new Settlement(internalLocation);
+		player.settlements.push(settlement);
+		internalLocation.baseSettlement = settlement.id;
 	}
 }
 
@@ -203,6 +205,9 @@ function createConnectedInternalEnvironmentOrStitchEdges(sourceInternalLocation,
 		//setup directions
 		sourceInternalLocation.directions[direction] = newInternalLoc.id;
 		newInternalLoc.directions[getOpposingDirection(direction)] = sourceInternalLocation.id;
+		if (sourceInternalLocation.isSettlement) {
+			newInternalLoc.baseSettlement = sourceInternalLocation.baseSettlement;
+		}
 		return newInternalLoc;
 	}
 }

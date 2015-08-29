@@ -219,6 +219,7 @@ function InternalLocation(directions, isSettlement, location, name, bindPoints) 
 	this.location = location; //for backwards compatibility with Settlement
 	this.directions = directions;
 	this.isSettlement = isSettlement;
+	this.baseSettlement = null; //integer, ties back to player.settlements ID
 	this.buildings = [];
 	this.inventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
 	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
@@ -271,15 +272,11 @@ function TerrainModifier(tmname, description, applicableTerrainTypeAndProbabilit
 	this.incompatibleTerrainModifiers = incompatibleTerrainModifiers;
 }
 
-/*
-function Settlement(location, size) {
-	this.id = seeds.settlementIdSeed++;
-	this.location = location;
-	this.size = (size == null) ? 0 : size;
-	this.name = null;
-	this.buildings = [];
+function Settlement(internalLocation) {
+	this.id = seeds.settlementIdSeed++
+	this.type = "Settlement";
+	this.baseInternalLocation = internalLocation;
 }
-*/
 
 function getSettlementSizeName(settlement) {
 	switch (settlement.size) {
