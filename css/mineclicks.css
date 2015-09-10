@@ -122,11 +122,6 @@ a:hover, a:active {
   vertical-align: middle;
 }
 
-#internalMapContainer {
-  height: 400px;
-  width: 400px;
-}
-
 /* dont want someone rapidly clicking to highlight everything */
 div {
     -webkit-user-select: none; /* webkit (safari, chrome) browsers */
