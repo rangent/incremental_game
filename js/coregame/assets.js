@@ -85,7 +85,7 @@ var terrainTypes = {
 	plains 		: new TerrainType("Plains",{}),
 	mountain 	: new TerrainType("Mountain",{}),
 	hill 		: new TerrainType("Hill",
-			{ "Forage" : new FindProbabilities(0.5, [
+			{ "Scavenge" : new FindProbabilities(0.75, [
 				new rel_itemAndQuantityProbability(food.Apple.name, 1, 5),
 				new rel_itemAndQuantityProbability(consumable.Stick.name, 1, 5),
 				]), 

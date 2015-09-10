@@ -1,11 +1,11 @@
 /*
- *	forage views!
+ *	scavenge views!
  */
-function doForage() {
+function doScavenge() {
 	closeJoyrideTips();	
 	// progressStory(1); //second phase of the game
 	//debugger;
-	var i = resolveActionOnTerrain("Forage", getTerrainAtCurrentLocation());
+	var i = resolveActionOnTerrain("Scavenge", getTerrainAtCurrentLocation());
 	if (i != null) {
 		addJoyrideTip(replaceAll("%ITEM%",i.item, constants.ITEM_FOUND_TIP));
 		addItemsToInventory(getTerrainAtCurrentLocation().location, i.item, i.count);

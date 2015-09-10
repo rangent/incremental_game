@@ -25,8 +25,8 @@ var constants = {
 	
 	//Joyride tips
 	EXPLORE_TIP : "<ol id=\"joyrideExplore\"><li id=\"exploreTip\" data-id=\"doExplore\">Click here to explore.  You will need to click multiple times to completely explore an area.</li></ol>",
-	FORAGE_TIP : "<ol id=\"joyrideForage\"><li id=\"forageTip\" data-id=\"doForage\">Click here to forage.  Forging allows you to find items on the ground where you are.  Search for some sticks to use as firewood.</li></ol>",
-	ITEM_FOUND_TIP : "<ol id=\"joyride%ITEM%\"><li id=\"forageTip\" data-id=\"%ITEM%Pickup\">Forage: Found %ITEM%!</li></ol>",
+	SCAVENGE_TIP : "<ol id=\"joyrideScavenge\"><li id=\"scavengeTip\" data-id=\"doScavenge\">Click here to scavenge.  Scavenging allows you to find items on the ground where you are.  Search for some sticks to use as firewood.</li></ol>",
+	ITEM_FOUND_TIP : "<ol id=\"joyride%ITEM%\"><li id=\"scavengeTip\" data-id=\"%ITEM%Pickup\">Scavenge: Found %ITEM%!</li></ol>",
 	
 	//terrain
 	TERRAIN_TABLE : "<table class=\"terrainTable table\"><tr><th colspan=\"2\" id=\"selectedTerrainTable\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr><tr><td>Buildings:</td><td>%BUILDINGS%</td></tr></table>",

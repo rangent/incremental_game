@@ -61,8 +61,8 @@ function ftest1() {
 		sleep((DEBUG) ? time += 20 : time += 100,testDoExplore);
 	}
 
-	//initial forage
-	sleep((DEBUG) ? time += 1000 : time += 1000, testDoForage);
+	//initial scavenge
+	sleep((DEBUG) ? time += 1000 : time += 1000, testDoScavenge);
 
 	//get us some lands
 	for (var i = 0; i < 16; i++) {
@@ -110,7 +110,7 @@ function testDoExplore() {
 	$("#doExplore").click();
 }
 
-function testDoForage() {
-	$("#doForage").click();
+function testDoScavenge() {
+	$("#doScavenge").click();
 }
 */

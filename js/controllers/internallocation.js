@@ -48,13 +48,13 @@ function enterInternalLocation(index) {
 function togglePlayerEnterOrExitInternalLocationActions() {
     //if player entering town
     if (playerInTown()) { //will eventually expand this if production buildings are in camps
-        playerActions.Forage.availableToPlayer = false;
+        playerActions.Scavenge.availableToPlayer = false;
 		playerActions.Explore.availableToPlayer = false;
 		playerActions.Expand.availableToPlayer = true;
     }
     //if player exiting town
     else {
-        playerActions.Forage.availableToPlayer = true;
+        playerActions.Scavenge.availableToPlayer = true;
 		playerActions.Explore.availableToPlayer = true;
 		playerActions.Expand.availableToPlayer = false;
     }

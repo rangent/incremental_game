@@ -53,11 +53,11 @@ var storyPhases = [
 		sleep((DEBUG) ? time += 100 : time += 2000, log, "It's getting cold.");
 		sleep((DEBUG) ? time += 100 : time += 1000, log, "You should get some sticks to build a fire.");
 		
-		//introduce "Forage"
-		sleep((DEBUG) ? time += 100 : time += 2000, enableActionForPlayer, playerActions.Forage);
-		sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.Forage.aname);
-		sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.FORAGE_TIP);
-		sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Forage");
+		//introduce "Scavenge"
+		sleep((DEBUG) ? time += 100 : time += 2000, enableActionForPlayer, playerActions.Scavenge);
+		sleep((DEBUG) ? time += 0 : time += 0, enableActionInDOM, playerActions.Scavenge.aname);
+		sleep((DEBUG) ? time += 0 : time += 0, addJoyrideTip, constants.SCAVENGE_TIP);
+		sleep((DEBUG) ? time += 100 : time += 500, letsJoyride, "Scavenge");
 		game.storyPhase++;
 
 
