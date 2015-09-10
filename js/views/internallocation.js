@@ -138,7 +138,9 @@ function doExplore() {
 
 //just draws the modal directions and such..
 function doExpand() {
+    drawExpandCosts();
     drawExpandDirections();
+	resizePageElements();
 }
 
 /**
@@ -148,12 +150,14 @@ function expand(direction) {
     if (typeof direction === "string" && isPlayerInSettlement() &&
         typeof getCurrentInternalLocation().directions[direction] === "undefined") {
         //if player has the proper materials to expand the current settlement:
-        debugger;
         //TODO: MAKE THIS AGE-BASED SOMEHOW
-        var currentExpansionCost = expansionCosts[player.settlements[getCurrentInternalLocation().baseSettlement].currentExpansion];
+        var currentExpansionCost = getExpansionCost(0);
         if (typeof currentExpansionCost !== "undefined" &&
             isPossibleToMakeItemWithInventories(currentExpansionCost, getInventoriesWithCraftableMaterialsForPlayer())) {
             expandSettlement(direction);
+            //TODO: WILL LIKELY WANT TO CHANGE THIS TO GENERAL "getInventoriesWithBuildableMaterialsForPlayer()" ONCE BUILDING IS FIXED:
+            removeItemsFromInventories(currentExpansionCost.itemIngredientsAndQuantityArray, getInventoriesWithCraftableMaterialsForPlayer());
+            drawInventoryTable();
             drawTravelDirections();
             drawInternalLocationMap();
             player.settlements[getCurrentInternalLocation().baseSettlement].currentExpansion++;
@@ -161,8 +165,25 @@ function expand(direction) {
     }
 }
 
+function isExpandAvailable() {
+    var isExpandAvailable = 
+        //just the basics: is expanding even "on"
+        playerActions.Expand.availableToPlayer && playerActions.Expand.actionEnabled
+        
+        /* has settlement been fully expanded? */
+        && typeof getExpansionCost(0) !== "undefined"
+            
+        //TODO: WILL LIKELY WANT TO CHANGE THIS TO GENERAL "getInventoriesWithBuildableMaterialsForPlayer()" ONCE BUILDING IS FIXED:
+        /* is it possible to expand with current materials? */
+        && isPlayerInSettlement()
+        && isPossibleToMakeItemWithInventories(getExpansionCost(0), getInventoriesWithCraftableMaterialsForPlayer());
+    
+    return isExpandAvailable;
+}
+
 function drawExpandDirections() {
-    if (playerActions.Expand.availableToPlayer && playerActions.Expand.actionEnabled && isPlayerInInternalLocation()) {
+    $("#expandSection").empty();
+    if (isExpandAvailable()) {
 		var str = "<table>";
         var playerInteralLocation = getCurrentInternalLocation();
 		for (var j = -1; j <= 1; j++) {
@@ -182,7 +203,44 @@ function drawExpandDirections() {
 		str += "</table>";
 	
 		//clear expandSection then append
-		$("#expandSection").empty().append(str);
-		resizePageElements();
+		$("#expandSection").append(str);
 	}
+}
+
+function drawExpandCosts() {
+    $("#expandCostTable").empty();
+    if (playerActions.Expand.availableToPlayer && playerActions.Expand.actionEnabled && isPlayerInSettlement()) {
+        var str = constants.EXPANDCOST_TABLE_HEADER;
+        str += constants.EXPANDCOST_TABLE_CONTENTS_START;
+        
+        //get current expansion cost (if available)
+        if (typeof getExpansionCost(0) !== "undefined") {
+            var costs = getExpansionCost(0).itemIngredientsAndQuantityArray;
+            var s = "";
+            for (var c in costs) {
+                s += clone(constants.EXPANDCOST_TABLE_COST_ITEM)
+                    .replace("%QUANTITY%", costs[c].count)
+                    .replace("%ITEM%", costs[c].item.printableName);
+            }
+            str += clone(constants.EXPANDCOST_TABLE_CURRENT).replace("%COST%", s);
+            
+            //get next expansion cost (if available)
+            if (typeof getExpansionCost(1) !== "undefined") {
+                var costs = getExpansionCost(1).itemIngredientsAndQuantityArray;
+                var s = "";
+                for (var c in costs) {
+                    s += clone(constants.EXPANDCOST_TABLE_COST_ITEM)
+                        .replace("%QUANTITY%", costs[c].count)
+                        .replace("%ITEM%", costs[c].item.printableName);
+                }
+                str += clone(constants.EXPANDCOST_TABLE_NEXT).replace("%COST%", s);
+            } else {
+                str += clone(constants.EXPANDCOST_TABLE_NEXT).replace("%COST%", "No further expansion available");
+            }
+        } else {
+            str += clone(constants.EXPANDCOST_TABLE_CURRENT).replace("%COST%", "No further expansion available");
+        }
+        str += constants.EXPANDCOST_TABLE_CONTENTS_END;
+        $("#expandCostTable").append(str);
+    }
 }

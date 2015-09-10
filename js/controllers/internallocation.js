@@ -665,6 +665,27 @@ function getNodeAndBindPointFromRandNumber(ilgraph, neededDirection, rnum) {
 	return chosenNodeAndBindPoint;
 }
 
+function getCurrentSettlement() {
+	if (!isPlayerInSettlement()) {
+		return null;
+	} else {
+		return player.settlements[getCurrentInternalLocation().baseSettlement];
+	}
+}
+
+/**
+ * Get expansion cost relative to current cost 
+ * @param {Integer} relativeIndex : index relative to current cost (0 = current, 1 = next, -1 = previous, etc)
+ */
+function getExpansionCost(relativeIndex) {
+	if (!isPlayerInSettlement()) {
+		return null;
+	} else {
+		var settlementExpansionCostIndex = getCurrentSettlement().currentExpansion + relativeIndex;
+		return expansionCosts[settlementExpansionCostIndex];
+	}
+}
+
 function isPlayerInSettlement() {
 	if (!isPlayerInInternalLocation()) {
 		return false;

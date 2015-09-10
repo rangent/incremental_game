@@ -50,7 +50,7 @@ function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
 /**
  * Make a makeable from inventories
  * @param {Makeable} craftableItem : item we want to craft
- * @param {[String]} inventoryArray : array of items containing the materials to make the craftableItem
+ * @param {[String]} inventoryArray : array of resolvable inventories containing the materials to make the craftableItem
  * @param {String} targetInventoryForMadeItem : string representation of inventory (resolvable to concrete inventory)
  * @returns {String} "success" string if successful craft, Error message if otherwise
  */
@@ -66,16 +66,7 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
     
     //proceed with crafting:
     //for each ingredient/quantity, remove the number of items from the inventories first
-    var ingredients = makeable.itemIngredientsAndQuantityArray;
-    for (var i in ingredients) {
-        var item = ingredients[i].item;
-        var numIngredientsNeeded = ingredients[i].count;
-        for (var j in inventoryArray) {
-            var numHave = getNumberOfItemsInInventory(resolveInventory(inventoryArray[j]), item);
-            removeItemsFromInventoryModel(resolveInventory(inventoryArray[j]),item,Math.min(numIngredientsNeeded,numHave));
-            numIngredientsNeeded = (numHave >= numIngredientsNeeded) ? 0 : numIngredientsNeeded - numHave;
-        }
-    }
+    removeItemsFromInventories(makeable.itemIngredientsAndQuantityArray, inventoryArray);
     
     //finally "craft" the item (add it to player's inventory)
     if (isType(makeable,"Buildable")) {
@@ -86,4 +77,20 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
     }
     
     return "success"; //string to indicate successful
+}
+
+/**
+ * @param {[rel_inventoryQuantity]} ingredients : array of item/quantities, assumed inventoryArrays have the desired amount of materials (use with isPossibleToMakeItemWithInventories())
+ * @param {[String]} inventoryArray : array of resolvable inventories containing the materials to make the craftableItem
+ */
+function removeItemsFromInventories(ingredients, inventoryArray) {
+    for (var i in ingredients) {
+        var item = ingredients[i].item;
+        var numIngredientsNeeded = ingredients[i].count;
+        for (var j in inventoryArray) {
+            var numHave = getNumberOfItemsInInventory(resolveInventory(inventoryArray[j]), item);
+            removeItemsFromInventoryModel(resolveInventory(inventoryArray[j]),item,Math.min(numIngredientsNeeded,numHave));
+            numIngredientsNeeded = (numHave >= numIngredientsNeeded) ? 0 : numIngredientsNeeded - numHave;
+        }
+    }
 }

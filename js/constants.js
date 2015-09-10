@@ -39,6 +39,14 @@ var constants = {
 	BUILDABLE_TABLE_HEADER : "<tr><th>Build</th></tr>",
 	BUILDABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Build\">%ITEM_NAME%</button></td></tr>",
 	
+	//expanding
+	EXPANDCOST_TABLE_HEADER : "<thead><tr><th>#</th><th>Cost for expansion:</th></tr></thead>",
+	EXPANDCOST_TABLE_CONTENTS_START : "<tbody>",
+	EXPANDCOST_TABLE_CURRENT : "<tr><td>Current</td><td>%COST%</td></tr>",
+	EXPANDCOST_TABLE_NEXT : "<tr><td>Next</td><td>%COST%</td></tr>",
+	EXPANDCOST_TABLE_COST_ITEM : "<button class=\"btn btn-default btn-md\">%ITEM% <span class=\"badge\">%QUANTITY%</span></button>",
+	EXPANDCOST_TABLE_CONTENTS_END : "</tbody>",
+	
 	INVENTORY : {
 		WEIGHTED : 0,
 		RULEOF99 : 1,
