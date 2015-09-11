@@ -6,10 +6,10 @@
  * do <action> on terrain, return item(s) if any found
  * @action : string : name of action
  * @terrainId : integer : id of location associated with player.availableTerrain
+ * @returns : null if nothing found, undefined if nothing could be found, otherwise a rel_inventoryQuantity if something found
  */
 
 function resolveActionOnTerrain(action, terrainId) {
-	//this is going to be complicated... :(
 
 	var t = getTerrainAtCurrentLocation();
 	var findProbability = 0;
@@ -38,6 +38,11 @@ function resolveActionOnTerrain(action, terrainId) {
 
 	//adjust based on terrain modifiers
 	//TODO...
+	
+	//if there is nothing that can be acquired here by doing <action>:
+	if (itemsAndProbabilitiesArray.length == 0) {
+		return undefined;
+	}
 
 	//normalize the values compared to one another
 	var total = 0;
