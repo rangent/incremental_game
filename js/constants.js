@@ -10,6 +10,8 @@ var constants = {
 	MAP_HEIGHT : 60,
 	MAP_WIDTH : 60,
 	
+	SUCCESS : "success",
+	
 	//action bar
 	ACTION_ROW : "<button class=\"clearEvent btn btn-default btn-lg\" data-toggle=\"modal\" data-target=\"#%ACTION%Modal\" onclick=\"do%ACTION%();\" id=\"do%ACTION%\">%ACTION%</button>",
             //<button class="btn btn-default" data-toggle="modal" data-target="#craftingModal">Craft</button>
@@ -32,12 +34,11 @@ var constants = {
 	TERRAIN_TABLE : "<table class=\"terrainTable table\"><tr><th colspan=\"2\" id=\"selectedTerrainTable\">%TERRAIN_NAME%</th></tr><tr><td>Features:</td><td>%FEATURES%</td></tr><tr><td>Special Traits:</td><td>%MODIFIERS%</td></tr><tr><td>Buildings:</td><td>%BUILDINGS%</td></tr></table>",
 	
 	//crafting
-	CRAFTABLE_TABLE_HEADER : "<tr><th>Craft</th></tr>",
 	CRAFTABLE_ITEM_BUTTON : "<button class=\"btn btn-default\" id=\"%ITEM%Craft\">%ITEM_NAME%</button>",
 	
 	//building
-	BUILDABLE_TABLE_HEADER : "<tr><th>Build</th></tr>",
-	BUILDABLE_ITEM_ROW : "<tr><td><button id=\"%ITEM%Build\">%ITEM_NAME%</button></td></tr>",
+	BUILDABLE_ITEM_ROW : "<button class=\"btn btn-default\" id=\"%ITEM%Build\">%ITEM_NAME%</button>",
+	//BUILDABLE_ITEM_ROWz : "<tr><td><button id=\"%ITEM%Build\">%ITEM_NAME%</button></td></tr>",
 	
 	//expanding
 	EXPANDCOST_TABLE_HEADER : "<thead><tr><th>#</th><th>Cost for expansion:</th></tr></thead>",

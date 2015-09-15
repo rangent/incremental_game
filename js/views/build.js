@@ -1,14 +1,19 @@
 /*
  * Buildable-specific view, for general build/craft view items, place in buildcraft.js
  */
-
+function doBuild() {
+    drawBuildingTable();
+}
 
 function drawBuildingTable() {
     if (playerActions.Build.availableToPlayer) {
         $("#buildTable").empty().append(constants.BUILDABLE_TABLE_HEADER);
+        var nothingBuildable = true;
         for (var b in buildable) {
-            if (isPossibleToBuildAtCurrentLocation(buildable[b]) && 
-                isPossibleToMakeItemWithInventories(buildable[b], getInventoriesWithBuildableMaterialsForPlayer())) {
+            if (isPossibleToBuildAtCurrentLocation(buildable[b]) /* && 
+                 isPossibleToMakeItemWithInventories(buildable[b], getInventoriesWithBuildableMaterialsForPlayer()) */) {
+                
+                nothingBuildable = false; //theres at least something to build
                 
                 var name = buildable[b].building.name;
                 var printableName = buildable[b].building.printableName;
@@ -16,40 +21,31 @@ function drawBuildingTable() {
                 var loc = player.currentLocation;
                 $("#buildTable").append(
                     constants.BUILDABLE_ITEM_ROW.replace("%ITEM%",name).replace("%ITEM_NAME%",printableName));
-                $(jquerySelectorId).button();
                 
                 var buildableIndex = parseInt(b);
-                var f = new Function("buildItemClick(" + buildableIndex + ",new Location(" + loc.x + "," + loc.y +"))");
+                //TODO: fix this for internal locations:
+                var locationString = (isPlayerInInternalLocation()) ?
+                    "" + getCurrentInternalLocation().id + ")" :
+                    "new Location(" + loc.x + "," + loc.y +"))";
+                var f = new Function("buildItemClick(" + buildableIndex + "," + locationString);
                 $(jquerySelectorId).on("click", f );
                 
-                //TODO: BE: THE internalEnvironment.size IS NOT THE ALLOWABLE SIZE!  ITS THE SIZE OF THE PLACE (CAMP, VILLAGE, ETC)
-                if ((player.currentInternalLocation != null
-                    && buildable[b].building.size * buildable[b].numProduced <= player.internalEnvironments[player.currentInternalLocation].size)
-                    || !playerActions.Build.actionEnabled) {
-                        disableButton(name + "Build");
+                if (!isPossibleToMakeItemWithInventories(buildable[b], getInventoriesWithBuildableMaterialsForPlayer())) {
+                    $(jquerySelectorId).prop("disabled",true);
+                    //TODO: NEED TO INCLUDE TIP ON THE COST OF BUILDABLES
                 }
             }
         }
         $("#buildTable").show();
     }
     else {
-        $("#buildTable").hide();
+        $("#buildTable").empty().hide();
     }
-}
-
-function isPossibleToBuildAtCurrentLocation(buildable) {
-    if (player.currentInternalLocation != null && buildable.isBuiltInSettlement) {
-        return true;
-    }
-    else if (player.currentInternalLocation == null && buildable.isBuiltInWilds) {
-        return true;
-    }
-    return false;
 }
 
 function buildItemClick(buildableIndex, location) {
-    var result = makeItemFromInventories(itemLibrary.buildable[buildableIndex], ['player', player.currentLocation], player.currentLocation);
-    if (result == "success") {
+    var result = makeItemFromInventories(itemLibrary.buildable[buildableIndex], getInventoriesWithBuildableMaterialsForPlayer(), location);
+    if (result == constants.SUCCESS) {
         drawInventoryTable();
         drawCraftingTable();
         drawBuildingTable();

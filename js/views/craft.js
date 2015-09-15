@@ -18,7 +18,7 @@ function craftItem(craftable) {
     //TODO: figure out exactly which inventories we're drawing from
     //TODO: rerender whatever crafting window we decide to build
     var result = makeItemFromInventories(craftable, ['player'], 'player');
-    if (result == "success") {
+    if (result == constants.SUCCESS) {
         drawInventoryTable();
         drawCraftingTable();
         drawBuildingTable();
@@ -49,6 +49,5 @@ function drawCraftingTable() {
                 }
             }
         }
-        //resizePageElements(); needed?
     }
 }

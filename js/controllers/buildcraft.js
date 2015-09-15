@@ -30,7 +30,7 @@ function isPossibleToMakeItemWithInventories(makeable, inventoryArray) {
  * @param {String} inventory : string representative of the inventory (resolvable to inventory)
  */
 function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
-    var playerRemainingCapacity = getRemainingCapacity(resolveInventory(inventory));
+    var inventoryRemainingCapacity = getRemainingCapacity(resolveInventory(inventory));
     var ingredients = makeable.itemIngredientsAndQuantityArray;
     var ingredientWeight = 0;
     var itemToBeMade = getMakeableItem(makeable);
@@ -42,7 +42,11 @@ function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
         //         b) we have some of the needed ingredients in the player's inventory, so use 'numIngredientsInPlayerInventory' insteaad
         ingredientWeight = Math.min(numIngredientsNeeded, numIngredientsInPlayerInventory) * item.weight;
     }
-    return ( (playerRemainingCapacity) >= (itemToBeMade.weight * makeable.numProduced  - ingredientWeight) );
+    
+    //carried items have a "weight", built items have a "size"
+    var size = itemToBeMade.hasOwnProperty("size") ? itemToBeMade.size : itemToBeMade.weight;
+    
+    return ( (inventoryRemainingCapacity) >= (size * makeable.numProduced  - ingredientWeight) );
 }
 
 
@@ -52,7 +56,7 @@ function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
  * @param {Makeable} craftableItem : item we want to craft
  * @param {[String]} inventoryArray : array of resolvable inventories containing the materials to make the craftableItem
  * @param {String} targetInventoryForMadeItem : string representation of inventory (resolvable to concrete inventory)
- * @returns {String} "success" string if successful craft, Error message if otherwise
+ * @returns {String} constants.SUCCESS string if successful craft, Error message if otherwise
  */
 function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMadeItem) {    
     //check for errors first
@@ -61,7 +65,11 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
         return "Insufficient items to craft " + makeableItem.printableName;
     }
     if (!isInventoryCapableOfCarryingMadeItem(makeable, targetInventoryForMadeItem)) {
-        return "Not enough room in player's inventory to hold " + makeableItem.printableName;
+        if (targetInventoryForMadeItem == "player") {
+            return "Not enough room in player's inventory to hold " + makeableItem.printableName;
+        } else {
+            return "Not enough room at location to build " + makeableItem.printableName;
+        }
     }
     
     //proceed with crafting:
@@ -76,7 +84,7 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
         addItemsToInventoryModel(resolveInventory(targetInventoryForMadeItem), makeableItem, makeable.numProduced);
     }
     
-    return "success"; //string to indicate successful
+    return constants.SUCCESS; //string to indicate successful
 }
 
 /**
