@@ -25,15 +25,29 @@ function isPossibleToMakeItemWithInventories(makeable, inventoryArray) {
     return true;
 }
 
+function isLocationCapableOfHoldingBuildable(makeable, inventory) {
+    var building = getMakeableItem(makeable);
+    if (inventory.hasOwnProperty("x") && inventory.hasOwnProperty("y")) {
+        return true; //currently not bounding number of buildings capable of being built outside
+    } else {
+        var currentBuildingSizes = 0;
+        var currentInternalLocation = player.internalEnvironments[inventory];
+        for (var i in currentInternalLocation.buildings) {
+            currentBuildingSizes += currentInternalLocation.buildings[i].size;
+        }
+        return (currentInternalLocation.size - currentBuildingSizes) >= building.size;
+    }
+}
+
 /**
  * @param {Makeable} makeable : item to be made
  * @param {String} inventory : string representative of the inventory (resolvable to inventory)
  */
 function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
+    var itemToBeMade = getMakeableItem(makeable);
     var inventoryRemainingCapacity = getRemainingCapacity(resolveInventory(inventory));
     var ingredients = makeable.itemIngredientsAndQuantityArray;
     var ingredientWeight = 0;
-    var itemToBeMade = getMakeableItem(makeable);
     for (var i in ingredients) {
         var item = ingredients[i].item;
         var numIngredientsNeeded = ingredients[i].count;
@@ -43,8 +57,7 @@ function isInventoryCapableOfCarryingMadeItem(makeable, inventory) {
         ingredientWeight = Math.min(numIngredientsNeeded, numIngredientsInPlayerInventory) * item.weight;
     }
     
-    //carried items have a "weight", built items have a "size"
-    var size = itemToBeMade.hasOwnProperty("size") ? itemToBeMade.size : itemToBeMade.weight;
+    var size = itemToBeMade.weight;
     
     return ( (inventoryRemainingCapacity) >= (size * makeable.numProduced  - ingredientWeight) );
 }
@@ -64,12 +77,11 @@ function makeItemFromInventories(makeable, inventoryArray, targetInventoryForMad
     if (!isPossibleToMakeItemWithInventories(makeable, inventoryArray)) {
         return "Insufficient items to craft " + makeableItem.printableName;
     }
-    if (!isInventoryCapableOfCarryingMadeItem(makeable, targetInventoryForMadeItem)) {
-        if (targetInventoryForMadeItem == "player") {
-            return "Not enough room in player's inventory to hold " + makeableItem.printableName;
-        } else {
-            return "Not enough room at location to build " + makeableItem.printableName;
-        }
+    
+    if (isType(makeable,"Buildable") && !isLocationCapableOfHoldingBuildable(makeable, targetInventoryForMadeItem)) {
+        return "Not enough room at location to build " + makeableItem.printableName;
+    } else if (!isType(makeable,"Buildable") && !isInventoryCapableOfCarryingMadeItem(makeable, targetInventoryForMadeItem)) {
+        return "Not enough room in player's inventory to hold " + makeableItem.printableName;
     }
     
     //proceed with crafting:

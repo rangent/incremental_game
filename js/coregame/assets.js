@@ -30,7 +30,7 @@ var consumable = {
 var building = {
     // Building(uniqueName, printableName, size, age, categories) {
     Firepit : new Building("Firepit", "Firepit", 1, 0, []),
-	Stockpile : new Building("Stockpile", "Stockpile", 10, 0, []),
+	Stockpile : new Building("Stockpile", "Stockpile", 1, 0, []),
 };
 
 var craftable = [

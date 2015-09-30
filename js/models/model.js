@@ -226,7 +226,7 @@ function InternalLocation(directions, isSettlement, location, name, bindPoints) 
 	this.baseSettlement = null; //integer, ties back to player.settlements ID
 	this.buildings = [];
 	this.inventory = new Inventory(Number.MAX_VALUE, {}, constants.INVENTORY.WEIGHTED);
-	this.size = 0; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
+	this.size = 1; //BE TODO: refactor to remove this eventually... it's needed for building for now :(
 	this.explored = (isSettlement) ? true : false; //settlements are by default known locations
 	this.text = (typeof name === "undefined") ? "" : name;
 	this.bindPoints = bindPoints;
